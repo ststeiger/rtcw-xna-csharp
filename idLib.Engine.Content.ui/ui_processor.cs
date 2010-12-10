@@ -11,7 +11,7 @@ namespace idLib.Engine.Content.ui
     {
         public override idUserInterfaceCompiledContent Process(idUserInterfaceFile input, ContentProcessorContext context)
         {
-            return new idUserInterfaceCompiledContent(input);
+            return new idUserInterfaceCompiledContent(ref input);
         }
     }
 }

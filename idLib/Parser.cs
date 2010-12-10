@@ -364,6 +364,19 @@ namespace idLib
         }
 
         //
+        // GetNextTokenFromLine
+        //
+        public string GetNextTokenFromLineChecked()
+        {
+            if (lineBreakFound == true)
+            {
+                throw new Exception("Expected token on line");
+            }
+
+            return GetNextToken();
+        }
+
+        //
         // GetNextToken
         //
         private string GetNextToken()

@@ -57,7 +57,7 @@ namespace idLib.Engine.Content.ui
     //
     // idUserInterfaceImporter
     //
-    [ContentImporter(".ui", DisplayName = "RTCW UserInterface Importer", DefaultProcessor = "RTCW UserInterface Processor")]
+    [ContentImporter(".menu", DisplayName = "RTCW UserInterface Importer", DefaultProcessor = "RTCW UserInterface Processor")]
     public class idUserInterfaceImporter : ContentImporter<idUserInterfaceFile>
     {
         public override idUserInterfaceFile Import(string filename, ContentImporterContext context)

@@ -276,6 +276,474 @@
       <Importer>MaterialImporter</Importer>
       <Processor>idMaterialProcessor</Processor>
     </Compile>
+    <Compile Include="ui\assets\3_cursor3.tga">
+      <Name>3_cursor3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\backimage4.tga">
+      <Name>backimage4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\band2.tga">
+      <Name>band2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\bands.tga">
+      <Name>bands</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\bandsa.tga">
+      <Name>bandsa</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\BLACKGRAD.tga">
+      <Name>BLACKGRAD</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\bookmark_back.tga">
+      <Name>bookmark_back</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\bookmark_cover.tga">
+      <Name>bookmark_cover</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\button_back.tga">
+      <Name>button_back</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\checkmark.tga">
+      <Name>checkmark</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\dagger.tga">
+      <Name>dagger</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\dark.tga">
+      <Name>dark</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\fadebox.tga">
+      <Name>fadebox</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\flame.tga">
+      <Name>flame</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\forest_route.tga">
+      <Name>forest_route</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\forwardarrow_alt.tga">
+      <Name>forwardarrow_alt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\forwardarrow_h1.tga">
+      <Name>forwardarrow_h1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\forwardarrow_h2.tga">
+      <Name>forwardarrow_h2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\framebutton.tga">
+      <Name>framebutton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\generals.tga">
+      <Name>generals</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\gold_line.tga">
+      <Name>gold_line</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\gradientbar2.tga">
+      <Name>gradientbar2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\green.tga">
+      <Name>green</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\helga.tga">
+      <Name>helga</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\kessler.tga">
+      <Name>kessler</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\map_e1.tga">
+      <Name>map_e1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\mid_station.tga">
+      <Name>mid_station</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_assault.tga">
+      <Name>m_assault</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_castle.tga">
+      <Name>m_castle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_chateau.tga">
+      <Name>m_chateau</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_church.tga">
+      <Name>m_church</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_crypt.tga">
+      <Name>m_crypt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_dam.tga">
+      <Name>m_dam</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_dig.tga">
+      <Name>m_dig</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_escape2.tga">
+      <Name>m_escape2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_factory.tga">
+      <Name>m_factory</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_forest.tga">
+      <Name>m_forest</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_rocket.tga">
+      <Name>m_rocket</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_sfm.tga">
+      <Name>m_sfm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_trainyard.tga">
+      <Name>m_trainyard</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_tram.tga">
+      <Name>m_tram</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_village.tga">
+      <Name>m_village</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\m_village2.tga">
+      <Name>m_village2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\natter.tga">
+      <Name>natter</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\pageturn.tga">
+      <Name>pageturn</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\pageturn2.tga">
+      <Name>pageturn2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\partisan_house.tga">
+      <Name>partisan_house</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\radar.tga">
+      <Name>radar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\rocket.tga">
+      <Name>rocket</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\scrollbar.tga">
+      <Name>scrollbar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\scrollbar_arrow_dwn_a.tga">
+      <Name>scrollbar_arrow_dwn_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\scrollbar_arrow_left.tga">
+      <Name>scrollbar_arrow_left</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\scrollbar_arrow_right.tga">
+      <Name>scrollbar_arrow_right</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\scrollbar_arrow_up_a.tga">
+      <Name>scrollbar_arrow_up_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\scrollbar_thumb.tga">
+      <Name>scrollbar_thumb</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\selectcursor.tga">
+      <Name>selectcursor</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\sizecursor.tga">
+      <Name>sizecursor</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\slider2.tga">
+      <Name>slider2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\sliderbutt_1.tga">
+      <Name>sliderbutt_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\tab.tga">
+      <Name>tab</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\tank.tga">
+      <Name>tank</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\trainyard.tga">
+      <Name>trainyard</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\venom.tga">
+      <Name>venom</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\video_over1.tga">
+      <Name>video_over1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\warning.tga">
+      <Name>warning</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\WOLFFLAMELOGO.tga">
+      <Name>WOLFFLAMELOGO</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\WOLFICON.tga">
+      <Name>WOLFICON</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\WOLFICONBACK.tga">
+      <Name>WOLFICONBACK</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\wolficonback4.tga">
+      <Name>wolficonback4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\bookp.menu">
+      <Name>bookp</Name>
+    </Compile>
+    <Compile Include="ui\bookv.menu">
+      <Name>bookv</Name>
+    </Compile>
+    <Compile Include="ui\bookz.menu">
+      <Name>bookz</Name>
+    </Compile>
+    <Compile Include="ui\briefing.menu">
+      <Name>briefing</Name>
+    </Compile>
+    <Compile Include="ui\cdkey.menu">
+      <Name>cdkey</Name>
+    </Compile>
+    <Compile Include="ui\clipboard.menu">
+      <Name>clipboard</Name>
+    </Compile>
+    <Compile Include="ui\connect.menu">
+      <Name>connect</Name>
+    </Compile>
+    <Compile Include="ui\controls.menu">
+      <Name>controls</Name>
+    </Compile>
+    <Compile Include="ui\credit.menu">
+      <Name>credit</Name>
+    </Compile>
+    <Compile Include="ui\default.menu">
+      <Name>default</Name>
+    </Compile>
+    <Compile Include="ui\error.menu">
+      <Name>error</Name>
+    </Compile>
+    <Compile Include="ui\hud.menu">
+      <Name>hud</Name>
+    </Compile>
+    <Compile Include="ui\ingame.menu">
+      <Name>ingame</Name>
+    </Compile>
+    <Compile Include="ui\ingame_controls.menu">
+      <Name>ingame_controls</Name>
+    </Compile>
+    <Compile Include="ui\ingame_help.menu">
+      <Name>ingame_help</Name>
+    </Compile>
+    <Compile Include="ui\ingame_leave.menu">
+      <Name>ingame_leave</Name>
+    </Compile>
+    <Compile Include="ui\ingame_load.menu">
+      <Name>ingame_load</Name>
+    </Compile>
+    <Compile Include="ui\ingame_options.menu">
+      <Name>ingame_options</Name>
+    </Compile>
+    <Compile Include="ui\ingame_player.menu">
+      <Name>ingame_player</Name>
+    </Compile>
+    <Compile Include="ui\ingame_save.menu">
+      <Name>ingame_save</Name>
+    </Compile>
+    <Compile Include="ui\ingame_system.menu">
+      <Name>ingame_system</Name>
+    </Compile>
+    <Compile Include="ui\in_rec_restart.menu">
+      <Name>in_rec_restart</Name>
+    </Compile>
+    <Compile Include="ui\in_snd_restart.menu">
+      <Name>in_snd_restart</Name>
+    </Compile>
+    <Compile Include="ui\in_vid_restart.menu">
+      <Name>in_vid_restart</Name>
+    </Compile>
+    <Compile Include="ui\load.menu">
+      <Name>load</Name>
+    </Compile>
+    <Compile Include="ui\main.menu">
+      <Name>main</Name>
+    </Compile>
+    <Compile Include="ui\multiplayer_pop.menu">
+      <Name>multiplayer_pop</Name>
+    </Compile>
+    <Compile Include="ui\notebook.menu">
+      <Name>notebook</Name>
+    </Compile>
+    <Compile Include="ui\options.menu">
+      <Name>options</Name>
+    </Compile>
+    <Compile Include="ui\play.menu">
+      <Name>play</Name>
+    </Compile>
+    <Compile Include="ui\pregame.menu">
+      <Name>pregame</Name>
+    </Compile>
+    <Compile Include="ui\quit.menu">
+      <Name>quit</Name>
+    </Compile>
+    <Compile Include="ui\quitcredit.menu">
+      <Name>quitcredit</Name>
+    </Compile>
+    <Compile Include="ui\rec_restart.menu">
+      <Name>rec_restart</Name>
+    </Compile>
+    <Compile Include="ui\resetscore.menu">
+      <Name>resetscore</Name>
+    </Compile>
+    <Compile Include="ui\serverinfo.menu">
+      <Name>serverinfo</Name>
+    </Compile>
+    <Compile Include="ui\setup.menu">
+      <Name>setup</Name>
+    </Compile>
+    <Compile Include="ui\snd_restart.menu">
+      <Name>snd_restart</Name>
+    </Compile>
+    <Compile Include="ui\system.menu">
+      <Name>system</Name>
+    </Compile>
+    <Compile Include="ui\test.menu">
+      <Name>test</Name>
+    </Compile>
+    <Compile Include="ui\vid_restart.menu">
+      <Name>vid_restart</Name>
+    </Compile>
     <None Include="video\menu.roq">
       <Name>menu</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -311,6 +779,68 @@
       <Project>{FDBC6D91-3DA8-48E3-96FC-8D44BC4C09B0}</Project>
       <Name>idLib.Engine.Content.ui</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ui\assets\backimage2.jpg">
+      <Name>backimage2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\backscreen.jpg">
+      <Name>backscreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\controls.jpg">
+      <Name>controls</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\leftbutton.jpg">
+      <Name>leftbutton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\menu_load.jpg">
+      <Name>menu_load</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\menu_select.jpg">
+      <Name>menu_select</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\menu_start.jpg">
+      <Name>menu_start</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\norway.jpg">
+      <Name>norway</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\notebook1.jpg">
+      <Name>notebook1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\p_book1.jpg">
+      <Name>p_book1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\rightbutton.jpg">
+      <Name>rightbutton</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="ui\assets\SMOKE-16bit.jpg">
+      <Name>SMOKE-16bit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

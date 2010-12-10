@@ -95,11 +95,13 @@
     <Compile Include="Dict.cs" />
     <Compile Include="Engine\Content\FileList.cs" />
     <Compile Include="Engine\Content\MaterialTable.cs" />
+    <Compile Include="Engine\Content\ui\Private\ui_assets.cs" />
     <Compile Include="Engine\Content\ui\Private\ui_colorrange.cs" />
     <Compile Include="Engine\Content\ui\Private\ui_columninfo.cs" />
     <Compile Include="Engine\Content\ui\Private\ui_editfield.cs" />
     <Compile Include="Engine\Content\ui\Private\ui_globals.cs" />
     <Compile Include="Engine\Content\ui\Private\ui_listbox.cs" />
+    <Compile Include="Engine\Content\ui\Private\ui_menudef.cs" />
     <Compile Include="Engine\Content\ui\Private\ui_model.cs" />
     <Compile Include="Engine\Content\ui\Private\ui_multidef.cs" />
     <Compile Include="Engine\Content\ui\Private\ui_rect.cs" />
