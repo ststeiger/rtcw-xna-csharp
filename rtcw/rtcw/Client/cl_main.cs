@@ -359,7 +359,17 @@ namespace rtcw.Client
 
             if (cls.state == connstate_t.CA_CINEMATIC)
             {
-                cls.videoFullScreen.DrawCinematic(); 
+                // Check to see if the video is done playing is so dispose of it and switch to the main menu.
+                if (cls.videoFullScreen.GetStatus() == e_status.FMV_EOF /* || cls.videoFullScreen.GetStatus() == e_status.FMV_IDLE*/)
+                {
+                    cls.videoFullScreen.Dispose();
+                    cls.videoFullScreen = null;
+                    cls.state = connstate_t.CA_DISCONNECTED;
+                }
+                else
+                {
+                    cls.videoFullScreen.DrawCinematic();
+                }
             }
 
             Engine.RenderSystem.EndFrame();

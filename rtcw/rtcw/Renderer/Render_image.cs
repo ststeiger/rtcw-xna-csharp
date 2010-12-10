@@ -102,6 +102,14 @@ namespace rtcw.Renderer
         }
 
         //
+        // Dispose
+        //
+        public void Dispose()
+        {
+            tex2d.Dispose();
+        }
+
+        //
         // Name
         //
         public override string Name()

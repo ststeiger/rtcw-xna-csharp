@@ -109,6 +109,14 @@ namespace rtcw.Framework
 	        com_pushedEventsTail = 0;
         }
 
+        //
+        // ForceGCCollect
+        //
+        public override void ForceGCCollect()
+        {
+            GC.Collect();
+        }
+
         /*
         =================
         Com_PushEvent

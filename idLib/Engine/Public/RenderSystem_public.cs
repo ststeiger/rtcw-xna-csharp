@@ -325,6 +325,7 @@ namespace idLib.Engine.Public
         public abstract void Shutdown();
         public abstract idImage FindImageFile(string qpath, bool mipmap, bool picmap, SamplerState wrapClampMode);
         public abstract idImage CreateImage(string name, Color[] pic, int width, int height, bool mipmap, bool allowPicmip, SamplerState WrapClampMode);
+        public abstract void DestroyImage(ref idImage image);
     }
 
     //

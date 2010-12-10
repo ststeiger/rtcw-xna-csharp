@@ -63,6 +63,15 @@ namespace rtcw.Renderer
         }
 
         //
+        // Dispose
+        //
+        public void Dispose()
+        {
+            handle.Free();
+            membuffer = null;
+        }
+
+        //
         // Indexed 
         //
         public ushort this[int index]
@@ -111,11 +120,35 @@ namespace rtcw.Renderer
         public idVideoLocal( idFile f )
         {
             cinCache.iFile = f;
+            cinCache.status = e_status.FMV_IDLE;
         }
 
         public override void Dispose()
         {
-            
+            Engine.fileSystem.CloseFile(ref cinCache.iFile);
+
+            if (cinCache.sound != null)
+            {
+                cinCache.sound.Dipose();
+                cinCache.sound = null;
+            }
+
+            Engine.imageManager.DestroyImage(ref blitImage);
+
+            vq2.Dispose();
+            vq4.Dispose();
+            vq8.Dispose();
+            cin.Dispose();
+            cinCache.Dispose();
+            cinCache = null;
+            cin = null;
+
+            Engine.common.ForceGCCollect();
+        }
+
+        public override e_status GetStatus()
+        {
+            return cinCache.status;
         }
 
         const int ROQ_BASE_POSITION = 0;
@@ -158,6 +191,18 @@ namespace rtcw.Renderer
 
 
         private class cinematics_t {
+            public void Dispose()
+            {
+                linbufmem = null;
+                blitBuffer = null;
+                sbufmemory = null;
+                file = null;
+                sqrTable = null;
+                mcomp = null;
+                qStatus = null;
+                
+            }
+
 	        public byte[]				linbufmem = new byte[DEFAULT_CIN_WIDTH*DEFAULT_CIN_HEIGHT*4*2];
             public byte *linbuf
             {
@@ -232,6 +277,11 @@ namespace rtcw.Renderer
 	        public long[]		t = new long[2];
 	        public long			roqFPS;
 	        public int			playonwalls;
+            public void Dispose()
+            {
+                bufmemory = null;
+            }
+
 	        public Color[]		bufmemory;
             public Color* buf
             {

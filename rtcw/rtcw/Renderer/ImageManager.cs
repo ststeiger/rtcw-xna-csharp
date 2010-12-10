@@ -115,6 +115,25 @@ namespace rtcw.Renderer
         }
 
         //
+        // DestroyImage
+        //
+        public override void DestroyImage(ref idImage image)
+        {
+            for (int i = 0; i < hashTable.Count; i++)
+            {
+                if (hashTable[i].Name() == image.Name())
+                {
+                    hashTable[i].Dispose();
+                    image = null;
+                    return;
+                }
+            }
+
+            Engine.common.Warning("R_DestoryImage: Image " + image.Name() + " wasn't allocated by the imagemanager.\n");
+            ((idImageLocal)image).Dispose();
+        }
+
+        //
         // CreateBuiltinImages
         //
         private void CreateBuiltinImages()

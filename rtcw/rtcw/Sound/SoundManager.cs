@@ -44,16 +44,16 @@ using rtcw.Framework.Files;
 namespace rtcw.Sound
 {
     //
-    // idSoundLocal
+    // idSoundSteaming
     //
-    public class idSoundLocal : idSound
+    public class idSoundSteaming : idSound
     {
         DynamicSoundEffectInstance dynamicBuffer;
 
         //
         // idSoundLocal
         //
-        public idSoundLocal(int bitrate, int numChannels)
+        public idSoundSteaming(int bitrate, int numChannels)
         {
             dynamicBuffer = new DynamicSoundEffectInstance(bitrate, (AudioChannels)numChannels);
             
@@ -79,6 +79,11 @@ namespace rtcw.Sound
             }
         }
 
+        public override void Dipose()
+        {
+            dynamicBuffer.Dispose();
+        }
+
         public override void SetVolume(float vol)
         {
             dynamicBuffer.Volume = vol;
@@ -100,7 +105,7 @@ namespace rtcw.Sound
     //
     public class idSoundManagerLocal : idSoundManager
     {
-        List<idSoundLocal> soundpool = new List<idSoundLocal>();
+        List<idSound> soundpool = new List<idSound>();
 
         //
         // Init
@@ -123,7 +128,7 @@ namespace rtcw.Sound
         //
         public override idSound  CreateStreamingSound(int bitrate, int numChannels)
         {
-            return new idSoundLocal(bitrate, numChannels);
+            return new idSoundSteaming(bitrate, numChannels);
         }
        
     }

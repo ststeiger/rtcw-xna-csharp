@@ -50,6 +50,9 @@ namespace idLib.Engine.Public
         public abstract int Com_Milliseconds();
         public abstract int ScaledMilliseconds();
 
+        // Forces memory recollection of non used objects, SHOULD NOT BE USED DURING A FRAME!!
+        public abstract void ForceGCCollect();
+
         // Prints a debug message to the console.
         public abstract void Printf(string fmt, params object[] args);
 

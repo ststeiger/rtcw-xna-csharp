@@ -68,5 +68,6 @@ namespace idLib.Engine.Public
         public abstract void DrawCinematic();
         public abstract void Dispose();
         public abstract void StopCinematic();
+        public abstract e_status GetStatus();
     }
 }

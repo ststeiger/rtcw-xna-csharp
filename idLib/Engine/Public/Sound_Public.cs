@@ -48,6 +48,7 @@ namespace idLib.Engine.Public
         public abstract void Pause();
         public abstract void SetVolume(float vol);
         public abstract void BlitSoundData(byte[] buffer, int offset, int length);
+        public abstract void Dipose();
     }
 
     //
