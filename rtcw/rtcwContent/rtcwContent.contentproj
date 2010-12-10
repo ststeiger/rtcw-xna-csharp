@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{02ADCFCE-27D6-48FB-B5FE-3B6016BB139C}</ProjectGuid>
+    <ProjectTypeGuids>{96E2B04D-8817-42c6-938A-82C39BA4D311};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <OutputPath>bin\$(Platform)\$(Configuration)</OutputPath>
+    <ContentRootDirectory>main</ContentRootDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>rtcwContent</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.EffectImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.FBXImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.TextureImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.XImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.AudioImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="default.cfg">
+      <Name>default</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="scripts\ai.shader">
+      <Name>ai</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\alpha.shader">
+      <Name>alpha</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\blacksmokeanim.shader">
+      <Name>blacksmokeanim</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\blacksmokeanimb.shader">
+      <Name>blacksmokeanimb</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\characters.shader">
+      <Name>characters</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\clipboard.shader">
+      <Name>clipboard</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\common.shader">
+      <Name>common</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\cursorhints.shader">
+      <Name>cursorhints</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\decals.shader">
+      <Name>decals</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\eerie.shader">
+      <Name>eerie</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\expblue.shader">
+      <Name>expblue</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\explode1.shader">
+      <Name>explode1</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\fijets.shader">
+      <Name>fijets</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\firest.shader">
+      <Name>firest</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\flamethrower.shader">
+      <Name>flamethrower</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\funnel.shader">
+      <Name>funnel</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\gfx.shader">
+      <Name>gfx</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\heat.shader">
+      <Name>heat</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\lights.shader">
+      <Name>lights</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\liquid.shader">
+      <Name>liquid</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\maxx.shader">
+      <Name>maxx</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\menu.shader">
+      <Name>menu</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\metal.shader">
+      <Name>metal</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\models.shader">
+      <Name>models</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\netest.shader">
+      <Name>netest</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\oldwolf.shader">
+      <Name>oldwolf</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\organics.shader">
+      <Name>organics</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\particle.shader">
+      <Name>particle</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\q3view.shader">
+      <Name>q3view</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\sfx.shader">
+      <Name>sfx</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\signs.shader">
+      <Name>signs</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\skin.shader">
+      <Name>skin</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\sky.shader">
+      <Name>sky</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\solo.shader">
+      <Name>solo</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\surfaces.shader">
+      <Name>surfaces</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\terrain.shader">
+      <Name>terrain</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\test.shader">
+      <Name>test</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\twiltb.shader">
+      <Name>twiltb</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\twiltb2.shader">
+      <Name>twiltb2</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\ui.shader">
+      <Name>ui</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\ui_hud.shader">
+      <Name>ui_hud</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\ui_notebook.shader">
+      <Name>ui_notebook</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\ui_wolf.shader">
+      <Name>ui_wolf</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\viewflames.shader">
+      <Name>viewflames</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\walls.shader">
+      <Name>walls</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\z_light.shader">
+      <Name>z_light</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <None Include="video\menu.roq">
+      <Name>menu</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="video\menu2.roq">
+      <Name>menu2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="video\wolfintro.RoQ">
+      <Name>wolfintro</Name>
+      <Importer>idROQImporter</Importer>
+      <Processor>idROQProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DirectoryListContentLoader\DirectoryListContentLoader.csproj">
+      <Project>{1C6A3053-A736-41BD-A001-D7EC4A117EE7}</Project>
+      <Name>DirectoryListContentLoader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MaterialContentLoader\MaterialContentLoader.csproj">
+      <Project>{B80FAE1E-2ABA-43CB-AB97-F5D44AB45BFB}</Project>
+      <Name>MaterialContentLoader</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="scripts\filelist.txt">
+      <Name>filelist</Name>
+      <Importer>jvDirectoryImporter</Importer>
+      <Processor>jvDirectoryProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
+  <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
