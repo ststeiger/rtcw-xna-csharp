@@ -145,5 +145,10 @@ namespace rtcw.Server
 
             CVars.sv_reloading = Engine.cvarManager.Cvar_Get("g_reloading", "0", idCVar.CVAR_ROM);   //----(SA)	added
         }
+
+        public void Frame()
+        {
+
+        }
     }
 }

@@ -292,6 +292,112 @@ namespace rtcw.Framework
 
         /*
         =================
+        Com_EventLoop
+
+        Returns last event time
+        =================
+        */
+        private int EventLoop() 
+        {
+	        sysEvent_t ev;
+	        //netadr_t evFrom;
+	        //byte bufData[MAX_MSGLEN];
+	        //msg_t buf;
+
+	       // MSG_Init( &buf, bufData, sizeof( bufData ) );
+
+	        while ( true ) {
+		        ev = Com_GetEvent();
+
+		        // if no more events are available
+		        if ( ev.evType == sysEventType_t.SE_NONE ) {
+                    /*
+			        // manually send packet events for the loopback channel
+			        while ( NET_GetLoopPacket( NS_CLIENT, &evFrom, &buf ) ) {
+				        CL_PacketEvent( evFrom, &buf );
+			        }
+
+			        while ( NET_GetLoopPacket( NS_SERVER, &evFrom, &buf ) ) {
+				        // if the server just shut down, flush the events
+				        if ( com_sv_running->integer ) {
+					        Com_RunAndTimeServerPacket( &evFrom, &buf );
+				        }
+			        }
+                    */
+
+			        return ev.evTime;
+		        }
+
+
+		        switch ( ev.evType ) {
+		        default:
+			        // bk001129 - was ev.evTime
+			        ErrorFatal( "Com_EventLoop: bad event type %i", ev.evType );
+			        break;
+		        case sysEventType_t.SE_NONE:
+			        break;
+		        case sysEventType_t.SE_KEY:
+			        cl.KeyEvent( ev.evValue, (ev.evValue2 != 0), ev.evTime );
+			        break;
+		        case sysEventType_t.SE_CHAR:
+			       // CL_CharEvent( ev.evValue );
+			        break;
+		        case sysEventType_t.SE_MOUSE:
+			        //CL_MouseEvent( ev.evValue, ev.evValue2, ev.evTime );
+			        break;
+		        case sysEventType_t.SE_JOYSTICK_AXIS:
+			       // CL_JoystickEvent( ev.evValue, ev.evValue2, ev.evTime );
+			        break;
+		        case sysEventType_t.SE_CONSOLE:
+			        //Cbuf_AddText( (char *)ev.evPtr );
+			       // Cbuf_AddText( "\n" );
+			        break;
+		        case sysEventType_t.SE_PACKET:
+#if false
+			        // this cvar allows simulation of connections that
+			        // drop a lot of packets.  Note that loopback connections
+			        // don't go through here at all.
+			        if ( com_dropsim->value > 0 ) {
+				        static int seed;
+
+				        if ( Q_random( &seed ) < com_dropsim->value ) {
+					        break;      // drop this packet
+				        }
+			        }
+
+			        evFrom = *(netadr_t *)ev.evPtr;
+			        buf.cursize = ev.evPtrLength - sizeof( evFrom );
+
+			        // we must copy the contents of the message out, because
+			        // the event buffers are only large enough to hold the
+			        // exact payload, but channel messages need to be large
+			        // enough to hold fragment reassembly
+			        if ( (unsigned)buf.cursize > buf.maxsize ) {
+				        Com_Printf( "Com_EventLoop: oversize packet\n" );
+				        continue;
+			        }
+			        memcpy( buf.data, ( byte * )( (netadr_t *)ev.evPtr + 1 ), buf.cursize );
+			        if ( com_sv_running->integer ) {
+				        Com_RunAndTimeServerPacket( &evFrom, &buf );
+			        } else {
+				        CL_PacketEvent( evFrom, &buf );
+			        }
+#endif
+			        break;
+		        }
+
+		        // free any block data
+		        if ( ev.evPtr.ptr != null ) {
+                    ev.evPtr.ptr.Dispose();
+                    ev.evPtr.ptr = null;
+		        }
+	        }
+
+	        //return 0;   // never reached
+        }
+
+        /*
+        =================
         Com_AddStartupCommands
 
         Adds command line parameters as script statements
@@ -520,12 +626,30 @@ namespace rtcw.Framework
         }
 
         //
+        // HandlePendingEvents
+        //
+        private void HandlePendingEvents()
+        {
+            // JV - Get the first frame, we don't need to skip frames since XNA does that for us.
+            com_frameTime = EventLoop();
+
+            // Execute any pending console commands.
+            Engine.cmdSystem.Cbuf_Execute();
+        }
+
+        //
         // Frame
         //
         public override void Frame(int frameTime, int totalGameTime)
         {
-            Engine.cmdSystem.Cbuf_Execute();
+            HandlePendingEvents();
+            sv.Frame();
 
+            //
+            // run event loop a second time to get server to client packets
+            // without a frame of latency
+            //
+            HandlePendingEvents();
             cl.Frame();
         }
     }

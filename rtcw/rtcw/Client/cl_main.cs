@@ -347,10 +347,73 @@ namespace rtcw.Client
             // -NERVE - SMF
 
             Engine.cmdSystem.Cmd_AddCommand("cinematic", CL_PlayCinematic_f);
+            Engine.cmdSystem.Cmd_AddCommand("disconnect", CL_Disconnect_f);
 
             CVars.com_cl_running = Engine.cvarManager.Cvar_Set("cl_running", "1", true);
 
             Engine.common.Printf("----- Client Initialization Complete -----\n");
+        }
+
+        //
+        // StopCinematic
+        //
+        private void StopCinematic()
+        {
+            if (cls.videoFullScreen != null)
+            {
+                cls.videoFullScreen.Dispose();
+                cls.videoFullScreen = null;
+            }
+        }
+
+        /*
+        ==================
+        CL_Disconnect_f
+        ==================
+        */
+        private void CL_Disconnect_f() {
+	        StopCinematic();
+
+	        // RF, make sure loading variables are turned off
+	        Engine.cvarManager.Cvar_Set( "savegame_loading", "0", true );
+            Engine.cvarManager.Cvar_Set("g_reloading", "0", true);
+
+            if (cls.state != connstate_t.CA_DISCONNECTED && cls.state != connstate_t.CA_CINEMATIC)
+            {
+		        Engine.common.ErrorDrop( "Disconnected from server" );
+	        }
+
+            cls.state = connstate_t.CA_DISCONNECTED;
+        }
+
+        /*
+        ===================
+        CL_KeyEvent
+
+        Called by the system for both key up and key down events
+        ===================
+        */
+        public void KeyEvent(int key, bool down, int time)
+        {
+            // escape is always handled special
+            if (key == (int)keyNum.K_ESCAPE && down == true)
+            {
+                if ((cls.keyCatchers & keyCatch.UI) == 0)
+                {
+                    if (cls.state == connstate_t.CA_ACTIVE /*&& !clc.demoplaying*/)
+                    {
+                       // VM_Call(uivm, UI_SET_ACTIVE_MENU, UIMENU_INGAME);
+                    }
+                    else
+                    {
+                        CL_Disconnect_f();
+                        cls.keyCatchers = keyCatch.UI;
+                       // S_StopAllSounds();
+                       // VM_Call(uivm, UI_SET_ACTIVE_MENU, UIMENU_MAIN);
+                    }
+                    return;
+                }
+            }
         }
 
         public void Frame()
@@ -362,9 +425,7 @@ namespace rtcw.Client
                 // Check to see if the video is done playing is so dispose of it and switch to the main menu.
                 if (cls.videoFullScreen.GetStatus() == e_status.FMV_EOF /* || cls.videoFullScreen.GetStatus() == e_status.FMV_IDLE*/)
                 {
-                    cls.videoFullScreen.Dispose();
-                    cls.videoFullScreen = null;
-                    cls.state = connstate_t.CA_DISCONNECTED;
+                    CL_Disconnect_f();
                 }
                 else
                 {

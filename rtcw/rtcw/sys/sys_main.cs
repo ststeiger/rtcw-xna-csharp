@@ -52,6 +52,7 @@ namespace rtcw.sys
         private int eventHead, eventTail;
 
         private sysEvent_t emptySysEvent = new sysEvent_t();
+        private idSystemInput sysInput;
 //byte sys_packetReceived[MAX_MSGLEN];
 
         //
@@ -59,7 +60,8 @@ namespace rtcw.sys
         //
         public override void Init()
         {
-
+            sysInput = new idSystemInput();
+            sysInput.Init();
         }
 
         //
@@ -86,6 +88,8 @@ namespace rtcw.sys
                 //return;
             }
 
+            sysInput.Frame();
+
             Engine.common.Frame(frameTime, appElapsedTime);
         }
 
@@ -98,7 +102,7 @@ namespace rtcw.sys
         be freed by the game later.
         ================
         */
-        private void Sys_QueEvent(int time, sysEventType_t type, int value, int value2, int ptrLength, BinaryReader ptr)
+        public void Sys_QueEvent(int time, sysEventType_t type, int value, int value2, int ptrLength, BinaryReader ptr)
         {
             sysEvent_t ev;
 
