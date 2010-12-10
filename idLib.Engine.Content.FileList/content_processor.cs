@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 
 using idLib.Engine.Content;
 
-namespace rtcw.framework.Content
+namespace idLib.Engine.Content.FileList
 {
     [ContentProcessor(DisplayName = "File List Processor")]
     public class jvDirectoryProcessor : ContentProcessor<idFileList, idFileList>

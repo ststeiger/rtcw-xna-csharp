@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MaterialContentLoader</RootNamespace>
-    <AssemblyName>MaterialContentLoader</AssemblyName>
+    <RootNamespace>idLib.Engine.Content.Materials</RootNamespace>
+    <AssemblyName>idLib.Engine.Content.Materials</AssemblyName>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>

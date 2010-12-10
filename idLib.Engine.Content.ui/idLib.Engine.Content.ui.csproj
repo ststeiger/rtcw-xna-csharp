@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
-    <ProjectGuid>{1C6A3053-A736-41BD-A001-D7EC4A117EE7}</ProjectGuid>
+    <ProjectGuid>{FDBC6D91-3DA8-48E3-96FC-8D44BC4C09B0}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DirectoryListContentLoader</RootNamespace>
-    <AssemblyName>DirectoryListContentLoader</AssemblyName>
+    <RootNamespace>idLib.Engine.Content.ui</RootNamespace>
+    <AssemblyName>idLib.Engine.Content.ui</AssemblyName>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
@@ -50,9 +50,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="content_import.cs" />
-    <Compile Include="content_processor.cs" />
-    <Compile Include="content_writer.cs" />
+    <Compile Include="ui_compiledcontent.cs" />
+    <Compile Include="ui_importer.cs" />
+    <Compile Include="ui_processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

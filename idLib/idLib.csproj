@@ -95,6 +95,17 @@
     <Compile Include="Dict.cs" />
     <Compile Include="Engine\Content\FileList.cs" />
     <Compile Include="Engine\Content\MaterialTable.cs" />
+    <Compile Include="Engine\Content\ui\Private\ui_colorrange.cs" />
+    <Compile Include="Engine\Content\ui\Private\ui_columninfo.cs" />
+    <Compile Include="Engine\Content\ui\Private\ui_editfield.cs" />
+    <Compile Include="Engine\Content\ui\Private\ui_globals.cs" />
+    <Compile Include="Engine\Content\ui\Private\ui_listbox.cs" />
+    <Compile Include="Engine\Content\ui\Private\ui_model.cs" />
+    <Compile Include="Engine\Content\ui\Private\ui_multidef.cs" />
+    <Compile Include="Engine\Content\ui\Private\ui_rect.cs" />
+    <Compile Include="Engine\Content\ui\Private\ui_window.cs" />
+    <Compile Include="Engine\Content\ui\ui_item.cs" />
+    <Compile Include="Engine\Content\ui\ui_menu.cs" />
     <Compile Include="Engine\Public\CmdManager_public.cs" />
     <Compile Include="Engine\Public\Common_public.cs" />
     <Compile Include="Engine\Public\Cvar_Public.cs" />

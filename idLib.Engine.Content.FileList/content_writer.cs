@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
 using idLib.Engine.Content;
 
-namespace rtcw.framework.Content
+namespace idLib.Engine.Content.FileList
 {
     [ContentTypeWriter]
     public class jvDirectoryListWriter : ContentTypeWriter<idFileList>

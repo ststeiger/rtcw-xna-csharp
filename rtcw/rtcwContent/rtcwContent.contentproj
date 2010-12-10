@@ -292,21 +292,25 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DirectoryListContentLoader\DirectoryListContentLoader.csproj">
-      <Project>{1C6A3053-A736-41BD-A001-D7EC4A117EE7}</Project>
-      <Name>DirectoryListContentLoader</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\MaterialContentLoader\MaterialContentLoader.csproj">
-      <Project>{B80FAE1E-2ABA-43CB-AB97-F5D44AB45BFB}</Project>
-      <Name>MaterialContentLoader</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="scripts\filelist.txt">
       <Name>filelist</Name>
       <Importer>jvDirectoryImporter</Importer>
       <Processor>jvDirectoryProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\idLib.Engine.Content.FileList\idLib.Engine.Content.FileList.csproj">
+      <Project>{1C6A3053-A736-41BD-A001-D7EC4A117EE7}</Project>
+      <Name>idLib.Engine.Content.FileList</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\idLib.Engine.Content.Materials\idLib.Engine.Content.Materials.csproj">
+      <Project>{B80FAE1E-2ABA-43CB-AB97-F5D44AB45BFB}</Project>
+      <Name>idLib.Engine.Content.Materials</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\idLib.Engine.Content.ui\idLib.Engine.Content.ui.csproj">
+      <Project>{FDBC6D91-3DA8-48E3-96FC-8D44BC4C09B0}</Project>
+      <Name>idLib.Engine.Content.ui</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

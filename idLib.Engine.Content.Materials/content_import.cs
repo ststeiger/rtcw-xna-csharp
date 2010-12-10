@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 
 using idLib.Engine.Content;
 
-namespace rtcw.renderer.Content
+namespace idLib.Engine.Content.Materials
 {
     //
     // idMaterialSource

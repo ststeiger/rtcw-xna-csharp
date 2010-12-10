@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 using idLib.Engine.Content;
 
-namespace rtcw.renderer.Content
+namespace idLib.Engine.Content.Materials
 {
     /// <summary>
     /// This class will be instantiated by the XNA Framework Content Pipeline

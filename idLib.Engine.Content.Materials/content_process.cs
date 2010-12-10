@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 using idLib;
 using idLib.Engine.Content;
 
-namespace rtcw.renderer.Content
+namespace idLib.Engine.Content.Materials
 {
     //
     // MaterialProcessor

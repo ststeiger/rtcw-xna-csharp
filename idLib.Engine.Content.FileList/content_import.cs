@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 
 using idLib.Engine.Content;
 
-namespace rtcw.framework.Content
+namespace idLib.Engine.Content.FileList
 {
     [ContentImporter(".txt", DisplayName = "FileList Importer", DefaultProcessor = "File List Processor")]
     public class jvDirectoryImporter : ContentImporter<idFileList>
