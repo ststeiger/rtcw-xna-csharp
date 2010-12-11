@@ -1,7 +1,7 @@
 #include "ui/menudef.h"
 
 {
-\\ END OF GAME \\
+// END OF GAME \\
 
 menuDef {
 	name "error_popmenu"

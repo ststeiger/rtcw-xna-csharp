@@ -52,8 +52,11 @@
   <ItemGroup>
     <Compile Include="ui_compiledcontent.cs" />
     <Compile Include="ui_importer.cs" />
+    <Compile Include="ui_itemparser.cs" />
+    <Compile Include="ui_menuparser.cs" />
     <Compile Include="ui_processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ui_writer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\idLib\idLib.csproj">

@@ -1,7 +1,7 @@
 #include "ui/menudef.h"
 
 {
-\\ SETUP MENU \\
+// SETUP MENU \\
 
 menuDef {
 		name "ingame_options"
@@ -464,7 +464,7 @@ itemDef {
 		visible 0
    		}
 
-	}
+	// }
 
 
 

@@ -1,7 +1,7 @@
 #include "ui/menudef.h"
 
 {
-\\ DEFAULT MENU \\
+// DEFAULT MENU \\
 
 menuDef {
     	name "default_menu"
@@ -227,4 +227,5 @@ itemDef {
 
 
 
+}
 }

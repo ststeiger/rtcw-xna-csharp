@@ -12,45 +12,28 @@ namespace idLib.Engine.Content.ui
     //
     public class idUserInterfaceCompiledContent
     {
-        idUserInterfaceCachedAssets assets = new idUserInterfaceCachedAssets();
-
-        /*
-        =================
-        PC_Color_Parse
-        =================
-        */
-        private idVector4 ParseColor(ref idUserInterfaceFile ui)
-        {
-            int i;
-            float f;
-            idVector4 c = new idVector4();
-
-            for (i = 0; i < 4; i++)
-            {
-                c[i] = float.Parse(ui.Parser.GetNextTokenFromLineChecked());
-            }
-            return c;
-        }
+        public idUserInterfaceCachedAssets assets = new idUserInterfaceCachedAssets();
+        public idUserInterfaceMenuDef menudef = new idUserInterfaceMenuDef();
 
         //
         // ParseAsset
         //
         private void ParseAsset(ref idUserInterfaceFile ui)
         {
-            if (ui.Parser.ReachedEndOfBuffer)
+            if (ui.ReachedEndOfBuffer)
                 throw new Exception("EOF at start of asset");
 
-            if (ui.Parser.NextToken != "{")
+            if (ui.NextToken != "{")
                 throw new Exception("UI asset expected open bracket");
 
             while (true)
             {
                 string token;
 
-                if (ui.Parser.ReachedEndOfBuffer)
+                if (ui.ReachedEndOfBuffer)
                     throw new Exception("Unexpected EOF in asset expected closing bracket first");
 
-                token = ui.Parser.NextToken;
+                token = ui.NextToken.ToLower();
 
                 if (token == "}")
                 {
@@ -58,83 +41,83 @@ namespace idLib.Engine.Content.ui
                 }
                 else if (token == "font")
                 {
-                    assets.textFont = ui.Parser.GetNextTokenFromLineChecked();
-                    assets.textFontSize = int.Parse(ui.Parser.GetNextTokenFromLineChecked());
+                    assets.textFont = ui.GetNextTokenFromLineChecked();
+                    assets.textFontSize = int.Parse(ui.GetNextTokenFromLineChecked());
                 }
-                else if (token == "smallFont")
+                else if (token == "smallfont")
                 {
-                    assets.smallFont = ui.Parser.GetNextTokenFromLineChecked();
-                    assets.smallFontSize = int.Parse(ui.Parser.GetNextTokenFromLineChecked());
+                    assets.smallFont = ui.GetNextTokenFromLineChecked();
+                    assets.smallFontSize = int.Parse(ui.GetNextTokenFromLineChecked());
                 }
-                else if (token == "bigFont")
+                else if (token == "bigfont")
                 {
-                    assets.bigFont = ui.Parser.GetNextTokenFromLineChecked();
-                    assets.bigFontSize = int.Parse(ui.Parser.GetNextTokenFromLineChecked());
+                    assets.bigFont = ui.GetNextTokenFromLineChecked();
+                    assets.bigFontSize = int.Parse(ui.GetNextTokenFromLineChecked());
                 }
-                else if (token == "handwritingFont")
+                else if (token == "handwritingfont")
                 {
-                    assets.handwritingFont = ui.Parser.GetNextTokenFromLineChecked();
-                    assets.handwritingFontSize = int.Parse(ui.Parser.GetNextTokenFromLineChecked());
+                    assets.handwritingFont = ui.GetNextTokenFromLineChecked();
+                    assets.handwritingFontSize = int.Parse(ui.GetNextTokenFromLineChecked());
                 }
                 else if (token == "gradientbar")
                 {
-                    assets.gradientBar = ui.Parser.GetNextTokenFromLineChecked();
+                    assets.gradientBar = ui.GetNextTokenFromLineChecked();
                 }
-                else if ( token == "menuEnterSound" ) {
-			        assets.menuEnterSound = ui.Parser.GetNextTokenFromLineChecked();
+                else if ( token == "menuentersound" ) {
+			        assets.menuEnterSound = ui.GetNextTokenFromLineChecked();
 		        }
 
 		        // exitMenuSound
-		        else if ( token == "menuExitSound" ) {
-                    assets.menuExitSound = ui.Parser.GetNextTokenFromLineChecked();
+		        else if ( token == "menuexitsound" ) {
+                    assets.menuExitSound = ui.GetNextTokenFromLineChecked();
 			        continue;
 		        }
 
 		        // itemFocusSound
-		        else if ( token == "itemFocusSound" ) {
-                    assets.itemFocusSound = ui.Parser.GetNextTokenFromLineChecked();
+		        else if ( token == "itemfocussound" ) {
+                    assets.itemFocusSound = ui.GetNextTokenFromLineChecked();
 			        continue;
 		        }
 
 		        // menuBuzzSound
-		        else if ( token == "menuBuzzSound" ) {
-                    assets.menuBuzzSound = ui.Parser.GetNextTokenFromLineChecked();
+		        else if ( token == "menubuzzsound" ) {
+                    assets.menuBuzzSound = ui.GetNextTokenFromLineChecked();
 			        continue;
 		        }
 
 		        else if ( token == "cursor" ) {
-                    assets.cursor = ui.Parser.GetNextTokenFromLineChecked();
+                    assets.cursor = ui.GetNextTokenFromLineChecked();
 			        continue;
 		        }
 
-		        else if ( token == "fadeClamp" ) {
-                    assets.fadeClamp = float.Parse(ui.Parser.GetNextTokenFromLineChecked());
+		        else if ( token == "fadeclamp" ) {
+                    assets.fadeClamp = float.Parse(ui.GetNextTokenFromLineChecked());
 			        continue;
 		        }
 
-		        else if ( token == "fadeCycle" ) {
-                    assets.fadeCycle = int.Parse(ui.Parser.GetNextTokenFromLineChecked());
+		        else if ( token == "fadecycle" ) {
+                    assets.fadeCycle = int.Parse(ui.GetNextTokenFromLineChecked());
 			        continue;
 		        }
 
-		        else if ( token == "fadeAmount" ) {
-                    assets.fadeAmount = float.Parse(ui.Parser.GetNextTokenFromLineChecked());
+		        else if ( token == "fadeamount" ) {
+                    assets.fadeAmount = float.Parse(ui.GetNextTokenFromLineChecked());
 			        continue;
 		        }
 
-		        else if ( token == "shadowX" ) {
-                    assets.shadowX = float.Parse(ui.Parser.GetNextTokenFromLineChecked());
+		        else if ( token == "shadowx" ) {
+                    assets.shadowX = float.Parse(ui.GetNextTokenFromLineChecked());
 			        continue;
 		        }
 
-		        else if ( token == "shadowY" ) {
-                    assets.shadowY = float.Parse(ui.Parser.GetNextTokenFromLineChecked());
+		        else if ( token == "shadowy" ) {
+                    assets.shadowY = float.Parse(ui.GetNextTokenFromLineChecked());
 			        continue;
 		        }
 
-                else if (token == "shadowColor")
+                else if (token == "shadowcolor")
                 {
-                    assets.shadowFadeClamp = ParseColor(ref ui)[3];
+                    assets.shadowFadeClamp = MenuParser.ParseColor(ref ui)[3];
                     continue;
                 }
                 else
@@ -144,30 +127,32 @@ namespace idLib.Engine.Content.ui
             }
         }
 
-        //
-        // ParseMenu
-        //
-        private void ParseMenu(ref idUserInterfaceFile ui)
-        {
-
-        }
+        
 
         //
         // idUserInterfaceCompiledContent
         //
         public idUserInterfaceCompiledContent(ref idUserInterfaceFile ui)
         {
+            if (ui.NextToken != "{")
+            {
+                throw new Exception("UI Expected open bracket in main body");
+            }
             // Parse the user interface.
             while (true)
             {
                 string token;
 
-                if (ui.Parser.ReachedEndOfBuffer == true)
+                if (ui.ReachedEndOfBuffer == true)
                 {
                     throw new Exception("Expected closing bracket before EOF");
                 }
 
-                token = ui.Parser.NextToken;
+                token = ui.NextToken;
+                if (token.Length <= 0)
+                {
+                    continue;
+                }
 
                 if (token == "}")
                 {
@@ -177,9 +162,9 @@ namespace idLib.Engine.Content.ui
                 {
                     ParseAsset(ref ui);
                 }
-                else if (token == "menudef")
+                else if (token == "menuDef" || token == "menudef")
                 {
-                    ParseMenu(ref ui);
+                    MenuParser.ParseMenu(ref menudef, ref assets, ref ui);
                 }
                 else
                 {

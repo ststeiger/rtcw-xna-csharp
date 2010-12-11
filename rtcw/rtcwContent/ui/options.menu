@@ -1,7 +1,7 @@
 #include "ui/menudef.h"
 
 {
-\\ SETUP MENU \\
+// SETUP MENU \\
 
 menuDef {
 	name "options_menu"
@@ -93,7 +93,7 @@ itemDef {
 		text "Wall Mark Lifetime:  "
 		type ITEM_TYPE_MULTI	
 		cvar "cg_markTime"
-		cvarFloatList {"Normal" 20000 "Short" 10000 "Off" 0 "Long" 30000  }
+		cvarFloatList { "Normal" 20000 "Short" 10000 "Off" 0 "Long" 30000  }
 		rect 82 30 290 12
 		textalign ITEM_ALIGN_RIGHT
 		textalignx 142
@@ -457,7 +457,7 @@ itemDef {
    		}
 
 
-	}
+	// }
 
 
 
@@ -548,4 +548,5 @@ itemDef {
 	
 
 
+}
 }

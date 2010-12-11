@@ -223,7 +223,7 @@ itemDef {
 	style WINDOW_STYLE_SHADER
 	background "kessler"
 	cvarTest "mapname"
-	showcvar {"escape1" }	// added current map rev
+	showcvar { "escape1" }	// added current map rev
 	rect 60 170 180 180
 	textalign 1
 	textalignx 32
@@ -386,7 +386,7 @@ itemDef {
 	style WINDOW_STYLE_SHADER
 	background "kessler"
 	cvarTest "mapname"
-	showcvar {"escape2" }	// added current map rev
+	showcvar { "escape2" }	// added current map rev
 	rect 60 170 180 180
 	textalign 1
 	textalignx 32
@@ -702,7 +702,7 @@ itemDef {
 	style WINDOW_STYLE_SHADER
 	background "partisan_house"
 	cvarTest "mapname"
-	showcvar {"village1" }	// added current map rev
+	showcvar { "village1" }	// added current map rev
 	rect 70 70 200 200
 	textalign 1
 	textalignx 32
@@ -1087,7 +1087,7 @@ itemDef {
 	style WINDOW_STYLE_SHADER
 	background "helga"
 	cvarTest "mapname"
-	showcvar {"church" }	// added current map rev
+	showcvar { "church" }	// added current map rev
 	rect 70 70 200 200
 	textalign 1
 	textalignx 32
@@ -1229,7 +1229,7 @@ itemDef {
 		style WINDOW_STYLE_SHADER
 		background "dagger"
 		cvarTest "mapname"
-		showcvar {"boss1" }	// added current map rev
+		showcvar { "boss1" }	// added current map rev
 		rect 60 60 260 130
 		textalign 1
 		textalignx 32

@@ -17,6 +17,17 @@ namespace idLib.Engine.Content.ui.Private
             v = new idVector4();
         }
 
+        //
+        // WriteBinaryFile
+        //
+        public void WriteBinaryFile(ref System.IO.BinaryWriter writer)
+        {
+            writer.Write(x);
+            writer.Write(y);
+            writer.Write(w);
+            writer.Write(h);
+        }
+
         // horiz position
         public float x
         {

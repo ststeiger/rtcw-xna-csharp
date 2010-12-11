@@ -1,7 +1,7 @@
 #include "ui/menudef.h"
 
 {
-\\ SYSTEM MENU \\
+// SYSTEM MENU \\
 
 menuDef {
     	name "ingame_system"

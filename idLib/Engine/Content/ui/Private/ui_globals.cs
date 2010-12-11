@@ -2,6 +2,7 @@
 //
 
 using System;
+using System.IO;
 
 namespace idLib.Engine.Content.ui.Private
 {
@@ -10,7 +11,7 @@ namespace idLib.Engine.Content.ui.Private
     //
     public abstract class idUserInterfaceDefBase
     {
-
+        public abstract void WriteBinaryFile(ref BinaryWriter writer);
     }
 
     //

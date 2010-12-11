@@ -1,7 +1,7 @@
 #include "ui/menudef.h"
 
 {
-\\ SETUP MENU \\
+// SETUP MENU \\
 
 menuDef {
     	name "cdkey_menu"
@@ -64,7 +64,7 @@ itemDef {
 		name demo_only
 		group grpcdkey
 		rect 0 145 454 30
-		text"This Option is Not Available in Demo."
+		text "This Option is Not Available in Demo."
 		textalign 1
 		textstyle 1
 		textscale .333
@@ -84,7 +84,7 @@ itemDef {
 		name data
 		group grpcdkey
 		rect 0 50 454 12
-		text"Enter your encryption code in the field below."
+		text "Enter your encryption code in the field below."
 		textalign 1
 		textscale .23
 		textalignx 240
@@ -187,7 +187,7 @@ itemDef {
 		group grpcdkey
    		type ITEM_TYPE_EDITFIELD
 		style 1
-		text""
+		text ""
 		cvar "cdkey4"
 		maxchars 4
    		rect 262 65 50 30	

@@ -1,7 +1,7 @@
 #include "ui/menudef.h"
 
 {
-\\ RESET SCORE MENU \\
+// RESET SCORE MENU \\
 
 menuDef {
     	name "resetscore_menu"
@@ -220,4 +220,5 @@ itemDef {
 
 
 
+}
 }

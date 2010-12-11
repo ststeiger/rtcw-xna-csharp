@@ -623,127 +623,212 @@
     </Compile>
     <Compile Include="ui\bookp.menu">
       <Name>bookp</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\bookv.menu">
       <Name>bookv</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\bookz.menu">
       <Name>bookz</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\briefing.menu">
       <Name>briefing</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\cdkey.menu">
       <Name>cdkey</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\clipboard.menu">
       <Name>clipboard</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\connect.menu">
       <Name>connect</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\controls.menu">
       <Name>controls</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\credit.menu">
       <Name>credit</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\default.menu">
       <Name>default</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\error.menu">
       <Name>error</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\hud.menu">
       <Name>hud</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\ingame.menu">
       <Name>ingame</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\ingame_controls.menu">
       <Name>ingame_controls</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\ingame_help.menu">
       <Name>ingame_help</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\ingame_leave.menu">
       <Name>ingame_leave</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\ingame_load.menu">
       <Name>ingame_load</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\ingame_options.menu">
       <Name>ingame_options</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\ingame_player.menu">
       <Name>ingame_player</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\ingame_save.menu">
       <Name>ingame_save</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\ingame_system.menu">
       <Name>ingame_system</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\in_rec_restart.menu">
       <Name>in_rec_restart</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\in_snd_restart.menu">
       <Name>in_snd_restart</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\in_vid_restart.menu">
       <Name>in_vid_restart</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\load.menu">
       <Name>load</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\main.menu">
       <Name>main</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\multiplayer_pop.menu">
       <Name>multiplayer_pop</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\notebook.menu">
       <Name>notebook</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\options.menu">
       <Name>options</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\play.menu">
       <Name>play</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\pregame.menu">
       <Name>pregame</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\quit.menu">
       <Name>quit</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\quitcredit.menu">
       <Name>quitcredit</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\rec_restart.menu">
       <Name>rec_restart</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\resetscore.menu">
       <Name>resetscore</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\serverinfo.menu">
       <Name>serverinfo</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\setup.menu">
       <Name>setup</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\snd_restart.menu">
       <Name>snd_restart</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\system.menu">
       <Name>system</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\test.menu">
       <Name>test</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
     <Compile Include="ui\vid_restart.menu">
       <Name>vid_restart</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
     </Compile>
+    <None Include="ui\menudef.h">
+      <Name>menudef</Name>
+    </None>
     <None Include="video\menu.roq">
       <Name>menu</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

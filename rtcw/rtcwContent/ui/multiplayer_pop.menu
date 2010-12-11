@@ -1,7 +1,7 @@
 #include "ui/menudef.h"
 
 {
-\\ QUIT POPUP MENU \\
+// QUIT POPUP MENU \\
 
 menuDef {
 	name "multi_popmenu"

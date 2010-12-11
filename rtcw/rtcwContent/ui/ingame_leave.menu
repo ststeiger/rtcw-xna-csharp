@@ -2,7 +2,7 @@
 
 
 {
-\\ INGAME_LEAVE MENU \\
+// INGAME_LEAVE MENU \\
 
   menuDef {
     	name "ingame_leave"

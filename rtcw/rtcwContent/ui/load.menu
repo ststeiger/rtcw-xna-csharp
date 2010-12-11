@@ -1,7 +1,7 @@
 #include "ui/menudef.h"
 
 {
-\\ play MENU \\
+// play MENU \\
 
 menuDef {
     name "load_menu"

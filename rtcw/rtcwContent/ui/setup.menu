@@ -1,7 +1,7 @@
 #include "ui/menudef.h"
 
 {
-\\ SETUP MENU \\
+// SETUP MENU \\
 
 menuDef {
    	name "setup_menu"
