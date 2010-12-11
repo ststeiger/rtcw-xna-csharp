@@ -21,9 +21,7 @@ namespace idLib.Engine.Content.ui
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
-            // TODO: change this to the name of your ContentTypeReader
-            // class which will be used to load this data.
-            return "MyNamespace.MyContentReader, MyGameAssembly";
+            return "idLib.Engine.Public.idUserInterfaceContentReader, idLib";
         }
     }
 }

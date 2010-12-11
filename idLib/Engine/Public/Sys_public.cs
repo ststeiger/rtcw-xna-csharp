@@ -206,6 +206,15 @@ namespace idLib.Engine.Public
     };
 
     //
+    // idSysModule
+    //
+    public abstract class idSysModule
+    {
+        public abstract T AllocClass<T>(string classname);
+        public abstract void UnloadAndDispose();
+    }
+
+    //
     // idSys
     //
     public abstract class idSys
@@ -214,5 +223,6 @@ namespace idLib.Engine.Public
         public abstract void Frame(bool appIsRunningSlowly, int frameTime, int appElapsedTime);
         public abstract sysEvent_t GetEvent();
         public abstract int Sys_Milliseconds();
+        public abstract idSysModule LoadDLL(string path);
     }
 }

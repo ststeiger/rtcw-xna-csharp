@@ -122,6 +122,19 @@ namespace rtcw.Framework
             list.Dispose();
         }
 
+        //
+        // GetDLLPath
+        //
+        public override string GetDLLPath(string dllName)
+        {
+            if (!FileExists(dllName))
+            {
+                return null;
+            }
+
+            return Engine.BASEGAME + "\\" + dllName;
+        }
+
 
         //
         // OpenContentFileStream

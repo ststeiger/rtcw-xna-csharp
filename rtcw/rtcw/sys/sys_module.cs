@@ -31,34 +31,56 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// ui_columninfo.cs (c) 2010 JV Software
+// sys_module.cs (c) 2010 JV SOftware
 //
 
 using System;
+using System.IO;
+using System.Security.Policy;
+using System.Reflection;
+using idLib.Engine.Public;
 
-namespace idLib.Engine.Content.ui.Private
+namespace rtcw.sys
 {
     //
-    // idUserInterfaceColumnInfo
+    // idSysModuleLocal
     //
-    public class idUserInterfaceColumnInfo
+    class idSysModuleLocal : idSysModule
     {
-	    public int pos = 0;
-	    public int width = 0;
-	    public int maxChars = 0;
+        AppDomain moduledomain;
+        Assembly assembly;
 
-        public void WriteBinary(ref System.IO.BinaryWriter writer)
+        //
+        // idSysModuleLocal
+        //
+        public idSysModuleLocal(string path)
         {
-            writer.Write(pos);
-            writer.Write(width);
-            writer.Write(maxChars);
+            assembly = Assembly.LoadFrom(path);
         }
 
-        public void ReadBinary(ref System.IO.BinaryReader reader)
+        //
+        // AllocClass
+        //
+        public override T AllocClass<T>(string classname)
         {
-            pos = reader.ReadInt32();
-            width = reader.ReadInt32();
-            maxChars = reader.ReadInt32();
+            Type classtype;
+            Type[] argsTypes = new Type[] { typeof(int) };
+            ConstructorInfo constr;
+
+            classtype = assembly.GetType(classname);
+            constr = classtype.GetConstructor(argsTypes);
+
+            object[] param = new object[] { 0 };
+            return (T)constr.Invoke(param);
+        }
+
+        //
+        // UnloadAndDispose
+        //
+        public override void UnloadAndDispose()
+        {
+            throw new NotImplementedException();
+            //AppDomain.Unload(moduledomain);
         }
     }
 }

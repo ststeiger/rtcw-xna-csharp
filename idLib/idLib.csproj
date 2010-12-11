@@ -117,6 +117,7 @@
     <Compile Include="Engine\Public\RenderSystem_public.cs" />
     <Compile Include="Engine\Public\Sound_Public.cs" />
     <Compile Include="Engine\Public\Sys_public.cs" />
+    <Compile Include="Engine\Public\UI_public.cs" />
     <Compile Include="Engine\Public\Video_public.cs" />
     <Compile Include="Math\Math.cs" />
     <Compile Include="Math\Matrix.cs" />

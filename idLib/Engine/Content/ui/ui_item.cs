@@ -1,4 +1,37 @@
-﻿// ui_item.cs (c) 2010 JV Software
+﻿/*
+===========================================================================
+
+Return to Castle Wolfenstein XNA Managed C# Port
+Copyright (c) 2010 JV Software
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+
+This file is part of the Return to Castle Wolfenstein XNA Managed C# Port GPL Source Code.  
+
+RTCW C# Source Code is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+RTCW C# Source Code is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with RTCW C# Source Code.  If not, see <www.gnu.org/licenses/>.
+
+In addition, the RTCW SP Source Code is also subject to certain additional terms. 
+You should have received a copy of these additional terms immediately following the terms 
+and conditions of the GNU General Public License which accompanied the RTCW C# Source Code.  
+If not, please request a copy in writing from id Software at the address below.
+
+If you have questions concerning this license or the applicable additional terms, you may contact in writing 
+id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
+
+===========================================================================
+*/
+
+// ui_item.cs (c) 2010 JV Software
 //
 
 using System;
@@ -18,8 +51,103 @@ namespace idLib.Engine.Content.ui
             textscale = 0.55f;
         }
 
+        //
+        // AllocItemType
+        //
+        private void AllocItemType(ref BinaryReader reader)
+        {
+            if (typeData != null)
+            {
+                return;
+            }
+
+            if (type == ui_menudef.ITEM_TYPE_LISTBOX)
+            {
+                typeData = new idUserInterfaceListBox();
+            }
+            else if (type == ui_menudef.ITEM_TYPE_EDITFIELD || type == ui_menudef.ITEM_TYPE_NUMERICFIELD || type == ui_menudef.ITEM_TYPE_VALIDFILEFIELD || type == ui_menudef.ITEM_TYPE_YESNO || type == ui_menudef.ITEM_TYPE_BIND || type == ui_menudef.ITEM_TYPE_SLIDER || type == ui_menudef.ITEM_TYPE_TEXT)
+            {
+                typeData = new idUserInterfaceEditField();
+                if (type == ui_menudef.ITEM_TYPE_EDITFIELD || type == ui_menudef.ITEM_TYPE_VALIDFILEFIELD)
+                {
+                    if (((idUserInterfaceEditField)typeData).maxPaintChars == 0)
+                    {
+                        ((idUserInterfaceEditField)typeData).maxPaintChars = ui_globals.MAX_EDITFIELD;
+                    }
+                }
+            }
+            else if (type == ui_menudef.ITEM_TYPE_MULTI)
+            {
+                typeData = new idUserInterfaceMultiDef();
+            }
+            else if (type == ui_menudef.ITEM_TYPE_MODEL)
+            {
+                typeData = new idUserInterfaceModel();
+            }
+            else if (type == ui_menudef.ITEM_TYPE_MENUMODEL)
+            {
+                typeData = new idUserInterfaceModel();
+            }
+            else
+            {
+                throw new Exception("Invalid item type");
+            }
+        }
+
+        public virtual void ReadBinaryFile(ref BinaryReader reader)
+        {
+            if (reader.ReadString() != ui_globals.ITEM_BINARY_HEADER)
+            {
+                throw new Exception("Invalid item header while parsing item");
+            }
+            window.ReadBinaryFile(ref reader);
+            textRect.ReadBinaryFile(ref reader);
+            type = reader.ReadInt32();
+            alignment = reader.ReadInt32();
+            font = reader.ReadString();
+            fontSize = reader.ReadInt32();
+            textalignment = reader.ReadInt32();
+            textalignx = reader.ReadInt32();
+            textaligny = reader.ReadInt32();
+            textscale = reader.ReadInt32();
+            textStyle = reader.ReadInt32();
+            text = reader.ReadString();
+            textSavegameInfo = reader.ReadBoolean();
+            asset_model = reader.ReadString();
+            asset_shader = reader.ReadString();
+            mouseEnterText = reader.ReadString();
+            mouseExitText = reader.ReadString();
+            mouseEnter = reader.ReadString();
+            mouseExit = reader.ReadString();
+            action = reader.ReadString();
+            onAccept = reader.ReadString();
+            onFocus = reader.ReadString();
+            leaveFocus = reader.ReadString();
+            cvar = reader.ReadString();
+            cvarTest = reader.ReadString();
+            enableCvar = reader.ReadString();
+            cvarFlags = reader.ReadInt32();
+            focusSound = reader.ReadString();
+            numColors = reader.ReadInt32();
+
+            for (int i = 0; i < numColors; i++)
+            {
+                colorRanges[i] = new idUserInterfaceColorRangeDef();
+                colorRanges[i].ReadBinaryFile(ref reader);
+            }
+            colorRangeType = reader.ReadInt32();
+            special = reader.ReadInt32();
+            cursorPos = reader.ReadInt32();
+            if (reader.ReadBoolean() == true)
+            {
+                AllocItemType(ref reader);
+                typeData.ReadBinaryFile(ref reader);
+            }
+        }
+
         public virtual void WriteBinaryFile(ref BinaryWriter writer)
         {
+            writer.Write(ui_globals.ITEM_BINARY_HEADER);
             window.WriteBinaryFile(ref writer);
             textRect.WriteBinaryFile(ref writer);
             writer.Write(type);
@@ -33,7 +161,6 @@ namespace idLib.Engine.Content.ui
             writer.Write(textStyle);
             writer.Write(text);
             writer.Write(textSavegameInfo);
-            writer.Write(type);
             writer.Write(asset_model);
             writer.Write(asset_shader);
             writer.Write(mouseEnterText);
@@ -59,9 +186,14 @@ namespace idLib.Engine.Content.ui
             writer.Write(colorRangeType);
             writer.Write(special);
             writer.Write(cursorPos);
-            if (typeData != null)
+            if (typeData != null && type >=4)
             {
+                writer.Write(true);
                 typeData.WriteBinaryFile(ref writer);
+            }
+            else
+            {
+                writer.Write(false);
             }
         }
 
@@ -100,6 +232,6 @@ namespace idLib.Engine.Content.ui
         public int colorRangeType = 0;             // either
         public float special = 0;                  // used for feeder id's etc.. diff per type
         public int cursorPos = 0;                  // cursor position in characters
-	    public idUserInterfaceDefBase typeData;                 // type specific data ptr's
+	    public idUserInterfaceDefBase typeData = null;                 // type specific data ptr's
     }
 }

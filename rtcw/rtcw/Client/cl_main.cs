@@ -122,6 +122,8 @@ namespace rtcw.Client
         public idMaterial consoleShader2;
 
         public idVideo videoFullScreen;
+
+        public idSysModule uivm;
     };
 
     //
@@ -202,6 +204,21 @@ namespace rtcw.Client
             cls.consoleShader2 = Engine.RenderSystem.RegisterMaterial("console2");
         }
 
+        //
+        // InitUI
+        //
+        private void InitUI()
+        {
+            // Load the vm.
+            cls.uivm = Engine.Sys.LoadDLL("ui");
+
+            // Allocate the ui interface manager from the vm.
+            Engine.ui = cls.uivm.AllocClass<idUserInterfaceManager>("ui.idUserInterfaceManagerLocal");
+
+            // Init the user interface manager.
+            Engine.ui.Init();
+        }
+
         /*
         ============================
         CL_StartHunkUsers
@@ -237,7 +254,7 @@ namespace rtcw.Client
 
 	        if ( !cls.uiStarted ) {
 		        cls.uiStarted = true;
-		        //CL_InitUI();
+                InitUI();
 	        }
         }
 

@@ -90,5 +90,6 @@ namespace idLib.Engine.Public
         public static idImageManager    imageManager;   // This is only valid when rendersystem is valid.
         public static idMaterialManager materialManager; // This is only valid when rendersystem is valid.
         public static idSoundManager    soundManager;
+        public static idUserInterfaceManager ui;
     }
 }

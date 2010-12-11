@@ -111,6 +111,8 @@ namespace idLib.Engine.Public
         // if extension is "/", only subdirectories will be returned
         // the returned files will not include any directories or /
 
+        public abstract string GetDLLPath(string dllName);
+
         public abstract void FreeFileList( ref idFileList list );
         public abstract bool FileExists( string file );
 

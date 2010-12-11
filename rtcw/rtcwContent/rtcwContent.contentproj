@@ -864,6 +864,10 @@
       <Project>{FDBC6D91-3DA8-48E3-96FC-8D44BC4C09B0}</Project>
       <Name>idLib.Engine.Content.ui</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ui\ui.csproj">
+      <Project>{217CE911-1887-4C9E-8AF9-8CE9236DA8C7}</Project>
+      <Name>ui</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ui\assets\backimage2.jpg">
@@ -926,6 +930,19 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ui\filelist.txt">
+      <Name>filelist</Name>
+      <Importer>jvDirectoryImporter</Importer>
+      <Processor>jvDirectoryProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dlls\ui.dll">
+      <Name>ui</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

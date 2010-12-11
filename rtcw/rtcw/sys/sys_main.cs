@@ -76,6 +76,23 @@ namespace rtcw.sys
         }
 
         //
+        // LoadDLL
+        //
+        public override idSysModule LoadDLL(string path)
+        {
+            string dllPath;
+
+            dllPath = Engine.fileSystem.GetDLLPath("dlls\\" + path + ".dll");
+            if (dllPath == null)
+            {
+                Engine.common.Warning("Failed to load dll module " + path);
+                return null;
+            }
+
+            return new idSysModuleLocal(dllPath);
+        }
+
+        //
         // Frame
         //
         public override void Frame(bool appIsRunningSlowly, int frameTime, int appElapsedTime)
