@@ -269,6 +269,16 @@ namespace rtcw.Framework.Files
         }
 
         //
+        // ReadString
+        //
+        public override string ReadString(int len)
+        {
+            byte[] buffer = ReadBytes(len);
+
+            return System.Text.ASCIIEncoding.ASCII.GetString(buffer).Trim('\0');
+        }
+
+        //
         // WriteBytes
         //
         public override void WriteBytes(byte[] buffer)

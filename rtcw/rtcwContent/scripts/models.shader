@@ -18,7 +18,6 @@ models/mapobjects/test/table
 }
 textures/props/table
 {
-	cull twosided
 	{
 		map models/mapobjects/deadosa/elec1.tga
 //		blendFunc GL_ONE GL_ZERO
@@ -47,109 +46,8 @@ models/mapobjects/ironmaiden/eyes1
 		rgbGen vertex
 	}
 }
-models/mapobjects/vacum/mouth
-{
-	//deformVertexes wave 30 sin 0 .8 0 .3
-	
-
-	//cull twosided
-	{
-		map models/mapobjects/vacum/fire.tga
-		rgbGen identity
-		tcMod scroll 0 1
-	}
-
-	{
-		map models/mapobjects/vacum/mouth.tga
-		blendfunc blend
-		rgbGen vertex
-	}
-}
-models/mapobjects/vacum/skulls2
-{
-	deformVertexes wave 30 sin 0 .8 0 .3
-	
-
-	cull twosided
-	{
-		map models/mapobjects/vacum/fire.tga
-		rgbGen identity
-		tcMod scroll 0 1
-	}
-
-	{
-		map models/mapobjects/vacum/skulls2.tga
-		blendfunc blend
-		rgbGen vertex
-	}
-}
-
-models/mapobjects/vacum/zom_body1
-{
-	cull twosided
-	{
-		map models/mapobjects/vacum/zom_body1.tga
-		alphaFunc GE128
-		depthWrite
-		rgbGen lightingdiffuse
-	}
-}
-models/mapobjects/vacum/zom_helm1
-{
-	cull twosided
-	{
-		map models/mapobjects/vacum/zom_helm1.tga
-		alphaFunc GE128
-		depthWrite
-		rgbGen lightingdiffuse
-	}
-}
-models/mapobjects/vacum/armor1
-{
-	cull twosided
-	{
-		map models/mapobjects/vacum/armor1.tga
-		rgbGen lightingdiffuse
-	}
-}
-
-models\mapobjects\vacum\vac_goo
-{
-	cull twosided
-	{
-		map models/mapobjects/vacum/vac_goo.tga
-		rgbGen lightingdiffuse
-	}
-}
 
 
-models\mapobjects\vacum\vac_body
-{
-	cull twosided
-	{
-		map models/mapobjects/vacum/vac_body.tga
-		rgbGen lightingdiffuse
-	}
-}
-models/mapobjects/vacum/shad
-{
-//	cull twosided
-	{
-		map models/mapobjects/vacum/shad.tga
-		blendfunc blend
-		rgbGen lightingdiffuse
-	}
-}
-
-models\mapobjects\vacum\vac_glass
-{
-	cull twosided
-	{
-		map models/mapobjects/vacum/vac_glass.tga
-		blendfunc blend
-		rgbGen lightingdiffuse
-	}
-}
 
 models/mapobjects/apoth/glass
 {
@@ -208,170 +106,9 @@ models\mapobjects\bush\bush
 		map models/mapobjects/bush/bush.tga
 		alphaFunc GE128
 		depthWrite
-		rgbGen vertex
-	}
-}
-
-models/players/murphy/murp_body1
-{
-	cull twosided
-	
-	{
-		map models/players/murphy/murp_body1.tga
 		rgbGen lightingdiffuse
 	}
 }
-
-models/players/higgs/higg_body1
-{
-	cull twosided
-	
-	{
-		map models/players/higgs/higg_body1.tga
-		rgbGen lightingdiffuse
-	}
-}
-
-
-
-models/players/inge/inge_body1
-{
-	cull twosided
-	
-	{
-		map models/players/inge/inge_body1.tga
-		rgbGen lightingdiffuse
-	}
-}
-models/players/inge/inge_body2
-{
-	cull twosided
-	
-	{
-		map models/players/inge/inge_body2.tga
-		rgbGen lightingdiffuse
-	}
-}
-models/players/inge/inge_body3
-{
-	cull twosided
-	
-	{
-		map models/players/inge/inge_body3.tga
-		rgbGen lightingdiffuse
-	}
-}
-models/players/officerss/acc/o_glass1
-{
-	cull twosided
-	
-	{
-		map models/players/officerss/acc/o_glass1.tga
-		blendfunc blend
-		rgbGen lightingdiffuse
-	}
-}
-models/players/director/dir_glasses
-{
-	cull twosided
-	
-	{
-		map models/players/director/dir_glasses.tga
-		blendfunc blend
-		rgbGen lightingdiffuse
-	}
-}
-
-models/players/director/dir_body1
-{
-	cull twosided
-	
-	{
-		map models/players/director/dir_body1.tga
-		rgbGen lightingdiffuse
-	}
-}
-
-models/players/hans/fi_head1
-{
-	cull twosided
-	
-	{
-		map models/players/hans/fi_head1.tga
-		alphaFunc GE128
-		depthWrite
-		rgbGen lightingdiffuse
-	
-	}
-}
-models/players/hans/fi_head1_blink
-{
-	cull twosided
-	
-	{
-		map models/players/hans/fi_head1_blink.tga
-		alphaFunc GE128
-		depthWrite
-		rgbGen lightingdiffuse
-	
-	}
-}
-
-models/players/hans/acc/mustac
-{
-	cull twosided
-	
-	{
-		map models/players/hans/acc/mustac.tga
-		blendfunc blend
-		rgbGen lightingdiffuse
-	
-	}
-}
-
-models/players/partisan/acc/prt_glasses
-{
-	cull twosided
-	
-	{
-		map models/players/partisan/acc/prt_glasses.tga
-		blendfunc blend
-		rgbGen lightingdiffuse
-	}
-}
-
-models/players/partisan/acc/prt_bar1
-{
-	cull twosided
-	
-	{
-		map models/players/partisan/acc/prt_bar1.tga
-	
-		rgbGen lightingdiffuse
-	}
-}
-
-
-models/players/jack/jack_glasses
-{
-	cull twosided
-	
-	{
-		map models/players/jack/jack_glasses.tga
-		blendfunc blend
-		rgbGen lightingdiffuse
-	}
-}
-models/players/jack/jack_body1
-{
-	cull twosided
-	
-	{
-		map models/players/jack/jack_body1.tga
-		rgbGen lightingdiffuse
-	}
-}
-
 
 models/players/eliteguard/betty_body1
 {
@@ -411,19 +148,6 @@ models/players/protosoldier/proto_legs1
 		map models/players/protosoldier/proto_legs1.tga
 		alphaFunc GE128
 		depthWrite
-		rgbGen lightingdiffuse
-	}
-}
-////infantryss///
-
-models/players/infantryss/acc/helgrass
-{
-	cull twosided
-	{
-		map models/players/infantryss/acc/helgrass.tga
-		alphaFunc GE128
-		depthWrite
-	//	blendfunc blend
 		rgbGen lightingdiffuse
 	}
 }
@@ -574,34 +298,6 @@ models\mapobjects\flag\flag1
 	cull twosided
 	{
 		map models/mapobjects/flag/flag1.tga
-		rgbGen lightingdiffuse
-	}
-}
-
-models\mapobjects\flag\flag1a
-{
-	cull twosided
-	{
-		map models/mapobjects/flag/flag1a.tga
-		rgbGen lightingdiffuse
-	}
-}
-
-models\mapobjects\flag\flag1b
-{
-	cull twosided
-	{
-		map models/mapobjects/flag/flag1b.tga
-		blendfunc blend
-		rgbGen lightingdiffuse
-	}
-}
-
-models\mapobjects\flag\american
-{
-	cull twosided
-	{
-		map models/mapobjects/flag/american.tga
 		rgbGen lightingdiffuse
 	}
 }
@@ -784,19 +480,19 @@ models/shards/glass
 	}
 }
 ////skel///
-///models\players\zombie\sk_bod1
-//
-//{
-//  cull disable
-//    surfaceparm alphashadow
-//
-//    {
-//       	map models/players/zombie/sk_bod1.tga
-//       	alphaFunc GE128
-//	depthWrite
-//	rgbGen lightingdiffuse
-//    }
-//}
+models\players\zombie\sk_bod1
+
+{
+    cull disable
+    surfaceparm alphashadow
+
+    {
+       	map models/players/zombie/sk_bod1.tga
+       	alphaFunc GE128
+	depthWrite
+	rgbGen lightingdiffuse
+    }
+}
 
 
 
@@ -818,6 +514,20 @@ models/mapobjects/test/how_bod1
     }
 }
 
+
+//models/players/zombie/zom_body1
+////
+//{
+//    cull twosided
+//    
+//
+//    {
+//       	map models/players/zombie/zom_body1.tga
+//       	alphaFunc GE128
+//	depthWrite
+//	rgbGen lightingdiffuse
+//    }
+//}
 
 models/mapobjects/test/zom_helm
 
@@ -966,6 +676,69 @@ models/players/femzombie/wt_body1
 
 
 
+models/players/warrior/wzom_body1
+			
+{
+	cull twosided
+	
+	{
+		map models/players/warrior/wzom_body1.tga
+	//	blendfunc GL_ONE_MINUS_SRC_ALPHA gl_src_alpha
+	//	blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
+	//	blendFunc add
+		alphaFunc GE128
+		depthWrite
+		rgbGen lightingdiffuse
+	}
+}
+
+models/players/warrior/acc/wzom_helm1
+			
+{
+	cull twosided
+	
+	{
+		map models/players/warrior/acc/wzom_helm1.tga
+	//	blendfunc GL_ONE_MINUS_SRC_ALPHA gl_src_alpha
+	//	blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
+	//	blendFunc add
+		alphaFunc GE128
+		depthWrite
+		rgbGen lightingdiffuse
+	}
+}
+
+
+models/players/warrior/armor1
+			
+{
+	cull twosided
+	
+	{
+		map models/players/warrior/armor1.tga
+	//	blendfunc GL_ONE_MINUS_SRC_ALPHA gl_src_alpha
+	//	blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
+	//	blendFunc blend
+	//	alphaFunc GE128
+	//	depthWrite
+		rgbGen lightingdiffuse
+	}
+}
+
+models/players/warrior/wzom_head1
+
+
+{
+	{
+		map models/players/warrior/glow.tga
+		rgbGen wave sin 1 0.5 0 0.5 
+	}
+	{
+		map models/players/warrior/wzom_head1.tga
+		blendfunc blend
+		rgbGen lightingdiffuse
+	}
+}
 
 
 models/mapobjects/test/lg_glasses
@@ -1145,13 +918,13 @@ models/mapobjects/test/rj_stim
       
 }
 
-models/players/drz/acc/drz_glass1
+models/players/drz/drz_glass1
 {
 	cull twosided
 	
 	{
-		map models/players/drz/acc/drz_glass1.tga
-		blendfunc blend
+		map models/players/drz/drz_glass1.tga
+		blendfunc GL_ONE_MINUS_SRC_ALPHA gl_src_alpha
 		rgbGen lightingdiffuse
 	}
 	
@@ -1231,28 +1004,22 @@ models\mapobjects\eye\eye
 
 models\furniture\barrel\barrel_m01
 {
-
-	cull twosided
 	{
-		map models/furniture/barrel/barrel_m01.tga
+		map models\furniture\barrel\barrel_m01.tga
 		blendFunc GL_ONE GL_ZERO
-		rgbGen lightingdiffuse
+		rgbGen identity
 	}
-
-}
-
-models\furniture\barrel\barrel_m01g
-{
-
-	cull twosided
 	{
-		map models/furniture/barrel/barrel_m01.tga
-		blendFunc GL_ONE GL_ZERO
-		rgbGen lightingdiffuse
+		map textures/effects/tinfx.tga
+		blendFunc GL_ONE_MINUS_DST_ALPHA GL_ONE 
+		tcGen environment
 	}
-
+	{
+		map $lightmap
+		blendFunc GL_DST_COLOR GL_ONE_MINUS_DST_ALPHA
+		rgbGen identity
+	}
 }
-
 
 
 //// maxx tank shader ///
@@ -1260,45 +1027,6 @@ models\furniture\barrel\barrel_m01g
 //----(SA) 
 //
 
-models\mapobjects\vehicles\sherman
-{
-	{
-		map models/mapobjects/vehicles/sherman.tga
-		rgbGen lightingdiffuse
-	}
-
-}
-
-models\mapobjects\vehicles\panzer
-{
-	{
-		map models/mapobjects/vehicles/panzer.tga
-		rgbGen lightingdiffuse
-	}
-
-}
-
-models/mapobjects/vehicles/tankside3
-{
-	cull twosided
-	{
-		map models/mapobjects/vehicles/tankside3.tga
-		rgbGen lightingdiffuse
-	}
-
-}
-
-models/mapobjects/vehicles/JEEP3
-{
-	{
-		map models/mapobjects/vehicles/JEEP3.tga
-		rgbGen lightingdiffuse
-	}
-
-}
-
-
-// models/mapobjects/vehicles/sherman_s
 models\mapobjects\furniture\sherman_s
 {
 	{
@@ -1311,27 +1039,19 @@ models\mapobjects\furniture\sherman_s
 
 }
 
-
+//models/mapobjects/vehicles/sherman_s
 models\mapobjects\vehicles\sherman_s
 {
 	{
 		map models/mapobjects/vehicles/sherman_s.tga
+//		rgbGen lightingDiffuse
 		blendfunc blend
-		rgbGen identity
+//		rgbGen identity
 	}
 
  }
 
 
-models/mapobjects/vehicles/sherman_s
-{
-	{
-		map models/mapobjects/vehicles/sherman_s.tga
-		blendfunc blend
-		rgbGen identity
-	}
-
- }
 
 
 //models/mapobjects/vehicles/sherman
@@ -1588,29 +1308,6 @@ models/mapobjects/chandelier/candle_m01
 
 }
 
- /// gun test maxx /////
-
-models/weapons2/handtest/gun11
-{
-	cull none
-
-	{
-		map models/weapons2/handtest/gun11.tga
-		blendFunc GL_ONE GL_ZERO
-		rgbGen identity
-	}
-	{
-		map textures/effects/tinfx.tga
-		blendFunc GL_ONE_MINUS_DST_ALPHA GL_ONE 
-		tcGen environment
-	}
-	{
-	//	map $lightmap
-	//	blendFunc GL_DST_COLOR GL_ONE_MINUS_DST_ALPHA
-	//	rgbGen identity
-	}
-}
-
 
 
 	///  maxx quake3 skel ///
@@ -1726,11 +1423,11 @@ models/mapobjects/vehicles/heinkel
 
 models/mapobjects/vehicles/heinkel_b
 {
-	 cull twosided
+	// cull twosided
 	{
 		map models/mapobjects/vehicles/heinkel_b.tga
-	//	blendfunc GL_ONE_MINUS_SRC_ALPHA gl_src_alpha
-		alphaFunc GE128
+		blendfunc GL_ONE_MINUS_SRC_ALPHA gl_src_alpha
+	//	alphaFunc GE128
 		depthWrite
 		rgbGen vertex
 
@@ -1752,7 +1449,7 @@ models/mapobjects/light/bel_lampb
 {
   
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/amber.tga
+	q3map_lightimage models/colors/amber.tga
 	q3map_surfaceLight 10000
 	light 1	
 	
@@ -1773,7 +1470,7 @@ models/mapobjects/light/bel_lampm
 {
   
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/amber.tga
+	q3map_lightimage models/colors/amber.tga
 	q3map_surfaceLight 7000
 	light 1
 
@@ -1795,7 +1492,7 @@ models/mapobjects/light/bel_lamp
 {
   
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/amber.tga
+	q3map_lightimage models/colors/amber.tga
 	q3map_surfaceLight 5000	
 	light 1
 	
@@ -1817,7 +1514,7 @@ models/mapobjects/lamps/bel_lamp2k
 {
   
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/amber.tga
+	q3map_lightimage models/colors/amber.tga
 	q3map_surfaceLight 1000	
 	light 1
 	
@@ -1848,7 +1545,7 @@ models/mapobjects/light/camplt_in
 {
   
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/camplt_in.tga
+	q3map_lightimage models/mapobjects/light/camplt_in.tga
 	q3map_surfacelight 7000
 	q3map_lightrgb 0.80 0.72 0.60
 	light 1
@@ -1882,7 +1579,7 @@ models/mapobjects/light/cage_lightna
 models/mapobjects/light/cage_lightn
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cage_lightn.tga
+	q3map_lightimage models/mapobjects/light/cage_lightn.tga
 	q3map_surfacelight 7000
 	q3map_lightrgb 0.80 0.72 0.60
 	light 1
@@ -1903,7 +1600,7 @@ models/mapobjects/light/cage_lightn
 models/mapobjects/light/cage_light12k
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cagelight_a.tga
+	q3map_lightimage models/mapobjects/light/cagelight_a.tga
 	q3map_surfacelight 12000
 	q3map_lightrgb 0.80 0.72 0.60
 	light 1
@@ -1924,7 +1621,7 @@ models/mapobjects/light/cage_light12k
 models/mapobjects/light/cage_light9k
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cagelight_a.tga
+	q3map_lightimage models/mapobjects/light/cagelight_a.tga
 	q3map_surfacelight 9000
 	q3map_lightrgb 0.80 0.72 0.60
 	light 1
@@ -1945,7 +1642,7 @@ models/mapobjects/light/cage_light9k
 models/mapobjects/light/cage_light7k
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cagelight_a.tga
+	q3map_lightimage models/mapobjects/light/cagelight_a.tga
 	q3map_surfacelight 7000
 	q3map_lightrgb 0.80 0.72 0.60
 	light 1
@@ -1966,7 +1663,7 @@ models/mapobjects/light/cage_light7k
 models/mapobjects/light/cage_light5k
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cagelight_a.tga
+	q3map_lightimage models/mapobjects/light/cagelight_a.tga
 	q3map_surfacelight 5000
 	q3map_lightrgb 0.80 0.72 0.60
 	light 1
@@ -1987,7 +1684,7 @@ models/mapobjects/light/cage_light5k
 models/mapobjects/light/cage_light4k
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cagelight_a.tga
+	q3map_lightimage models/mapobjects/light/cagelight_a.tga
 	q3map_surfacelight 4000
 	q3map_lightrgb 0.80 0.72 0.60
 	light 1
@@ -2008,7 +1705,7 @@ models/mapobjects/light/cage_light4k
 models/mapobjects/light/cage_light3k
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cagelight_a.tga
+	q3map_lightimage models/mapobjects/light/cagelight_a.tga
 	q3map_surfacelight 3000
 	q3map_lightrgb 0.80 0.72 0.60
 	light 1
@@ -2029,7 +1726,7 @@ models/mapobjects/light/cage_light3k
 models/mapobjects/light/cage_light2k
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cagelight_a.tga
+	q3map_lightimage models/mapobjects/light/cagelight_a.tga
 	q3map_surfacelight 2000
 	q3map_lightrgb 0.80 0.72 0.60
 	light 1
@@ -2050,7 +1747,7 @@ models/mapobjects/light/cage_light2k
 models/mapobjects/light/cage_light1k
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cagelight_a.tga
+	q3map_lightimage models/mapobjects/light/cagelight_a.tga
 	q3map_surfacelight 1000
 	q3map_lightrgb 0.80 0.72 0.60
 	light 1
@@ -2073,7 +1770,7 @@ models/mapobjects/light/cage_light1k
 models/mapobjects/light/cagelight_a
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cagelight_a.tga
+	q3map_lightimage models/mapobjects/light/cagelight_a.tga
 	q3map_surfacelight 7000
 	q3map_lightrgb 0.80 0.72 0.60
 	light 1
@@ -2094,7 +1791,7 @@ models/mapobjects/light/cagelight_a
 models/mapobjects/light/cagelight_r
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cagelight_r.tga
+	q3map_lightimage models/mapobjects/light/cagelight_r.tga
 	q3map_surfacelight 7000
 	q3map_lightrgb 1.0 0.1 0.1
 	light 1
@@ -2115,7 +1812,7 @@ models/mapobjects/light/cagelight_r
 models/mapobjects/light/cagelight
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/cagelight_r.tga
+	q3map_lightimage models/mapobjects/light/cagelight.tga
 	q3map_surfacelight 7000
 	light 1
 	
@@ -2135,7 +1832,7 @@ models/mapobjects/light/cagelight
 models/mapobjects/light/light_m4
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/light_m4.tga
+	q3map_lightimage models/mapobjects/light/light_m4.tga
 	q3map_surfacelight 5000
 	light 1
 	
@@ -2153,7 +1850,7 @@ models/mapobjects/light/light_m4
 models/mapobjects/light/pendant1k
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/pendant.tga
+	q3map_lightimage models/mapobjects/light/pendant.tga
 	q3map_surfacelight 5000
 	light 1
 
@@ -2175,7 +1872,7 @@ models/mapobjects/light/pendant1k
 models/mapobjects/light/pendant
 {
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/pendant.tga
+	q3map_lightimage models/mapobjects/light/pendant.tga
 	q3map_surfacelight 5000
 	light 1
 	
@@ -2612,17 +2309,6 @@ models/mapobjects/bodyparts/bpblood
 	}
 
 }
-models/mapobjects/bodyparts/bpblood2
-{		
-     	surfaceparm alphashadow
-	cull twosided
-	{
-		map models/mapobjects/bodyparts/bpblood2.tga
-		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-		rgbGen vertex
-	}
-
-}
 
 models/mapobjects/bodyparts/bp2
 {
@@ -2661,56 +2347,8 @@ models/mapobjects/bodyparts/naziarm
 		rgbGen vertex
 	}
 }
-models/mapobjects/bodyparts/hel_body1
-{
-	
-	cull twosided
-
-	{
-            map models/mapobjects/bodyparts/hel_body1.tga
-		rgbGen lightingDiffuse
-	}
-}
-models/mapobjects/zemph/drz_glass1
-{
-	
-	{
-            map models/mapobjects/zemph/drz_glass1.tga
-		blendfunc blend
-		rgbGen lightingdiffuse
-	}
-}
 
 
-
-models/mapobjects/zemph/drz_head4_blink
-{
-	
-	{
-            map models/mapobjects/zemph/drz_head4_blink.tga
-		rgbGen lightingdiffuse
-	}
-}
-models/mapobjects/zemph/drz_xbody1
-{
-	
-	cull twosided
-
-	{
-            map models/mapobjects/zemph/drz_xbody1.tga
-		rgbGen lightingdiffuse
-	}
-}
-
-models/mapobjects/zemph/drz_xlegs1
-{
-	
-
-	{
-            map models/mapobjects/zemph/drz_xlegs1.tga
-		rgbGen lightingdiffuse
-	}
-}
 
 //************************//
 //test//
@@ -3169,12 +2807,7 @@ models/mapobjects/test3/c_glass2
 
 models/mapobjects/test3/c_glass1
 {
-
-    q3map_surfacelight 600
-    light 1
-
-
-     {
+        {
 		map models/mapobjects/test3/c_glass1.tga
 		blendFunc GL_ONE GL_SRC_ALPHA
 		rgbGen identity
@@ -3595,7 +3228,7 @@ models/players/infantry/t_legs1
 
 }
 
-	
+
 
 
 ////loper///
@@ -3605,6 +3238,7 @@ models/players/loper/elec1_bak
 	{
 		map models/players/loper/elec1.tga
 		blendFunc GL_ONE GL_ONE
+	//	rgbGen lightingdiffuse
 		rgbGen identity
 	}
 
@@ -3650,8 +3284,13 @@ models/players/loper/lop_lower1
         {
 		map models/players/loper/spark.tga
                 tcmod rotate 350
+	//	tcmod stretch scale 1 .4 0 .1
+
+        //      tcmod scroll 3 1
 		tcmod scale -1 -1
-		blendFunc GL_ONE GL_ZERO
+	//	tcmod stretch 1 .5 0 2
+                blendFunc GL_ONE GL_ZERO
+	//	rgbGen wave sin 1 .6 0 .5
 		rgbGen identity
 	} 
         {
@@ -3662,15 +3301,20 @@ models/players/loper/lop_lower1
 }
 models/players/loper/lop_head1
 {
-	cull twosided
+	//cull twosided
 	{
 		map models/players/loper/lop_head1.tga
+	//	blendFunc blend
 		alphaFunc GE128
 		rgbGen lightingdiffuse
-
+	//	rgbGen identity
 	}
 
 }
+
+
+
+
 
 models/mapobjects/test/lophead
 {
@@ -3938,7 +3582,7 @@ models/mapobjects/tree/trunck2
 //     ////maxx truck test/////
 //
 
-models/mapobjects/vehicles/truckside4
+models/mapobjects/vehicles/truckside4bloop
 
 
 {
@@ -3946,12 +3590,12 @@ models/mapobjects/vehicles/truckside4
 	cull twosided
 
 	{
-            map models/mapobjects/vehicles/truckside4.tga
+	            map models/mapobjects/vehicles/truckside4.tga
 		alphaFunc GE128
 		depthWrite
-//		rgbGen vertex
-//		rgbGen lightingdiffuse
-		rgbGen identity
+		rgbGen vertex
+		rgbGen lightingdiffuse
+//		rgbGen identity
 	}
 }
 
@@ -6616,74 +6260,26 @@ models/powerups/holdable/teleport_fluid
 
 
 ////// maxx test stim ////
-models/mapobjects/clonetube/cl_door1
+models/mapobjects/test3/sup_engine
 {      
-
-		q3map_surfacelight 600
-    		light 1
-
-
-
-	//cull twosided
-	//{
-	//	map models/mapobjects/clonetube/chrome1.tga
-	//	map models/mapobjects/clonetube/GUNFX.tga
-	//	blendfunc gl_one_minus_dst_color gl_zero
-	//	blendfunc blend
-	//	tcmod scale 2 2
-	//	rgbGen identity
-	//	tcGen environment 
-	//}
-	{ 
-		map models/mapobjects/clonetube/c_water2.tga
-		blendFunc add
-		rgbgen vertex
-		tcmod scale 1 1
-		tcmod scroll .025 .025
-	}
-
         {
-		map models/mapobjects/clonetube/c_glass1.tga
-		blendFunc GL_ONE GL_SRC_ALPHA
-		rgbGen identity
-	}
+		map textures/effects/regenmap3.tga
+                tcmod rotate 350
+		tcmod stretch scale 1 .4 0 .1
 
-	{
-		map models/mapobjects/clonetube/cl_door1.tga
-		blendFunc blend      	
+                // tcmod scroll 3 1
+	//	tcmod scale 2 2
+	//	tcmod stretch 1 .5 0 2
+                blendFunc GL_ONE GL_ZERO
+		rgbGen wave sin 1 .6 0 .5
+	} 
+        {
+        	map models/mapobjects/test3/sup_engine.tga
+		blendFunc blend
 		rgbGen vertex
 	}
-
-	
-
-
-
 }
 
-models/mapobjects/clonetube/clone1
-{      
-	cull twosided
-
-       
-
-	{
-		map models/mapobjects/clonetube/c_water2.tga
-           tcmod rotate 350
-	      rgbGen wave sin 1 .8 0 2
-		rgbGen identity
-
-	}
-	{
-		map models/mapobjects/clonetube/clone1.tga
-		blendFunc blend      	
-		rgbGen vertex
-	}
-
-
-
-
-
-}
 
 models/mapobjects/test/sop_body1
 {      
@@ -6704,83 +6300,48 @@ models/mapobjects/test/sop_body1
 		rgbGen vertex
 	}
 }
-models/players/protosoldier/proto_armor1
-{      
-	cull twosided
-        
-	{
-		map models/players/protosoldier/proto_armor1.tga
-		rgbGen lightingdiffuse
-	}
-}
 
-models/mapobjects/generator/genface
-{      
-	cull twosided
-        
-	{
-		map models/mapobjects/generator/sun.tga
-		rgbGen identity
-		tcMod rotate 360
-		rgbgen wave triangle 0 1 0 7
-	//	tcMod scroll 1 0
-	}
-	{
-		map models/mapobjects/generator/genface.tga
-		blendfunc blend
-		rgbGen vertex
-	}
-}
 
-models/mapobjects/generator/gen1
+
+
+models/mapobjects/test3/sup_legs1
 {      
-	cull twosided
-        
-	{
+        {
 		map textures/effects/regenmap3.tga
-		rgbGen identity
-		tcMod rotate 360
-		tcMod scroll 1 0
-	}
-	{
-		map models/mapobjects/generator/gen1.tga
-		blendfunc blend
+                tcmod rotate 350
+		tcmod stretch scale 1 .4 0 .1
+
+                // tcmod scroll 3 1
+	//	tcmod scale 2 2
+	//	tcmod stretch 1 .5 0 2
+                blendFunc GL_ONE GL_ZERO
+		rgbGen wave sin 1 .6 0 .5
+	} 
+        {
+        	map models/mapobjects/test3/sup_legs1.tga
+		blendFunc blend
 		rgbGen vertex
 	}
 }
-models/mapobjects/generator/elec1
+models/mapobjects/test3/sup_body1
 {      
-	cull twosided
-        
-	
-	{
-		map models/mapobjects/generator/elec1.tga
-		blendFunc GL_ONE GL_ONE
-                rgbgen wave triangle .8 2 0 7
-                tcMod scroll 0 1
-	}
-	{
-		map models/mapobjects/generator/elec1.tga
-		blendFunc GL_ONE GL_ONE
-               rgbgen wave triangle 1 1.4 0 5
-                tcMod scale  -1 1
-                tcMod scroll 0 1
-	}	
         {
-		map models/mapobjects/generator/elec1.tga
-		blendFunc GL_ONE GL_ONE
-                rgbgen wave triangle 1 1.4 0 6.3
-                tcMod scale  -1 1
-                tcMod scroll 2 1
-	}	
-        {
-		map models/mapobjects/generator/elec1.tga
-		blendFunc GL_ONE GL_ONE
-                rgbgen wave triangle 1 1.4 0 7.7
-                tcMod scroll -1.3 1
-	}	
-}
+		map textures/effects/regenmap3.tga
+                tcmod rotate 350
+		tcmod stretch scale 1 .4 0 .1
 
+                // tcmod scroll 3 1
+	//	tcmod scale 2 2
+	//	tcmod stretch 1 .5 0 2
+                blendFunc GL_ONE GL_ZERO
+		rgbGen wave sin 1 .6 0 .5
+	} 
+        {
+        	map models/mapobjects/test3/sup_body1.tga
+		blendFunc blend
+		rgbGen vertex
+	}
+}
 
 models/mapobjects/test3/engine
 {      
@@ -6878,8 +6439,8 @@ models/mapobjects/light/sconce
 	cull none
 	{
 		map models/mapobjects/light/sconce.tga
-		alphaFunc GE128
-	//	blendFunc blend
+	//	alphaFunc GE128
+		blendFunc blend
 //		depthWrite
 		rgbGen lightingdiffuse
 	}
@@ -6889,7 +6450,7 @@ models/mapobjects/light/sconcel
 {
 	cull twosided
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/sconcel.tga 
+	q3map_lightimage models/mapobjects/light/sconcel.tga
 	q3map_surfacelight 5000
 	light 1
 	{
@@ -6904,7 +6465,7 @@ models/mapobjects/light/sconce2
 {
 	//cull twosided
 	surfaceparm nomarks
-	q3map_lightimage textures/lightimage/sconce2.tga
+	q3map_lightimage models/mapobjects/light/sconce2.tga
 	q3map_surfacelight 5000
 	light 1
 	{
@@ -6945,18 +6506,6 @@ models/mapobjects/miltary_trim/metal_m05
 	}
 }
 
-models/mapobjects/miltary_trim/metal_m05a
-{
-	surfaceparm playerclip
-	cull disable
-	{
-		map models/mapobjects/miltary_trim/metal_m05.tga
-		alphaFunc GE128
-		depthWrite
-		rgbGen lightingdiffuse
-	}
-}
-
 models/weapons2/tesla/zap_scroll2b
 {
         q3map_surfacelight	1000
@@ -6994,21 +6543,6 @@ models/weapons2/tesla/zap_scroll2b
 	}	
 }
 
-
-models\mapobjects\vehicles\luv2
-{
-	surfaceparm metalsteps
-	{
-		map $lightmap
-		rgbGen identity
-	}
-	{
-		map models\mapobjects\vehicles\luv2.tga
-		blendFunc GL_DST_COLOR GL_ZERO
-		rgbGen identity
-	}
-}
-
 models\mapobjects\vehicles\train1
 {
 	surfaceparm metalsteps
@@ -7039,8 +6573,6 @@ textures/props/freeze_glass
    		deformVertexes wave 64 sin .25 .25 0 .5
   	//	deformVertexes wave 100 sin 0 .2 0 .2
 
-    q3map_surfacelight 600
-    light 1
 
 
         
@@ -7158,8 +6690,7 @@ models/players/drz/drz_glass
 	}
 }
 
-
-
+// MBJ
 
 models/mapobjects/vehicles/sub5
 {
@@ -7178,6 +6709,31 @@ models/mapobjects/vehicles/sub5s
 
 	{
 		map models/mapobjects/vehicles/sub5s.tga
+//		blendFunc GL_DST_COLOR GL_ZERO
+		rgbGen vertex
+	}
+}
+
+// END MBJ
+
+models/multiplayer/uboat/nerve_sub5
+{
+	{
+		map models/multiplayer/uboat/nerve_sub5.tga
+		rgbGen vertex
+	}
+}
+
+
+models/multiplayer/uboat/nerve_sub5s
+{
+	surfaceparm metalsteps
+//	{
+//		map $lightmap
+//		rgbGen identity
+//	}
+	{
+		map models/multiplayer/uboat/nerve_sub5s.tga
 //		blendFunc GL_DST_COLOR GL_ZERO
 		rgbGen vertex
 	}
@@ -7408,21 +6964,6 @@ models/mapobjects/vehicles/mercedes_1
 	}
 }
 
-models/mapobjects/vehicles/mercedes_1v
-
-{
-	{
-		map textures/effects/tinfx.tga
-		blendFunc GL_ONE GL_ZERO
-		rgbGen vertex
-		tcGen environment 
-	}
-	{
-		map models/mapobjects/vehicles/mercedes_1.TGA
-		blendfunc blend
-		rgbGen vertex
-	}
-}
 models/mapobjects/vehicles/car_shadow
 {
 	surfaceparm metalsteps		
@@ -7447,17 +6988,6 @@ models/mapobjects/vehicles/glass
 
 }
 
-models/mapobjects/vehicles/glass2
-{
-	surfaceparm metalsteps		
-	cull twosided
-	{
-		map models/mapobjects/vehicles/glass.tga
-		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-		rgbGen lightingdiffuse
-	}
-
-}
 models/mapobjects/plants/flowers1
 {
 	surfaceparm alphashadow
@@ -7637,7 +7167,7 @@ models/mapobjects/tree/trunck2al
 
 	{
 		map models/mapobjects/tree/trunck2al.tga
-		rgbGen identity
+		rgbGen lightingdiffuse
 
 	}
 
@@ -7648,7 +7178,7 @@ models/mapobjects/tree/trunk_trn1
 
 	{
 		map models/mapobjects/tree/trunk_trn1.tga
-		rgbGen identity
+		rgbGen lightingdiffuse
 
 	}
 
@@ -7659,7 +7189,7 @@ models/mapobjects/tree/trunk_trn2
 
 	{
 		map models/mapobjects/tree/trunk_trn2.tga
-		rgbGen identity
+		rgbGen lightingdiffuse
 
 	}
 
@@ -7669,16 +7199,15 @@ models/mapobjects/plants/small_branch_t
 {
 	surfaceparm alphashadow
 //	deformVertexes wave 194 sin 0 2 0 .1
-	deformVertexes wave 30 sin 0 1 0 .1
-	deformVertexes wave 194 sin 0 1 0 .1
+//	deformVertexes wave 30 sin 0 1 0 .1
+//	deformVertexes wave 194 sin 0 1 0 .1
 	cull twosided
 
 
 	{
 		map models/mapobjects/plants/small_branch_t.tga
 		alphaFunc GE128
-//		rgbGen lightingdiffuse
-		rgbGen identity
+		rgbGen lightingdiffuse
 	}
 
 }
@@ -7687,16 +7216,15 @@ models/mapobjects/tree/tree_vil2t
 {
 	surfaceparm alphashadow
 //	deformVertexes wave 194 sin 0 2 0 .1
-	deformVertexes wave 30 sin 0 1 0 .1
-	deformVertexes wave 194 sin 0 1 0 .1
+//	deformVertexes wave 30 sin 0 1 0 .1
+//	deformVertexes wave 194 sin 0 1 0 .1
 	cull twosided
 
 
 	{
 		map models/mapobjects/tree/tree_vil2t.tga
 		alphaFunc GE128
-//		rgbGen lightingdiffuse
-		rgbGen identity
+		rgbGen lightingdiffuse
 	}
 
 }
@@ -7705,16 +7233,15 @@ models/mapobjects/tree/branch_vil1at
 {
 	surfaceparm alphashadow
 //	deformVertexes wave 194 sin 0 2 0 .1
-	deformVertexes wave 30 sin 0 1 0 .1
-	deformVertexes wave 194 sin 0 1 0 .1
+//	deformVertexes wave 30 sin 0 1 0 .1
+//	deformVertexes wave 194 sin 0 1 0 .1
 	cull twosided
 
 
 	{
 		map models/mapobjects/tree/branch_vil1at.tga
 		alphaFunc GE128
-//		rgbGen lightingdiffuse
-		rgbGen identity
+		rgbGen lightingdiffuse
 	}
 
 }
@@ -7724,16 +7251,15 @@ models/mapobjects/tree/branch_vil1t
 {
 	surfaceparm alphashadow
 //	deformVertexes wave 194 sin 0 2 0 .1
-	deformVertexes wave 30 sin 0 1 0 .1
-	deformVertexes wave 194 sin 0 1 0 .1
+//	deformVertexes wave 30 sin 0 1 0 .1
+//	deformVertexes wave 194 sin 0 1 0 .1
 	cull twosided
 
 
 	{
 		map models/mapobjects/tree/branch_vil1t.tga
 		alphaFunc GE128
-//		rgbGen lightingdiffuse
-		rgbGen identity
+		rgbGen lightingdiffuse
 	}
 
 }
@@ -7755,223 +7281,21 @@ models/powerups/holdable/glass_brandy
 
 models/weapons2/fg42/fg42_2
 {
-
+	{
+		map textures/effects/GUNfx.tga
+		blendFunc GL_ONE GL_ZERO
+		tcMod scale 2 2
+		tcmod turb 0 .1 0 .05
+		rgbGen lightingdiffuse
+		tcGen environment 
+	}
 	{
 		map models/weapons2/fg42/fg42_2.tga
-		rgbGen lightingdiffuse
-	}
-}
-
-models/mapobjects/xlab_props/light
-{
-//    q3map_surfacelight 1000
-//    light 1
-//    surfaceparm nomarks
-    {
-        map $lightmap
-        rgbGen identity
-    }
-    {
-        map models/mapobjects/xlab_props/light.tga
-        blendFunc GL_DST_COLOR GL_ZERO
-        rgbGen identity
-    }
-    {
-        map models/mapobjects/xlab_props/light.tga
-        blendFunc GL_ONE GL_ONE
-    }
-}
-
-
-models/mapobjects/xlab_props/fwindow1
-
-{
-
-    q3map_surfacelight 5000
-    light 1
-    surfaceparm nomarks
-      {
-		map textures/props/fwindow1.tga
-		blendFunc GL_ONE GL_SRC_ALPHA
-		rgbGen identity
-	}
-
-	{
-		map $lightmap
-		blendFunc GL_DST_COLOR GL_ONE_MINUS_DST_ALPHA
-		rgbGen identity
-	}
-
-}
-
-models/mapobjects/snow_tree/stree_f1
-{
-	surfaceparm alphashadow
-	cull twosided
-
-
-	{
-		map models/mapobjects/snow_tree/stree_f1.tga
-//		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-		alphaFunc GE128
-		rgbGen lightingdiffuse
-	}
-
-}
-
-
-models/mapobjects/snow_tree/stree_s1
-{
-	surfaceparm alphashadow
-	cull twosided
-
-
-	{
-		map models/mapobjects/snow_tree/stree_s1.tga
-//		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-		alphaFunc GE128
-		rgbGen lightingdiffuse
-	}
-
-}
-
-models/mapobjects/door/xdoor_m01
-
-{
-	surfaceparm nomarks
-	{
-		map $lightmap
-		rgbGen identity
-	}
-	{
-		map textures/xlab_door/xdoor_m01.tga
-		blendFunc GL_DST_COLOR GL_ZERO
-		rgbGen identity
-	}
-}
-
-models/mapobjects/v2/v2
-{
-	{
-		map models/mapobjects/v2/v2.tga
-		rgbGen lightingdiffuse
-	}
-
-}
-
-models/mapobjects/v2/v2a
-
-{
-	surfaceparm nomarks
-
-	{
-		map models/mapobjects/v2/v2.tga
-//		blendFunc GL_DST_COLOR GL_ZERO
-		rgbGen vertex
-	}
-}
-
-models\mapobjects\furniture\chair1
-{
-	{
-		map models/mapobjects/furniture/chair1.tga
-		rgbGen lightingdiffuse
-	}
-
-}
-
-
-models/mapobjects/electronics/radar_01
-{      
-
-     	{
-		map models/mapobjects/electronics/radarsweep.tga
-		rgbGen identity
-		tcMod rotate 120
-	//	rgbgen wave triangle 0 1 0 7
-	//	tcMod scroll 1 0
-	}
-
-
-	{
-		map models/mapobjects/electronics/radarbeeps.tga
 		blendfunc blend
-		tcMod scroll .01 .001
-		rgbGen wave sin 1 .3 0 .25
-	}
-	{
-		map models/mapobjects/electronics/radar_01.tga
-		blendfunc blend
-		rgbGen vertex
-	}
-}
-
-models/mapobjects/light/chandlier3a
-{
-	nomipmaps
-	surfaceparm alphashadow
-	cull twosided
-
-
-	{
-		map models/mapobjects/light/chandlier3a.tga
-//		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-		alphaFunc GE128
 		rgbGen lightingdiffuse
 	}
-
 }
 
-models/mapobjects/light/chandlier4
-{
-	nomipmaps
-	surfaceparm alphashadow
-	cull twosided
-
-
-	{
-		map models/mapobjects/light/chandlier4.tga
-//		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-		alphaFunc GE128
-		rgbGen lightingdiffuse
-	}
-
-}
-
-models/mapobjects/light/chandlier4l
-{
-	{
-		map models/mapobjects/light/chandlier4l.tga
-		rgbGen lightingdiffuse
-	}
-
-}
-
-models/mapobjects/light/chandlier3
-{
-	{
-		map models/mapobjects/light/chandlier3.tga
-		rgbGen lightingdiffuse
-	}
-
-}
-
-models/weapons2/telsa/base_tesla4
-{      
-	cull twosided
-        
-	{
-		map models/weapons2/telsa/base_tesla4_l.tga
-		rgbGen identity
-		tcMod rotate 120
-		tcMod scroll 2 2
-	}
-	{
-		map models/weapons2/telsa/base_tesla4.tga
-		blendfunc blend
-		rgbGen vertex
-	}
-}
 
 models/mapobjects/ui/FLAME
 {
@@ -7979,7 +7303,7 @@ models/mapobjects/ui/FLAME
 	nomipmaps
 
 	{
-		map ui/assets/flame.tga
+		map ui_mp/assets/flame.tga
 	//	map models/mapobjects/ui/FLAME.tga
 	//	blendFunc GL_ONE_MINUS_SRC_ALPHA GL_SRC_ALPHA 
 		blendfunc blend
@@ -7989,7 +7313,7 @@ models/mapobjects/ui/FLAME
 		rgbGen identity
 	}
 	{
-		map ui/assets/flame.tga
+		map ui_mp/assets/flame.tga
 	//	blendFunc GL_ONE_MINUS_SRC_ALPHA GL_SRC_ALPHA 
 		blendfunc blend
 		tcmod scale .3 .3
@@ -7999,110 +7323,4 @@ models/mapobjects/ui/FLAME
 
 
 }
-
-
-models/mapobjects/telsagun/tesla1a
-{      
-	
-
-
-	{
-//		map models/weapons2/telsa/tesla1.tga
-		map textures/effects/regenmap3.tga
-		rgbGen identity
-		tcMod rotate 360
-		tcMod scroll 2 0
-	}
-	{
-		map models/mapobjects/telsagun/tesla1a.tga
-		blendfunc blend
-		rgbGen vertex
-	}
-
-        
-}
-
-models\mapobjects\furniture\grandfatherclock01
- {
-
-    {  
-      map models/mapobjects/furniture/grandfatherclock01.tga
-      rgbGen identity
-    }
- }
-
-models\mapobjects\letters\osa
- {
-
-    {  
-      map models/mapobjects/letters/osa2.tga
-//	blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-	alphafunc GT0
-      rgbGen identity
-    }
- }
-
-
-models\mapobjects\barbwire\barb_wire
-{
-    surfaceparm metalsteps
-    nomipmaps
-    nopicmip
-    cull disable
-    {
-     map models/mapobjects/barbwire/barb_wire.tga
-     alphaFunc GE128
-     depthWrite
-     rgbGen identity
-
-    }
-}
-
-
-models/mapobjects/B-25/PROPELLER
-{
-	cull twosided
-	surfaceparm nomarks
-	{
-		map models/mapobjects/B-25/PROPELLER.tga
-		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-		rgbGen vertex
-		tcMod rotate 4000
-		alphaGen vertex
-	}
-}
-
-// textures/b-25/plane_ext1
-// {
-//	cull twosided
-//	surfaceparm nomarks
-//	{
-//		map textures/b-25/plane_ext1.tga
-//		rgbGen vertex
-//	}
-// }
-
-
-//  textures/b-25/plane_int5
-//  {
-//	cull twosided
-//	surfaceparm nomarks
-//	{
-//		map textures/b-25/plane_int5.tga
-//		rgbGen vertex
-//	}
-//  }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

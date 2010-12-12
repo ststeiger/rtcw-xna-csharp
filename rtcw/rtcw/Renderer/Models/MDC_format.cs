@@ -69,8 +69,23 @@ namespace rtcw.Renderer.Models
     };
 
     class mdcTag_t {
-	    short[] xyz = new short[3];
-	    short[] angles = new short[3];
+	    //short[] xyz = new short[3];
+	    //short[] angles = new short[3];
+        public idVector3 xyz = new idVector3();
+        public idVector3 angles = new idVector3();
+
+        public mdcTag_t(ref idFile f)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                xyz[i] = f.ReadShort();
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                angles[i] = f.ReadShort();
+            }
+        }
     };
 
     /*
@@ -86,7 +101,33 @@ namespace rtcw.Renderer.Models
     ** frameBaseFrames	sizeof( short ) * numFrames
     ** frameCompFrames	sizeof( short ) * numFrames (-1 if frame is a baseFrame)
     */
-    class mdcSurface_t {
+    class mdcSurface_t : idDrawSurface
+    {
+        public mdcSurface_t(ref idFile f)
+        {
+            ident = f.ReadInt();
+            //if (ident != idModelMDC.MDC_IDENT)
+            //{
+            //    Engine.common.ErrorFatal("MDC Surface has a invalid ident\n");
+           // }
+
+            name = f.ReadString(Engine.MAX_QPATH);
+            flags = f.ReadInt();
+            numCompFrames = f.ReadInt();
+            numBaseFrames = f.ReadInt();
+            numShaders = f.ReadInt();
+            numVerts = f.ReadInt();
+            numTriangles = f.ReadInt();
+            ofsTriangles = f.ReadInt();
+            ofsShaders = f.ReadInt();
+            ofsSt = f.ReadInt();
+            ofsXyzNormals = f.ReadInt();
+            ofsXyzCompressed = f.ReadInt();
+            ofsFrameBaseFrames = f.ReadInt();
+            ofsFrameCompFrames = f.ReadInt();
+            ofsEnd = f.ReadInt();
+        }
+
 	    public int ident;                  //
 
 	    //char name[MAX_QPATH];       // polyset name
@@ -111,6 +152,10 @@ namespace rtcw.Renderer.Models
 	    public int ofsFrameCompFrames;     // numFrames
 
 	    public int ofsEnd;                 // next surface follows
+
+        public mdcXyzCompressed_t[] xyzCompressedIndexPool;
+        public short[] baseFrames;
+        public short[] compFrames;
     };
 
     class mdcHeader_t {

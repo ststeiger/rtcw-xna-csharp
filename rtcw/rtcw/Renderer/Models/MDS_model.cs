@@ -49,8 +49,6 @@ namespace rtcw.Renderer.Models
     //
     public class idModelMDS : idModelLocal
     {
-        string name;
-
         public const int MDS_IDENT         =  ( ( 'W' << 24 ) + ( 'S' << 16 ) + ( 'D' << 8 ) + 'M' );
         public const int MDS_VERSION       =  4;
         public const int MDS_MAX_VERTS     =  6000;

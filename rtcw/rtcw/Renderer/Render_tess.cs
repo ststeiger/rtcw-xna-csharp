@@ -51,10 +51,7 @@ namespace rtcw.Renderer
     {
         public delegate void currentStageIteratorFunc_t();
 	    public short[] indexes = new short[idMaterialBase.SHADER_MAX_INDEXES];
-	    public idVector4[] xyz = new idVector4[idMaterialBase.SHADER_MAX_VERTEXES];
-	    public idVector4[] normal = new idVector4[idMaterialBase.SHADER_MAX_VERTEXES];
-	    public idVector2[,] texCoords = new idVector2[idMaterialBase.SHADER_MAX_VERTEXES,2];
-	    public idVector4[] vertexColors = new idVector4[idMaterialBase.SHADER_MAX_VERTEXES];
+        public idDrawVertex[] xyz = new idDrawVertex[idMaterialBase.SHADER_MAX_VERTEXES];
 	    public int[] vertexDlightBits = new int[idMaterialBase.SHADER_MAX_VERTEXES];
 
 	    public stageVars_t svars;

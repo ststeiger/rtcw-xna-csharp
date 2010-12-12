@@ -49,12 +49,85 @@ namespace rtcw.Renderer.Models
     //
     public class idModelLocal : idModel
     {
+        public string name;
+
         //
         // GetName
         //
         public override string GetName()
         {
             throw new NotImplementedException();
+        }
+
+        //
+        // ParseMD3Vertexes
+        //
+        public void ParseMD3Vertexes(int numVerts, int numFrames, ref idFile f, ref idDrawVertex[] vertexes)
+        {
+            for (int i = 0; i < numVerts * numFrames; i++)
+            {
+                vertexes[i].xyz[0] = f.ReadShort();
+                vertexes[i].xyz[1] = f.ReadShort();
+                vertexes[i].xyz[2] = f.ReadShort();
+
+                f.ReadShort(); // normal
+            }
+        }
+
+        //
+        // ParseMD3TextureCoords
+        //
+        public void ParseMD3TextureCoords(int numVerts, int numFrames, ref idFile f, ref idDrawVertex[] vertexes)
+        {
+            // Load in all the st coords, and when we are beyond numVerts, recursively set the ST's for following vertexes,
+            // since ST's don't change between frames.
+            for (int j = 0, a = 0; j < numVerts * numFrames; j++, a++)
+            {
+                if (j < numVerts)
+                {
+                    vertexes[j].st[0] = f.ReadFloat();
+                    vertexes[j].st[1] = f.ReadFloat();
+                }
+                else
+                {
+                    if (a >= numVerts)
+                    {
+                        a = 0;
+                    }
+
+                    vertexes[j].st[0] = vertexes[a].st[0];
+                    vertexes[j].st[1] = vertexes[a].st[1];
+                }
+            }
+        }
+
+        //
+        // ParseMD3Frame
+        //
+        public void ParseMD3Frame(ref idFile f, out md3Frame_t frame)
+        {
+            frame = new md3Frame_t(ref f);
+            if (name.Contains("sherman") || name.Contains( "mg42"))
+            {
+                frame.radius = 256;
+                for (int j = 0; j < 3; j++)
+                {
+                    frame.mins[j] = 128;
+                    frame.maxs[j] = -128;
+                    //frame->localOrigin[j] = LittleFloat(frame->localOrigin[j]);
+                }
+            }
+            /*
+            else
+            {
+                for (j = 0; j < 3; j++)
+                {
+                    frame->bounds[0][j] = LittleFloat(frame->bounds[0][j]);
+                    frame->bounds[1][j] = LittleFloat(frame->bounds[1][j]);
+                    frame->localOrigin[j] = LittleFloat(frame->localOrigin[j]);
+                }
+            }
+            */
         }
     }
 }

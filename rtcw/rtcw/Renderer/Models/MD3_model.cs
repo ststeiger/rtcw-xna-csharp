@@ -64,8 +64,6 @@ namespace rtcw.Renderer.Models
         // vertex scales
         public const float MD3_XYZ_SCALE   =    ( 1.0f / 64 );
 
-        string name;
-
         //
         // idModelMD3
         //

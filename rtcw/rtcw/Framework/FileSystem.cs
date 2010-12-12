@@ -341,6 +341,10 @@ namespace rtcw.Framework
         //
         public override string RemoveExtensionFromPath( string _filename )
         {
+            if (_filename.Contains("\\"))
+            {
+                return Path.GetDirectoryName(_filename) + "\\" + Path.GetFileNameWithoutExtension(_filename);
+            }
             return Path.GetDirectoryName(_filename) + "/" + Path.GetFileNameWithoutExtension(_filename);
         }
 

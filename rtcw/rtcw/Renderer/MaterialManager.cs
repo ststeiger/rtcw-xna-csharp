@@ -2016,6 +2016,13 @@ namespace rtcw.Renderer
 
             // Try to find the material in the table and load it in.
             string mtrbuffer = mtrLookupTable.FindMaterialInTable(name);
+
+            // Try the shader name with out the extension if its present.
+            if (mtrbuffer == null)
+            {
+                mtrbuffer = mtrLookupTable.FindMaterialInTable(Engine.fileSystem.RemoveExtensionFromPath(name));
+            }
+
             if (mtrbuffer != null)
             {
                 idMaterial mtr = CreateMaterial(name, mtrbuffer, lightmapIndex);

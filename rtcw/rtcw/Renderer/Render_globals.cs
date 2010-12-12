@@ -47,7 +47,8 @@ namespace rtcw.Renderer
 {
     
     // NOTE: also mirror changes to max2skl.c
-    enum surfaceType_t {
+    public enum surfaceType_t
+    {
 	    SF_BAD,
 	    SF_SKIP,                // ignore
 	    SF_FACE,
@@ -89,10 +90,26 @@ namespace rtcw.Renderer
 	    public float depthForOpaque;
     };
 
-    abstract class drawSurf_t
+    //
+    // idDrawSurface
+    //
+    public abstract class idDrawSurface
     {
-       public uint sort;                      // bit combination for fast compares
-	   public surfaceType_t       surface;       // any of surface*_t
+        public uint sort;                      // bit combination for fast compares
+	    public surfaceType_t       type;       // any of surface*_t
+        public idMaterial[]        materials;
+        public idDrawVertex[]      vertexes;
+        public short[] indexes;
+
+        public void AllocVertexes(int poolSize)
+        {
+            vertexes = new idDrawVertex[poolSize];
+
+            for (int i = 0; i < poolSize; i++)
+            {
+                vertexes[i] = new idDrawVertex();
+            }
+        }
     }
 
     /*
@@ -228,7 +245,7 @@ namespace rtcw.Renderer
 	    public List<srfPoly_t> polys;
 
 	    public int numDrawSurfs;
-	    public List<drawSurf_t> drawSurfs;
+        public List<idDrawSurface> drawSurfs;
     };
 
     //
@@ -292,6 +309,29 @@ namespace rtcw.Renderer
 	    public bool vertexes2D;        // shader needs to be finished
 	    public idRenderEntityLocal entity2D;     // currentEntity will point at this when doing 2D rendering
     };
+
+    //
+    // idDrawVertex
+    //
+    public struct idDrawVertex
+    {
+        public idVector3 xyz;
+        public idVector2 st;
+        public idVector2 lightmapST;
+        public idVector3 tangent;
+        public idVector3 binormal;
+        public idVector3 normal;
+
+        public idDrawVertex(int unused)
+        {
+            xyz = new idVector3();
+            st = new idVector2();
+            lightmapST = new idVector2();
+            tangent = new idVector3();
+            binormal = new idVector3();
+            normal = new idVector3();
+        }
+    }
 
     /*
     ** idRenderGlobals

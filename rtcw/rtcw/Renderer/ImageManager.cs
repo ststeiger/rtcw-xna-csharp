@@ -81,6 +81,9 @@ namespace rtcw.Renderer
         {
             bool isUniqueImage = false;
 
+            // Remove the file extension if its present.
+            name = Engine.fileSystem.RemoveExtensionFromPath(name);
+
             idImageLocal image = AllocImage(name, ref isUniqueImage);
             if (isUniqueImage == false)
             {

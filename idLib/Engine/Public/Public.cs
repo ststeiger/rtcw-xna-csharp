@@ -74,6 +74,11 @@ namespace idLib.Engine.Public
         public const int PROTOCOL_VERSION = 2;
         public const string MASTER_SERVER_ADDR = "master.gmistudios.com";
 
+        // JV - these are needed for various binary formats.
+        public const int MAX_QPATH = 64;      // max length of a quake game pathname
+        public const int MAX_OSPATH    =      256;     // max length of a filesystem pathname
+        // JV end
+
         //
         // these aren't needed by any of the VMs.  put in another header?
         //

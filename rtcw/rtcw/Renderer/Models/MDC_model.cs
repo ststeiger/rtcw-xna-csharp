@@ -52,14 +52,136 @@ namespace rtcw.Renderer.Models
         public const int MDC_IDENT     =      ( ( 'C' << 24 ) + ( 'P' << 16 ) + ( 'D' << 8 ) + 'I' );
         public const float MDC_TAG_ANGLE_SCALE = ( 360.0f / 32700.0f );
         public const int MDC_VERSION   =      2;
-        string name;
+
+        private mdcHeader_t header = new mdcHeader_t();
+        private md3Frame_t[] frames;
+        private mdcTag_t[] tags;
+        private mdcSurface_t[] surfaces;
+
+
+        //
+        // ParseHeader
+        //
+        private void ParseHeader(ref idFile f)
+        {
+            header.ident = MDC_IDENT;
+	        header.version = f.ReadInt();
+	        header.name = f.ReadString(Engine.MAX_QPATH);           // model name
+	        header.flags = f.ReadInt();
+	        header.numFrames = f.ReadInt();
+	        header.numTags = f.ReadInt();
+	        header.numSurfaces = f.ReadInt();
+	        header.numSkins = f.ReadInt();
+	        header.ofsFrames = f.ReadInt();                  // offset for first frame, stores the bounds and localOrigin
+	        header.ofsTagNames = f.ReadInt();                // numTags
+	        header.ofsTags = f.ReadInt();                    // numFrames * numTags
+	        header.ofsSurfaces = f.ReadInt();                // first surface, others follow
+	        header.ofsEnd = f.ReadInt();                     // end of file
+        }
 
         //
         // idModelMDC
         //
         public idModelMDC(ref idFile f)
         {
+            // Set the model name.
             name = f.GetFullFilePath();
+
+            // Parse the header.
+            ParseHeader(ref f);
+
+            // Alloc and parse the frames - these are the same format as MD3 models.
+            frames = new md3Frame_t[header.numFrames];
+            f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsFrames);
+
+            for (int i = 0; i < header.numFrames; i++)
+            {
+                ParseMD3Frame(ref f, out frames[i]);
+            }
+
+            // Load in all the tags.
+            tags = new mdcTag_t[header.numTags];
+            f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsTags);
+
+            for (int i = 0; i < header.numFrames * header.numTags; i++)
+            {
+                tags[i] = new mdcTag_t(ref f);
+            }
+
+            // Load in all the surfaces.
+            surfaces = new mdcSurface_t[header.numSurfaces];
+            f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsSurfaces);
+
+            int surfpos = header.ofsSurfaces;
+            for (int i = 0; i < header.numSurfaces; i++, surfpos = surfaces[i].ofsEnd)
+            {
+                // Parse the surface.
+                mdcSurface_t surf = new mdcSurface_t(ref f);
+
+                // change to surface identifier
+                surf.type = surfaceType_t.SF_MDC;
+
+                // lowercase the surface name so skin compares are faster
+                surf.name = surf.name.ToLower();
+
+                // register the shaders
+                //shader = (md3Shader_t*)((byte*)surf + surf->ofsShaders);
+                f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsShaders);
+                surf.materials = new idMaterial[surf.numShaders];
+                for (int j = 0; j < surf.numShaders; j++)
+                {
+                    string shader_name = md3Shader_t.ParseShader(ref f);
+                    surf.materials[i] = Engine.materialManager.FindMaterial(shader_name, -1);
+                }
+
+                // Load in all the triangles.
+                f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsTriangles);
+                surf.indexes = new short[surf.numTriangles * 3];
+                for (int j = 0; j < surf.numTriangles * 3; j+=3)
+                {
+                    surf.indexes[j + 0] = (short)f.ReadInt();
+                    surf.indexes[j + 1] = (short)f.ReadInt();
+                    surf.indexes[j + 2] = (short)f.ReadInt();
+                }
+                
+                // Load in the MD3 texture coordinates.
+                f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsSt);
+
+                surf.AllocVertexes(surf.numVerts * surf.numBaseFrames);
+                ParseMD3TextureCoords(surf.numVerts, surf.numBaseFrames, ref f, ref surf.vertexes);
+                
+                // swap all the XyzNormals
+                f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsXyzNormals);
+                ParseMD3Vertexes(surf.numVerts, surf.numBaseFrames, ref f, ref surf.vertexes);
+
+                // swap all the XyzCompressed
+                //xyzComp = (mdcXyzCompressed_t*)((byte*)surf + surf->ofsXyzCompressed);
+                f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsXyzCompressed);
+                surf.xyzCompressedIndexPool = new mdcXyzCompressed_t[surf.numVerts * surf.numCompFrames];
+                for (int j = 0; j < surf.numVerts * surf.numCompFrames; j++)
+                {
+                    surf.xyzCompressedIndexPool[i] = new mdcXyzCompressed_t();
+                    surf.xyzCompressedIndexPool[i].ofsVec = (uint)f.ReadInt();
+                }
+
+                // swap the frameBaseFrames
+                //ps = (short*)((byte*)surf + surf->ofsFrameBaseFrames);
+                f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsFrameBaseFrames);
+                surf.baseFrames = new short[header.numFrames];
+                for (int j = 0; j < header.numFrames; j++)
+                {
+                    surf.baseFrames[i] = f.ReadShort();
+                }
+
+                // swap the frameCompFrames
+                f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsFrameCompFrames);
+                for (int j = 0; j < header.numFrames; j++)
+                {
+                    surf.compFrames[i] = f.ReadShort();
+                }
+
+                surfaces[i] = surf;
+            }
         }
 
         //

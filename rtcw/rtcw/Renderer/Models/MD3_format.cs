@@ -52,9 +52,31 @@ namespace rtcw.Renderer.Models
     ========================================================================
     */
 
-    class md3Frame_t {
-	    public idVector3 mins = new idVector3();
-        public idVector3 maxss = new idVector3();
+    public class md3Frame_t
+    {
+        public md3Frame_t(ref idFile f)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                mins[i] = f.ReadFloat();
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                maxs[i] = f.ReadFloat();
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                localOrigin[i] = f.ReadFloat();
+            }
+
+            radius = f.ReadFloat();
+            name = f.ReadString(16);
+        }
+
+        public idVector3 mins = new idVector3();
+        public idVector3 maxs = new idVector3();
 	    public idVector3 localOrigin = new idVector3();
 
 	    public float radius;
@@ -105,6 +127,14 @@ namespace rtcw.Renderer.Models
 	    //char name[MAX_QPATH];
         public string name;
 	    public int shaderIndex;                // for in-game use
+
+        public static string ParseShader(ref idFile f)
+        {
+            string shader_name;
+            shader_name = f.ReadString(Engine.MAX_QPATH);
+            f.ReadInt(); // read the shaderindex, not needed for loading.
+            return shader_name;
+        }
     };
 
     class md3Triangle_t {
