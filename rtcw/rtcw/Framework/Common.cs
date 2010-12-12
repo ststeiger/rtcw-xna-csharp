@@ -581,9 +581,7 @@ namespace rtcw.Framework
             }
 
             // Print the message to the VS debug screen.
-#if !XBOX360
-            Debug.Print(formatedMessage);
-#endif
+            Debug.Write(formatedMessage);
         }
 
         //

@@ -41,7 +41,7 @@ namespace ui
                 if (fileList[i].Contains("menudef") == false)
                 {
                     Engine.fileSystem.ReadContent<idUserInterfaceLocal>("ui/" + fileList[i]);
-                    Engine.common.Printf("...ui/" + fileList[i]);
+                    Engine.common.Printf("...ui/" + fileList[i] + "\n");
                 }
             }
 
