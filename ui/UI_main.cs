@@ -28,6 +28,14 @@ namespace ui
         }
 
         //
+        // LoadAssets
+        //
+        private void LoadAssets()
+        {
+
+        }
+
+        //
         // GetName
         // 
         public override string GetName()

@@ -77,6 +77,7 @@ namespace rtcw.sys.app
             Engine.cmdSystem = new idCmdManagerLocal();
             Engine.net = new idNetworkLocal();
             Engine.soundManager = new idSoundManagerLocal();
+            Engine.modelManager = new idModelManagerLocal();
         }
 
         //

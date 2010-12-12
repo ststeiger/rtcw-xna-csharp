@@ -269,13 +269,6 @@ namespace idLib.Engine.Public
 
 	    public int entityNum;                  // currentState.number, so we can attach rendering effects to specific entities (Zombie)
     }
-    //
-    // idModel
-    //
-    public abstract class idModel
-    {
-
-    }
 
     //
     // idWorld
@@ -326,6 +319,29 @@ namespace idLib.Engine.Public
         public abstract idImage FindImageFile(string qpath, bool mipmap, bool picmap, SamplerState wrapClampMode);
         public abstract idImage CreateImage(string name, Color[] pic, int width, int height, bool mipmap, bool allowPicmip, SamplerState WrapClampMode);
         public abstract void DestroyImage(ref idImage image);
+    }
+
+    //
+    // idModel
+    //
+    public abstract class idModel
+    {
+        public abstract string GetName();
+    }
+
+    //
+    // idModelManager
+    //
+    public abstract class idModelManager
+    {
+        // Initilizes the model manager.
+        public abstract void Init();
+
+        // Shutsdown the model manager.
+        public abstract void Shutdown();
+
+        // Loads a model.
+        public abstract idModel LoadModel(string name);
     }
 
     //

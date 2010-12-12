@@ -91,5 +91,6 @@ namespace idLib.Engine.Public
         public static idMaterialManager materialManager; // This is only valid when rendersystem is valid.
         public static idSoundManager    soundManager;
         public static idUserInterfaceManager ui;
+        public static idModelManager    modelManager;   // All models get loaded through the model manager.
     }
 }
