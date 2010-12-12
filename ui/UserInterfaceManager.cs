@@ -40,8 +40,8 @@ namespace ui
             for( int i = 0; i < fileList.Count; i++ ) {
                 if (fileList[i].Contains("menudef") == false)
                 {
-                    Engine.fileSystem.ReadContent<idUserInterfaceLocal>("ui/" + fileList[i]);
                     Engine.common.Printf("...ui/" + fileList[i] + "\n");
+                    Engine.fileSystem.ReadContent<idUserInterfaceLocal>("ui/" + fileList[i]);
                 }
             }
 

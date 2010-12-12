@@ -214,8 +214,10 @@ namespace rtcw.Sound
                 }
             }
 
+            fileName = Engine.fileSystem.RemoveExtensionFromPath(fileName);
+
             // Check to see if the sound exists.
-            if (!Engine.fileSystem.FileExists(fileName))
+            if (!Engine.fileSystem.FileExists(fileName + ".xnb"))
             {
                 Engine.common.Warning("S_LoadSound: Failed to find sound " + fileName + " defaulting...\n");
                 return null;

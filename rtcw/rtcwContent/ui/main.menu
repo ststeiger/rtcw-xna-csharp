@@ -76,7 +76,7 @@ menuDef {
 		type ITEM_TYPE_MODEL
 		rect 90 80 800 800  
 		model_angle -110
-		asset_model "models/mapobjects/bjui/bjui_b.MD3"
+		asset_model "models/mapobjects/bjui/bjui_b.mdc"
 		model_animplay 0 200 0 30
 		model_fovx 37
 		model_fovy 34
@@ -105,7 +105,7 @@ menuDef {
 		rect 150 0 800 600 
 		model_angle 90
 		model_origin 100 100 100
-		asset_model "models/mapobjects/flag/flag_americanui.MD3"
+		asset_model "models/mapobjects/flag/flag_americanui.mdc"
 		model_animplay 0 114 0 10
 		model_fovx 40
 		model_fovy 40
@@ -151,7 +151,7 @@ menuDef {
 		rect -350 -30 800 600 
 		model_angle -130
 		model_origin 100 100 100
-		asset_model "models/mapobjects/flag/flag_naziui.MD3"
+		asset_model "models/mapobjects/flag/flag_naziui.mdc"
 		model_animplay 0 114 0 10
 		model_fovx 40
 		model_fovy 40
@@ -191,7 +191,7 @@ menuDef {
 		rect 140 266 360 326
 		model_angle 90
 		model_origin 0 0 0
-		asset_model "models/mapobjects/ui/icon_burn.MD3"
+		asset_model "models/mapobjects/ui/icon_burn.mdc"
 		model_fovx 90
 		model_fovy 90
 		visible 1

@@ -103,6 +103,8 @@ namespace idLib.Engine.Public
         public abstract void Init();
         public abstract void Shutdown();
 
+        public abstract string RemoveExtensionFromPath(string _filename);
+
         public abstract void ConditionalRestart( int checksumFeed );
         public abstract void Restart( int checksumFeed );
         // shutdown and restart the filesystem so changes to fs_gamedir can take effect

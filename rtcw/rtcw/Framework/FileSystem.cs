@@ -76,7 +76,7 @@ namespace rtcw.Framework
         private ContentManager _contentManager; // XNA's content manager for content with a valid XNA content project.
         private IsolatedStorageFile _storage;  // Isolated storage container for storage of application updates, savegames, etc.
 
-        private const int MAX_NUM_OPENFILES = 4; // There can only be a maximum of 4 files opened at a time.
+        private const int MAX_NUM_OPENFILES = 20; // There can only be a maximum of 20 files opened at a time.
         private bool isInit = false;
         
         private int fs_loadStack = 0;
@@ -288,6 +288,9 @@ namespace rtcw.Framework
                 return null;
             }
 
+            // Replace \\ with /
+            qpath = qpath.Replace('\\', '/');
+
             // Try to open the file from the users content folder.
             _fileStream = OpenContentReadFileStream(qpath);
             if (_fileStream == null)
@@ -336,7 +339,7 @@ namespace rtcw.Framework
         //
         // RemoveExtensionFromPath
         //
-        private string RemoveExtensionFromPath( string _filename )
+        public override string RemoveExtensionFromPath( string _filename )
         {
             return Path.GetDirectoryName(_filename) + "/" + Path.GetFileNameWithoutExtension(_filename);
         }
@@ -346,7 +349,22 @@ namespace rtcw.Framework
         //
         public override T ReadContent<T>(string qpath)
         {
-            return _contentManager.Load<T>(RemoveExtensionFromPath(qpath));
+            string path = RemoveExtensionFromPath(qpath);
+            if (FileExists(path + ".xnb") == false)
+            {
+                Engine.common.Warning("FS_ReadContent: File not found " + qpath + "\n");
+                return default(T);
+            }
+
+            try
+            {
+                return _contentManager.Load<T>(path);
+            }
+            catch (Exception e)
+            {
+                Engine.common.Warning("FS_ReadContent: " + e.ToString() + "\n");
+                return default(T);
+            }
         }
 
         //
