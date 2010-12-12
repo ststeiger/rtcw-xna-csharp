@@ -1108,6 +1108,11 @@
       <Name>british</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="models\mapobjects\flag\british.tga">
+      <Name>british</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <None Include="models\mapobjects\flag\flag.mdc">
       <Name>flag</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1134,6 +1139,11 @@
     </None>
     <Compile Include="models\mapobjects\flag\flag_ui_american.tga">
       <Name>flag_ui_american</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\flag\flag_ui_nazi.tga">
+      <Name>flag_ui_nazi</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -8307,6 +8317,18 @@
     </Compile>
     <Compile Include="models\mapobjects\flag\flag1b.jpg">
       <Name>flag1b</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="models\mapobjects\flag\flag1.jpg">
+      <Name>flag1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\flag\flag1_escape.jpg">
+      <Name>flag1_escape</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

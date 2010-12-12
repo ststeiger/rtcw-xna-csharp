@@ -113,7 +113,7 @@ namespace rtcw.Renderer.Models
             f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsSurfaces);
 
             int surfpos = header.ofsSurfaces;
-            for (int i = 0; i < header.numSurfaces; i++, surfpos = surfaces[i].ofsEnd)
+            for (int i = 0; i < header.numSurfaces; i++)
             {
                 // Parse the surface.
                 mdcSurface_t surf = new mdcSurface_t(ref f);
@@ -131,7 +131,7 @@ namespace rtcw.Renderer.Models
                 for (int j = 0; j < surf.numShaders; j++)
                 {
                     string shader_name = md3Shader_t.ParseShader(ref f);
-                    surf.materials[i] = Engine.materialManager.FindMaterial(shader_name, -1);
+                    surf.materials[j] = Engine.materialManager.FindMaterial(shader_name, -1);
                 }
 
                 // Load in all the triangles.
@@ -160,8 +160,8 @@ namespace rtcw.Renderer.Models
                 surf.xyzCompressedIndexPool = new mdcXyzCompressed_t[surf.numVerts * surf.numCompFrames];
                 for (int j = 0; j < surf.numVerts * surf.numCompFrames; j++)
                 {
-                    surf.xyzCompressedIndexPool[i] = new mdcXyzCompressed_t();
-                    surf.xyzCompressedIndexPool[i].ofsVec = (uint)f.ReadInt();
+                    surf.xyzCompressedIndexPool[j] = new mdcXyzCompressed_t();
+                    surf.xyzCompressedIndexPool[j].ofsVec = (uint)f.ReadInt();
                 }
 
                 // swap the frameBaseFrames
@@ -170,16 +170,17 @@ namespace rtcw.Renderer.Models
                 surf.baseFrames = new short[header.numFrames];
                 for (int j = 0; j < header.numFrames; j++)
                 {
-                    surf.baseFrames[i] = f.ReadShort();
+                    surf.baseFrames[j] = f.ReadShort();
                 }
 
                 // swap the frameCompFrames
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsFrameCompFrames);
+                surf.compFrames = new short[header.numFrames];
                 for (int j = 0; j < header.numFrames; j++)
                 {
-                    surf.compFrames[i] = f.ReadShort();
+                    surf.compFrames[j] = f.ReadShort();
                 }
-
+                surfpos += surf.ofsEnd;
                 surfaces[i] = surf;
             }
         }
