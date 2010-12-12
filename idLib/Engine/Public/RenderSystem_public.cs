@@ -286,6 +286,7 @@ namespace idLib.Engine.Public
 	    public float s2;
 	    public float t2;
 	    public idMaterial glyph; // handle to the shader with the glyph
+        public string shaderName;
     };
 
     //
@@ -389,6 +390,6 @@ namespace idLib.Engine.Public
         public abstract void BeginFrame();
         public abstract void EndFrame();
         public abstract void DrawStrechPic(int x, int y, int width, int height, idImage image);
-        public abstract idFont RegisterFont(string name);
+        public abstract idFont RegisterFont(string name, int pointSize);
     }
 }

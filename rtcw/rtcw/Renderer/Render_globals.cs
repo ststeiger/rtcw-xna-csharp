@@ -354,6 +354,10 @@ namespace rtcw.Renderer
         public const int FUNCTABLE_MASK     =     ( FUNCTABLE_SIZE - 1 );
         public const int MAX_POLYS          =     4096;
         public const int MAX_POLYVERTS = 8192;
+        public const int MAX_FONTS = 6;
+
+        public int registeredFontCount = 0;
+        public idFont[] registeredFont = new idFont[MAX_FONTS];
 
         public bool registered = false;                    // cleared at shutdown, set at beginRegistration
 

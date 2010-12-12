@@ -46,12 +46,12 @@ namespace ui
         //
         // UI_RegisterFont
         //
-        private void UI_RegisterFont( string name, out idFont font )
+        private void UI_RegisterFont( string name, int pointSize, out idFont font )
         {
             // Load all the UI specified assets.
             if (AssetStringValid(name))
             {
-                font = Engine.RenderSystem.RegisterFont(name);
+                font = Engine.RenderSystem.RegisterFont(name, pointSize);
                 return;
             }
 
@@ -119,10 +119,10 @@ namespace ui
         //
         private void LoadAssets()
         {
-            UI_RegisterFont(assets.bigFont, out assets.handles.bigFont );
-            UI_RegisterFont(assets.smallFont, out assets.handles.smallFont);
-            UI_RegisterFont(assets.textFont, out assets.handles.textFont);
-            UI_RegisterFont(assets.handwritingFont, out assets.handles.handwritingFont);
+            UI_RegisterFont(assets.bigFont, assets.bigFontSize, out assets.handles.bigFont );
+            UI_RegisterFont(assets.smallFont, assets.smallFontSize, out assets.handles.smallFont);
+            UI_RegisterFont(assets.textFont, assets.textFontSize,  out assets.handles.textFont);
+            UI_RegisterFont(assets.handwritingFont, assets.handwritingFontSize, out assets.handles.handwritingFont);
 
             UI_RegisterMaterial(assets.cursor, out assets.handles.cursor );
             UI_RegisterMaterial(assets.gradientBar, out assets.handles.gradientBar );

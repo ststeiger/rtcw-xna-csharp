@@ -1096,6 +1096,47 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="fonts\fontImage_0_12.tga">
+      <Name>fontImage_0_12</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="fonts\fontImage_0_16.tga">
+      <Name>fontImage_0_16</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="fonts\fontImage_0_17.tga">
+      <Name>fontImage_0_17</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="fonts\fontImage_0_24.tga">
+      <Name>fontImage_0_24</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="fonts\fontImage_12.dat">
+      <Name>fontImage_12</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="fonts\fontImage_16.dat">
+      <Name>fontImage_16</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="fonts\fontImage_17.dat">
+      <Name>fontImage_17</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="fonts\fontImage_1_24.tga">
+      <Name>fontImage_1_24</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="fonts\fontImage_24.dat">
+      <Name>fontImage_24</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="models\mapobjects\bjui\bjui_b.MDc">
       <Name>bjui_b</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1402,7 +1443,7 @@
   <ItemGroup>
     <None Include="dlls\ui.dll">
       <Name>ui</Name>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

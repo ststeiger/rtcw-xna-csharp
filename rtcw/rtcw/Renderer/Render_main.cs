@@ -591,9 +591,70 @@ namespace rtcw.Renderer
         //
         // RegisterFont
         //
-        public override idFont RegisterFont(string name)
+        public override idFont RegisterFont(string filename, int pointSize)
         {
-            return null;
+            idFont font;
+	        int i;
+	        string name;
+	        float dpi = 72;                                         //
+	        float glyphScale =  72.0f / dpi;        // change the scale to be relative to 1 based on 72 dpi ( so dpi of 144 means a scale of .5 )
+
+	        if ( pointSize <= 0 ) {
+		        pointSize = 12;
+	        }
+	        // we also need to adjust the scale based on point size relative to 48 points as the ui scaling is based on a 48 point font
+	        glyphScale *= 48.0f / pointSize;
+
+	        // make sure the render thread is stopped
+	        //R_SyncRenderThread();
+
+	        if ( Globals.tr.registeredFontCount >= idRenderGlobals.MAX_FONTS ) {
+		        Engine.common.Warning("RE_RegisterFont: Too many fonts registered already.\n" );
+		        return null;
+	        }
+
+            // jv - fix me this is stupid :/.
+	        //Com_sprintf( name, sizeof( name ), "fonts/fontImage_%i.dat",pointSize );
+            name = "fonts/fontImage_" + pointSize + ".dat";
+	        for ( i = 0; i < Globals.tr.registeredFontCount; i++ ) {
+		        if ( name == Globals.tr.registeredFont[i].name ) {
+			        return Globals.tr.registeredFont[i];
+		        }
+	        }
+
+            idFile _file = Engine.fileSystem.OpenFileRead( name, true );
+            if(_file == null)
+            {
+                Engine.common.Warning( "R_RegisterFont: Failed to open font " + name + "\n" );
+                return null;
+            }
+		   
+            font = new idFont();
+		    for ( i = 0; i < idFont.GLYPHS_PER_FONT; i++ ) {
+                font.glyphs[i] = new glyphInfo_t();
+                font.glyphs[i].height      = _file.ReadInt();
+                font.glyphs[i].top         = _file.ReadInt();
+                font.glyphs[i].bottom      = _file.ReadInt();
+                font.glyphs[i].pitch       = _file.ReadInt();
+                font.glyphs[i].xSkip       = _file.ReadInt();
+                font.glyphs[i].imageWidth  = _file.ReadInt();
+                font.glyphs[i].imageHeight = _file.ReadInt();
+                font.glyphs[i].s           = _file.ReadFloat();
+                font.glyphs[i].t           = _file.ReadFloat();
+                font.glyphs[i].s2          = _file.ReadFloat();
+                font.glyphs[i].t2          = _file.ReadFloat();
+                _file.ReadInt(); // font.glyphs[i].glyph - placeholder not needed.
+                font.glyphs[i].shaderName  = _file.ReadString( 32 );
+                if (font.glyphs[i].shaderName.Length > 0)
+                {
+                    font.glyphs[i].glyph = Engine.materialManager.FindMaterial(font.glyphs[i].shaderName, -1);
+                }
+		    }
+		    font.glyphScale = _file.ReadFloat();
+            font.name = name;
+
+            Globals.tr.registeredFont[Globals.tr.registeredFontCount] = font;
+            return Globals.tr.registeredFont[Globals.tr.registeredFontCount++];
         }
     }
 }
