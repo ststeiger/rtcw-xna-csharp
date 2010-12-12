@@ -198,10 +198,10 @@ namespace rtcw.Client
             Engine.RenderSystem.Init();
 
             // load character sets
-            cls.charSetShader = Engine.RenderSystem.RegisterMaterial("gfx/2d/bigchars");
-            cls.whiteShader = Engine.RenderSystem.RegisterMaterial("white");
-            cls.consoleShader = Engine.RenderSystem.RegisterMaterial("console");
-            cls.consoleShader2 = Engine.RenderSystem.RegisterMaterial("console2");
+            cls.charSetShader = Engine.materialManager.FindMaterial("gfx/2d/bigchars", -1);
+            cls.whiteShader = Engine.materialManager.FindMaterial("white", -1);
+            cls.consoleShader = Engine.materialManager.FindMaterial("console", -1);
+            cls.consoleShader2 = Engine.materialManager.FindMaterial("console2", -1);
         }
 
         //

@@ -270,6 +270,39 @@ namespace idLib.Engine.Public
 	    public int entityNum;                  // currentState.number, so we can attach rendering effects to specific entities (Zombie)
     }
 
+    // font support
+
+    
+    public struct glyphInfo_t {
+	    public int height;     // number of scan lines
+	    public int top;        // top of glyph in buffer
+	    public int bottom;     // bottom of glyph in buffer
+	    public int pitch;      // width for copying
+	    public int xSkip;      // x adjustment
+	    public int imageWidth; // width of actual image
+	    public int imageHeight; // height of actual image
+	    public float s;        // x offset in image where glyph starts
+	    public float t;        // y offset in image where glyph starts
+	    public float s2;
+	    public float t2;
+	    public idMaterial glyph; // handle to the shader with the glyph
+    };
+
+    //
+    // idFont
+    //
+    public class idFont {
+        public const int GLYPH_START  =  0;
+        public const int GLYPH_END    = 255;
+        public const int GLYPH_CHARSTART = 32;
+        public const int GLYPH_CHAREND   = 127;
+        public const int GLYPHS_PER_FONT = GLYPH_END - GLYPH_START + 1;
+
+	    public glyphInfo_t[] glyphs = new glyphInfo_t [GLYPHS_PER_FONT];
+	    public float glyphScale;
+        public string name;
+    };
+
     //
     // idWorld
     //
@@ -350,12 +383,12 @@ namespace idLib.Engine.Public
     public abstract class idRenderSystem
     {
         public abstract void Init();
-        public abstract idMaterial RegisterMaterial(string name);
         public abstract int GetViewportWidth();
         public abstract int GetViewportHeight();
         public abstract idVideo LoadVideo(string filename);
         public abstract void BeginFrame();
         public abstract void EndFrame();
         public abstract void DrawStrechPic(int x, int y, int width, int height, idImage image);
+        public abstract idFont RegisterFont(string name);
     }
 }

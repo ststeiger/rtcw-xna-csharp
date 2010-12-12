@@ -334,11 +334,19 @@ namespace rtcw.Framework
         }
 
         //
+        // RemoveExtensionFromPath
+        //
+        private string RemoveExtensionFromPath( string _filename )
+        {
+            return Path.GetDirectoryName(_filename) + "/" + Path.GetFileNameWithoutExtension(_filename);
+        }
+
+        //
         // ReadContent
         //
         public override T ReadContent<T>(string qpath)
         {
-            return _contentManager.Load<T>(qpath);
+            return _contentManager.Load<T>(RemoveExtensionFromPath(qpath));
         }
 
         //

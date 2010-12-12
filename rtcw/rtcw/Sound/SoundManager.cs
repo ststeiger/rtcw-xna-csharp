@@ -91,12 +91,87 @@ namespace rtcw.Sound
 
         public override void Stop()
         {
-            dynamicBuffer.Pause();
+            dynamicBuffer.Stop();
         }
 
         public override void Pause()
         {
             dynamicBuffer.Pause();
+        }
+
+        public override string GetName()
+        {
+            return "dynamicsound";
+        }
+    }
+
+    //
+    // idSoundLocal
+    //
+    public class idSoundLocal : idSound
+    {
+        SoundEffect handle;
+        SoundEffectInstance instance;
+        string name;
+
+        //
+        // idSoundLocal
+        //
+        public idSoundLocal(string fileName)
+        {
+            handle = Engine.fileSystem.ReadContent<SoundEffect>(fileName);
+            name = fileName;
+        }
+
+        //
+        // BlitSoundData
+        //
+        public override void BlitSoundData(byte[] buffer, int offset, int length)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Play()
+        {
+            if (instance == null)
+            {
+                instance = handle.CreateInstance();
+                instance.Play();
+            }
+            else
+            {
+                instance.Resume();
+            }
+        }
+
+        public override void Dipose()
+        {
+            if (instance != null)
+            {
+                instance.Dispose();
+            }
+
+            handle.Dispose();
+        }
+
+        public override void SetVolume(float vol)
+        {
+            instance.Volume = vol;
+        }
+
+        public override void Stop()
+        {
+            instance.Stop();
+        }
+
+        public override void Pause()
+        {
+            instance.Pause();
+        }
+
+        public override string GetName()
+        {
+            return name;
         }
     }
 
@@ -124,9 +199,38 @@ namespace rtcw.Sound
         }
 
         //
+        // LoadSound
+        //
+        public override idSound LoadSound(string fileName)
+        {
+            idSound sound;
+
+            // Check to see if the sound is already loaded.
+            for (int i = 0; i < soundpool.Count; i++)
+            {
+                if (soundpool[i].GetName() == fileName)
+                {
+                    return soundpool[i];
+                }
+            }
+
+            // Check to see if the sound exists.
+            if (!Engine.fileSystem.FileExists(fileName))
+            {
+                Engine.common.Warning("S_LoadSound: Failed to find sound " + fileName + " defaulting...\n");
+                return null;
+            }
+
+            sound = new idSoundLocal(fileName);
+            soundpool.Add(sound);
+
+            return soundpool[soundpool.Count - 1];
+        }
+
+        //
         // CreateStreamingSound
         //
-        public override idSound  CreateStreamingSound(int bitrate, int numChannels)
+        public override idSound CreateStreamingSound(int bitrate, int numChannels)
         {
             return new idSoundSteaming(bitrate, numChannels);
         }

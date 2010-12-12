@@ -36,16 +36,46 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using idLib.Math;
+using idLib.Engine.Public;
 
 namespace idLib.Engine.Content.ui.Private
 {
+    //
+    // idUserInterfaceCachedAssetHandles
+    //
+    public class idUserInterfaceCachedAssetHandles
+    {
+        public idFont textFont;
+        public idFont smallFont;
+        public idFont bigFont;
+        public idFont handwritingFont;
+
+        public idMaterial cursor;
+        public idMaterial gradientBar;
+        public idMaterial scrollBarArrowUp;
+        public idMaterial scrollBarArrowDown;
+        public idMaterial scrollBarArrowLeft;
+        public idMaterial scrollBarArrowRight;
+        public idMaterial scrollBar;
+        public idMaterial scrollBarThumb;
+        public idMaterial buttonMiddle;
+        public idMaterial buttonInside;
+        public idMaterial solidBox;
+        public idMaterial sliderBar;
+        public idMaterial sliderThumb;
+        public idSound menuEnterSound;
+        public idSound menuExitSound;
+        public idSound menuBuzzSound;
+        public idSound itemFocusSound;
+    }
+
     public class idUserInterfaceCachedAssets
     {
-     
+        public idUserInterfaceCachedAssetHandles handles = new idUserInterfaceCachedAssetHandles();
 	    public string fontStr = "";
 	    public string cursorStr = "";
 	    public string gradientStr = "";
-	    
+
         public string textFont = "";
         public int textFontSize = 0;
 

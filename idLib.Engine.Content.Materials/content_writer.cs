@@ -17,6 +17,7 @@ namespace idLib.Engine.Content.Materials
         protected override void Write(ContentWriter output, idMaterialLookupTable value)
         {
             output.Write(value.Count);
+            
             for (int i = 0; i < value.Count; i++)
             {
                 output.Write(value.GetMaterial(i).mtrname);

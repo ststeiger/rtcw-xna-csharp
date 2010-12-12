@@ -573,14 +573,6 @@ namespace rtcw.Renderer
         }
 
         //
-        // RegisterMaterial
-        //
-        public override idMaterial RegisterMaterial(string name)
-        {
-            return null;
-        }
-
-        //
         // GetViewportWidth
         //
         public override int GetViewportWidth()
@@ -594,6 +586,14 @@ namespace rtcw.Renderer
         public override int GetViewportHeight()
         {
             return _graphicsDevice.Viewport.Height;
+        }
+
+        //
+        // RegisterFont
+        //
+        public override idFont RegisterFont(string name)
+        {
+            return null;
         }
     }
 }

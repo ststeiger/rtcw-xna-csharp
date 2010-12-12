@@ -212,7 +212,11 @@ namespace idLib.Engine.Content.ui
         public bool textSavegameInfo = false;      //----(SA)	added
         public idUserInterfaceMenuDef parent = null;                   // menu owner
         public string asset_model = "";                // handle to asset
+        public idModel model;
+
         public string asset_shader = "";
+        public idMaterial material;
+
         public string mouseEnterText = "";     // mouse enter script
         public string mouseExitText = "";      // mouse exit script
         public string mouseEnter = "";         // mouse enter script
@@ -225,7 +229,7 @@ namespace idLib.Engine.Content.ui
         public string cvarTest = "";           // associated cvar for enable actions
         public string enableCvar = "";         // enable, disable, show, or hide based on value, this can contain a list
         public int cvarFlags = 0;                  //	what type of action to take on cvarenables
-        //public idSound focusSound=null;
+        public idSound focusSnd=null;
         public string focusSound = "";
         public int numColors=0;                  // number of color ranges
         public idUserInterfaceColorRangeDef[] colorRanges = new idUserInterfaceColorRangeDef[ui_globals.MAX_COLOR_RANGES];

@@ -82,6 +82,7 @@ namespace rtcw.Renderer
         //
         public idMaterialLocal(int lightmapIndex)
         {
+            shader = new idMaterialBase();
             shader.lightmapIndex = lightmapIndex;
         }
 
@@ -425,7 +426,9 @@ namespace rtcw.Renderer
 	        {
 		        if(parser.ReachedEndOfBuffer == true )
                 {
-			         Engine.common.Warning("no matching '}' found\n" );
+                    parser.UngetToken();
+
+			         Engine.common.Warning("no matching '}' found - last token %s\n", parser.NextToken );
 			        return false;
 		        }
 
@@ -533,7 +536,7 @@ namespace rtcw.Renderer
 		        //
 		        // animMap <frequency> <image1> .... <imageN>
 		        //
-		        else if ( token == "animMap" ) {
+		        else if ( token == "animmap" ) {
 			        token = parser.GetNextTokenFromLine();
 			        if ( token == null ) {
 				        Engine.common.Warning( "missing parameter for 'animMmap' keyword in shader '%s'\n", shader.name );
@@ -559,7 +562,7 @@ namespace rtcw.Renderer
 					        stage.bundle[0].numImageAnimations++;
 				        }
 			        }
-		        } else if ( token == "videoMap" )    {
+		        } else if ( token == "videomap" )    {
 			        token = parser.GetNextTokenFromLine();
 			        if ( token == null ) {
 				        Engine.common.Warning( "missing parameter for 'videoMmap' keyword in shader '%s'\n", shader.name );
@@ -574,7 +577,7 @@ namespace rtcw.Renderer
 		        //
 		        // alphafunc <func>
 		        //
-		        else if ( token == "alphaFunc" ) {
+		        else if ( token == "alphafunc" ) {
 			        token = parser.GetNextTokenFromLine();
 			        if ( token == null ) {
 				        Engine.common.Warning( "missing parameter for 'alphaFunc' keyword in shader '%s'\n", shader.name );
@@ -665,8 +668,8 @@ namespace rtcw.Renderer
 		        //
 		        // rgbGen
 		        //
-		        else if ( token == "rgbGen" ) {
-			        token = parser.GetNextTokenFromLine();
+		        else if ( token == "rgbgen" ) {
+			        token = parser.GetNextTokenFromLine().ToLower();
 			        if ( token == null ) {
 				        Engine.common.Warning( "missing parameters for rgbGen in shader '%s'\n", shader.name );
 				        return false;
@@ -682,22 +685,22 @@ namespace rtcw.Renderer
                         stage.rgbGen = colorGen_t.CGEN_CONST;
 			        } else if ( token == "identity"  )    {
 				        stage.rgbGen = colorGen_t.CGEN_IDENTITY;
-			        } else if ( token == "identityLighting"  )    {
+			        } else if ( token == "identitylighting"  )    {
 				        stage.rgbGen = colorGen_t.CGEN_IDENTITY_LIGHTING;
 			        } else if ( token == "entity"  )    {
 				        stage.rgbGen = colorGen_t.CGEN_ENTITY;
-			        } else if ( token == "oneMinusEntity"  )    {
+			        } else if ( token == "oneminusentity"  )    {
 				        stage.rgbGen = colorGen_t.CGEN_ONE_MINUS_ENTITY;
 			        } else if ( token == "vertex"  )    {
 				        stage.rgbGen = colorGen_t.CGEN_VERTEX;
 				        if ( stage.alphaGen == 0 ) {
 					        stage.alphaGen = alphaGen_t.AGEN_VERTEX;
 				        }
-			        } else if ( token == "exactVertex"  )    {
+			        } else if ( token == "exactvertex"  )    {
 				        stage.rgbGen = colorGen_t.CGEN_EXACT_VERTEX;
-			        } else if ( token == "lightingDiffuse"  )    {
+			        } else if ( token == "lightingdiffuse"  )    {
 				        stage.rgbGen = colorGen_t.CGEN_LIGHTING_DIFFUSE;
-			        } else if ( token == "oneMinusVertex"  )    {
+			        } else if ( token == "oneminusvertex"  )    {
 				        stage.rgbGen = colorGen_t.CGEN_ONE_MINUS_VERTEX;
 			        } else
 			        {
@@ -708,8 +711,8 @@ namespace rtcw.Renderer
 		        //
 		        // alphaGen
 		        //
-		        else if ( token == "alphaGen" ) {
-			        token = parser.GetNextTokenFromLine();
+		        else if ( token == "alphagen" ) {
+			        token = parser.GetNextTokenFromLine().ToLower();
 			        if ( token == null ) {
 				        Engine.common.Warning( "missing parameters for alphaGen in shader '%s'\n", shader.name );
 				        continue;
@@ -726,7 +729,7 @@ namespace rtcw.Renderer
 				        stage.alphaGen = alphaGen_t.AGEN_IDENTITY;
 			        } else if ( token == "entity" )    {
 				        stage.alphaGen = alphaGen_t.AGEN_ENTITY;
-			        } else if ( token == "oneMinusEntity" )    {
+			        } else if ( token == "oneminusentity" )    {
 				        stage.alphaGen = alphaGen_t.AGEN_ONE_MINUS_ENTITY;
 			        }
 			        // Ridah
@@ -753,9 +756,9 @@ namespace rtcw.Renderer
 			        // done.
 			        else if ( token == "vertex"  ) {
 				        stage.alphaGen = alphaGen_t.AGEN_VERTEX;
-			        } else if ( token == "lightingSpecular" )    {
+			        } else if ( token == "lightingspecular" )    {
 				        stage.alphaGen = alphaGen_t.AGEN_LIGHTING_SPECULAR;
-			        } else if ( token == "oneMinusVertex" )    {
+			        } else if ( token == "oneMinusvertex" )    {
 				        stage.alphaGen = alphaGen_t.AGEN_ONE_MINUS_VERTEX;
 			        } else if ( token == "portal" )    {
 				        stage.alphaGen = alphaGen_t.AGEN_PORTAL;
@@ -776,8 +779,8 @@ namespace rtcw.Renderer
 		        //
 		        // tcGen <function>
 		        //
-		        else if ( token == "texgen" || token == "tcGen"  ) {
-			        token = parser.GetNextTokenFromLine();
+		        else if ( token == "texgen" || token == "tcgen"  ) {
+			        token = parser.GetNextTokenFromLine().ToLower();
 			        if ( token == null ) {
 				        Engine.common.Warning("missing texgen parm in shader '%s'\n", shader.name );
 				        continue;
@@ -807,13 +810,13 @@ namespace rtcw.Renderer
 		        //
 		        // tcMod <type> <...>
 		        //
-		        else if ( token == "tcMod" ) {
+		        else if ( token == "tcmod" ) {
 			        string buffer = "";
 
 			        while ( true )
 			        {
                         token = parser.GetNextTokenFromLine();
-				        if ( token[0] == 0 ) {
+				        if ( token == null ) {
 					        break;
 				        }
                         buffer += token + " ";
@@ -1103,7 +1106,7 @@ namespace rtcw.Renderer
 	        //
 	        if ( shader.numUnfoggedPasses == 1 ) {
 		        if ( ( shader.stages[0].rgbGen == colorGen_t.CGEN_IDENTITY ) && ( shader.stages[0].alphaGen == alphaGen_t.AGEN_IDENTITY ) ) {
-                    if (shader.stages[0].bundle[0].tcGen == texCoordGen_t.TCGEN_TEXTURE &&
+                    if (shader.stages[0].bundle[0].tcGen == texCoordGen_t.TCGEN_TEXTURE && shader.stages[0].bundle[1] != null &&
                          shader.stages[0].bundle[1].tcGen == texCoordGen_t.TCGEN_LIGHTMAP)
                     {
 				        if ( !shader.polygonOffset ) {
@@ -1202,7 +1205,7 @@ namespace rtcw.Renderer
 	        }
 
 	        // nothing found
-	        if ( collapse[i].blendA == -1 ) {
+	        if ( /*collapse[i].blendA == -1*/ i >= collapse.Length ) {
 		        return false;
 	        }
 
@@ -1613,26 +1616,28 @@ namespace rtcw.Renderer
             int s = 0;
             this.name = name;
 
-            shader = new idMaterialBase();
-
-            parser.ExpectNextToken("{");
+           // parser.ExpectNextToken("{");
 
             while (true)
             {
-                if (parser.ReachedEndOfBuffer == true)
+                string token = parser.NextToken;
+
+                if (parser.ReachedEndOfBuffer == true || token == null)
                 {
-                    Engine.common.Warning("no concluding '}' in shader %s\n", name);
-                    return false;
+                    // This is allowed because the trailing bracket is removed by the content builder.
+                   // Engine.common.Warning("no concluding '}' in shader %s\n", name);
+                   // return false;
+                    return true;
                 }
 
-                string token = parser.NextToken.ToLower();
+                token = token.ToLower();
 
                 // end of shader definition
 		        if ( token == "}" ) {
 			        break;
 		        }
 		        // stage definition
-		        else if ( token[0] == '{' ) {
+		        else if ( token == "{" ) {
 			        if ( !ParseStage( out shader.stages[s], ref parser ) ) {
 				        return false;
 			        }
@@ -1962,34 +1967,30 @@ namespace rtcw.Renderer
         //
         private idMaterial CreateImplicitMaterial(string name, string defaultImage, int lightmapIndex)
         {
-            string defaultMtrLightmapped = name +
-                                "{" +
-	                                "{" +
-		                                "map " + defaultImage +
-		                                "blendFunc GL_DST_COLOR GL_ZERO" +
-		                                "rgbGen identity" +
-	                                "}" +
-	                                "{" +
-		                             "  map $lightmap" +
-		                             "  rgbGen identity" +
-		                             "  tcMod scale 1 1" +
-		                             "   tcMod turb 0 .1 0 .1" +
-	                                "}" +
-                                "}";
-            string defaultMtr = name +
-                    "{" +
-                        "{" +
-                            "map " + defaultImage +
-                            "blendFunc GL_DST_COLOR GL_ZERO" +
-                            "rgbGen identity" +
-                        "}" +
-                        "{" +
-                         "  map $lightmap" +
-                         "  rgbGen identity" +
-                         "  tcMod scale 1 1" +
-                         "   tcMod turb 0 .1 0 .1" +
-                        "}" +
-                    "}";
+            string defaultMtrLightmapped = "{" + "\n" +
+                                        "map " + defaultImage + "\n" +
+                                        "blendFunc GL_DST_COLOR GL_ZERO" + "\n" +
+                                        "rgbGen identity" + "\n" +
+                                    "}" + "\n" +
+                                    "{" + "\n" +
+                                     "  map $lightmap" + "\n" +
+                                     "  rgbGen identity" + "\n" +
+                                     "  tcMod scale 1 1" + "\n" +
+                                     "   tcMod turb 0 .1 0 .1" + "\n" +
+                                    "}" + "\n" +
+                                "}\n";
+            string defaultMtr =  "{" + "\n" +
+                            "map " + defaultImage + "\n" +
+                            "blendFunc GL_DST_COLOR GL_ZERO" + "\n" +
+                            "rgbGen identity" + "\n" +
+                        "}" + "\n" +
+                        "{" + "\n" +
+                         "  map $lightmap" + "\n" +
+                         "  rgbGen identity" + "\n" +
+                         "  tcMod scale 1 1" + "\n" +
+                         "   tcMod turb 0 .1 0 .1" + "\n" +
+                        "}" + "\n" +
+                    "}\n";
             Engine.common.Warning("Creating implicit material for " + name + "\n");
             if (lightmapIndex < 0)
             {

@@ -53,6 +53,7 @@ namespace idLib
         bool inQuotedString = false;
         bool inLongComment = false;
         bool lineBreakFound = false;
+        bool lastStrInQuote = false;
 
         //
         // idParser
@@ -235,6 +236,7 @@ namespace idLib
                 }
 
                 // Check for comments in the bracket section.
+
                 c = GetNextUncheckedChar();
                 if (c == '/')
                 {
@@ -245,8 +247,9 @@ namespace idLib
                     }
                     else
                     {
-                        parsePosition--;
+                        parsePosition-=2;
                     }
+                    c = GetNextUncheckedChar();
                 }
 
                 if (c == '{')
@@ -303,10 +306,33 @@ namespace idLib
                     // blank space, if thats the case continue to call get nextchar 
                     if( token.Length > 0 )
                     {
-                        if (c == '\n')
+                        if (c == '\n' || c == '\r')
                         {
                             lineBreakFound = true;
                         }
+
+                        // Check trailing spaces to see if there is a new line following it.
+                        int currentPosition = parsePosition;
+                        while (c == ' ' || c == '\t')
+                        {
+                            if (ReachedEndOfBuffer == true)
+                            {
+                                break;
+                            }
+                            c = GetNextUncheckedChar();
+
+                            if (c == '\n' || c == '\r')
+                            {
+                                lineBreakFound = true;
+                                break;
+                            }
+                        }
+
+                        if (lineBreakFound == false)
+                        {
+                            parsePosition = currentPosition;
+                        }
+
                         return false;
                     }
                     else
@@ -318,6 +344,7 @@ namespace idLib
                 if (c == '"')
                 {
                     inQuotedString = true;
+                    lastStrInQuote = true;
                     return GetNextChar(ref c);
                 }
             }
@@ -384,6 +411,7 @@ namespace idLib
             char c = '\0';
 
             token = "";
+            lastStrInQuote = false;
 
             // If were passed the length of the buffer, this means we have reached the end of the stream.
             if (parsePosition >= buffer.Length)
@@ -430,6 +458,10 @@ namespace idLib
             // If this token is null than we have probley reached EOF.
             if (token.Length <= 0)
             {
+               // if (ReachedEndOfBuffer == false && ReachedEndOfBuffer == false && lastStrInQuote == false)
+              //  {
+               //     return GetNextToken();
+               // }
                 return null;
             }
 

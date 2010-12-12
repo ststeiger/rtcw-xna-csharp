@@ -35,6 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using idLib.Math;
+using idLib.Engine.Public;
 
 namespace idLib.Engine.Content.ui.Private
 {
@@ -141,8 +142,12 @@ namespace idLib.Engine.Content.ui.Private
         public idUserInterfaceRectangle rectClient = new idUserInterfaceRectangle();           // screen coord rectangle
 	    public string name = "";               //
         public string model = "";              //
+        public idModel modelHandle;
+
         public string group = "";              // if it belongs to a group
         public string cinematicName = "";      // cinematic name
+        public idVideo cinematicHandle;
+
         public int cinematic = 0;                  // cinematic handle
         public int style = 0;                      //
         public int border = 0;                     //

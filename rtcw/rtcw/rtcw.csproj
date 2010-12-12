@@ -125,8 +125,11 @@
     <Compile Include="Renderer\MaterialManager.cs" />
     <Compile Include="Renderer\Materials.cs" />
     <Compile Include="Renderer\ModelManager.cs" />
+    <Compile Include="Renderer\Models\MD3_format.cs" />
     <Compile Include="Renderer\Models\MD3_model.cs" />
+    <Compile Include="Renderer\Models\MDC_format.cs" />
     <Compile Include="Renderer\Models\MDC_model.cs" />
+    <Compile Include="Renderer\Models\MDS_format.cs" />
     <Compile Include="Renderer\Models\MDS_model.cs" />
     <Compile Include="Renderer\Models\ModelBase.cs" />
     <Compile Include="Renderer\Render_globals.cs" />

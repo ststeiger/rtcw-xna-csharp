@@ -50,6 +50,22 @@ namespace rtcw.Renderer
         List<idModel> modelpool = new List<idModel>();
 
         //
+        // Init
+        //
+        public override void Init()
+        {
+            
+        }
+
+        //
+        // Shutdown
+        //
+        public override void Shutdown()
+        {
+            
+        }
+
+        //
         // LoadModel
         //
         public override idModel LoadModel(string qpath)
