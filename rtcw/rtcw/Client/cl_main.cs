@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using idLib.Engine.Public;
+using idLib.Game.Client;
 
 namespace rtcw.Client
 {
@@ -115,6 +116,7 @@ namespace rtcw.Client
         public bool soundStarted = false;
         public bool soundRegistered = false;
         public bool uiStarted = false;
+        public bool cgameStarted = false;
 
         public idMaterial charSetShader;
         public idMaterial whiteShader;
@@ -124,6 +126,9 @@ namespace rtcw.Client
         public idVideo videoFullScreen;
 
         public idSysModule uivm;
+        public idSysModule cgvm;
+
+        public idClientGamePublic cgame;
     };
 
     //
@@ -219,6 +224,21 @@ namespace rtcw.Client
             Engine.ui.Init();
         }
 
+        //
+        // InitCGame
+        //
+        private void InitCGame()
+        {
+            // Load the vm.
+            cls.cgvm = Engine.Sys.LoadDLL("cgame");
+
+            // Allocate the cgame interface from the vm.
+            cls.cgame = cls.cgvm.AllocClass<idClientGamePublic>("cgame.idClientGame");
+
+            // Init cgame.
+            cls.cgame.Init();
+        }
+
         /*
         ============================
         CL_StartHunkUsers
@@ -256,6 +276,12 @@ namespace rtcw.Client
 		        cls.uiStarted = true;
                 InitUI();
 	        }
+
+            if (!cls.cgameStarted)
+            {
+                cls.cgameStarted = true;
+                InitCGame();
+            }
         }
 
         //
@@ -448,6 +474,10 @@ namespace rtcw.Client
                 {
                     cls.videoFullScreen.DrawCinematic();
                 }
+            }
+            else if (cls.state == connstate_t.CA_DISCONNECTED)
+            {
+                cls.cgame.DrawMainMenu();
             }
 
             Engine.RenderSystem.EndFrame();

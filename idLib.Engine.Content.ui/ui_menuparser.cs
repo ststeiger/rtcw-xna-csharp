@@ -7,22 +7,24 @@ using idLib.Engine.Content.ui.Private;
 namespace idLib.Engine.Content.ui
 {
 
-    class keywordHash_t
-    {
-        public delegate void func(ref idUserInterfaceItem item, ref idUserInterfaceFile ui);
 
-        public string name;
-        public func function;
-
-        public keywordHash_t(string keyname, func function, object notUsed)
-        {
-            name = keyname;
-            this.function = function;
-        }
-    };
 
     static class MenuParser
     {
+        class keywordHash_t
+        {
+            public delegate void func(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui);
+
+            public string name;
+            public func function;
+
+            public keywordHash_t(string keyname, func function, object notUsed)
+            {
+                name = keyname;
+                this.function = function;
+            }
+        };
+
         /*
       =================
       PC_Color_Parse
@@ -35,7 +37,7 @@ namespace idLib.Engine.Content.ui
 
             for (i = 0; i < 4; i++)
             {
-                c[i] = float.Parse(ui.GetNextTokenFromLineChecked());
+                c[i] = float.Parse(ui.NextToken);
             }
         }
 
@@ -47,7 +49,7 @@ namespace idLib.Engine.Content.ui
 
             for (i = 0; i < 4; i++)
             {
-                c[i] = float.Parse(ui.GetNextTokenFromLineChecked());
+                c[i] = float.Parse(ui.NextToken);
             }
 
             return c;
@@ -60,10 +62,10 @@ namespace idLib.Engine.Content.ui
         */
         public static void ParseRect(ref idUserInterfaceFile ui, ref idUserInterfaceRectangle r)
         {
-            r.x = float.Parse(ui.GetNextTokenFromLineChecked());
-            r.y = float.Parse(ui.GetNextTokenFromLineChecked());
-            r.w = float.Parse(ui.GetNextTokenFromLineChecked());
-            r.h = float.Parse(ui.GetNextTokenFromLineChecked());
+            r.x = float.Parse(ui.NextToken);
+            r.y = float.Parse(ui.NextToken);
+            r.w = float.Parse(ui.NextToken);
+            r.h = float.Parse(ui.NextToken);
         }
 
         //
@@ -105,9 +107,7 @@ namespace idLib.Engine.Content.ui
                 {
                     if (key.name.ToLower() == token)
                     {
-                        idUserInterfaceItem item = menudef;
-                        key.function(ref item, ref ui);
-                        menudef = (idUserInterfaceMenuDef)item;
+                        key.function(ref menudef, ref ui);
                         foundKeyFunction = true;
                         break;
                     }
@@ -128,250 +128,219 @@ namespace idLib.Engine.Content.ui
         ===============
         */
 
-        public static void MenuParse_font(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_font(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
-            menu.font = ui.GetNextTokenFromLineChecked();
-            item = menu;
+            menu.font = ui.NextToken;
         }
 
-        public static void MenuParse_name(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_name(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            item.window.name = ui.GetNextTokenFromLineChecked();
+            menu.window.name = ui.NextToken;
         }
 
-        public static void MenuParse_fullscreen(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_fullscreen(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
-            menu.fullScreen = (int.Parse(ui.GetNextTokenFromLineChecked()) != 0);
-            item = menu;
+            menu.fullScreen = (int.Parse(ui.NextToken) != 0);
         }
 
-        public static void MenuParse_rect(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_rect(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            ParseRect(ref ui, ref item.window.rect);
+            ParseRect(ref ui, ref menu.window.rect);
         }
 
-        public static void MenuParse_style(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_style(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            item.window.style = int.Parse(ui.GetNextTokenFromLineChecked());
+            menu.window.style = int.Parse(ui.NextToken);
         }
 
-        public static void MenuParse_visible(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_visible(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            int isVisible = int.Parse(ui.GetNextTokenFromLineChecked());
+            int isVisible = int.Parse(ui.NextToken);
 
             if (isVisible != 0)
             {
-                item.window.flags |= ui_globals.WINDOW_VISIBLE;
+                menu.window.flags |= ui_globals.WINDOW_VISIBLE;
             }
         }
 
-        public static void MenuParse_onOpen(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_onOpen(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
             menu.onOpen = ui.GetNextBracketedSection();
-            item = menu;
         }
 
-        public static void MenuParse_onClose(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_onClose(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
             menu.onClose = ui.GetNextBracketedSection();
-            item = menu;
         }
 
-        public static void MenuParse_onESC(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_onESC(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
             menu.onESC = ui.GetNextBracketedSection();
-            item = menu;
         }
 
         //----(SA)	added
-        public static void MenuParse_onROQDone(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_onROQDone(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
             menu.onROQDone = ui.GetNextBracketedSection();
-            item = menu;
         }
 
         //----(SA)	end
 
-        public static void MenuParse_border(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_border(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            item.window.border = int.Parse(ui.GetNextTokenFromLineChecked());
+            menu.window.border = int.Parse(ui.NextToken);
         }
 
-        public static void MenuParse_borderSize(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_borderSize(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            item.window.borderSize = float.Parse(ui.GetNextTokenFromLineChecked());
+            menu.window.borderSize = float.Parse(ui.NextToken);
         }
 
-        public static void MenuParse_backcolor(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_backcolor(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
             int i;
 
             for (i = 0; i < 4; i++)
             {
-                item.window.backColor[i] = float.Parse(ui.GetNextTokenFromLineChecked());
+                menu.window.backColor[i] = float.Parse(ui.NextToken);
             }
         }
 
-        public static void MenuParse_forecolor(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_forecolor(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
             int i;
 
             for (i = 0; i < 4; i++)
             {
-                item.window.foreColor[i] = float.Parse(ui.GetNextTokenFromLineChecked());
-                item.window.flags |= ui_globals.WINDOW_FORECOLORSET;
+                menu.window.foreColor[i] = float.Parse(ui.NextToken);
+                menu.window.flags |= ui_globals.WINDOW_FORECOLORSET;
             }
         }
 
-        public static void MenuParse_bordercolor(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_bordercolor(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
             int i;
 
             for (i = 0; i < 4; i++)
             {
-                item.window.borderColor[i] = float.Parse(ui.GetNextTokenFromLineChecked());
+                menu.window.borderColor[i] = float.Parse(ui.NextToken);
             }
         }
 
-        public static void MenuParse_focuscolor(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_focuscolor(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
             int i;
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
             for (i = 0; i < 4; i++)
             {
-                menu.focusColor[i] = float.Parse(ui.GetNextTokenFromLineChecked());
+                menu.focusColor[i] = float.Parse(ui.NextToken);
             }
-            item = menu;
         }
 
-        public static void MenuParse_disablecolor(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_disablecolor(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
             int i;
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
             for (i = 0; i < 4; i++)
             {
-                menu.disableColor[i] = float.Parse(ui.GetNextTokenFromLineChecked());
+                menu.disableColor[i] = float.Parse(ui.NextToken);
             }
-            item = menu;
         }
 
 
-        public static void MenuParse_outlinecolor(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_outlinecolor(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            ParseColor(ref ui, ref item.window.outlineColor);
+            ParseColor(ref ui, ref menu.window.outlineColor);
         }
 
-        public static void MenuParse_background(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_background(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            item.window.background = ui.GetNextTokenFromLineChecked();
+            menu.window.background = ui.NextToken;
         }
 
-        public static void MenuParse_cinematic(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_cinematic(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            item.window.cinematicName = ui.GetNextTokenFromLineChecked();
+            menu.window.cinematicName = ui.NextToken;
         }
 
-        public static void MenuParse_ownerdrawFlag(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_ownerdrawFlag(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            int i = int.Parse(ui.GetNextTokenFromLineChecked());
+            int i = int.Parse(ui.NextToken);
 
-            item.window.ownerDrawFlags |= i;
+            menu.window.ownerDrawFlags |= i;
         }
 
-        public static void MenuParse_ownerdraw(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_ownerdraw(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            item.window.ownerDraw = int.Parse(ui.GetNextTokenFromLineChecked());
+            menu.window.ownerDraw = int.Parse(ui.NextToken);
         }
 
 
         // decoration
-        public static void MenuParse_popup(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_popup(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            item.window.flags |= ui_globals.WINDOW_POPUP;
+            menu.window.flags |= ui_globals.WINDOW_POPUP;
         }
 
 
-        public static void MenuParse_outOfBounds(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_outOfBounds(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            item.window.flags |= ui_globals.WINDOW_OOB_CLICK;
+            menu.window.flags |= ui_globals.WINDOW_OOB_CLICK;
         }
 
-        public static void MenuParse_soundLoop(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_soundLoop(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
-            menu.soundName = ui.GetNextTokenFromLineChecked();
-            item = menu;
+            menu.soundName = ui.NextToken;
         }
 
-        public static void MenuParse_fadeClamp(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_fadeClamp(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
-            menu.fadeClamp = float.Parse(ui.GetNextTokenFromLineChecked());
-            item = menu;
+            menu.fadeClamp = float.Parse(ui.NextToken);
         }
 
-        public static void MenuParse_fadeAmount(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_fadeAmount(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
-            menu.fadeAmount = float.Parse(ui.GetNextTokenFromLineChecked());
-            item = menu;
+            menu.fadeAmount = float.Parse(ui.NextToken);
         }
 
 
-        public static void MenuParse_fadeCycle(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_fadeCycle(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
-            menu.fadeCycle = int.Parse(ui.GetNextTokenFromLineChecked());
-            item = menu;
+            menu.fadeCycle = int.Parse(ui.NextToken);
         }
 
 
 
 
         // NERVE - SMF
-        public static void MenuParse_execKey(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_execKey(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
             char keyname;
             short keyindex;
 
-            keyname = ui.GetNextTokenFromLineChecked()[0];
+            keyname = ui.NextToken[0];
             keyindex = (short)keyname;
 
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
-            menu.onKey[keyindex] = ui.GetNextTokenFromLineChecked();
-            item = menu;
+            menu.onKey[keyindex] = ui.NextToken;
         }
 
-        public static void MenuParse_execKeyInt(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_execKeyInt(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
             int keyname;
 
-            keyname = int.Parse(ui.GetNextTokenFromLineChecked());
-
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
-            menu.onKey[keyname] = ui.GetNextTokenFromLineChecked();
-            item = menu;
+            keyname = int.Parse(ui.NextToken);
+            menu.onKey[keyname] = ui.NextToken;
         }
 
         //
         // MenuParse_itemDef
         //
-        public static void MenuParse_itemDef(ref idUserInterfaceItem item, ref idUserInterfaceFile ui)
+        public static void MenuParse_itemDef(ref idUserInterfaceMenuDef menu, ref idUserInterfaceFile ui)
         {
-            idUserInterfaceMenuDef menu = (idUserInterfaceMenuDef)item;
             if (menu.itemCount < ui_globals.MAX_MENUITEMS)
             {
                 menu.items[menu.itemCount] = new idUserInterfaceItem();
                 ItemParser.Item_Parse(ref menu.items[menu.itemCount], ref ui);
                 menu.items[menu.itemCount++].parent = menu;
             }
-            item = menu;
         }
 
         
@@ -379,7 +348,7 @@ namespace idLib.Engine.Content.ui
         //
         // menuParseKeywords
         //
-        public static keywordHash_t[] menuParseKeywords = new keywordHash_t[]{
+        static keywordHash_t[] menuParseKeywords = new keywordHash_t[]{
 	        new keywordHash_t("font", MenuParse_font, null),
 	        new keywordHash_t("name", MenuParse_name, null),
 	        new keywordHash_t("fullscreen", MenuParse_fullscreen, null),

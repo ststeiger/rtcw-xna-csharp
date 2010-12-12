@@ -5,6 +5,20 @@ namespace idLib.Engine.Content.ui
 {
     class ItemParser
     {
+        class keywordHash_t
+        {
+            public delegate void func(ref idUserInterfaceItem item, ref idUserInterfaceFile ui);
+
+            public string name;
+            public func function;
+
+            public keywordHash_t(string keyname, func function, object notUsed)
+            {
+                name = keyname;
+                this.function = function;
+            }
+        };
+
         //
         // ValidateTypeData
         //

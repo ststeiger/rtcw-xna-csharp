@@ -22,7 +22,7 @@ namespace ui
         //
         public idUserInterfaceManagerLocal( int version )
         {
-            Engine.common.Printf("UserInterface Module Loaded...\n");
+            Engine.common.Printf("UI Module Loaded...\n");
         }
 
         //
@@ -60,6 +60,24 @@ namespace ui
             uipool.Add(ui);
 
             return uipool[uipool.Count - 1];
+        }
+
+        //
+        // FindUserInterface
+        //
+        public override idUserInterface FindUserInterface(string uiname)
+        {
+            // Try to locate the UI in the ui pool.
+            for (int i = 0; i < uipool.Count; i++)
+            {
+                if (uiname == uipool[i].GetName())
+                {
+                    return uipool[i];
+                }
+            }
+
+            Engine.common.Warning("UI_Load: Failed to find " + uiname + "\n");
+            return null;
         }
     }
 }

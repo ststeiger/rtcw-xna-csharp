@@ -55,6 +55,7 @@ namespace idLib.Engine.Content.ui
              {
                  throw new Exception("Expected menu header while parsing menudef");
              }
+             window.ReadBinaryFile(ref reader);
              fullScreen = reader.ReadBoolean();
              itemCount = reader.ReadInt32();
              fontIndex = reader.ReadInt32();
@@ -100,6 +101,7 @@ namespace idLib.Engine.Content.ui
        public override void WriteBinaryFile(ref BinaryWriter writer)
        {
            writer.Write(ui_globals.MENU_BINARY_HEADER);
+           window.WriteBinaryFile(ref writer);
            writer.Write(fullScreen);
            writer.Write(itemCount);
            writer.Write(fontIndex);

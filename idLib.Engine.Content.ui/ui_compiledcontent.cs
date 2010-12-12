@@ -2,6 +2,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using idLib.Math;
 using idLib.Engine.Content.ui.Private;
 
@@ -13,7 +14,8 @@ namespace idLib.Engine.Content.ui
     public class idUserInterfaceCompiledContent
     {
         public idUserInterfaceCachedAssets assets = new idUserInterfaceCachedAssets();
-        public idUserInterfaceMenuDef menudef = new idUserInterfaceMenuDef();
+        //public idUserInterfaceMenuDef menudef = new idUserInterfaceMenuDef();
+        public List<idUserInterfaceMenuDef> menudefpool = new List<idUserInterfaceMenuDef>();
 
         //
         // ParseAsset
@@ -164,7 +166,9 @@ namespace idLib.Engine.Content.ui
                 }
                 else if (token == "menuDef" || token == "menudef")
                 {
+                    idUserInterfaceMenuDef menudef = new idUserInterfaceMenuDef();
                     MenuParser.ParseMenu(ref menudef, ref assets, ref ui);
+                    menudefpool.Add(menudef);
                 }
                 else
                 {

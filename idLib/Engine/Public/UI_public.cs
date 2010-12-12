@@ -20,13 +20,20 @@ namespace idLib.Engine.Public
         protected override idUserInterface Read(ContentReader input, idUserInterface existingInstance)
         {
             idUserInterfaceCachedAssets assets = new idUserInterfaceCachedAssets();
-            idUserInterfaceMenuDef menu = new idUserInterfaceMenuDef();
+            
 
             BinaryReader reader = (BinaryReader)input;
             assets.ReadBinaryFile(ref reader);
-            menu.ReadBinaryFile(ref reader);
 
-            return Engine.ui.LoadUIFromMemory(assets, menu);
+            int numguis = reader.ReadInt32();
+            for (int i = 0; i < numguis; i++)
+            {
+                idUserInterfaceMenuDef menu = new idUserInterfaceMenuDef();
+                menu.ReadBinaryFile(ref reader);
+                Engine.ui.LoadUIFromMemory(assets, menu);
+            }
+
+            return null;
         }
     }
 
@@ -46,6 +53,7 @@ namespace idLib.Engine.Public
     {
         // Init the user interface manager.
         public abstract void Init();
+        public abstract idUserInterface FindUserInterface(string uiname);
         public abstract idUserInterface LoadUIFromMemory(idUserInterfaceCachedAssets assets, idUserInterfaceMenuDef menu);
     }
 }

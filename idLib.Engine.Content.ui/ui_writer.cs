@@ -16,7 +16,12 @@ namespace idLib.Engine.Content.ui
         {
             System.IO.BinaryWriter writer = (System.IO.BinaryWriter)output;
             value.assets.WriteBinaryFile(ref writer);
-            value.menudef.WriteBinaryFile(ref writer);
+            writer.Write( value.menudefpool.Count );
+
+            for (int i = 0; i < value.menudefpool.Count; i++)
+            {
+                value.menudefpool[i].WriteBinaryFile(ref writer);
+            }
         }
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
