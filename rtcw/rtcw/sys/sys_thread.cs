@@ -71,7 +71,7 @@ namespace rtcw.sys
 
             if (thread.ThreadState == ThreadState.Suspended)
             {
-                thread.Resume();
+                throw new NotImplementedException();
             }
             else
             {
@@ -90,7 +90,7 @@ namespace rtcw.sys
                 return;
             }
 
-            thread.Suspend();
+            throw new NotImplementedException();
         }
 
         //
@@ -98,7 +98,7 @@ namespace rtcw.sys
         //
         public override void Resume()
         {
-            thread.Resume();
+            throw new NotImplementedException();
         }
 
         //

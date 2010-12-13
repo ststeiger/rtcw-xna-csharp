@@ -50,6 +50,8 @@ namespace rtcw.Renderer.Backend
         backEndState_t state = new backEndState_t();
         backEndData_t[]  backEndData = new backEndData_t[idRenderGlobals.SMP_FRAMES];
 
+        Color pushedColor = Color.White;
+
         private int r_firstSceneDrawSurf = 0;
 
         private int r_numdlights = 0;
@@ -101,7 +103,7 @@ namespace rtcw.Renderer.Backend
         private void Cmd_DrawStrechImage(ref idRenderCommand cmd)
         {
             Globals.graphics2DDevice.Begin();
-            Globals.graphics2DDevice.Draw((Texture2D)cmd.image.GetDeviceHandle(), new Rectangle((int)cmd.x, (int)cmd.y, (int)cmd.w, (int)cmd.h), Color.White);
+            Globals.graphics2DDevice.Draw((Texture2D)cmd.image.GetDeviceHandle(), new Rectangle((int)cmd.x, (int)cmd.y, (int)cmd.w, (int)cmd.h), pushedColor);
             Globals.graphics2DDevice.End();
         }
 
@@ -111,6 +113,14 @@ namespace rtcw.Renderer.Backend
         private void Cmd_SwapBuffers(ref idRenderCommand cmd)
         {
             Globals.graphics3DDevice.Present();
+        }
+
+        //
+        // Cmd_SetColor
+        //
+        private void Cmd_SetColor(ref idRenderCommand cmd)
+        {
+            pushedColor = cmd.color;
         }
 
         //
@@ -143,6 +153,9 @@ namespace rtcw.Renderer.Backend
 
                         switch (cmd.type)
                         {
+                            case renderCommandType.RC_SET_COLOR:
+                                Cmd_SetColor(ref cmd);
+                                break;
                             case renderCommandType.RC_STRETCH_IMAGE:
                                 Cmd_DrawStrechImage(ref cmd);
                                 break;

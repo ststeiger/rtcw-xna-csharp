@@ -124,6 +124,8 @@ namespace rtcw.Client
         public idMaterial consoleShader2;
 
         public idVideo videoFullScreen;
+        public idImage whiteImage;
+        public bool videoLetterBox = false;
 
         public idSysModule uivm;
         public idSysModule cgvm;
@@ -177,7 +179,12 @@ namespace rtcw.Client
             if (s != null && s[0] == '3')
             {
                 bits |= idVideo.CIN_letterBox;
-	        }
+                cls.videoLetterBox = true;
+            }
+            else
+            {
+                cls.videoLetterBox = false;
+            }
 
 	        //S_StopAllSounds();
 	        // make sure volume is up for cine
@@ -237,6 +244,8 @@ namespace rtcw.Client
 
             // Init cgame.
             cls.cgame.Init();
+
+            cls.whiteImage = Engine.imageManager.FindImage("*white");
         }
 
         /*
@@ -472,6 +481,13 @@ namespace rtcw.Client
                 }
                 else
                 {
+                    if (cls.videoLetterBox)
+                    {
+                        Engine.RenderSystem.SetColor(Microsoft.Xna.Framework.Color.Black);
+                        Engine.RenderSystem.DrawStrechPic(0, 0, Engine.RenderSystem.GetViewportWidth(), idVideo.LETTERBOX_OFFSET, cls.whiteImage);
+                        Engine.RenderSystem.DrawStrechPic(0, Engine.RenderSystem.GetViewportHeight() - idVideo.LETTERBOX_OFFSET, Engine.RenderSystem.GetViewportWidth(), idVideo.LETTERBOX_OFFSET, cls.whiteImage);
+                        Engine.RenderSystem.SetColor(Microsoft.Xna.Framework.Color.White);
+                    }
                     cls.videoFullScreen.DrawCinematic();
                 }
             }

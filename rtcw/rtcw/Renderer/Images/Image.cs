@@ -89,6 +89,8 @@ namespace rtcw.Renderer
         //
         public override void BlitImageData(ref Color[] data)
         {
+            Globals.backEnd.SyncRenderThread();
+
             Globals.graphics3DDevice.Textures[0] = null;
             tex2d.SetData<Color>(data);
         }

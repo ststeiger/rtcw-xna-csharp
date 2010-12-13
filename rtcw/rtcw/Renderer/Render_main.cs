@@ -591,6 +591,17 @@ namespace rtcw.Renderer
         }
 
         //
+        // SetColor
+        //
+        public override void SetColor(Color color)
+        {
+            idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
+
+            cmd.type = renderCommandType.RC_SET_COLOR;
+            cmd.color = color;
+        }
+
+        //
         // GetViewportWidth
         //
         public override int GetViewportWidth()

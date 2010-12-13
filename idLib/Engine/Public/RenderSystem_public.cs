@@ -350,6 +350,7 @@ namespace idLib.Engine.Public
     {
         public abstract void Init();
         public abstract void Shutdown();
+        public abstract idImage FindImage(string qpath);
         public abstract idImage FindImageFile(string qpath, bool mipmap, bool picmap, SamplerState wrapClampMode);
         public abstract idImage CreateImage(string name, Color[] pic, int width, int height, bool mipmap, bool allowPicmip, SamplerState WrapClampMode);
         public abstract void DestroyImage(ref idImage image);
@@ -395,5 +396,6 @@ namespace idLib.Engine.Public
         public abstract void EndFrame();
         public abstract void DrawStrechPic(int x, int y, int width, int height, idImage image);
         public abstract idFont RegisterFont(string name, int pointSize);
+        public abstract void SetColor(Color color);
     }
 }

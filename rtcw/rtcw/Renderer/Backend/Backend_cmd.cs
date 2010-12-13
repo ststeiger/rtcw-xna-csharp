@@ -35,6 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
+using Microsoft.Xna.Framework;
 using idLib.Engine.Public;
 
 namespace rtcw.Renderer.Backend
@@ -63,7 +64,7 @@ namespace rtcw.Renderer.Backend
         public int buffer;
 
         // RC_SET_COLOR
-        public float[] color = new float[4];
+        public Color color;
 
         // RC_STRETCH_PIC
         public idMaterial shader;

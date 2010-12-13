@@ -82,7 +82,10 @@ namespace rtcw.Renderer
             bool isUniqueImage = false;
 
             // Remove the file extension if its present.
-            name = Engine.fileSystem.RemoveExtensionFromPath(name);
+            if (!name.Contains("*"))
+            {
+                name = Engine.fileSystem.RemoveExtensionFromPath(name);
+            }
 
             idImageLocal image = AllocImage(name, ref isUniqueImage);
             if (isUniqueImage == false)
@@ -96,6 +99,22 @@ namespace rtcw.Renderer
             image.BlitImageData(ref pic);
 
             return image;
+        }
+
+        //
+        // FindImage
+        //
+        public override idImage FindImage(string qpath)
+        {
+            for (int i = 0; i < hashTable.Count; i++)
+            {
+                if (hashTable[i].Name() == qpath)
+                {
+                    return hashTable[i];
+                }
+            }
+
+            return null;
         }
 
         //
