@@ -50,7 +50,7 @@ namespace rtcw.Renderer.Backend
         backEndState_t state = new backEndState_t();
         backEndData_t[]  backEndData = new backEndData_t[idRenderGlobals.SMP_FRAMES];
 
-        private Vector3 pushedColor = new Vector3(1, 1, 1);
+        
 
         private int r_firstSceneDrawSurf = 0;
 
@@ -71,11 +71,11 @@ namespace rtcw.Renderer.Backend
         private int skyboxportal = 0;
         private int drawskyboxportal = 0;
 
-        private idRenderMatrix orthoMatrix = new idRenderMatrix();
+        
         private idDrawVertex[] quadVertexes = new idDrawVertex[4];
         private short[] quadIndexes = new short[] { 0, 1, 2, 0, 2, 3 };
 
-        private BasicEffect defaultEffect;
+        
 
         //
         // idRenderBackend
@@ -91,9 +91,8 @@ namespace rtcw.Renderer.Backend
                 quadVertexes[i] = new idDrawVertex();
             }
 
-            orthoMatrix.Create2DOrthoMatrix(Engine.RenderSystem.GetViewportWidth(), Engine.RenderSystem.GetViewportHeight());
-            defaultEffect = new BasicEffect(Globals.graphics3DDevice);
-            defaultEffect.TextureEnabled = true;
+            Shade.Init();
+            
 
             state.smpFrame = 0;
         }
@@ -116,20 +115,13 @@ namespace rtcw.Renderer.Backend
             return backEndData[state.smpFrame].commands[backEndData[state.smpFrame].numRenderCommands++];
         }
 
-        //
-        // Set2DOrthoMode
-        //
-        private void Set2DOrthoMode()
-        {
-            orthoMatrix.SetAsActiveMatrix(ref defaultEffect);
-        }
 
         //
         // Cmd_DrawStrechImage
         //
         private void Cmd_DrawStrechImage(ref idRenderCommand cmd)
         {
-            Set2DOrthoMode();
+            Shade.Set2DOrthoMode();
 
             // Setup our quad coordinates.
             quadVertexes[0].xyz.X = cmd.x;
@@ -152,27 +144,36 @@ namespace rtcw.Renderer.Backend
             quadVertexes[3].st.X = 0.5f / cmd.h;
             quadVertexes[3].st.Y = (cmd.w - 0.5f) / cmd.w;
 
-            defaultEffect.Texture = (Texture2D)cmd.image.GetDeviceHandle();
-            
-            defaultEffect.DiffuseColor = pushedColor;
-
-            defaultEffect.CurrentTechnique.Passes[0].Apply();
-            Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, quadVertexes, 0, 4, quadIndexes, 0, 2, idDrawVertex.VertexDeclaration);
+            Shade.BindImage(ref cmd.image);
+            Shade.DrawPrimitives(4, 6, ref quadVertexes, ref quadIndexes);
         }
 
         //
-        // SetMaterialStageState
+        // BeginSurface
         //
-        private void SetMaterialStageState(ref shaderStage_t stage)
+        private void BeginSurface(idMaterial material, int fogNum)
         {
-            if (stage.useBlending == true)
-            {
-                Globals.graphics3DDevice.BlendState = stage.blendState;
-            }
-            else
-            {
-                Globals.graphics3DDevice.BlendState = BlendState.AlphaBlend;
-            }
+            Globals.tess.numIndexes = 0;
+            Globals.tess.numVertexes = 0;
+            Globals.tess.shader = idMaterialLocal.GetMaterialBase( ref material );
+            Globals.tess.fogNum = fogNum;
+            Globals.tess.dlightBits = 0;
+            Globals.tess.currentStageIteratorFunc = Globals.tess.shader.optimalStageIteratorFunc;
+        }
+
+        //
+        // EndSurface
+        //
+        private void EndSurface()
+        {
+            //
+            // call off to shader specific tess end function
+            //
+            Globals.tess.currentStageIteratorFunc();
+
+            // Reset numverts and num indexes.
+            Globals.tess.numVertexes = 0;
+            Globals.tess.numIndexes = 0;
         }
 
 
@@ -181,36 +182,27 @@ namespace rtcw.Renderer.Backend
         //
         private void Cmd_DrawStrechMaterial(ref idRenderCommand cmd)
         {
-            Set2DOrthoMode();
+            Shade.Set2DOrthoMode();
 
-            // Setup our quad coordinates.
-            quadVertexes[0].xyz.X = cmd.x;
-            quadVertexes[0].xyz.Y = cmd.y;
-            quadVertexes[0].st.X = 0.5f / cmd.w;
-            quadVertexes[0].st.Y = 0.5f / cmd.h;
+            if (Globals.tess.shader == null || cmd.shader.GetName() != Globals.tess.shader.name)
+            {
+                if (Globals.tess.numIndexes > 0)
+                {
+                    EndSurface();
+                }
 
-            quadVertexes[1].xyz.X = cmd.x + cmd.w;
-            quadVertexes[1].xyz.Y = cmd.y;
-            quadVertexes[1].st.X = (cmd.h - 0.5f) / cmd.h;
-            quadVertexes[1].st.Y = 0.5f / cmd.w;
+                BeginSurface(cmd.shader, 0);
+            }
 
-            quadVertexes[2].xyz.X = cmd.x + cmd.w;
-            quadVertexes[2].xyz.Y = cmd.y + cmd.h;
-            quadVertexes[2].st.X = (cmd.h - 0.5f) / cmd.h;
-            quadVertexes[2].st.Y = (cmd.w - 0.5f) / cmd.w;
+            Globals.tess.UploadVertex(cmd.x, cmd.y, 0, cmd.s1, cmd.t1);
+            Globals.tess.UploadVertex(cmd.x + cmd.w, cmd.y, 0, cmd.s2, cmd.t1);
+            Globals.tess.UploadVertex(cmd.x + cmd.w, cmd.y + cmd.h, 0, cmd.s2, cmd.t2);
+            Globals.tess.UploadVertex(cmd.x, cmd.y + cmd.h, 0, cmd.s1, cmd.t2);
 
-            quadVertexes[3].xyz.X = cmd.x;
-            quadVertexes[3].xyz.Y = cmd.y + cmd.h;
-            quadVertexes[3].st.X = 0.5f / cmd.h;
-            quadVertexes[3].st.Y = (cmd.w - 0.5f) / cmd.w;
-
-            SetMaterialStageState(ref idMaterialLocal.GetMaterialBase(ref cmd.shader).stages[0]);
-            defaultEffect.Texture = (Texture2D)idMaterialLocal.GetMaterialBase(ref cmd.shader).stages[0].bundle[0].image[0].GetDeviceHandle();
-
-            defaultEffect.DiffuseColor = pushedColor;
-
-            defaultEffect.CurrentTechnique.Passes[0].Apply();
-            Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, quadVertexes, 0, 4, quadIndexes, 0, 2, idDrawVertex.VertexDeclaration);
+            for (int i = 0; i < quadIndexes.Length; i++)
+            {
+                Globals.tess.UploadIndex(quadIndexes[i]);
+            }
         }
 
         //
@@ -226,9 +218,7 @@ namespace rtcw.Renderer.Backend
         //
         private void Cmd_SetColor(ref idRenderCommand cmd)
         {
-            pushedColor.X = cmd.color[0];
-            pushedColor.Y = cmd.color[1];
-            pushedColor.Z = cmd.color[2];
+            Shade.SetColor(cmd.color[0], cmd.color[1], cmd.color[2], cmd.color[3]);
         }
 
         //
@@ -277,6 +267,12 @@ namespace rtcw.Renderer.Backend
                                 Engine.common.ErrorFatal("R_IssueRenderCommandsWorker: Unknown command type\n");
                                 break;
                         }
+                    }
+
+                    // Finish any surfaces that are left.
+                    if (Globals.tess.numIndexes > 0)
+                    {
+                        EndSurface();
                     }
 
                     // Were down wait for the next command list.

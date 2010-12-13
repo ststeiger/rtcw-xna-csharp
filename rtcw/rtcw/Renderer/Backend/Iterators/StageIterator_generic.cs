@@ -48,7 +48,30 @@ namespace rtcw.Renderer.Backend.Iterators
         //
         public static void Iterator()
         {
+            for (int i = 0; i < idMaterialBase.MAX_SHADER_STAGES; i++)
+            {
+                shaderStage_t stage;
 
+                if (Globals.tess.shader.stages[i] == null)
+                {
+                    break;
+                }
+
+                stage = Globals.tess.shader.stages[i];
+
+                Shade.SetMaterialStageState(ref stage);
+
+                for (int c = 0; c < idMaterialBase.NUM_TEXTURE_BUNDLES; c++)
+                {
+                    if (stage.bundle[i] == null)
+                    {
+                        break;
+                    }
+
+                    Shade.BindImage(ref stage.bundle[i].image[0]);
+                    Shade.DrawTess();
+                }
+            }
         }
     }
 }

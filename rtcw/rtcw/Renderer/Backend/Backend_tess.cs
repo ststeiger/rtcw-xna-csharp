@@ -41,35 +41,73 @@ using idLib.Math;
 
 namespace rtcw.Renderer
 {
-    class stageVars_t
+    public class stageVars_t
     {
 	    public idVector4[] colors = new idVector4[idMaterialBase.SHADER_MAX_VERTEXES];
 	    public idVector2[,] texcoords = new idVector2[idMaterialBase.NUM_TEXTURE_BUNDLES,idMaterialBase.SHADER_MAX_VERTEXES];
     };
 
-    class shaderCommands_t
+    public class shaderCommands_t
     {
         public delegate void currentStageIteratorFunc_t();
 	    public short[] indexes = new short[idMaterialBase.SHADER_MAX_INDEXES];
-        public idDrawVertex[] xyz = new idDrawVertex[idMaterialBase.SHADER_MAX_VERTEXES];
+        public idDrawVertex[] drawVerts = new idDrawVertex[idMaterialBase.SHADER_MAX_VERTEXES];
 	    public int[] vertexDlightBits = new int[idMaterialBase.SHADER_MAX_VERTEXES];
 
 	    public stageVars_t svars;
 
 	    public idVector4[] constantColor255 = new idVector4[idMaterialBase.SHADER_MAX_VERTEXES];
 
-	    public idMaterial shader;
+	    public idMaterialBase shader;
 	    public float shaderTime;
 	    public int fogNum;
 
 	    public int dlightBits;         // or together of all vertexDlightBits
 
-	    public int numIndexes;
-	    public int numVertexes;
+	    public int numIndexes = 0;
+	    public int numVertexes = 0;
 
 	    // info extracted from current shader
 	    public int numPasses;
         public currentStageIteratorFunc_t currentStageIteratorFunc;
 	    public shaderStage_t[] xstages;
+
+        //
+        // UploadVertex
+        //
+        public void UploadVertex(float x, float y, float z, float s, float t)
+        {
+            drawVerts[numVertexes].xyz.X = x;
+            drawVerts[numVertexes].xyz.Y = y;
+            drawVerts[numVertexes].xyz.Z = z;
+
+            drawVerts[numVertexes].st.X = s;
+            drawVerts[numVertexes].st.Y = t;
+
+            drawVerts[numVertexes].lightmapST.X = 0;
+            drawVerts[numVertexes].lightmapST.Y = 0;
+
+            drawVerts[numVertexes].tangent.X = 0;
+            drawVerts[numVertexes].tangent.Y = 0;
+            drawVerts[numVertexes].tangent.Z = 0;
+
+            drawVerts[numVertexes].normal.X = 0;
+            drawVerts[numVertexes].normal.Y = 0;
+            drawVerts[numVertexes].normal.Z = 0;
+
+            drawVerts[numVertexes].binormal.X = 0;
+            drawVerts[numVertexes].binormal.Y = 0;
+            drawVerts[numVertexes].binormal.Z = 0;
+
+            numVertexes++;
+        }
+
+        //
+        // Uploadindex
+        //
+        public void UploadIndex(short s)
+        {
+            indexes[numIndexes++] = s;
+        }
     };
 }

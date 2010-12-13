@@ -117,8 +117,10 @@
     <Compile Include="Net\Network_Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer\Backend\Backend_cmd.cs" />
+    <Compile Include="Renderer\Backend\Backend_shade.cs" />
     <Compile Include="Renderer\Backend\Backend_main.cs" />
     <Compile Include="Renderer\Backend\Backend_matrix.cs" />
+    <Compile Include="Renderer\Backend\Backend_tess.cs" />
     <Compile Include="Renderer\Backend\Iterators\StageIterator_generic.cs" />
     <Compile Include="Renderer\Backend\Iterators\StageIterator_lightmap.cs" />
     <Compile Include="Renderer\Backend\Iterators\StageIterator_sky.cs" />
@@ -137,7 +139,6 @@
     <Compile Include="Renderer\Models\ModelBase.cs" />
     <Compile Include="Renderer\Render_globals.cs" />
     <Compile Include="Renderer\Render_main.cs" />
-    <Compile Include="Renderer\Render_tess.cs" />
     <Compile Include="Renderer\Video.cs" />
     <Compile Include="Renderer\World.cs" />
     <Compile Include="Server\sv_main.cs" />

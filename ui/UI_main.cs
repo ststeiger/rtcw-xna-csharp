@@ -460,7 +460,7 @@ namespace ui
             // paint the background and or border
             PaintWindow(ref menu.window);
 
-            for (int i = 0; i < 16; i++)
+            for (int i = 0; i < 19; i++)
             {
                 PaintItem(ref menu.items[i]);
             }

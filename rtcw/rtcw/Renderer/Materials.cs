@@ -329,8 +329,7 @@ namespace rtcw.Renderer
 	    public int numUnfoggedPasses;
 	    public shaderStage_t[] stages = new shaderStage_t[MAX_SHADER_STAGES];
 
-	    public delegate void optimalStageIteratorFunc_t();
-        public optimalStageIteratorFunc_t optimalStageIteratorFunc;
+        public shaderCommands_t.currentStageIteratorFunc_t optimalStageIteratorFunc;
 
 	    public float clampTime;                                    // time this shader is clamped to
 	    public float timeOffset;                                   // current time offset for this shader
