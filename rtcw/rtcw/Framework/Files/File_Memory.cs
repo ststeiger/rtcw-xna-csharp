@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using System.IO;
+using System.Text;
 using idLib.Engine.Public;
 
 namespace rtcw.Framework.Files
@@ -274,8 +275,16 @@ namespace rtcw.Framework.Files
         public override string ReadString(int len)
         {
             byte[] buffer = ReadBytes(len);
+            string s = "";
 
-            return System.Text.ASCIIEncoding.ASCII.GetString(buffer).Trim('\0');
+            for( int i = 0; i < buffer.Length; i++ )
+            {
+                if ((char)buffer[i] == '\0')
+                    break;
+                s += (char)buffer[i];
+            }
+
+            return s; //ASCIIEncoding.ASCII.GetString(buffer).Trim('\0');
         }
 
         //

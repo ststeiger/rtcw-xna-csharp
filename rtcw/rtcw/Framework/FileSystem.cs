@@ -354,12 +354,13 @@ namespace rtcw.Framework
         public override T ReadContent<T>(string qpath)
         {
             string path = RemoveExtensionFromPath(qpath);
+#if !XBOX_360
             if (FileExists(path + ".xnb") == false)
             {
                 Engine.common.Warning("FS_ReadContent: File not found " + qpath + "\n");
                 return default(T);
             }
-
+#endif
             try
             {
                 return _contentManager.Load<T>(path);

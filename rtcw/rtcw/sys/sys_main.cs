@@ -83,8 +83,11 @@ namespace rtcw.sys
         public override idSysModule LoadDLL(string path)
         {
             string dllPath;
-
+#if XBOX360
+            dllPath = Engine.fileSystem.GetDLLPath("dlls\\" + path + "xeon.dll");
+#else
             dllPath = Engine.fileSystem.GetDLLPath("dlls\\" + path + ".dll");
+#endif
             if (dllPath == null)
             {
                 Engine.common.Warning("Failed to load dll module " + path);

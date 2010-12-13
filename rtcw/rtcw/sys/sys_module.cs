@@ -36,7 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using System.IO;
-using System.Security.Policy;
+//using System.Security.Policy;
 using System.Reflection;
 using idLib.Engine.Public;
 

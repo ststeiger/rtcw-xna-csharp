@@ -131,6 +131,7 @@ namespace rtcw.Client
         public idSysModule cgvm;
 
         public idClientGamePublic cgame;
+        public idImage loadingbackground = null;
     };
 
     //
@@ -248,6 +249,23 @@ namespace rtcw.Client
             cls.whiteImage = Engine.imageManager.FindImage("*white");
         }
 
+        
+
+        //
+        // DrawLoadingScreen
+        //
+        public void DrawLoadingScreen(string loadingmsg)
+        {
+            if (cls.loadingbackground == null)
+            {
+                cls.loadingbackground = Engine.imageManager.FindImageFile("ui/assets/backscreen2", false, false, Microsoft.Xna.Framework.Graphics.SamplerState.LinearWrap);
+            }
+
+            Engine.RenderSystem.BeginFrame();
+            Engine.RenderSystem.DrawStrechPic(0, 0, Engine.RenderSystem.GetViewportWidth(), Engine.RenderSystem.GetViewportHeight(), cls.loadingbackground);
+            Engine.RenderSystem.EndFrame();
+        }
+
         /*
         ============================
         CL_StartHunkUsers
@@ -269,6 +287,7 @@ namespace rtcw.Client
 	        if ( !cls.rendererStarted ) {
 		        cls.rendererStarted = true;
                 InitRenderer();
+                DrawLoadingScreen("Loading please wait...");
 	        }
 
 	        if ( !cls.soundStarted ) {

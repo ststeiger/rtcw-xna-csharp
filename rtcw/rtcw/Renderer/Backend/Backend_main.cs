@@ -108,6 +108,11 @@ namespace rtcw.Renderer.Backend
                 Engine.common.ErrorFatal("R_GetCommandBuffer: Numrendercommands > MAX_RENDER_COMMANDS\n");
             }
 
+            if (backEndData[state.smpFrame].commands[backEndData[state.smpFrame].numRenderCommands] == null)
+            {
+                backEndData[state.smpFrame].commands[backEndData[state.smpFrame].numRenderCommands] = new idRenderCommand();
+            }
+
             return backEndData[state.smpFrame].commands[backEndData[state.smpFrame].numRenderCommands++];
         }
 
@@ -419,10 +424,10 @@ namespace rtcw.Renderer.Backend
 
         public backEndData_t(int smpFrameNum )
         {
-            for (int i = 0; i < idRenderGlobals.MAX_RENDER_COMMANDS; i++)
-            {
-                commands[i] = new idRenderCommand();
-            }
+       //     for (int i = 0; i < idRenderGlobals.MAX_RENDER_COMMANDS; i++)
+        //    {
+       //         commands[i] = new idRenderCommand();
+       //     }
 
             this.smpFrameNum = smpFrameNum;
         }

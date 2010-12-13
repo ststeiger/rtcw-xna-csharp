@@ -14,6 +14,8 @@ namespace rtcw.sys
     {
 #if WINDOWS
         Keys[] lastFrameKeys;
+#elif XBOX360
+        GamePadState gamepad;
 #endif
         //
         // Init
@@ -43,6 +45,22 @@ namespace rtcw.sys
         }
 #endif
 
+#if XBOX360
+        //
+        // Get360GamepadState
+        //
+        private void Get360GamepadState()
+        {
+            idSysLocal sys = (idSysLocal)Engine.Sys;
+            gamepad = GamePad.GetState(Microsoft.Xna.Framework.PlayerIndex.One);
+
+            if (gamepad.Buttons.A == ButtonState.Pressed)
+            {
+                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_ESCAPE, 1, 0, null);
+            }
+        }
+#endif
+
         //
         // Frame
         //
@@ -50,6 +68,8 @@ namespace rtcw.sys
         {
 #if WINDOWS
             GetWindowsKeyInput();
+#elif XBOX360
+            Get360GamepadState();
 #endif
         }
     }
