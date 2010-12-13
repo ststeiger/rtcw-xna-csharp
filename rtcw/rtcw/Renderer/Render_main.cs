@@ -41,6 +41,7 @@ using Microsoft.Xna.Framework.Graphics;
 using idLib.Engine.Public;
 using idLib.Math;
 
+using rtcw.Renderer.Backend;
 using rtcw.Renderer.Images;
 namespace rtcw.Renderer
 {
@@ -50,10 +51,11 @@ namespace rtcw.Renderer
     static class Globals
     {
         public static idRenderGlobals tr;
-        public static backEndState_t backEnd;
+        public static idRenderBackend backEnd;
         public static shaderCommands_t tess;
 
         public static GraphicsDevice graphics3DDevice;
+
         public static SpriteBatch graphics2DDevice;
 
         public static idCVar r_flareSize;
@@ -343,7 +345,7 @@ namespace rtcw.Renderer
 	        Globals.r_uiFullScreen = Engine.cvarManager.Cvar_Get( "r_uifullscreen", "0", 0 );
 	        Globals.r_subdivisions = Engine.cvarManager.Cvar_Get( "r_subdivisions", "4", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 
-	        Globals.r_smp = Engine.cvarManager.Cvar_Get( "r_smp", "0", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
+	        Globals.r_smp = Engine.cvarManager.Cvar_Get( "r_smp", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 
 	        Globals.r_ignoreFastPath = Engine.cvarManager.Cvar_Get( "r_ignoreFastPath", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 
@@ -482,7 +484,7 @@ namespace rtcw.Renderer
 
             // clear all our internal state
             Globals.tr = new idRenderGlobals();
-            Globals.backEnd = new backEndState_t();
+            Globals.backEnd = new idRenderBackend();
             Globals.tess = new shaderCommands_t();
 
             for( int i = 0; i < Globals.tess.constantColor255.Length; i++ )
@@ -552,7 +554,7 @@ namespace rtcw.Renderer
         //
         public override void BeginFrame()
         {
-            Globals.graphics3DDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+            
         }
 
         //
@@ -560,16 +562,32 @@ namespace rtcw.Renderer
         //
         public override void EndFrame()
         {
-            
+	        idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
+	        if ( cmd == null ) {
+		        return;
+	        }
+            cmd.type = renderCommandType.RC_SWAP_BUFFERS;
+
+	        Globals.backEnd.IssueRenderCommands( true );
+
+	        // use the other buffers next frame, because another CPU
+	        // may still be rendering into the current ones
+	        Globals.backEnd.ToggleSmpFrame();
         }
 
+        //
+        // DrawStrechPic
+        //
         public override void DrawStrechPic(int x, int y, int width, int height, idImage image)
         {
-            Globals.graphics2DDevice.Begin();
+            idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
 
-            Globals.graphics2DDevice.Draw((Texture2D)image.GetDeviceHandle(), new Rectangle(x, y, width, height), Color.White);
-
-            Globals.graphics2DDevice.End();
+            cmd.type = renderCommandType.RC_STRETCH_IMAGE;
+            cmd.x = x;
+            cmd.y = y;
+            cmd.w = width;
+            cmd.h = height;
+            cmd.image = image;
         }
 
         //

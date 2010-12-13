@@ -383,6 +383,10 @@ namespace idLib.Engine.Public
     //
     public abstract class idRenderSystem
     {
+        public const int MAX_CORONAS  =   32;          //----(SA)	not really a reason to limit this other than trying to keep a reasonable count
+        public const int MAX_DLIGHTS  =   32;          // can't be increased, because bit flags are used on surfaces
+        public const int MAX_ENTITIES = 1023;        // can't be increased without changing drawsurf bit packing
+
         public abstract void Init();
         public abstract int GetViewportWidth();
         public abstract int GetViewportHeight();

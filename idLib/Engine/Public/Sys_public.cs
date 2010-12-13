@@ -215,14 +215,31 @@ namespace idLib.Engine.Public
     }
 
     //
+    // idThread
+    //
+    public abstract class idThread
+    {
+        public abstract bool isRunning();
+        public abstract void Start(object data);
+        public abstract void Resume();
+        public abstract void Pause();
+        public abstract void Stop();
+    }
+
+    //
     // idSys
     //
     public abstract class idSys
     {
+        public delegate void ThreadFunc_t();
+
         public abstract void Init();
         public abstract void Frame(bool appIsRunningSlowly, int frameTime, int appElapsedTime);
         public abstract sysEvent_t GetEvent();
         public abstract int Sys_Milliseconds();
         public abstract idSysModule LoadDLL(string path);
+
+        public abstract idThread CreateThread(string threadName, ThreadFunc_t func);
+        public abstract void DestroyThread(ref idThread thread);
     }
 }

@@ -131,7 +131,8 @@ namespace rtcw.Renderer
     //
     // orientationr_t
     //
-    struct orientationr_t{
+    public struct orientationr_t
+    {
 	    public idVector3 origin;              // in world coordinates
 	    public idMatrix axis;             // orientation in world
 	    public idVector3  viewOrigin;          // viewParms->or.origin in local coordinates
@@ -141,7 +142,7 @@ namespace rtcw.Renderer
     //
     // idRenderEntityLocal
     //
-    struct idRenderEntityLocal
+    public struct idRenderEntityLocal
     {
         public idRenderEntity e;
 
@@ -159,7 +160,8 @@ namespace rtcw.Renderer
     //
     // corona_t
     //
-    struct corona_t {
+    public struct corona_t
+    {
 	    public idVector3 origin;
 	    public idVector3 color;               // range from 0.0 to 1.0, should be color normalized
 	    public idVector3 transformed;         // origin in local coordinate system
@@ -169,7 +171,8 @@ namespace rtcw.Renderer
 					    // still send the corona request, even if not visible, for proper fading
     };
 
-    struct dlight_t {
+    public struct dlight_t
+    {
 	    public idVector3 origin;
 	    public idVector3  color;               // range from 0.0 to 1.0, should be color normalized
 	    float radius;
@@ -190,7 +193,8 @@ namespace rtcw.Renderer
     //
     // polyVert_t 
     //
-    struct polyVert_t {
+    public struct polyVert_t
+    {
 	    public idVector3 xyz;
 	    public idVector2 st;
 	    public byte modulate_r;
@@ -203,7 +207,8 @@ namespace rtcw.Renderer
     //
     // srfPoly_t
     //
-    struct srfPoly_t {
+    public struct srfPoly_t
+    {
 	    surfaceType_t surfaceType;
 	    public idMaterial hShader;
 	    public int fogIndex;
@@ -214,7 +219,7 @@ namespace rtcw.Renderer
     //
     // idRefdefLocal
     //
-   class idRefdefLocal {
+    public class idRefdefLocal {
 	    public int x, y, width, height;
 	    public float fov_x, fov_y;
 	    public idVector3 vieworg;
@@ -251,7 +256,7 @@ namespace rtcw.Renderer
     //
     // viewParms_t
     //
-    class viewParms_t {
+    public class viewParms_t {
 	    public orientationr_t  or;
 	    public orientationr_t world;
 	    public idVector3 pvsOrigin;               // may be different than or.origin for portals
@@ -272,43 +277,7 @@ namespace rtcw.Renderer
 	    public idFog glFog;                  // fog parameters	//----(SA)	added
     };
 
-    //
-    // backEndCounters_t
-    //
-    struct backEndCounters_t {
-	    public int c_surfaces, c_shaders, c_vertexes, c_indexes, c_totalIndexes;
-	    public float c_overDraw;
-
-	    public int c_dlightVertexes;
-	    public int c_dlightIndexes;
-
-	    public int c_flareAdds;
-	    public int c_flareTests;
-	    public int c_flareRenders;
-
-	    public int msec;               // total msec for backend run
-    };
-
-    // all state modified by the back end is seperated
-    // from the front end state
-    struct backEndState_t {
-	    public int smpFrame;
-	    public idRefdefLocal refdef;
-	    public viewParms_t viewParms;
-	    public orientationr_t  or;
-	    public backEndCounters_t pc;
-	    public bool isHyperspace;
-	    public idRenderEntityLocal currentEntity;
-	    public bool skyRenderedThisView;       // flag for drawing sun
-
-	    public bool projection2D;      // if qtrue, drawstretchpic doesn't need to change modes
-	    public byte color2D_r;
-        public byte color2D_g;
-        public byte color2D_b;
-        public byte color2D_a;
-	    public bool vertexes2D;        // shader needs to be finished
-	    public idRenderEntityLocal entity2D;     // currentEntity will point at this when doing 2D rendering
-    };
+ 
 
     //
     // idDrawVertex
@@ -343,6 +312,8 @@ namespace rtcw.Renderer
     */
     class idRenderGlobals
     {
+        public const int MAX_DRAWSURFS = 0x10000;
+        public const int DRAWSURF_MASK      =     ( MAX_DRAWSURFS - 1 );
         public const int MAX_DRAWIMAGES     =     2048;
         public const int MAX_LIGHTMAPS      =     256;
         public const int MAX_SKINS          =     1024;
@@ -355,6 +326,8 @@ namespace rtcw.Renderer
         public const int MAX_POLYS          =     4096;
         public const int MAX_POLYVERTS = 8192;
         public const int MAX_FONTS = 6;
+        public const int MAX_RENDER_COMMANDS = 0x40000;
+        public const int SMP_FRAMES = 2;
 
         public int registeredFontCount = 0;
         public idFont[] registeredFont = new idFont[MAX_FONTS];

@@ -61,7 +61,6 @@ namespace rtcw.sys.app
         {
             // Init any components that need to be attached to the application
             InitAppAttachedObjects();
-            //Content.RootDirectory = "main";
         }
 
         //
@@ -86,6 +85,14 @@ namespace rtcw.sys.app
         private void InitAppAttachedObjects()
         {
             graphics = new GraphicsDeviceManager(this);
+        }
+
+        //
+        // EndDraw
+        //
+        protected override void EndDraw()
+        {
+            // We do our own device present.
         }
 
         //
@@ -115,7 +122,7 @@ namespace rtcw.sys.app
 
             // Let the XNA framework draw anything thats still needs to be pushed to screen,
             // and handle any backend OS messaging.
-            base.Draw(gameTime);
+            //base.Draw(gameTime);
         }
     }
 

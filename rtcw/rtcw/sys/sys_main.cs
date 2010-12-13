@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using System.IO;
+using System.Collections.Generic;
 using idLib.Engine.Public;
 
 namespace rtcw.sys
@@ -53,6 +54,7 @@ namespace rtcw.sys
 
         private sysEvent_t emptySysEvent = new sysEvent_t();
         private idSystemInput sysInput;
+        private List<idThreadLocal> threads = new List<idThreadLocal>();
 //byte sys_packetReceived[MAX_MSGLEN];
 
         //
@@ -90,6 +92,30 @@ namespace rtcw.sys
             }
 
             return new idSysModuleLocal(dllPath);
+        }
+
+        //
+        // CreateThread
+        //
+        public override idThread CreateThread(string threadName, idSys.ThreadFunc_t func)
+        {
+            idThreadLocal thread = new idThreadLocal(threadName, func);
+
+            threads.Add(thread);
+            return threads[threads.Count - 1];
+        }
+
+        //
+        // DestoryThread
+        //
+        public override void DestroyThread(ref idThread thread)
+        {
+            ((idThreadLocal)thread).Dispose();
+            if (!threads.Remove((idThreadLocal)thread))
+            {
+                Engine.common.Warning("Sys_DestoryThread: Failed to remove thread from pool. \n");
+            }
+            thread = null;
         }
 
         //
