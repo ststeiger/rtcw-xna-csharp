@@ -142,7 +142,7 @@
     <Compile Include="Renderer\World.cs" />
     <Compile Include="Server\sv_main.cs" />
     <Compile Include="Sound\SoundManager.cs" />
-    <Compile Include="sys\app\res\app_main.cs" />
+    <Compile Include="sys\app\app_main.cs" />
     <Compile Include="sys\sys_thread.cs" />
     <Compile Include="sys\sys_input.cs" />
     <Compile Include="sys\sys_main.cs" />

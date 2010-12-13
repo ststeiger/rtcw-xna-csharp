@@ -573,6 +573,21 @@ namespace rtcw.Renderer
         }
 
         //
+        // AdjustFrom640
+        //
+        private void AdjustFrom640(ref float x, ref float y, ref float w, ref float h)
+        {
+            float yscale = GetViewportHeight() * (1.0f / 480.0f);
+            float xscale = GetViewportWidth() * (1.0f / 640.0f);
+
+            //*x = *x * DC->scale + DC->bias;
+            x *= xscale;
+            y *= yscale;
+            w *= xscale;
+            h *= yscale;
+        }
+
+        //
         // DrawStrechPic
         //
         public override void DrawStrechPic(int x, int y, int width, int height, idImage image)
@@ -590,6 +605,8 @@ namespace rtcw.Renderer
             cmd.w = width;
             cmd.h = height;
             cmd.image = image;
+
+            //AdjustFrom640(ref cmd.x, ref cmd.y, ref cmd.w, ref cmd.h);
         }
 
         //
@@ -629,6 +646,8 @@ namespace rtcw.Renderer
 	        cmd.t1 = t1;
 	        cmd.s2 = s2;
 	        cmd.t2 = t2;
+
+            AdjustFrom640(ref cmd.x, ref cmd.y, ref cmd.w, ref cmd.h);
         }
 
         //
