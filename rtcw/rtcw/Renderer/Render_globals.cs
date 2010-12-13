@@ -66,25 +66,27 @@ namespace rtcw.Renderer
 	    SF_MAX = 0xffffff         // ensures that sizeof( surfaceType_t ) == sizeof( int )
     };
 
-    enum cullType_t {
+    public enum cullType_t {
 	    CT_FRONT_SIDED,
 	    CT_BACK_SIDED,
 	    CT_TWO_SIDED
     };
 
-    enum fogPass_t {
+    public enum fogPass_t
+    {
 	    FP_NONE,        // surface is translucent and will just be adjusted properly
 	    FP_EQUAL,       // surface is opaque but possibly alpha tested
 	    FP_LE           // surface is trnaslucent, but still needs a fog pass (fog surface)
     };
 
-    class skyParms_t {
+    public class skyParms_t
+    {
 	    public float cloudHeight;
 	    public idImage[] outerbox = new idImage[6];
         public idImage[] innerbox= new idImage[6];
     };
 
-   class fogParms_t
+    public class fogParms_t
    {
 	    public idVector3 color = new idVector3();
 	    public float depthForOpaque;

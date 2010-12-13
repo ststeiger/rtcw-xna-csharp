@@ -182,6 +182,11 @@ namespace rtcw.Renderer
         private idMaterialBase shader;
         private string name;
 
+        public static idMaterialBase GetMaterialBase( ref idMaterial mtr )
+        {
+            return ((idMaterialLocal)mtr).shader;
+        }
+
         /*
         ===============
         NameToAFunc
@@ -640,14 +645,14 @@ namespace rtcw.Renderer
 			        }
 			        // check for "simple" blends first
 			        if ( token == "add" ) {
-				        blendSrcBits = Globals.GLS_SRCBLEND_ONE;
-				        blendDstBits = Globals.GLS_DSTBLEND_ONE;
+                        blendSrcBits = (int)Blend.One;// Globals.GLS_SRCBLEND_ONE;
+                        blendDstBits = (int)Blend.One;//Globals.GLS_DSTBLEND_ONE;
 			        } else if ( token == "filter" ) {
-				        blendSrcBits = Globals.GLS_SRCBLEND_DST_COLOR;
-				        blendDstBits = Globals.GLS_DSTBLEND_ZERO;
+                        blendSrcBits = (int)Blend.DestinationColor;//Globals.GLS_SRCBLEND_DST_COLOR;
+				        blendDstBits = (int)Blend.Zero; //Globals.GLS_DSTBLEND_ZERO;
 			        } else if ( token == "blend" ) {
-				        blendSrcBits = Globals.GLS_SRCBLEND_SRC_ALPHA;
-				        blendDstBits = Globals.GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA;
+				        blendSrcBits = (int)Blend.SourceAlpha; //Globals.GLS_SRCBLEND_SRC_ALPHA;
+				        blendDstBits = (int)Blend.InverseSourceAlpha; //Globals.GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA;
 			        } else {
 				        // complex double blends
 				        blendSrcBits = NameToSrcBlendMode( token );
@@ -659,6 +664,11 @@ namespace rtcw.Renderer
 				        }
 				        blendDstBits = NameToDstBlendMode( token );
 			        }
+
+                    stage.useBlending = true;
+                    stage.blendState = new BlendState();
+                    stage.blendState.ColorSourceBlend = (Blend)blendSrcBits;
+                    stage.blendState.ColorDestinationBlend = (Blend)blendDstBits;
 
 			        // clear depth mask for blended surfaces
 			        if ( !depthMaskExplicit ) {

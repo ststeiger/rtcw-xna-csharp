@@ -577,7 +577,12 @@ namespace rtcw.Renderer
         //
         public override void DrawStrechPic(int x, int y, int width, int height, idImage image)
         {
-            idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
+            idRenderCommand cmd;
+            if (image == null)
+            {
+                return;
+            }
+            cmd = Globals.backEnd.GetCommandBuffer();
 
             cmd.type = renderCommandType.RC_STRETCH_IMAGE;
             cmd.x = x;
@@ -599,6 +604,31 @@ namespace rtcw.Renderer
             cmd.color[1] = g;
             cmd.color[2] = b;
             cmd.color[3] = a;
+        }
+
+        //
+        // DrawStretchPic
+        //
+        public override void DrawStretchPic(float x, float y, float w, float h, float s1, float t1, float s2, float t2, idMaterial material) 
+        {
+
+            idRenderCommand cmd;
+            if (material == null)
+            {
+                return;
+            }
+
+            cmd = Globals.backEnd.GetCommandBuffer();
+            cmd.type = renderCommandType.RC_STRETCH_PIC;
+            cmd.shader = material;
+	        cmd.x = x;
+	        cmd.y = y;
+	        cmd.w = w;
+	        cmd.h = h;
+	        cmd.s1 = s1;
+	        cmd.t1 = t1;
+	        cmd.s2 = s2;
+	        cmd.t2 = t2;
         }
 
         //

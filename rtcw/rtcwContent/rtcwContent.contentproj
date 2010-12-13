@@ -1137,6 +1137,11 @@
       <Name>fontImage_24</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="gfx\clipboard\document1.tga">
+      <Name>document1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <None Include="models\mapobjects\bjui\bjui_b.MDc">
       <Name>bjui_b</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

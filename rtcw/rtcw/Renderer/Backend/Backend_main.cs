@@ -156,6 +156,59 @@ namespace rtcw.Renderer.Backend
         }
 
         //
+        // SetMaterialStageState
+        //
+        private void SetMaterialStageState(ref shaderStage_t stage)
+        {
+            if (stage.useBlending == true)
+            {
+                Globals.graphics3DDevice.BlendState = stage.blendState;
+            }
+            else
+            {
+                Globals.graphics3DDevice.BlendState = BlendState.AlphaBlend;
+            }
+        }
+
+
+        //
+        // Cmd_DrawStrechMaterial
+        //
+        private void Cmd_DrawStrechMaterial(ref idRenderCommand cmd)
+        {
+            Set2DOrthoMode();
+
+            // Setup our quad coordinates.
+            quadVertexes[0].xyz.X = cmd.x;
+            quadVertexes[0].xyz.Y = cmd.y;
+            quadVertexes[0].st.X = 0.5f / cmd.w;
+            quadVertexes[0].st.Y = 0.5f / cmd.h;
+
+            quadVertexes[1].xyz.X = cmd.x + cmd.w;
+            quadVertexes[1].xyz.Y = cmd.y;
+            quadVertexes[1].st.X = (cmd.h - 0.5f) / cmd.h;
+            quadVertexes[1].st.Y = 0.5f / cmd.w;
+
+            quadVertexes[2].xyz.X = cmd.x + cmd.w;
+            quadVertexes[2].xyz.Y = cmd.y + cmd.h;
+            quadVertexes[2].st.X = (cmd.h - 0.5f) / cmd.h;
+            quadVertexes[2].st.Y = (cmd.w - 0.5f) / cmd.w;
+
+            quadVertexes[3].xyz.X = cmd.x;
+            quadVertexes[3].xyz.Y = cmd.y + cmd.h;
+            quadVertexes[3].st.X = 0.5f / cmd.h;
+            quadVertexes[3].st.Y = (cmd.w - 0.5f) / cmd.w;
+
+            SetMaterialStageState(ref idMaterialLocal.GetMaterialBase(ref cmd.shader).stages[0]);
+            defaultEffect.Texture = (Texture2D)idMaterialLocal.GetMaterialBase(ref cmd.shader).stages[0].bundle[0].image[0].GetDeviceHandle();
+
+            defaultEffect.DiffuseColor = pushedColor;
+
+            defaultEffect.CurrentTechnique.Passes[0].Apply();
+            Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, quadVertexes, 0, 4, quadIndexes, 0, 2, idDrawVertex.VertexDeclaration);
+        }
+
+        //
         // Cmd_SwapBuffers
         //
         private void Cmd_SwapBuffers(ref idRenderCommand cmd)
@@ -212,6 +265,9 @@ namespace rtcw.Renderer.Backend
                             case renderCommandType.RC_SWAP_BUFFERS:
                                 Cmd_SwapBuffers(ref cmd);
                                 break;
+                            case renderCommandType.RC_STRETCH_PIC:
+                                Cmd_DrawStrechMaterial(ref cmd);
+                                break;
                             default:
                                 Engine.common.ErrorFatal("R_IssueRenderCommandsWorker: Unknown command type\n");
                                 break;
@@ -244,6 +300,7 @@ namespace rtcw.Renderer.Backend
             // Wait for the other smp thread to finish.
             while (backEndData[smpWaitThread].SmpRunning)
             {
+                Thread.Sleep(1);
             }
 
             return true;

@@ -164,5 +164,6 @@ namespace idLib.Engine.Content.ui.Private
         public idVector4 borderColor = new idVector4();             // border color
         public idVector4 outlineColor = new idVector4();            // border color
         public string background = "";
+        public idMaterial backgroundHandle;
     }
 }

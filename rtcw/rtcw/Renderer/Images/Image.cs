@@ -58,7 +58,14 @@ namespace rtcw.Renderer
         //
         public void Init(string imgpath)
         {
-            tex2d = Engine.fileSystem.ReadContent<Texture2D>(imgpath);
+            try
+            {
+                tex2d = Engine.fileSystem.ReadContent<Texture2D>(imgpath);
+            }
+            catch (Exception e)
+            {
+                Engine.common.ErrorFatal("R_InitImage: " + imgpath + " not found...\n");
+            }
             imagewidth = tex2d.Width;
             imageheight = tex2d.Height;
             name = imgpath;
@@ -80,7 +87,7 @@ namespace rtcw.Renderer
             name = imgname;
             imagewidth  = width;
             imageheight = height;
-
+            
             tex2d = new Texture2D(Globals.graphics3DDevice, width, height, mipmap, SurfaceFormat.Color);
         }
 

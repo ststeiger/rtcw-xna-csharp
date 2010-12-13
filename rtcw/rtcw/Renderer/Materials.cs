@@ -41,7 +41,8 @@ using idLib.Math;
 
 namespace rtcw.Renderer
 {
-    enum shaderSort_t{
+    public enum shaderSort_t
+    {
 	    SS_BAD,
 	    SS_PORTAL,          // mirrors, portals, viewscreens
 	    SS_ENVIRONMENT,     // sky box
@@ -68,7 +69,8 @@ namespace rtcw.Renderer
 	    SS_NEAREST          // blood blobs
     };
 
-    enum genFunc_t {
+    public enum genFunc_t
+    {
 	    GF_NONE,
 
 	    GF_SIN,
@@ -82,7 +84,7 @@ namespace rtcw.Renderer
     };
 
 
-     enum deform_t {
+     public enum deform_t {
 	    DEFORM_NONE,
 	    DEFORM_WAVE,
 	    DEFORM_NORMALS,
@@ -101,7 +103,8 @@ namespace rtcw.Renderer
 	    DEFORM_TEXT7
     };
 
-    enum alphaGen_t {
+     public enum alphaGen_t
+     {
 	    AGEN_IDENTITY,
 	    AGEN_SKIP,
 	    AGEN_ENTITY,
@@ -115,7 +118,8 @@ namespace rtcw.Renderer
 	    AGEN_CONST
     };
 
-    enum colorGen_t {
+    public enum colorGen_t
+    {
 	    CGEN_BAD,
 	    CGEN_IDENTITY_LIGHTING, // tr.identityLight
 	    CGEN_IDENTITY,          // always (1,1,1,1)
@@ -130,7 +134,8 @@ namespace rtcw.Renderer
 	    CGEN_CONST              // fixed color
     };
 
-    enum texCoordGen_t {
+    public enum texCoordGen_t
+    {
 	    TCGEN_BAD,
 	    TCGEN_IDENTITY,         // clear to 0,0
 	    TCGEN_LIGHTMAP,
@@ -141,14 +146,16 @@ namespace rtcw.Renderer
 	    TCGEN_VECTOR            // S and T from world coordinates
     };
 
-    enum acff_t {
+    public enum acff_t
+    {
 	    ACFF_NONE,
 	    ACFF_MODULATE_RGB,
 	    ACFF_MODULATE_RGBA,
 	    ACFF_MODULATE_ALPHA
     };
 
-    class waveForm_t {
+    public class waveForm_t
+    {
 	    public genFunc_t func;
 
 	    public float base_c;
@@ -157,7 +164,8 @@ namespace rtcw.Renderer
 	    public float frequency;
     };
 
-    enum texMod_t {
+    public enum texMod_t
+    {
 	    TMOD_NONE,
 	    TMOD_TRANSFORM,
 	    TMOD_TURBULENT,
@@ -169,8 +177,9 @@ namespace rtcw.Renderer
 	    TMOD_SWAP
     };
 
-    
-    class deformStage_t {
+
+    public class deformStage_t
+    {
 	    public deform_t deformation;               // vertex coordinate modification type
 
 	    public idVector3 moveVector = new idVector3();
@@ -183,7 +192,7 @@ namespace rtcw.Renderer
     };
 
 
-     class texModInfo_t {
+     public class texModInfo_t {
 	    public texMod_t type;
 
 	    // used for TMOD_TURBULENT and TMOD_STRETCH
@@ -206,7 +215,8 @@ namespace rtcw.Renderer
 	    public float rotateSpeed;
     };
 
-    class textureBundle_t {
+     public class textureBundle_t
+     {
 	    public idImage[] image = new idImage[idMaterialBase.MAX_IMAGE_ANIMATIONS];
 	    public int numImageAnimations;
 	    public float imageAnimationSpeed;
@@ -223,7 +233,8 @@ namespace rtcw.Renderer
 	    public bool isVideoMap;
     };
 
-     class shaderStage_t {
+    public class shaderStage_t
+    {
 	    public bool active;
 
         public textureBundle_t[] bundle = new textureBundle_t[idMaterialBase.NUM_TEXTURE_BUNDLES];
@@ -238,6 +249,9 @@ namespace rtcw.Renderer
         public float constantColorAlpha;
 	    public int stateBits;                         // GLS_xxxx mask
 
+        public bool useBlending;
+        public BlendState blendState;
+
 	    public acff_t adjustColorsForFog;
 
 	    // Ridah
@@ -250,7 +264,7 @@ namespace rtcw.Renderer
     //
     // idMaterialLocal
     //
-    class idMaterialBase
+    public class idMaterialBase
     {
         public const int SHADER_MAX_VERTEXES = 4000;
         public const int SHADER_MAX_INDEXES = ( 6 * SHADER_MAX_VERTEXES );
@@ -299,7 +313,7 @@ namespace rtcw.Renderer
 	    public bool noPicMip;                  // for images that must always be full resolution
 	    public bool characterMip;              // use r_picmip2 rather than r_picmip
 
-	    fogPass_t fogPass;                  // draw a blended pass, possibly with depth test equals
+	    public fogPass_t fogPass;                  // draw a blended pass, possibly with depth test equals
 
 	    public bool needsNormal;               // not all shaders will need all data to be gathered
 	    public bool needsST1;
@@ -322,12 +336,12 @@ namespace rtcw.Renderer
 	    public float timeOffset;                                   // current time offset for this shader
 
 	    public int numStates;                                      // if non-zero this is a state shader
-	    public idMaterialLocal currentShader;                     // current state if this is a state shader
-	    public idMaterialLocal parentShader;                      // current state if this is a state shader
+	    idMaterialLocal currentShader;                     // current state if this is a state shader
+	    idMaterialLocal parentShader;                      // current state if this is a state shader
 	    public int currentState;                                   // current state index for cycle purposes
 	    public long expireTime;                                    // time in milliseconds this expires
 
-	    public idMaterialLocal remappedShader;                    // current shader this one is remapped too
+	    idMaterialLocal remappedShader;                    // current shader this one is remapped too
 
 	    public int[] shaderStates = new int[MAX_STATES_PER_SHADER];            // index to valid shader states
     }

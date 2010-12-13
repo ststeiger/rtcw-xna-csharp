@@ -397,5 +397,6 @@ namespace idLib.Engine.Public
         public abstract void DrawStrechPic(int x, int y, int width, int height, idImage image);
         public abstract idFont RegisterFont(string name, int pointSize);
         public abstract void SetColor(float r, float g, float b, float a);
+        public abstract void DrawStretchPic(float x, float y, float w, float h, float s1, float t1, float s2, float t2, idMaterial material);
     }
 }
