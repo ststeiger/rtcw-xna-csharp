@@ -50,7 +50,7 @@ namespace rtcw.Renderer.Backend
         backEndState_t state = new backEndState_t();
         backEndData_t[]  backEndData = new backEndData_t[idRenderGlobals.SMP_FRAMES];
 
-        Color pushedColor = Color.White;
+        private Vector3 pushedColor = new Vector3(1, 1, 1);
 
         private int r_firstSceneDrawSurf = 0;
 
@@ -71,6 +71,12 @@ namespace rtcw.Renderer.Backend
         private int skyboxportal = 0;
         private int drawskyboxportal = 0;
 
+        private idRenderMatrix orthoMatrix = new idRenderMatrix();
+        private idDrawVertex[] quadVertexes = new idDrawVertex[4];
+        private short[] quadIndexes = new short[] { 0, 1, 2, 0, 2, 3 };
+
+        private BasicEffect defaultEffect;
+
         //
         // idRenderBackend
         //
@@ -80,6 +86,14 @@ namespace rtcw.Renderer.Backend
             {
                 backEndData[i] = new backEndData_t(i);
             }
+            for (int i = 0; i < 4; i++)
+            {
+                quadVertexes[i] = new idDrawVertex();
+            }
+
+            orthoMatrix.Create2DOrthoMatrix(Engine.RenderSystem.GetViewportWidth(), Engine.RenderSystem.GetViewportHeight());
+            defaultEffect = new BasicEffect(Globals.graphics3DDevice);
+            defaultEffect.TextureEnabled = true;
 
             state.smpFrame = 0;
         }
@@ -98,13 +112,47 @@ namespace rtcw.Renderer.Backend
         }
 
         //
+        // Set2DOrthoMode
+        //
+        private void Set2DOrthoMode()
+        {
+            orthoMatrix.SetAsActiveMatrix(ref defaultEffect);
+        }
+
+        //
         // Cmd_DrawStrechImage
         //
         private void Cmd_DrawStrechImage(ref idRenderCommand cmd)
         {
-            Globals.graphics2DDevice.Begin();
-            Globals.graphics2DDevice.Draw((Texture2D)cmd.image.GetDeviceHandle(), new Rectangle((int)cmd.x, (int)cmd.y, (int)cmd.w, (int)cmd.h), pushedColor);
-            Globals.graphics2DDevice.End();
+            Set2DOrthoMode();
+
+            // Setup our quad coordinates.
+            quadVertexes[0].xyz.X = cmd.x;
+            quadVertexes[0].xyz.Y = cmd.y;
+            quadVertexes[0].st.X = 0.5f / cmd.w;
+            quadVertexes[0].st.Y = 0.5f / cmd.h;
+
+            quadVertexes[1].xyz.X = cmd.x + cmd.w;
+            quadVertexes[1].xyz.Y = cmd.y;
+            quadVertexes[1].st.X = ( cmd.h - 0.5f ) / cmd.h;
+            quadVertexes[1].st.Y = 0.5f / cmd.w;
+
+            quadVertexes[2].xyz.X = cmd.x + cmd.w;
+            quadVertexes[2].xyz.Y = cmd.y + cmd.h;
+            quadVertexes[2].st.X = (cmd.h - 0.5f) / cmd.h;
+            quadVertexes[2].st.Y = (cmd.w - 0.5f) / cmd.w;
+
+            quadVertexes[3].xyz.X = cmd.x;
+            quadVertexes[3].xyz.Y = cmd.y + cmd.h;
+            quadVertexes[3].st.X = 0.5f / cmd.h;
+            quadVertexes[3].st.Y = (cmd.w - 0.5f) / cmd.w;
+
+            defaultEffect.Texture = (Texture2D)cmd.image.GetDeviceHandle();
+            
+            defaultEffect.DiffuseColor = pushedColor;
+
+            defaultEffect.CurrentTechnique.Passes[0].Apply();
+            Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, quadVertexes, 0, 4, quadIndexes, 0, 2, idDrawVertex.VertexDeclaration);
         }
 
         //
@@ -120,7 +168,9 @@ namespace rtcw.Renderer.Backend
         //
         private void Cmd_SetColor(ref idRenderCommand cmd)
         {
-            pushedColor = cmd.color;
+            pushedColor.X = cmd.color[0];
+            pushedColor.Y = cmd.color[1];
+            pushedColor.Z = cmd.color[2];
         }
 
         //

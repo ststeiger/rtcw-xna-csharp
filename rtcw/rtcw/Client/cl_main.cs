@@ -483,10 +483,10 @@ namespace rtcw.Client
                 {
                     if (cls.videoLetterBox)
                     {
-                        Engine.RenderSystem.SetColor(Microsoft.Xna.Framework.Color.Black);
+                        Engine.RenderSystem.SetColor(0, 0, 0, 0);
                         Engine.RenderSystem.DrawStrechPic(0, 0, Engine.RenderSystem.GetViewportWidth(), idVideo.LETTERBOX_OFFSET, cls.whiteImage);
                         Engine.RenderSystem.DrawStrechPic(0, Engine.RenderSystem.GetViewportHeight() - idVideo.LETTERBOX_OFFSET, Engine.RenderSystem.GetViewportWidth(), idVideo.LETTERBOX_OFFSET, cls.whiteImage);
-                        Engine.RenderSystem.SetColor(Microsoft.Xna.Framework.Color.White);
+                        Engine.RenderSystem.SetColor(1, 1, 1, 1);
                     }
                     cls.videoFullScreen.DrawCinematic();
                 }

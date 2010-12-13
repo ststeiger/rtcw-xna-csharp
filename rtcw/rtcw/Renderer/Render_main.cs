@@ -56,8 +56,6 @@ namespace rtcw.Renderer
 
         public static GraphicsDevice graphics3DDevice;
 
-        public static SpriteBatch graphics2DDevice;
-
         public static idCVar r_flareSize;
         public static idCVar r_flareFade;
 
@@ -278,7 +276,6 @@ namespace rtcw.Renderer
         {
             _graphicsDevice = xnaDevice;
             Globals.graphics3DDevice = _graphicsDevice;
-            Globals.graphics2DDevice = new SpriteBatch(Globals.graphics3DDevice);
         }
 
         /*
@@ -593,12 +590,15 @@ namespace rtcw.Renderer
         //
         // SetColor
         //
-        public override void SetColor(Color color)
+        public override void SetColor(float r, float g, float b, float a)
         {
             idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
 
             cmd.type = renderCommandType.RC_SET_COLOR;
-            cmd.color = color;
+            cmd.color[0] = r;
+            cmd.color[1] = g;
+            cmd.color[2] = b;
+            cmd.color[3] = a;
         }
 
         //

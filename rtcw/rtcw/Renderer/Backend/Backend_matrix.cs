@@ -31,55 +31,50 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// Backend_Cmd.cs (c) 2010 JV Software
+// Backend_matrix.cs (c) 2010 JV Software
 //
 
 using System;
+using System.Threading;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using idLib.Engine.Public;
 
 namespace rtcw.Renderer.Backend
 {
     //
-    // renderCommandType
-    // 
-    public enum renderCommandType {
-	    RC_SET_COLOR,
-        RC_STRETCH_IMAGE,
-	    RC_STRETCH_PIC,
-	    RC_STRETCH_PIC_GRADIENT,    // (SA) added
-	    RC_DRAW_SURFS,
-	    RC_DRAW_BUFFER,
-	    RC_SWAP_BUFFERS
-    };
-
+    // idRenderMatrix
     //
-    // idRenderCommand
-    //
-    public class idRenderCommand
+    class idRenderMatrix
     {
-        public renderCommandType type;
+        Matrix world;
+        Matrix view;
+        Matrix projection;
 
-        // RC_DRAW_BUFFER / endFrameCommand_t
-        public int buffer;
+        //
+        // Create2DOrthoMatrix
+        // http://social.msdn.microsoft.com/Forums/en/xnagamestudioexpress/thread/7a2afd75-49f9-485d-99bd-1ed61dfbb1b4
+        //
+        public void Create2DOrthoMatrix( int width, int height )
+        {
+            world = Matrix.Identity;
+            view = new Matrix(
+                1.0f, 0.0f, 0.0f, 0.0f,
+                0.0f, -1.0f, 0.0f, 0.0f,
+                0.0f, 0.0f, -1.0f, 0.0f,
+                0.0f, 0.0f, 0.0f, 1.0f);
 
-        // RC_SET_COLOR
-        public float[] color = new float[4];
+            projection = Matrix.CreateOrthographicOffCenter(0, width, -height, 0, 0, 1);
+        }
 
-        // RC_STRETCH_PIC
-        public idMaterial shader;
-        public idImage image;
-	    public float x, y;
-	    public float w, h;
-	    public float s1, t1;
-	    public float s2, t2;
-
-	    public byte[] gradientColor = new byte[4];      // color values 0-255
-	    public int gradientType;       //----(SA)	added
-
-        public idRefdefLocal refdef;
-        public viewParms_t viewParms;
-        public idDrawSurface[] drawSurfs;
-        public int numDrawSurfs;
-    }
+        //
+        // SetAsActiveMatrix
+        //
+        public void SetAsActiveMatrix(ref BasicEffect effect)
+        {
+            effect.World = world;
+            effect.Projection = projection;
+            effect.View = view;
+        }
+    };
 }
