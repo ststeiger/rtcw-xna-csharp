@@ -271,7 +271,7 @@ namespace rtcw.Renderer.Backend
         {
             while (true)
             {
-                if (SmpThreadHasWork( smpFrame ))
+                if (SmpThreadHasWork( smpFrame ) || Globals.r_smp.GetValueInteger() == 0)
                 {
                     
                     for (int i = 0; i < GetNumOfSmpCommands( smpFrame ); i++)
@@ -307,6 +307,10 @@ namespace rtcw.Renderer.Backend
                     // Were down wait for the next command list.
                     Globals.backEnd.backEndData[smpFrame].Pause();
 
+                    if (Globals.r_smp.GetValueInteger() == 0)
+                    {
+                        break;
+                    }
                 }
                 else
                 {
@@ -326,6 +330,9 @@ namespace rtcw.Renderer.Backend
             {
                 smpWaitThread = state.smpFrame ^ 1;
             }
+
+            if (Globals.r_smp.GetValueInteger() == 0)
+                return true;
 
             // Wait for the other smp thread to finish.
             while (backEndData[smpWaitThread].SmpRunning)
@@ -365,6 +372,11 @@ namespace rtcw.Renderer.Backend
         //
         public void IssueRenderCommands(bool runPerformanceCounters)
         {
+            if (Globals.r_smp.GetValueInteger() == 0)
+            {
+                IssueRenderCommandsWorker(0);
+                return;
+            }
             SyncRenderThread();
 
             backEndData[state.smpFrame].Execute();
