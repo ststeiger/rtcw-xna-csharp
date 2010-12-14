@@ -18,6 +18,7 @@ namespace ui
         private idUserInterfaceMenuDef menu;
         private idUserInterfaceCachedAssets assets;
         private idImage whiteImage;
+        private idWorld world;
 
         //
         // idUserInterfaceLocal
@@ -31,6 +32,7 @@ namespace ui
             LoadAssets();
 
             whiteImage = Engine.imageManager.FindImage("*white");
+            world = Engine.RenderSystem.AllocWorld();
         }
 
         //
@@ -380,6 +382,140 @@ namespace ui
         }
 
         //
+        // AdjustFrom640
+        //
+        private void AdjustFrom640(ref float x, ref float y, ref float w, ref float h)
+        {
+            float yscale = Engine.RenderSystem.GetViewportHeight() * (1.0f / 480.0f);
+            float xscale = Engine.RenderSystem.GetViewportWidth() * (1.0f / 640.0f);
+
+            //*x = *x * DC->scale + DC->bias;
+            x *= xscale;
+            y *= yscale;
+            w *= xscale;
+            h *= yscale;
+        }
+
+        //
+        // PaintItemModel
+        //
+        private void PaintItemModel(ref idUserInterfaceItem item)
+        {
+            float x, y, w, h;   //,xx;
+	        idRefdef refdef;
+	        idRenderEntity ent;
+	        idVector3 mins, maxs, origin;
+            idVector3 angles;
+	        idUserInterfaceModel modelPtr = (idUserInterfaceModel)item.typeData;
+	        int backLerpWhole;
+
+	        if ( modelPtr == null ) {
+		        return;
+	        }
+
+	        if ( item.model == null ) {
+		        return;
+	        }
+
+	        // setup the refdef
+	        //memset( &refdef, 0, sizeof( refdef ) );
+            refdef = world.AllocRefdef();
+
+	        refdef.rdflags = idRenderType.RDF_NOWORLDMODEL;
+	        //AxisClear( refdef.viewaxis );
+	        x = item.window.rect.x + 1;
+	        y = item.window.rect.y + 1;
+	        w = item.window.rect.w - 2;
+	        h = item.window.rect.h - 2;
+
+	        AdjustFrom640( ref x, ref y, ref w, ref h );
+
+	        refdef.x = (int)x;
+	        refdef.y = (int)y;
+	        refdef.width = (int)w;
+	        refdef.height = (int)h;
+
+            item.model.GetModelBounds( out mins, out maxs );
+
+            ent = world.AllocRenderEntity(ref refdef);
+	        ent.origin[2] = -0.5f * ( mins[2] + maxs[2] );
+            ent.origin[1] = 0.5f * (mins[1] + maxs[1]);
+
+	        // calculate distance so the model nearly fills the box
+	        if ( true ) {
+		        float len = 0.5f * ( maxs[2] - mins[2] );
+                ent.origin[0] = len / 0.268f;    // len / tan( fov/2 )
+		        //origin[0] = len / tan(w/2);
+	        } else {
+                ent.origin[0] = item.textscale;
+	        }
+
+        #if true
+	        refdef.fov_x = ( modelPtr.fov_x != 0 ) ? modelPtr.fov_x : w;
+	        refdef.fov_y = ( modelPtr.fov_y != 0 ) ? modelPtr.fov_y : h;
+        #else
+	        refdef.fov_x = (int)( (float)refdef.width / 640.0f * 90.0f );
+	        xx = refdef.width / tan( refdef.fov_x / 360 * M_PI );
+	        refdef.fov_y = atan2( refdef.height, xx );
+	        refdef.fov_y *= ( 360 / M_PI );
+        #endif
+	       // DC->clearScene();
+
+	        //refdef.time = DC->realTime;
+
+	        // add the model
+
+	        //memset( &ent, 0, sizeof( ent ) );
+            
+
+	        //adjust = 5.0 * sin( (float)uis.realtime / 500 );
+	        //adjust = 360 % (int)((float)uis.realtime / 1000);
+	        //VectorSet( angles, 0, 0, 1 );
+
+	        // use item storage to track
+	       // if ( modelPtr->rotationSpeed ) {
+		  //      if ( DC->realTime > item->window.nextTime ) {
+			//        item->window.nextTime = DC->realTime + modelPtr->rotationSpeed;
+			//        modelPtr.angle = (int)( modelPtr.angle + 1 ) % 360;
+		   //     }
+	      //  }
+            angles = new idVector3(0, modelPtr.angle, 0);
+            ent.axis = angles.ToAxis();
+
+            /*
+	        if ( modelPtr->frameTime ) { // don't advance on the first frame
+		        modelPtr->backlerp += ( ( ( DC->realTime - modelPtr->frameTime ) / 1000.0f ) * (float)modelPtr->fps );
+	        }
+
+	        if ( modelPtr->backlerp > 1 ) {
+		        backLerpWhole = floor( modelPtr->backlerp );
+
+		        modelPtr->frame += ( backLerpWhole );
+		        if ( ( modelPtr->frame - modelPtr->startframe ) > modelPtr->numframes ) {
+			        modelPtr->frame = modelPtr->startframe + modelPtr->frame % modelPtr->numframes; // todo: ignoring loopframes
+
+		        }
+		        modelPtr->oldframe += ( backLerpWhole );
+		        if ( ( modelPtr->oldframe - modelPtr->startframe ) > modelPtr->numframes ) {
+			        modelPtr->oldframe = modelPtr->startframe + modelPtr->oldframe % modelPtr->numframes;   // todo: ignoring loopframes
+
+		        }
+		        modelPtr->backlerp = modelPtr->backlerp - backLerpWhole;
+	        }
+
+	        modelPtr->frameTime = DC->realTime;
+            */
+	        ent.frame       = modelPtr.frame;
+	        ent.oldframe    = modelPtr.oldframe;
+	        ent.backlerp    = 1.0f - modelPtr.backlerp;
+
+            ent.lightingOrigin = ent.origin;
+            ent.oldorigin = ent.origin;
+
+            world.RenderScene(refdef);
+        }
+
+        //
         // PaintItem
         //
         private void PaintItem(ref idUserInterfaceItem item)
@@ -388,8 +524,20 @@ namespace ui
             {
                 UI_DrawHandlePic(item.window.rectClient.x, item.window.rectClient.y, item.window.rectClient.w, item.window.rectClient.h, item.window.backgroundHandle);
             }
+
+            // Paint the window first.
             PaintWindow(ref item.window);
 
+
+            switch (item.type)
+            {
+                case ui_menudef.ITEM_TYPE_MENUMODEL:
+                    PaintItemModel(ref item);
+                    break;
+                case ui_menudef.ITEM_TYPE_MODEL:
+                    PaintItemModel(ref item);
+                    break;
+            }
         }
 
         //

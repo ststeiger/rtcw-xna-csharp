@@ -186,6 +186,15 @@ namespace rtcw.Renderer.Models
         }
 
         //
+        // GetModelBounds
+        //
+        public override void GetModelBounds(out idVector3 mins, out idVector3 maxs)
+        {
+            mins = frames[0].mins;
+            maxs = frames[0].maxs;
+        }
+
+        //
         // GetName
         //
         public override string GetName()

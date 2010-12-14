@@ -42,7 +42,7 @@ namespace rtcw.Renderer.Backend
         //
         // DrawPrimitives
         //
-        public static void DrawPrimitives(int numVerts, int numIndexes, ref idDrawVertex[] verts, ref short[] indexes)
+        public static void DrawPrimitives(int numVerts, int numIndexes, idDrawVertex[] verts, short[] indexes)
         {
             defaultEffect.DiffuseColor = pushedColor;
             defaultEffect.CurrentTechnique.Passes[0].Apply();
@@ -52,7 +52,7 @@ namespace rtcw.Renderer.Backend
         //
         // BindImage
         //
-        public static void BindImage(ref idImage image)
+        public static void BindImage(idImage image)
         {
             defaultEffect.Texture = (Texture2D)image.GetDeviceHandle();
         }
@@ -80,7 +80,7 @@ namespace rtcw.Renderer.Backend
         //
         // SetMaterialStageState
         //
-        public static void SetMaterialStageState(ref shaderStage_t stage)
+        public static void SetMaterialStageState(shaderStage_t stage)
         {
             if (stage.useBlending == true)
             {

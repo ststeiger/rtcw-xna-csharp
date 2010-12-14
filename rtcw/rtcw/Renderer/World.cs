@@ -35,6 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
+using System.Collections.Generic;
 using idLib.Engine.Public;
 
 namespace rtcw.Renderer
@@ -44,5 +45,28 @@ namespace rtcw.Renderer
     //
     class idWorldLocal : idWorld
     {
+        //
+        // AllocRefdef
+        //
+        public override idRefdef AllocRefdef()
+        {
+            return Globals.backEnd.AllocRefDef();
+        }
+
+        //
+        // AllocRenderEntity
+        //
+        public override idRenderEntity AllocRenderEntity( ref idRefdef refdef )
+        {
+            return ((idRefdefLocal)refdef).GetNextRenderEntity();
+        }
+
+        //
+        // RenderScene
+        //
+        public override void RenderScene(idRefdef refdef)
+        {
+            
+        }
     }
 }

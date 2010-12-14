@@ -667,6 +667,18 @@ namespace rtcw.Renderer
         }
 
         //
+        // AllocWorld
+        //
+        public override idWorld AllocWorld()
+        {
+            idWorldLocal world = new idWorldLocal();
+
+            Globals.tr.worlds.Add(world);
+
+            return Globals.tr.worlds[Globals.tr.worlds.Count - 1];
+        }
+
+        //
         // RegisterFont
         //
         public override idFont RegisterFont(string filename, int pointSize)

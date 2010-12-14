@@ -59,6 +59,12 @@ namespace rtcw.Renderer.Models
             throw new NotImplementedException();
         }
 
+        public override void GetModelBounds(out idVector3 mins, out idVector3 maxs)
+        {
+            mins = new idVector3( 0, 0, 0 );
+            maxs = new idVector3(0, 0, 0);
+        }
+
         //
         // ParseMD3Vertexes
         //

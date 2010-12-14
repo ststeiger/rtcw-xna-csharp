@@ -1104,7 +1104,7 @@ namespace rtcw.Renderer
                                 cin.blitBuffer[a + 0] = temp[0];
                                 cin.blitBuffer[a + 1] = temp[1];
 
-                                temp = System.BitConverter.GetBytes(cin.sbufmemory[i * 2]);
+                                temp = System.BitConverter.GetBytes(cin.sbufmemory[i * 2 + 1]);
                                 cin.blitBuffer[a + 2] = temp[0];
                                 cin.blitBuffer[a + 3] = temp[1];
                             }

@@ -165,6 +165,44 @@ namespace idLib.Engine.Public
     }
 
     //
+    // idRenderType
+    //
+    public static class idRenderType
+    {
+        // renderfx flags
+        public const int RF_MINLIGHT      =   1 ;      // allways have some light (viewmodel, some items)
+        public const int RF_THIRD_PERSON  =   2;       // don't draw through eyes, only mirrors (player bodies, chat sprites)
+        public const int RF_FIRST_PERSON  =   4;       // only draw through eyes (view weapon, damage blood blob)
+        public const int RF_DEPTHHACK     =   8;       // for view weapon Z crunching
+        public const int RF_NOSHADOW      =   64;      // don't add stencil shadows
+
+        public const int RF_LIGHTING_ORIGIN = 128;     // use refEntity->lightingOrigin instead of refEntity->origin
+									        // for lighting.  This allows entities to sink into the floor
+									        // with their origin going solid, and allows all parts of a
+									        // player to get the same lighting
+        public const int RF_SHADOW_PLANE   =  256;     // use refEntity->shadowPlane
+        public const int RF_WRAP_FRAMES    =  512;     // mod the model frames by the maxframes to allow continuous
+									        // animation without needing to know the frame count
+
+        public const int RF_HILIGHT      =    ( 1 << 8 );  // more than RF_MINLIGHT.  For when an object is "Highlighted" (looked at/training identification/etc)
+        public const int RF_BLINK        =    ( 1 << 9 );  // eyes in 'blink' state
+
+        // refdef flags
+        public const int RDF_NOWORLDMODEL =   1;       // used for player configuration screen
+        public const int  RDF_HYPERSPACE  =   4;       // teleportation effect
+
+        // Rafael
+        public const int RDF_SKYBOXPORTAL =   8;
+
+        public const int RDF_DRAWSKYBOX   =   16;      // the above marks a scene as being a 'portal sky'.  this flag says to draw it or not
+
+        //----(SA)
+        public const int RDF_UNDERWATER   =   (1 << 4);  // so the renderer knows to use underwater fog when the player is underwater
+        public const int RDF_DRAWINGSKY   =   ( 1 << 5 );
+        public const int RDF_SNOOPERVIEW  =   ( 1 << 6 );  //----(SA)	added
+    }
+
+    //
     // idSkin
     //
     public abstract class idSkin
@@ -213,7 +251,7 @@ namespace idLib.Engine.Public
     //
     // idRenderEntity
     //
-    public struct idRenderEntity
+    public class idRenderEntity
     {
         public refEntityType_t reType;
 	    public int renderfx;
@@ -304,12 +342,44 @@ namespace idLib.Engine.Public
         public string name;
     };
 
+    public class idRefdef
+    {
+        public int x, y, width, height;
+	    public float fov_x, fov_y;
+	    public idVector3 vieworg = new idVector3();
+	    public idMatrix viewaxis = new idMatrix();             // transformation matrix
+
+	    public int time;           // time in milliseconds for shader effects and other time dependent rendering issues
+	    public int rdflags;                    // RDF_NOWORLDMODEL, etc
+
+	    // 1 bits will prevent the associated area from rendering at all
+	    //byte areamask[MAX_MAP_AREA_BYTES];
+
+
+
+
+	    // text messages for deform text shaders
+	    //char text[MAX_RENDER_STRINGS][MAX_RENDER_STRING_LENGTH];
+
+
+    //----(SA)	added (needed to pass fog infos into the portal sky scene)
+	    //glfog_t glfog;
+    //----(SA)	end
+    }
+
     //
     // idWorld
     //
     public abstract class idWorld
     {
+        // Allocates a refdef.
+        public abstract idRefdef AllocRefdef();
 
+        // Allocates a render entity that is attached to this world.
+        public abstract idRenderEntity AllocRenderEntity(ref idRefdef refdef);
+
+        // Renders the world.
+        public abstract void RenderScene(idRefdef refdef);
     }
 
     //
@@ -362,6 +432,7 @@ namespace idLib.Engine.Public
     public abstract class idModel
     {
         public abstract string GetName();
+        public abstract void GetModelBounds(out idVector3 mins, out idVector3 maxs);
     }
 
     //
@@ -377,6 +448,8 @@ namespace idLib.Engine.Public
 
         // Loads a model.
         public abstract idModel LoadModel(string name);
+
+        
     }
 
     //
@@ -398,5 +471,6 @@ namespace idLib.Engine.Public
         public abstract idFont RegisterFont(string name, int pointSize);
         public abstract void SetColor(float r, float g, float b, float a);
         public abstract void DrawStretchPic(float x, float y, float w, float h, float s1, float t1, float s2, float t2, idMaterial material);
+        public abstract idWorld AllocWorld();
     }
 }

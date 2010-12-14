@@ -38,7 +38,6 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
-
 using idLib.Engine.Public;
 using idLib.Math;
 
@@ -144,10 +143,8 @@ namespace rtcw.Renderer
     //
     // idRenderEntityLocal
     //
-    public struct idRenderEntityLocal
+    public class idRenderEntityLocal : idRenderEntity
     {
-        public idRenderEntity e;
-
         public float axisLength;           // compensate for non-normalized axis
 
 	    public bool needDlights;       // true for bmodels that touch a dlight
@@ -221,27 +218,15 @@ namespace rtcw.Renderer
     //
     // idRefdefLocal
     //
-    public class idRefdefLocal {
-	    public int x, y, width, height;
-	    public float fov_x, fov_y;
-	    public idVector3 vieworg;
-	    public idMatrix viewaxis;             // transformation matrix
+    public class idRefdefLocal : idRefdef {
 
-	    public int time;                       // time in milliseconds for shader effects and other time dependent rendering issues
-	    public int rdflags;                    // RDF_NOWORLDMODEL, etc
-
-	    // 1 bits will prevent the associated area from rendering at all
-	    public byte[] areamask = new byte[Engine.MAX_MAP_AREA_BYTES];
-	    public bool areamaskModified;      // qtrue if areamask changed since last scene
+        public bool areamaskModified;      // qtrue if areamask changed since last scene
 
 	    public float floatTime;                // tr.refdef.time / 1000.0
 
-	    // text messages for deform text shaders
-	    public string text;
-
-	    public int num_entities;
-	    public List<idRenderEntityLocal> entities = new List<idRenderEntityLocal>();
-
+	    public int num_entities = 0;
+        public idRenderEntityLocal[] entities = new idRenderEntityLocal[idRenderGlobals.MAX_RENDER_ENTITIES];
+        /*
 	    public int num_dlights;
 	    public List<dlight_t> dlights;
 
@@ -253,6 +238,16 @@ namespace rtcw.Renderer
 
 	    public int numDrawSurfs;
         public List<idDrawSurface> drawSurfs;
+        */
+        public idRenderEntityLocal GetNextRenderEntity()
+        {
+            if (entities[num_entities] == null)
+            {
+                entities[num_entities] = new idRenderEntityLocal();
+            }
+
+            return entities[num_entities++];
+        }
     };
 
     //
@@ -340,6 +335,7 @@ namespace rtcw.Renderer
         public const int MAX_FONTS = 6;
         public const int MAX_RENDER_COMMANDS = 0x40000;
         public const int SMP_FRAMES = 2;
+        public const int MAX_RENDER_ENTITIES = 2000;
 
         public int registeredFontCount = 0;
         public idFont[] registeredFont = new idFont[MAX_FONTS];
@@ -397,7 +393,8 @@ namespace rtcw.Renderer
 
         public orientationr_t or;                 // for current entity
 
-        public idRefdefLocal refdef;
+        public idRefdefLocal refdef = new idRefdefLocal();
+        public List<idWorld> worlds = new List<idWorld>();
 
 	    public int viewCluster;
 

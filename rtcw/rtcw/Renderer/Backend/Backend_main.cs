@@ -45,7 +45,7 @@ namespace rtcw.Renderer.Backend
     //
     // idRenderBackend
     //
-    public class idRenderBackend
+    public unsafe class idRenderBackend
     {
         backEndState_t state = new backEndState_t();
         backEndData_t[]  backEndData = new backEndData_t[idRenderGlobals.SMP_FRAMES];
@@ -98,6 +98,25 @@ namespace rtcw.Renderer.Backend
         }
 
         //
+        // smpFrame
+        //
+        public int smpFrame
+        {
+            get
+            {
+                return state.smpFrame;
+            }
+        }
+
+        //
+        // AllocRefDef
+        //
+        public idRefdefLocal AllocRefDef()
+        {
+            return backEndData[smpFrame].GetNextEntity();
+        }
+
+        //
         // idRenderCommand
         //
         public idRenderCommand GetCommandBuffer()
@@ -119,7 +138,7 @@ namespace rtcw.Renderer.Backend
         //
         // Cmd_DrawStrechImage
         //
-        private void Cmd_DrawStrechImage(ref idRenderCommand cmd)
+        private void Cmd_DrawStrechImage(idRenderCommand cmd)
         {
             Shade.Set2DOrthoMode();
 
@@ -144,8 +163,8 @@ namespace rtcw.Renderer.Backend
             quadVertexes[3].st.X = 0.5f / cmd.h;
             quadVertexes[3].st.Y = (cmd.w - 0.5f) / cmd.w;
 
-            Shade.BindImage(ref cmd.image);
-            Shade.DrawPrimitives(4, 6, ref quadVertexes, ref quadIndexes);
+            Shade.BindImage(cmd.image);
+            Shade.DrawPrimitives(4, 6, quadVertexes, quadIndexes);
         }
 
         //
@@ -180,7 +199,7 @@ namespace rtcw.Renderer.Backend
         //
         // Cmd_DrawStrechMaterial
         //
-        private void Cmd_DrawStrechMaterial(ref idRenderCommand cmd)
+        private void Cmd_DrawStrechMaterial(idRenderCommand cmd)
         {
             Shade.Set2DOrthoMode();
 
@@ -208,7 +227,7 @@ namespace rtcw.Renderer.Backend
         //
         // Cmd_SwapBuffers
         //
-        private void Cmd_SwapBuffers(ref idRenderCommand cmd)
+        private void Cmd_SwapBuffers(idRenderCommand cmd)
         {
             Globals.graphics3DDevice.Present();
         }
@@ -216,21 +235,33 @@ namespace rtcw.Renderer.Backend
         //
         // Cmd_SetColor
         //
-        private void Cmd_SetColor(ref idRenderCommand cmd)
+        private void Cmd_SetColor(idRenderCommand cmd)
         {
             Shade.SetColor(cmd.color[0], cmd.color[1], cmd.color[2], cmd.color[3]);
         }
 
         //
-        // GetBackendData
+        // SmpThreadHasWork
         //
-        private backEndData_t GetBackendData(int smpFrame)
+        private bool SmpThreadHasWork(int smpFrame)
         {
-            if (backEndData[smpFrame].executingFrameBuffer == false)
-            {
-                return null;
-            }
-            return backEndData[smpFrame];
+            return backEndData[smpFrame].executingFrameBuffer;
+        }
+
+        //
+        // NumSmpCommands
+        //
+        private int GetNumOfSmpCommands( int smpFrame )
+        {
+            return backEndData[smpFrame].numRenderCommands;
+        }
+
+        //
+        // GetRenderCommand
+        //
+        private idRenderCommand GetRenderCommand(int smpFrame, int index)
+        {
+            return backEndData[smpFrame].commands[index];
         }
 
         //
@@ -238,30 +269,28 @@ namespace rtcw.Renderer.Backend
         //
         public void IssueRenderCommandsWorker(int smpFrame)
         {
-            backEndData_t backEnd;
-
             while (true)
             {
-                backEnd = Globals.backEnd.GetBackendData(smpFrame);
-                if (backEnd != null)
+                if (SmpThreadHasWork( smpFrame ))
                 {
-                    for (int i = 0; i < backEnd.numRenderCommands; i++)
+                    
+                    for (int i = 0; i < GetNumOfSmpCommands( smpFrame ); i++)
                     {
-                        idRenderCommand cmd = backEnd.commands[i];
 
+                        idRenderCommand cmd = GetRenderCommand( smpFrame, i );
                         switch (cmd.type)
                         {
                             case renderCommandType.RC_SET_COLOR:
-                                Cmd_SetColor(ref cmd);
+                                Cmd_SetColor(cmd);
                                 break;
                             case renderCommandType.RC_STRETCH_IMAGE:
-                                Cmd_DrawStrechImage(ref cmd);
+                                Cmd_DrawStrechImage(cmd);
                                 break;
                             case renderCommandType.RC_SWAP_BUFFERS:
-                                Cmd_SwapBuffers(ref cmd);
+                                Cmd_SwapBuffers(cmd);
                                 break;
                             case renderCommandType.RC_STRETCH_PIC:
-                                Cmd_DrawStrechMaterial(ref cmd);
+                                Cmd_DrawStrechMaterial(cmd);
                                 break;
                             default:
                                 Engine.common.ErrorFatal("R_IssueRenderCommandsWorker: Unknown command type\n");
@@ -276,7 +305,7 @@ namespace rtcw.Renderer.Backend
                     }
 
                     // Were down wait for the next command list.
-                    backEndData[smpFrame].executingFrameBuffer = false;
+                    Globals.backEnd.backEndData[smpFrame].Pause();
 
                 }
                 else
@@ -406,17 +435,22 @@ namespace rtcw.Renderer.Backend
     // duplicated so the front and back end can run in parallel
     // on an SMP machine
     class backEndData_t {
-	    public idDrawSurface[] drawSurfs = new idDrawSurface[idRenderGlobals.MAX_DRAWSURFS];
-        public dlight_t[] dlights = new dlight_t[idRenderSystem.MAX_DLIGHTS];
-        public corona_t[] coronas = new corona_t[idRenderSystem.MAX_CORONAS];          //----(SA)
-        public idRefdefLocal[] entities = new idRefdefLocal[idRenderSystem.MAX_ENTITIES];
-	    public srfPoly_t[] polys = new srfPoly_t[idRenderGlobals.MAX_POLYS];
-	    public polyVert_t[] polyVerts = new polyVert_t[idRenderGlobals.MAX_POLYVERTS];
-        public idRenderCommand[] commands = new idRenderCommand[idRenderGlobals.MAX_RENDER_COMMANDS];
-        public int numRenderCommands = 0;
-        public bool executingFrameBuffer = false;
+	    public idDrawSurface[] drawSurfs;
+        public dlight_t[] dlights;
+        public corona_t[] coronas;          //----(SA)
+
+        public idRefdefLocal[] entities;
+        public int numEntities;
+
+	    public srfPoly_t[] polys;
+	    public polyVert_t[] polyVerts;
+        public idRenderCommand[] commands;
+        public int numRenderCommands;
+        public bool executingFrameBuffer;
         private idThread smpthread;
         private int smpFrameNum;
+
+
 
         public backEndData_t(int smpFrameNum )
         {
@@ -424,7 +458,18 @@ namespace rtcw.Renderer.Backend
         //    {
        //         commands[i] = new idRenderCommand();
        //     }
+            drawSurfs = new idDrawSurface[idRenderGlobals.MAX_DRAWSURFS];
+            dlights = new dlight_t[idRenderSystem.MAX_DLIGHTS];
+            coronas = new corona_t[idRenderSystem.MAX_CORONAS];
+            entities = new idRefdefLocal[idRenderSystem.MAX_ENTITIES];
+            polys = new srfPoly_t[idRenderGlobals.MAX_POLYS];
+            polyVerts = new polyVert_t[idRenderGlobals.MAX_POLYVERTS];
+            commands = new idRenderCommand[idRenderGlobals.MAX_RENDER_COMMANDS];
 
+            numRenderCommands = 0;
+            numEntities = 0;
+            smpthread = null;
+            executingFrameBuffer = false;
             this.smpFrameNum = smpFrameNum;
         }
 
@@ -437,6 +482,32 @@ namespace rtcw.Renderer.Backend
             {
                 return executingFrameBuffer;
             }
+        }
+
+        //
+        // GetNextEntity
+        //
+        public idRefdefLocal GetNextEntity()
+        {
+            if (entities[numEntities] == null)
+            {
+                entities[numEntities] = new idRefdefLocal();
+            }
+
+            return entities[numEntities++];
+        }
+
+        //
+        // Pause
+        //
+        public void Pause()
+        {
+            executingFrameBuffer = false;
+            for (int i = 0; i < numEntities; i++)
+            {
+                entities[i].num_entities = 0;
+            }
+            numEntities = 0;
         }
 
         //

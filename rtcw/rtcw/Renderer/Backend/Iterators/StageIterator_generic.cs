@@ -59,7 +59,7 @@ namespace rtcw.Renderer.Backend.Iterators
 
                 stage = Globals.tess.shader.stages[i];
 
-                Shade.SetMaterialStageState(ref stage);
+                Shade.SetMaterialStageState(stage);
 
                 for (int c = 0; c < idMaterialBase.NUM_TEXTURE_BUNDLES; c++)
                 {
@@ -68,7 +68,7 @@ namespace rtcw.Renderer.Backend.Iterators
                         break;
                     }
 
-                    Shade.BindImage(ref stage.bundle[i].image[0]);
+                    Shade.BindImage(stage.bundle[i].image[0]);
                     Shade.DrawTess();
                 }
             }
