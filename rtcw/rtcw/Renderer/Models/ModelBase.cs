@@ -128,12 +128,12 @@ namespace rtcw.Renderer.Models
         //
         // ParseMD3TextureCoords
         //
-        public void ParseMD3TextureCoords(int numVerts, int numFrames, ref idFile f)
+        public void ParseMD3TextureCoords(int startVertex, int numVerts, int numFrames, ref idFile f)
         {
             
             // Load in all the st coords, and when we are beyond numVerts, recursively set the ST's for following vertexes,
             // since ST's don't change between frames.
-            for (int j = 0, a = 0; j < numVerts * numFrames; j++, a++)
+            for (int j = startVertex, a = 0; j < startVertex + (numVerts * numFrames); j++, a++)
             {
                 idDrawVertex v = drawVertexes[j];
                 if (j < numVerts)

@@ -153,7 +153,7 @@ namespace rtcw.Renderer.Models
                 
                 // Load in the MD3 texture coordinates.
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsSt);
-                ParseMD3TextureCoords(surf.numVerts, surf.numBaseFrames, ref f);
+                ParseMD3TextureCoords(surf.startVertex, surf.numVerts, surf.numBaseFrames, ref f);
                 
                 // swap all the XyzNormals
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsXyzNormals);
