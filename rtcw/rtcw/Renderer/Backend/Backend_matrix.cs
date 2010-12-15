@@ -47,9 +47,18 @@ namespace rtcw.Renderer.Backend
     //
     class idRenderMatrix
     {
-        Matrix world;
-        Matrix view;
-        Matrix projection;
+        public Matrix world = Matrix.Identity;
+        public Matrix view;
+        public Matrix projection;
+
+        private Matrix s_flipMatrix = new Matrix(
+            // convert from our coordinate system (looking down X)
+            // to OpenGL's coordinate system (looking down -Z)
+            0, 0, -1, 0,
+            -1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 0, 1
+        );
 
         //
         // Create2DOrthoMatrix
@@ -65,6 +74,107 @@ namespace rtcw.Renderer.Backend
                 0.0f, 0.0f, 0.0f, 1.0f);
 
             projection = Matrix.CreateOrthographicOffCenter(0, width, -height, 0, 0, 1);
+        }
+
+        /*
+       ===============
+       R_SetupProjection
+       ===============
+       */
+        public void SetupProjection(idRefdefLocal view, float zFar, float zNear)
+        {
+            float ymax = 0.5f * (float)Math.Tan(view.fov_y * Math.PI / 360.0f);
+            float ymin = -ymax;
+
+            float xmax = 0.5f * (float)Math.Tan(view.fov_x * Math.PI / 360.0f);
+            float xmin = -xmax;
+
+            float width = xmax - xmin;
+            float height = ymax - ymin;
+            float depth = zFar - zNear;
+
+            projection.M11 = 2 * zNear / width;
+            projection.M21 = 0;
+            projection.M31 = (xmax + xmin) / width;	// normally 0
+            projection.M41 = 0;
+
+            projection.M12 = 0;
+            projection.M22 = 2 * zNear / height;
+            projection.M32 = (ymax + ymin) / height;	// normally 0
+            projection.M42 = 0;
+
+            projection.M13 = 0;
+            projection.M23 = 0;
+            projection.M33 = -(zFar + zNear) / depth;
+            projection.M43 = -2 * zFar * zNear / depth;
+
+            projection.M14 = 0;
+            projection.M24 = 0;
+            projection.M34 = -1;
+            projection.M44 = 0;
+
+            // D3D: Transpose our projection matrix.
+            projection = Matrix.Transpose(projection);
+        }
+
+        //
+        // SetEntityMatrix
+        //
+        public void SetEntityMatrix(idRenderEntityLocal refEnt)
+        {
+            float fov_x_old = 0, fov_y_old = 0;
+            float M_DEG2RAD = (float)Math.PI / 180.0f;
+
+
+            world.M11 = refEnt.axis[0][0];
+            world.M21 = refEnt.axis[1][0];
+            world.M31 = refEnt.axis[2][0];
+
+
+            world.M12 = refEnt.axis[0][1];
+            world.M22 = refEnt.axis[1][1];
+            world.M32 = refEnt.axis[2][1];
+
+
+            world.M13 = refEnt.axis[0][2];
+            world.M23 = refEnt.axis[1][2];
+            world.M33 = refEnt.axis[2][2];
+
+            world.M14 = 0;
+            world.M24 = 0;
+            world.M34 = 0;
+            world.M44 = 1;
+
+            world = Matrix.Transpose(world);
+
+            world.M41 = refEnt.origin.X;
+            world.M42 = refEnt.origin.Y;
+            world.M43 = refEnt.origin.Z;
+        }
+
+        /*
+       =============
+       R_CreateViewMatrix
+
+       D3D View Matrix:
+        xaxis.x           yaxis.x           zaxis.x          0
+        xaxis.y           yaxis.y           zaxis.y          0
+        xaxis.z           yaxis.z           zaxis.z          0
+       -dot(xaxis, eye)  -dot(yaxis, eye)  -dot(zaxis, eye)  1
+       =============
+       */
+        public void CreateViewMatrix(idRefdefLocal view)
+        {
+            float v1 = -view.vieworg[0] * view.viewaxis.M11 + -view.vieworg[1] * view.viewaxis.M21 + -view.vieworg[2] * view.viewaxis.M31;
+            float v2 = -view.vieworg[0] * view.viewaxis.M12 + -view.vieworg[1] * view.viewaxis.M22 + -view.vieworg[2] * view.viewaxis.M32;
+            float v3 = -view.vieworg[0] * view.viewaxis.M13 + -view.vieworg[1] * view.viewaxis.M23 + -view.vieworg[2] * view.viewaxis.M33;
+            //viewMatrix = Matrix.Transpose(viewMatrix);
+
+            this.view = view.viewaxis;
+            this.view.M41 = v1;
+            this.view.M42 = v2;
+            this.view.M43 = v3;
+            this.view *= s_flipMatrix;
         }
 
         //

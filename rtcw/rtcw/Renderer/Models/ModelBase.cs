@@ -51,6 +51,12 @@ namespace rtcw.Renderer.Models
     {
         public string name;
 
+        public List<idDrawVertex> drawVertexes = new List<idDrawVertex>();
+        public List<short> drawIndexes = new List<short>();
+
+        public VertexBuffer vertexBuffer;
+        public IndexBuffer indexBuffer;
+
         //
         // GetName
         //
@@ -68,31 +74,69 @@ namespace rtcw.Renderer.Models
         //
         // ParseMD3Vertexes
         //
-        public void ParseMD3Vertexes(int numVerts, int numFrames, ref idFile f, ref idDrawVertex[] vertexes)
+        public void ParseMD3Vertexes(int numVerts, int numFrames, ref idFile f)
         {
             for (int i = 0; i < numVerts * numFrames; i++)
             {
-                vertexes[i].xyz[0] = f.ReadShort();
-                vertexes[i].xyz[1] = f.ReadShort();
-                vertexes[i].xyz[2] = f.ReadShort();
+                idDrawVertex v = drawVertexes[i];
+
+                v.xyz[0] = f.ReadShort();
+                v.xyz[1] = f.ReadShort();
+                v.xyz[2] = f.ReadShort();
+
+                drawVertexes[i] = v;
 
                 f.ReadShort(); // normal
             }
         }
 
         //
+        // InitSurface
+        //
+        public void InitSurface(int numVerts, int numFrames, int numIndexes, ref idDrawSurface surface)
+        {
+            surface.startVertex = drawVertexes.Count;
+            surface.numVertexes = numVerts;
+            surface.startIndex = drawIndexes.Count;
+            surface.numIndexes = numIndexes;
+
+            for (int i = 0; i < numVerts * numFrames; i++)
+            {
+                idDrawVertex v = new idDrawVertex();
+                drawVertexes.Add(v);
+            }
+        }
+
+        //
+        // BuildVertexIndexBuffer
+        //
+        public virtual void BuildVertexIndexBuffer()
+        {
+            vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idDrawVertex.VertexDeclaration, drawVertexes.Count, BufferUsage.WriteOnly);
+            vertexBuffer.SetData<idDrawVertex>(drawVertexes.ToArray());
+
+            indexBuffer = new IndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, drawIndexes.Count, BufferUsage.WriteOnly);
+            indexBuffer.SetData<short>(drawIndexes.ToArray());
+
+            drawVertexes.Clear();
+            drawIndexes.Clear();
+        }
+
+        //
         // ParseMD3TextureCoords
         //
-        public void ParseMD3TextureCoords(int numVerts, int numFrames, ref idFile f, ref idDrawVertex[] vertexes)
+        public void ParseMD3TextureCoords(int numVerts, int numFrames, ref idFile f)
         {
+            
             // Load in all the st coords, and when we are beyond numVerts, recursively set the ST's for following vertexes,
             // since ST's don't change between frames.
             for (int j = 0, a = 0; j < numVerts * numFrames; j++, a++)
             {
+                idDrawVertex v = drawVertexes[j];
                 if (j < numVerts)
                 {
-                    vertexes[j].st[0] = f.ReadFloat();
-                    vertexes[j].st[1] = f.ReadFloat();
+                    v.st[0] = f.ReadFloat();
+                    v.st[1] = f.ReadFloat();
                 }
                 else
                 {
@@ -101,10 +145,20 @@ namespace rtcw.Renderer.Models
                         a = 0;
                     }
 
-                    vertexes[j].st[0] = vertexes[a].st[0];
-                    vertexes[j].st[1] = vertexes[a].st[1];
+                    v.st[0] = drawVertexes[a].st[0];
+                    v.st[1] = drawVertexes[a].st[1];
                 }
+
+                drawVertexes[j] = v;
             }
+        }
+
+        //
+        // TessModel
+        //
+        public virtual void TessModel()
+        {
+
         }
 
         //

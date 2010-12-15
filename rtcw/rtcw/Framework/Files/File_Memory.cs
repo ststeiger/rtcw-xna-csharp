@@ -246,6 +246,14 @@ namespace rtcw.Framework.Files
         }
 
         //
+        // ReadUInt
+        //
+        public override uint ReadUInt()
+        {
+            return reader.ReadUInt32();
+        }
+
+        //
         // ReadLong
         //
         public override long ReadLong()

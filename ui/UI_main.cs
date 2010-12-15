@@ -438,6 +438,7 @@ namespace ui
             item.model.GetModelBounds( out mins, out maxs );
 
             ent = world.AllocRenderEntity(ref refdef);
+            ent.hModel = item.model;
 	        ent.origin[2] = -0.5f * ( mins[2] + maxs[2] );
             ent.origin[1] = 0.5f * (mins[1] + maxs[1]);
 

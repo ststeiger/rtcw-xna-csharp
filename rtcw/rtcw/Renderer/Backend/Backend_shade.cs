@@ -4,6 +4,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using idLib.Math;
 using idLib.Engine.Public;
 
 namespace rtcw.Renderer.Backend
@@ -16,6 +17,7 @@ namespace rtcw.Renderer.Backend
         private static BasicEffect defaultEffect;
         private static idRenderMatrix orthoMatrix;
         private static Vector3 pushedColor;
+        private static idRenderMatrix drawMatrix;
 
         //
         // Init
@@ -29,6 +31,8 @@ namespace rtcw.Renderer.Backend
             orthoMatrix.Create2DOrthoMatrix(Engine.RenderSystem.GetViewportWidth(), Engine.RenderSystem.GetViewportHeight());
 
             pushedColor = new Vector3(1, 1, 1);
+
+            drawMatrix = new idRenderMatrix();
         }
 
         //
@@ -40,13 +44,51 @@ namespace rtcw.Renderer.Backend
         }
 
         //
+        // CreateTranslateRotateMatrix
+        //
+        public static void CreateTranslateRotateMatrix(idRenderEntityLocal refdef)
+        {
+            drawMatrix.SetEntityMatrix(refdef);
+            drawMatrix.SetAsActiveMatrix(ref defaultEffect);
+        }
+
+        //
+        // BindVertexIndexBuffer
+        //
+        public static void BindVertexIndexBuffer(VertexBuffer vertexBuffer, IndexBuffer indexBuffer)
+        {
+            Globals.graphics3DDevice.SetVertexBuffer(vertexBuffer);
+            Globals.graphics3DDevice.Indices = indexBuffer;
+        }
+
+        //
         // DrawPrimitives
         //
         public static void DrawPrimitives(int numVerts, int numIndexes, idDrawVertex[] verts, short[] indexes)
         {
+            
             defaultEffect.DiffuseColor = pushedColor;
             defaultEffect.CurrentTechnique.Passes[0].Apply();
             Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, verts, 0, numVerts, indexes, 0, numIndexes / 3, idDrawVertex.VertexDeclaration);
+        }
+
+        //
+        // DrawElements
+        //
+        public static void DrawElements(int startVertex, int numVertexes, int startIndexes, int numIndexes, int offset)
+        {
+            defaultEffect.DiffuseColor = pushedColor;
+            defaultEffect.CurrentTechnique.Passes[0].Apply();
+            Globals.graphics3DDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, startVertex, offset, numVertexes, startIndexes, numIndexes / 3);
+        }
+
+        //
+        // PushProjectionMatrix
+        //
+        public static void PushDrawMatrix(idRefdefLocal refdef)
+        {
+            drawMatrix.SetupProjection(refdef, 1000, 1);
+            drawMatrix.CreateViewMatrix(refdef);
         }
 
         //

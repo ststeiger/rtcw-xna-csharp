@@ -74,6 +74,7 @@ namespace idLib.Engine.Public
 
         // Little edian supported read/write functions.
         public abstract int         ReadInt();
+        public abstract uint        ReadUInt();
         public abstract short       ReadShort();
         public abstract long        ReadLong();
         public abstract float       ReadFloat();

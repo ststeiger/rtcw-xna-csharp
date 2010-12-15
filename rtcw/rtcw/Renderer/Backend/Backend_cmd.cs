@@ -35,7 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
-using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using idLib.Engine.Public;
 
 namespace rtcw.Renderer.Backend
@@ -48,8 +48,11 @@ namespace rtcw.Renderer.Backend
         RC_STRETCH_IMAGE,
 	    RC_STRETCH_PIC,
 	    RC_STRETCH_PIC_GRADIENT,    // (SA) added
+        RC_SET_REFDEF,
+        RC_SET_VERTEXINDEXBUFFER,
 	    RC_DRAW_SURFS,
 	    RC_DRAW_BUFFER,
+        RC_SET_ENTITYMATRIX,
 	    RC_SWAP_BUFFERS
     };
 
@@ -78,8 +81,12 @@ namespace rtcw.Renderer.Backend
 	    public int gradientType;       //----(SA)	added
 
         public idRefdefLocal refdef;
+        public idRenderEntityLocal entity;
         public viewParms_t viewParms;
-        public idDrawSurface[] drawSurfs;
+        public int firstDrawSurf;
         public int numDrawSurfs;
+        public int vertexOffset;
+        public VertexBuffer vertexBuffer;
+        public IndexBuffer indexBuffer;
     }
 }

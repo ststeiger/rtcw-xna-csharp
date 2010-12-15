@@ -49,7 +49,6 @@ namespace rtcw.Renderer.Backend
     {
         backEndState_t state = new backEndState_t();
         backEndData_t[]  backEndData = new backEndData_t[idRenderGlobals.SMP_FRAMES];
-
         
 
         private int r_firstSceneDrawSurf = 0;
@@ -95,6 +94,25 @@ namespace rtcw.Renderer.Backend
             
 
             state.smpFrame = 0;
+        }
+
+        //
+        // AddDrawSurface
+        //
+        public void AddDrawSurface(idDrawSurface surf)
+        {
+            backEndData[smpFrame].PushDrawSurface(surf);
+        }
+
+        //
+        // NumSurfaces
+        //
+        public int NumSurfaces
+        {
+            get
+            {
+                return backEndData[smpFrame].numDrawSurfs;
+            }
         }
 
         //
@@ -193,6 +211,7 @@ namespace rtcw.Renderer.Backend
             // Reset numverts and num indexes.
             Globals.tess.numVertexes = 0;
             Globals.tess.numIndexes = 0;
+            Globals.tess.indexBufferSize = 0;
         }
 
 
@@ -229,6 +248,12 @@ namespace rtcw.Renderer.Backend
         //
         private void Cmd_SwapBuffers(idRenderCommand cmd)
         {
+            // Finish any surfaces that are left.
+            if (Globals.tess.numIndexes > 0)
+            {
+                EndSurface();
+            }
+
             Globals.graphics3DDevice.Present();
         }
 
@@ -254,6 +279,51 @@ namespace rtcw.Renderer.Backend
         private int GetNumOfSmpCommands( int smpFrame )
         {
             return backEndData[smpFrame].numRenderCommands;
+        }
+
+        //
+        // Cmd_SetRefDef
+        //
+        private void Cmd_SetRefDef(idRenderCommand cmd)
+        {
+            Shade.PushDrawMatrix(cmd.refdef);
+            state.refdef = cmd.refdef;
+        }
+
+        //
+        // Cmd_SetEntityMatrix
+        //
+        private void Cmd_SetEntityMatrix(idRenderCommand cmd)
+        {
+            Shade.CreateTranslateRotateMatrix(cmd.entity);
+        }
+
+        //
+        // Cmd_DrawSurfs
+        //
+        private void Cmd_DrawSurfs(int smpFrame, idRenderCommand cmd)
+        {
+            // Draw all the surfaces.
+            for (int i = cmd.firstDrawSurf; i < cmd.firstDrawSurf + cmd.numDrawSurfs; i++)
+            {
+                idDrawSurface surf = backEndData[smpFrame].drawSurfs[i];
+                BeginSurface(surf.materials[0], 0);
+
+                Globals.tess.vertexBufferStart = surf.startVertex;;
+                Globals.tess.indexBufferStart = surf.startIndex;
+                Globals.tess.indexBufferSize = surf.numIndexes;
+                Globals.tess.vertexBufferSize = surf.numVertexes;
+
+                EndSurface();
+            }
+        }
+
+        //
+        // Cmd_SetVertexIndexBuffer
+        //
+        private void Cmd_SetVertexIndexBuffer(idRenderCommand cmd)
+        {
+            Shade.BindVertexIndexBuffer(cmd.vertexBuffer, cmd.indexBuffer);
         }
 
         //
@@ -289,6 +359,18 @@ namespace rtcw.Renderer.Backend
                             case renderCommandType.RC_SWAP_BUFFERS:
                                 Cmd_SwapBuffers(cmd);
                                 break;
+                            case renderCommandType.RC_DRAW_SURFS:
+                                Cmd_DrawSurfs(smpFrame, cmd);
+                                break;
+                            case renderCommandType.RC_SET_VERTEXINDEXBUFFER:
+                                Cmd_SetVertexIndexBuffer(cmd);
+                                break;
+                            case renderCommandType.RC_SET_REFDEF:
+                                Cmd_SetRefDef(cmd);
+                                break;
+                            case renderCommandType.RC_SET_ENTITYMATRIX:
+                                Cmd_SetEntityMatrix(cmd);
+                                break;
                             case renderCommandType.RC_STRETCH_PIC:
                                 Cmd_DrawStrechMaterial(cmd);
                                 break;
@@ -296,12 +378,6 @@ namespace rtcw.Renderer.Backend
                                 Engine.common.ErrorFatal("R_IssueRenderCommandsWorker: Unknown command type\n");
                                 break;
                         }
-                    }
-
-                    // Finish any surfaces that are left.
-                    if (Globals.tess.numIndexes > 0)
-                    {
-                        EndSurface();
                     }
 
                     // Were down wait for the next command list.
@@ -448,6 +524,8 @@ namespace rtcw.Renderer.Backend
     // on an SMP machine
     class backEndData_t {
 	    public idDrawSurface[] drawSurfs;
+        public int numDrawSurfs;
+
         public dlight_t[] dlights;
         public corona_t[] coronas;          //----(SA)
 
@@ -471,6 +549,8 @@ namespace rtcw.Renderer.Backend
        //         commands[i] = new idRenderCommand();
        //     }
             drawSurfs = new idDrawSurface[idRenderGlobals.MAX_DRAWSURFS];
+            numDrawSurfs = 0;
+
             dlights = new dlight_t[idRenderSystem.MAX_DLIGHTS];
             coronas = new corona_t[idRenderSystem.MAX_CORONAS];
             entities = new idRefdefLocal[idRenderSystem.MAX_ENTITIES];
@@ -483,6 +563,14 @@ namespace rtcw.Renderer.Backend
             smpthread = null;
             executingFrameBuffer = false;
             this.smpFrameNum = smpFrameNum;
+        }
+
+        //
+        // PushDrawSurface
+        //
+        public void PushDrawSurface(idDrawSurface surf)
+        {
+            drawSurfs[numDrawSurfs++] = surf;
         }
 
         //
@@ -520,6 +608,7 @@ namespace rtcw.Renderer.Backend
                 entities[i].num_entities = 0;
             }
             numEntities = 0;
+            numDrawSurfs = 0;
         }
 
         //

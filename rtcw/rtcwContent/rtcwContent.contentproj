@@ -1350,6 +1350,10 @@
       <Processor>idROQProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="wolfconfig.cfg">
+      <Name>wolfconfig</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="scripts\filelist.txt">

@@ -412,7 +412,7 @@ itemDef {
 //	}
 
 
-
+/*
 itemDef {
       	name fadebox					// Box for fading in menus
       	style WINDOW_STYLE_FILLED
@@ -423,6 +423,7 @@ itemDef {
       	visible 1 
 		decoration
     	}
-
+*/
 }
+
 }

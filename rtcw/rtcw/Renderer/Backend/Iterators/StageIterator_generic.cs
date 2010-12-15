@@ -69,7 +69,15 @@ namespace rtcw.Renderer.Backend.Iterators
                     }
 
                     Shade.BindImage(stage.bundle[i].image[0]);
-                    Shade.DrawTess();
+
+                    if (Globals.tess.indexBufferSize > 0)
+                    {
+                        Shade.DrawElements(Globals.tess.vertexBufferStart, Globals.tess.vertexBufferSize, Globals.tess.indexBufferStart, Globals.tess.indexBufferSize, 0);
+                    }
+                    else
+                    {
+                        Shade.DrawTess();
+                    }
                 }
             }
         }

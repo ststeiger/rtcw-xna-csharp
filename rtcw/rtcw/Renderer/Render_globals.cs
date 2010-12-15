@@ -99,18 +99,11 @@ namespace rtcw.Renderer
         public uint sort;                      // bit combination for fast compares
 	    public surfaceType_t       type;       // any of surface*_t
         public idMaterial[]        materials;
-        public idDrawVertex[]      vertexes;
-        public short[] indexes;
+        public int startVertex;
+        public int numVertexes;
 
-        public void AllocVertexes(int poolSize)
-        {
-            vertexes = new idDrawVertex[poolSize];
-
-            for (int i = 0; i < poolSize; i++)
-            {
-                vertexes[i] = new idDrawVertex();
-            }
-        }
+        public int startIndex;
+        public int numIndexes;
     }
 
     /*

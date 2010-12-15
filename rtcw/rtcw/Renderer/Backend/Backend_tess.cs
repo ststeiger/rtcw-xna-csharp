@@ -72,6 +72,13 @@ namespace rtcw.Renderer
         public currentStageIteratorFunc_t currentStageIteratorFunc;
 	    public shaderStage_t[] xstages;
 
+        public int indexBufferSize;
+        public int indexBufferStart;
+
+        public int vertexBufferSize;
+        public int vertexBufferStart;
+
+
         //
         // UploadVertex
         //

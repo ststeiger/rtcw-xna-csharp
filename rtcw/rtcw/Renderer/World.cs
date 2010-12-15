@@ -37,6 +37,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 using System;
 using System.Collections.Generic;
 using idLib.Engine.Public;
+using rtcw.Renderer.Backend;
+using rtcw.Renderer.Models;
 
 namespace rtcw.Renderer
 {
@@ -62,11 +64,39 @@ namespace rtcw.Renderer
         }
 
         //
+        // SetWorldMatrix
+        //
+        private void SetWorldMatrix( idRenderEntityLocal entity )
+        {
+            idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
+
+            cmd.type = renderCommandType.RC_SET_ENTITYMATRIX;
+            cmd.entity = entity;
+        }
+
+        //
         // RenderScene
         //
         public override void RenderScene(idRefdef refdef)
         {
+            idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
             
+            cmd.type = renderCommandType.RC_SET_REFDEF;
+            cmd.refdef = (idRefdefLocal)refdef;
+
+            for (int i = 0; i < cmd.refdef.num_entities; i++)
+            {
+                idRenderEntityLocal entity = cmd.refdef.entities[i];
+
+                SetWorldMatrix(entity);
+
+                switch (entity.reType)
+                {
+                    case refEntityType_t.RT_MODEL:
+                        ((idModelLocal)entity.hModel).TessModel();
+                        break;
+                }
+            }
         }
     }
 }

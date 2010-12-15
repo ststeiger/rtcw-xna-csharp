@@ -458,6 +458,7 @@ namespace rtcw.Framework
 
             Engine.cmdSystem.Cbuf_AddText("exec default.cfg\n");
             Engine.cmdSystem.Cbuf_AddText("exec language.cfg\n"); //----(SA)	added
+            Engine.cmdSystem.Cbuf_AddText("exec wolfconfig.cfg\n");
 
             Engine.cmdSystem.Cbuf_Execute();
 

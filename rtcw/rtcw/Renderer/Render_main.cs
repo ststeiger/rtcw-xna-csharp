@@ -260,6 +260,37 @@ namespace rtcw.Renderer
         public const int GLS_DEFAULT    =     GLS_DEPTHMASK_TRUE;
 
         public static int colorBits = 32;
+
+        //
+        // SetVertexIndexBuffers
+        //
+        public static void SetVertexIndexBuffers( VertexBuffer vertexBuffer, IndexBuffer indexBuffer )
+        {
+            idRenderCommand cmd = backEnd.GetCommandBuffer();
+
+            cmd.type = renderCommandType.RC_SET_VERTEXINDEXBUFFER;
+            cmd.vertexBuffer = vertexBuffer;
+            cmd.indexBuffer = indexBuffer;
+        }
+
+        //
+        // SortSurfaces
+        //
+        public static void SortSurfaces<T>(int vertexOffset, ref T[] surfaces) where T : idDrawSurface
+        {
+            idRenderCommand cmd = backEnd.GetCommandBuffer();
+
+            cmd.type = renderCommandType.RC_DRAW_SURFS;
+
+            cmd.firstDrawSurf = backEnd.NumSurfaces;
+            cmd.numDrawSurfs = surfaces.Length;
+            cmd.vertexOffset = vertexOffset;
+
+            for (int i = 0; i < cmd.numDrawSurfs; i++)
+            {
+                backEnd.AddDrawSurface( (idDrawSurface)surfaces[i] );
+            }
+        }
     }
 
     //
@@ -333,7 +364,7 @@ namespace rtcw.Renderer
 	        Globals.r_overBrightBits = Engine.cvarManager.Cvar_Get( "r_overBrightBits", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 	        Globals.r_ignorehwgamma = Engine.cvarManager.Cvar_Get( "r_ignorehwgamma", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );    //----(SA) changed this to default to '1' for Drew
 	        Globals.r_mode = Engine.cvarManager.Cvar_Get( "r_mode", "-1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
-	        Globals.r_fullscreen = Engine.cvarManager.Cvar_Get( "r_fullscreen", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
+	        Globals.r_fullscreen = Engine.cvarManager.Cvar_Get( "r_fullscreen", "0", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 	        Globals.r_customwidth = Engine.cvarManager.Cvar_Get( "r_customwidth", "" + GetViewportWidth(), idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 	        Globals.r_customheight = Engine.cvarManager.Cvar_Get( "r_customheight", "" + GetViewportHeight(), idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 	        Globals.r_customaspect = Engine.cvarManager.Cvar_Get( "r_customaspect", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
@@ -551,7 +582,6 @@ namespace rtcw.Renderer
         //
         public override void BeginFrame()
         {
-            
         }
 
         //

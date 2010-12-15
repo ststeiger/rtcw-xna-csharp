@@ -53,6 +53,9 @@ namespace rtcw.Renderer.Models
         public const float MDC_TAG_ANGLE_SCALE = ( 360.0f / 32700.0f );
         public const int MDC_VERSION   =      2;
 
+        private const float MDC_MAX_OFS = 127.0f;
+        private const float MDC_DIST_SCALE = 0.05f;    // lower for more accuracy, but less range
+
         private mdcHeader_t header = new mdcHeader_t();
         private md3Frame_t[] frames;
         private mdcTag_t[] tags;
@@ -134,25 +137,27 @@ namespace rtcw.Renderer.Models
                     surf.materials[j] = Engine.materialManager.FindMaterial(shader_name, -1);
                 }
 
+                idDrawSurface drawSurf = (idDrawSurface)surf;
+                InitSurface(surf.numVerts, surf.numBaseFrames, surf.numTriangles, ref drawSurf);
+                surf = (mdcSurface_t)drawSurf;
+
                 // Load in all the triangles.
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsTriangles);
-                surf.indexes = new short[surf.numTriangles * 3];
                 for (int j = 0; j < surf.numTriangles * 3; j+=3)
                 {
-                    surf.indexes[j + 0] = (short)f.ReadInt();
-                    surf.indexes[j + 1] = (short)f.ReadInt();
-                    surf.indexes[j + 2] = (short)f.ReadInt();
+                    for (int d = 0; d < 3; d++)
+                    {
+                        drawIndexes.Add((short)f.ReadInt());
+                    }
                 }
                 
                 // Load in the MD3 texture coordinates.
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsSt);
-
-                surf.AllocVertexes(surf.numVerts * surf.numBaseFrames);
-                ParseMD3TextureCoords(surf.numVerts, surf.numBaseFrames, ref f, ref surf.vertexes);
+                ParseMD3TextureCoords(surf.numVerts, surf.numBaseFrames, ref f);
                 
                 // swap all the XyzNormals
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsXyzNormals);
-                ParseMD3Vertexes(surf.numVerts, surf.numBaseFrames, ref f, ref surf.vertexes);
+                ParseMD3Vertexes(surf.numVerts, surf.numBaseFrames, ref f);
 
                 // swap all the XyzCompressed
                 //xyzComp = (mdcXyzCompressed_t*)((byte*)surf + surf->ofsXyzCompressed);
@@ -161,7 +166,7 @@ namespace rtcw.Renderer.Models
                 for (int j = 0; j < surf.numVerts * surf.numCompFrames; j++)
                 {
                     surf.xyzCompressedIndexPool[j] = new mdcXyzCompressed_t();
-                    surf.xyzCompressedIndexPool[j].ofsVec = (uint)f.ReadInt();
+                    surf.xyzCompressedIndexPool[j].ofsVec = f.ReadUInt();
                 }
 
                 // swap the frameBaseFrames
@@ -183,6 +188,83 @@ namespace rtcw.Renderer.Models
                 surfpos += surf.ofsEnd;
                 surfaces[i] = surf;
             }
+
+            // Build our vertex and index buffers.
+            BuildVertexIndexBuffer();
+        }
+
+        //
+        // MDC_DecodeXyzCompressed
+        //
+        private void MDC_DecodeXyzCompressed(uint ofsVec, ref idVector3 newOfsVec)
+        {
+            newOfsVec[0] = ( (float)( ( ofsVec ) & 255 ) - MDC_MAX_OFS ) * MDC_DIST_SCALE;
+	        newOfsVec[1] = ( (float)( ( ofsVec >> 8 ) & 255 ) - MDC_MAX_OFS ) * MDC_DIST_SCALE;
+	        newOfsVec[2] = ( (float)( ( ofsVec >> 16 ) & 255 ) - MDC_MAX_OFS ) * MDC_DIST_SCALE;
+        }
+
+        //
+        // ComputeCompressedFramesFromSurface
+        //
+        private void ComputeCompressedFramesFromSurface(int surfaceNum)
+        {
+            idDrawSurface surf = surfaces[surfaceNum];
+            int startVertex = surf.startVertex;
+            idVector3 newOfsVec = new idVector3();
+
+            for (int i = 0; i < header.numFrames; i++)
+            {
+                short compframe = ((mdcSurface_t)surf).compFrames[i];
+                int baseXyzCompFrame = compframe * surf.numVertexes;
+
+                if (compframe < 0)
+                {
+                    continue;
+                }
+
+                for (int v = surf.startVertex; v < surf.startVertex + surf.numVertexes; v++, baseXyzCompFrame++)
+                {
+                    if (baseXyzCompFrame >= ((mdcSurface_t)surf).xyzCompressedIndexPool.Length)
+                    {
+                        Engine.common.ErrorFatal("baseXyzCompFrame out of range\n");
+                    }
+                    mdcXyzCompressed_t xyzCompFrame = ((mdcSurface_t)surf).xyzCompressedIndexPool[baseXyzCompFrame];
+
+                    MDC_DecodeXyzCompressed(xyzCompFrame.ofsVec, ref newOfsVec);
+
+                    if (v >= drawVertexes.Count)
+                    {
+                        Engine.common.ErrorFatal("DrawVerts out of range\n");
+                    }
+                    idDrawVertex vert = drawVertexes[v];
+
+                    vert.xyz *= idModelMD3.MD3_XYZ_SCALE;
+                    vert.xyz += newOfsVec;
+                    drawVertexes[i] = vert;
+
+                }
+            }
+        }
+
+        //
+        // BuildVertexIndexBuffer
+        //
+        public override void BuildVertexIndexBuffer()
+        {
+            for (int i = 0; i < surfaces.Length; i++)
+            {
+                ComputeCompressedFramesFromSurface(i);
+            }
+            base.BuildVertexIndexBuffer();
+        }
+
+        //
+        // TessModel
+        // 
+        public override void TessModel()
+        {
+            Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
+            Globals.SortSurfaces(0, ref surfaces);
         }
 
         //
