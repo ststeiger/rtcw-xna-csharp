@@ -196,6 +196,10 @@ namespace rtcw.Renderer.Backend
             Globals.tess.fogNum = fogNum;
             Globals.tess.dlightBits = 0;
             Globals.tess.currentStageIteratorFunc = Globals.tess.shader.optimalStageIteratorFunc;
+            Globals.tess.vertexBufferStart = 0;
+            Globals.tess.indexBufferStart = 0;
+            Globals.tess.indexBufferSize = 0;
+            Globals.tess.vertexBufferSize = 0;
         }
 
         //
@@ -203,6 +207,11 @@ namespace rtcw.Renderer.Backend
         //
         private void EndSurface()
         {
+            if( Globals.tess.indexBufferSize == 0 && Globals.tess.numIndexes == 0 )
+            {
+                return;
+            }
+
             //
             // call off to shader specific tess end function
             //
@@ -241,6 +250,8 @@ namespace rtcw.Renderer.Backend
             {
                 Globals.tess.UploadIndex(quadIndexes[i]);
             }
+
+            EndSurface();
         }
 
         //
@@ -298,11 +309,26 @@ namespace rtcw.Renderer.Backend
             Shade.CreateTranslateRotateMatrix(cmd.entity);
         }
 
+        /*
+        =================
+        RB_BeginDrawingView
+
+        Any mirrored or portaled views have already been drawn, so prepare
+        to actually render the visible surfaces for this view
+        =================
+        */
+        private void RB_BeginDrawingView()
+        {
+            Globals.graphics3DDevice.Clear(ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+        }
+
         //
         // Cmd_DrawSurfs
         //
         private void Cmd_DrawSurfs(int smpFrame, idRenderCommand cmd)
         {
+            RB_BeginDrawingView();
+
             // Draw all the surfaces.
             for (int i = cmd.firstDrawSurf; i < cmd.firstDrawSurf + cmd.numDrawSurfs; i++)
             {
