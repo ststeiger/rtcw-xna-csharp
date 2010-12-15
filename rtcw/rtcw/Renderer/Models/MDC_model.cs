@@ -138,12 +138,12 @@ namespace rtcw.Renderer.Models
                 }
 
                 idDrawSurface drawSurf = (idDrawSurface)surf;
-                InitSurface(surf.numVerts, surf.numBaseFrames, surf.numTriangles, ref drawSurf);
+                InitSurface(surf.numVerts, surf.numBaseFrames, surf.numTriangles * 3, ref drawSurf);
                 surf = (mdcSurface_t)drawSurf;
 
                 // Load in all the triangles.
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsTriangles);
-                for (int j = 0; j < surf.numTriangles * 3; j+=3)
+                for (int j = 0; j < surf.numTriangles; j++)
                 {
                     for (int d = 0; d < 3; d++)
                     {
@@ -157,7 +157,7 @@ namespace rtcw.Renderer.Models
                 
                 // swap all the XyzNormals
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsXyzNormals);
-                ParseMD3Vertexes(surf.numVerts, surf.numBaseFrames, ref f);
+                ParseMD3Vertexes(surf.startVertex, surf.numVerts, surf.numBaseFrames, ref f);
 
                 // swap all the XyzCompressed
                 //xyzComp = (mdcXyzCompressed_t*)((byte*)surf + surf->ofsXyzCompressed);
@@ -204,44 +204,44 @@ namespace rtcw.Renderer.Models
         }
 
         //
-        // ComputeCompressedFramesFromSurface
+        // ComputeCompressedFrames
         //
-        private void ComputeCompressedFramesFromSurface(int surfaceNum)
+        private void ComputeCompressedFrames()
         {
-            idDrawSurface surf = surfaces[surfaceNum];
-            int startVertex = surf.startVertex;
             idVector3 newOfsVec = new idVector3();
 
             for (int i = 0; i < header.numFrames; i++)
             {
-                short compframe = ((mdcSurface_t)surf).compFrames[i];
-                int baseXyzCompFrame = compframe * surf.numVertexes;
-
-                if (compframe < 0)
+                for (int surfaceNum = 0; surfaceNum < surfaces.Length; surfaceNum++)
                 {
-                    continue;
-                }
-
-                for (int v = surf.startVertex; v < surf.startVertex + surf.numVertexes; v++, baseXyzCompFrame++)
-                {
-                    if (baseXyzCompFrame >= ((mdcSurface_t)surf).xyzCompressedIndexPool.Length)
+                    idDrawSurface surf = surfaces[surfaceNum];
+                    int baseFrame = ((mdcSurface_t)surf).baseFrames[i] * surf.numVertexes;
+                    short compframe = ((mdcSurface_t)surf).compFrames[i];
+                    int baseXyzCompFrame = compframe * surf.numVertexes;
+                    
+                    for (int v = surf.startVertex; v < surf.startVertex + surf.numVertexes; v++, baseXyzCompFrame++)
                     {
-                        Engine.common.ErrorFatal("baseXyzCompFrame out of range\n");
+                        idDrawVertex vert = drawVertexes[v + baseFrame];
+                        mdcXyzCompressed_t xyzCompFrame;
+
+                        // Scale the model vertexes.
+                        vert.xyz *= idModelMD3.MD3_XYZ_SCALE;
+
+                        // If the frame isn't compressed just continue.
+                        if (compframe < 0)
+                        {
+                            renderVertexes.Add(vert);
+                            continue;
+                        }
+
+                        // Get the compressed frame index and decode it.
+                        xyzCompFrame = ((mdcSurface_t)surf).xyzCompressedIndexPool[baseXyzCompFrame];
+                        MDC_DecodeXyzCompressed(xyzCompFrame.ofsVec, ref newOfsVec);
+
+                        vert.xyz += newOfsVec;
+                        //drawVertexes[v + baseFrame] = vert;
+                        renderVertexes.Add(vert);
                     }
-                    mdcXyzCompressed_t xyzCompFrame = ((mdcSurface_t)surf).xyzCompressedIndexPool[baseXyzCompFrame];
-
-                    MDC_DecodeXyzCompressed(xyzCompFrame.ofsVec, ref newOfsVec);
-
-                    if (v >= drawVertexes.Count)
-                    {
-                        Engine.common.ErrorFatal("DrawVerts out of range\n");
-                    }
-                    idDrawVertex vert = drawVertexes[v];
-
-                    vert.xyz *= idModelMD3.MD3_XYZ_SCALE;
-                    vert.xyz += newOfsVec;
-                    drawVertexes[i] = vert;
-
                 }
             }
         }
@@ -251,10 +251,7 @@ namespace rtcw.Renderer.Models
         //
         public override void BuildVertexIndexBuffer()
         {
-            for (int i = 0; i < surfaces.Length; i++)
-            {
-                ComputeCompressedFramesFromSurface(i);
-            }
+            ComputeCompressedFrames();
             base.BuildVertexIndexBuffer();
         }
 

@@ -69,7 +69,7 @@ namespace rtcw.sys.app
         private void AllocSystemManagers()
         {
             Engine.Sys = new idSysLocal();
-            Engine.RenderSystem = new idRenderSystemLocal(GraphicsDevice);
+            Engine.RenderSystem = new idRenderSystemLocal(graphics);
             Engine.common = new idCommonLocal();
             Engine.cvarManager = new idCVarManagerLocal();
             Engine.fileSystem = new idFileSystemLocal(Content);

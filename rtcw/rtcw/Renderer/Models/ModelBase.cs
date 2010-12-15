@@ -54,6 +54,8 @@ namespace rtcw.Renderer.Models
         public List<idDrawVertex> drawVertexes = new List<idDrawVertex>();
         public List<short> drawIndexes = new List<short>();
 
+        public List<idDrawVertex> renderVertexes = new List<idDrawVertex>();
+
         public VertexBuffer vertexBuffer;
         public IndexBuffer indexBuffer;
 
@@ -74,9 +76,9 @@ namespace rtcw.Renderer.Models
         //
         // ParseMD3Vertexes
         //
-        public void ParseMD3Vertexes(int numVerts, int numFrames, ref idFile f)
+        public void ParseMD3Vertexes(int startVertex, int numVerts, int numFrames, ref idFile f)
         {
-            for (int i = 0; i < numVerts * numFrames; i++)
+            for (int i = startVertex; i < startVertex + (numVerts * numFrames); i++)
             {
                 idDrawVertex v = drawVertexes[i];
 
@@ -112,14 +114,15 @@ namespace rtcw.Renderer.Models
         //
         public virtual void BuildVertexIndexBuffer()
         {
-            vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idDrawVertex.VertexDeclaration, drawVertexes.Count, BufferUsage.WriteOnly);
-            vertexBuffer.SetData<idDrawVertex>(drawVertexes.ToArray());
+            vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idDrawVertex.VertexDeclaration, renderVertexes.Count, BufferUsage.WriteOnly);
+            vertexBuffer.SetData<idDrawVertex>(renderVertexes.ToArray());
 
             indexBuffer = new IndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, drawIndexes.Count, BufferUsage.WriteOnly);
             indexBuffer.SetData<short>(drawIndexes.ToArray());
 
             drawVertexes.Clear();
             drawIndexes.Clear();
+            renderVertexes.Clear();
         }
 
         //

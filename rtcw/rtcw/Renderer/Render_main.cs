@@ -55,6 +55,7 @@ namespace rtcw.Renderer
         public static shaderCommands_t tess;
 
         public static GraphicsDevice graphics3DDevice;
+        public static GraphicsDeviceManager graphicsManager;
 
         public static idCVar r_flareSize;
         public static idCVar r_flareFade;
@@ -303,9 +304,10 @@ namespace rtcw.Renderer
         //
         // idRenderSystemLocal
         //
-        public idRenderSystemLocal(GraphicsDevice xnaDevice)
+        public idRenderSystemLocal(GraphicsDeviceManager xnaDevice)
         {
-            _graphicsDevice = xnaDevice;
+            _graphicsDevice = xnaDevice.GraphicsDevice;
+            Globals.graphicsManager = xnaDevice;
             Globals.graphics3DDevice = _graphicsDevice;
         }
 
@@ -373,7 +375,7 @@ namespace rtcw.Renderer
 	        Globals.r_uiFullScreen = Engine.cvarManager.Cvar_Get( "r_uifullscreen", "0", 0 );
 	        Globals.r_subdivisions = Engine.cvarManager.Cvar_Get( "r_subdivisions", "4", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 
-	        Globals.r_smp = Engine.cvarManager.Cvar_Get( "r_smp", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
+	        Globals.r_smp = Engine.cvarManager.Cvar_Get( "r_smp", "0", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 
 	        Globals.r_ignoreFastPath = Engine.cvarManager.Cvar_Get( "r_ignoreFastPath", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 
