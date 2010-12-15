@@ -74,6 +74,7 @@ namespace rtcw.Renderer.Backend
                 0.0f, 0.0f, 0.0f, 1.0f);
 
             projection = Matrix.CreateOrthographicOffCenter(0, width, -height, 0, 0, 1);
+            
         }
 
         /*
@@ -145,7 +146,7 @@ namespace rtcw.Renderer.Backend
             world.M34 = 0;
             world.M44 = 1;
 
-            world = Matrix.Transpose(world);
+         //   world = Matrix.Transpose(world);
 
             world.M41 = refEnt.origin.X;
             world.M42 = refEnt.origin.Y;
@@ -165,15 +166,33 @@ namespace rtcw.Renderer.Backend
        */
         public void CreateViewMatrix(idRefdefLocal view)
         {
-            float v1 = -view.vieworg[0] * view.viewaxis.M11 + -view.vieworg[1] * view.viewaxis.M21 + -view.vieworg[2] * view.viewaxis.M31;
-            float v2 = -view.vieworg[0] * view.viewaxis.M12 + -view.vieworg[1] * view.viewaxis.M22 + -view.vieworg[2] * view.viewaxis.M32;
-            float v3 = -view.vieworg[0] * view.viewaxis.M13 + -view.vieworg[1] * view.viewaxis.M23 + -view.vieworg[2] * view.viewaxis.M33;
+            this.view = new Matrix();
+            this.view.M11 = view.viewaxis[0][0];
+            this.view.M21 = view.viewaxis[0][1];
+            this.view.M31 = view.viewaxis[0][2];
+
+            this.view.M12 = view.viewaxis[1][0];
+            this.view.M22 = view.viewaxis[1][1];
+            this.view.M32 = view.viewaxis[1][2];
+
+            this.view.M13 = view.viewaxis[2][0];
+            this.view.M23 = view.viewaxis[2][1];
+            this.view.M33 = view.viewaxis[2][2];
+
+            this.view.M14 = 0;
+            this.view.M24 = 0;
+            this.view.M34 = 0;
+            this.view.M44 = 1;
+
+            //view.vieworg[1] = -0.09f;
+            float v1 = -view.vieworg[0] * this.view.M11 + -view.vieworg[1] * this.view.M21 + -view.vieworg[2] * this.view.M31;
+            float v2 = -view.vieworg[0] * this.view.M12 + -view.vieworg[1] * this.view.M22 + -view.vieworg[2] * this.view.M32;
+            float v3 = -view.vieworg[0] * this.view.M13 + -view.vieworg[1] * this.view.M23 + -view.vieworg[2] * this.view.M33;
             //viewMatrix = Matrix.Transpose(viewMatrix);
 
-            this.view = view.viewaxis;
-            this.view.M41 = v1;
-            this.view.M42 = v2;
-            this.view.M43 = v3;
+            this.view.M41 = v1; // v1;
+            this.view.M42 = v2; // v2;
+            this.view.M43 = v3; // v3;
             this.view *= s_flipMatrix;
         }
 

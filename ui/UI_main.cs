@@ -422,6 +422,8 @@ namespace ui
             refdef = world.AllocRefdef();
 
 	        refdef.rdflags = idRenderType.RDF_NOWORLDMODEL;
+            refdef.viewaxis = idVector3.vector_origin.ToAxis();
+            refdef.vieworg[1] = 0;
 	        //AxisClear( refdef.viewaxis );
 	        x = item.window.rect.x + 1;
 	        y = item.window.rect.y + 1;

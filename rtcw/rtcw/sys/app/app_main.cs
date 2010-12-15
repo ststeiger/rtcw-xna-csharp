@@ -85,6 +85,11 @@ namespace rtcw.sys.app
         private void InitAppAttachedObjects()
         {
             graphics = new GraphicsDeviceManager(this);
+#if WINDOWS
+            //graphics.PreferredBackBufferHeight = 600;
+            //graphics.PreferredBackBufferWidth = 800;
+            //graphics.ApplyChanges();
+#endif
         }
 
         //
