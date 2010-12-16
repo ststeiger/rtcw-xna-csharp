@@ -19,6 +19,10 @@ namespace rtcw.Renderer.Backend
         private static Vector3 pushedColor;
         private static idRenderMatrix drawMatrix;
 
+        // Dynamic vertex and index buffers for uploading vertex and index data.
+        private static VertexBuffer dynVertexBuffer;
+        private static IndexBuffer dynIndexBuffer;
+
         //
         // Init
         //
@@ -30,8 +34,10 @@ namespace rtcw.Renderer.Backend
             orthoMatrix = new idRenderMatrix();
             orthoMatrix.Create2DOrthoMatrix(Engine.RenderSystem.GetViewportWidth(), Engine.RenderSystem.GetViewportHeight());
 
-            pushedColor = new Vector3(1, 1, 1);
+            dynVertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idDrawVertex.VertexDeclaration, 4, BufferUsage.WriteOnly);
+            dynIndexBuffer = new IndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, 6, BufferUsage.WriteOnly);
 
+            pushedColor = new Vector3(1, 1, 1);
             drawMatrix = new idRenderMatrix();
         }
 
@@ -62,14 +68,53 @@ namespace rtcw.Renderer.Backend
         }
 
         //
+        // ResetGraphicsBuffers
+        //
+        private static void ResetGraphicsBuffers()
+        {
+            Globals.graphics3DDevice.Indices = null;
+            Globals.graphics3DDevice.SetVertexBuffer(null);
+        }
+
+        //
         // DrawPrimitives
         //
         public static void DrawPrimitives(int numVerts, int numIndexes, idDrawVertex[] verts, short[] indexes)
         {
-            
+            ResetGraphicsBuffers();
+            dynVertexBuffer.SetData<idDrawVertex>(verts, 0, numVerts);
+            dynIndexBuffer.SetData<short>(indexes, 0, numIndexes);
+
+            Globals.graphics3DDevice.SetVertexBuffer(dynVertexBuffer);
+            Globals.graphics3DDevice.Indices = dynIndexBuffer;
+
+            DrawElements(0, numVerts, 0, numIndexes, 0);
+
+#if false
             defaultEffect.DiffuseColor = pushedColor;
             defaultEffect.CurrentTechnique.Passes[0].Apply();
             Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, verts, 0, numVerts, indexes, 0, numIndexes / 3, idDrawVertex.VertexDeclaration);
+#endif
+        }
+
+        //
+        // DrawTess
+        //
+        public static void DrawTess()
+        {
+            ResetGraphicsBuffers();
+            dynVertexBuffer.SetData<idDrawVertex>(Globals.tess.drawVerts, 0, Globals.tess.numVertexes);
+            dynIndexBuffer.SetData<short>(Globals.tess.indexes, 0, Globals.tess.numIndexes);
+
+            Globals.graphics3DDevice.SetVertexBuffer(dynVertexBuffer);
+            Globals.graphics3DDevice.Indices = dynIndexBuffer;
+
+            DrawElements(0, Globals.tess.numVertexes, 0, Globals.tess.numIndexes, 0);
+#if false
+            defaultEffect.DiffuseColor = pushedColor;
+            defaultEffect.CurrentTechnique.Passes[0].Apply();
+            Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, Globals.tess.drawVerts, 0, Globals.tess.numVertexes, Globals.tess.indexes, 0, Globals.tess.numIndexes / 3, idDrawVertex.VertexDeclaration);
+#endif
         }
 
         //
@@ -107,16 +152,6 @@ namespace rtcw.Renderer.Backend
             pushedColor.X = r;
             pushedColor.Y = g;
             pushedColor.Z = b;
-        }
-
-        //
-        // DrawTess
-        //
-        public static void DrawTess()
-        {
-            defaultEffect.DiffuseColor = pushedColor;
-            defaultEffect.CurrentTechnique.Passes[0].Apply();
-            Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, Globals.tess.drawVerts, 0, Globals.tess.numVertexes, Globals.tess.indexes, 0, Globals.tess.numIndexes / 3, idDrawVertex.VertexDeclaration);
         }
 
         //
