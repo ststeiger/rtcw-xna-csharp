@@ -73,6 +73,11 @@ namespace rtcw.Renderer.Models
             maxs = new idVector3(0, 0, 0);
         }
 
+        public override int GetNumFrames()
+        {
+            throw new NotImplementedException();
+        }
+
         //
         // ParseMD3Vertexes
         //
@@ -159,7 +164,7 @@ namespace rtcw.Renderer.Models
         //
         // TessModel
         //
-        public virtual void TessModel()
+        public virtual void TessModel(ref idRenderEntityLocal entity)
         {
 
         }

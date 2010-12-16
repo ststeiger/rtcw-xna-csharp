@@ -93,7 +93,7 @@ namespace rtcw.Renderer
                 switch (entity.reType)
                 {
                     case refEntityType_t.RT_MODEL:
-                        ((idModelLocal)entity.hModel).TessModel();
+                        ((idModelLocal)entity.hModel).TessModel(ref entity);
                         break;
                 }
             }

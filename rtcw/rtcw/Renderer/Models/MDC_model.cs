@@ -60,6 +60,7 @@ namespace rtcw.Renderer.Models
         private md3Frame_t[] frames;
         private mdcTag_t[] tags;
         private mdcSurface_t[] surfaces;
+        private int numVertsPerFrame = 0;
 
 
         //
@@ -210,8 +211,10 @@ namespace rtcw.Renderer.Models
         {
             idVector3 newOfsVec = new idVector3();
 
+            
             for (int i = 0; i < header.numFrames; i++)
             {
+                numVertsPerFrame = 0;
                 for (int surfaceNum = 0; surfaceNum < surfaces.Length; surfaceNum++)
                 {
                     idDrawSurface surf = surfaces[surfaceNum];
@@ -241,9 +244,18 @@ namespace rtcw.Renderer.Models
                         vert.xyz += newOfsVec;
                         //drawVertexes[v + baseFrame] = vert;
                         renderVertexes.Add(vert);
+                        numVertsPerFrame++;
                     }
                 }
             }
+        }
+
+        //
+        // GetNumFrames
+        //
+        public override int GetNumFrames()
+        {
+            return header.numFrames;
         }
 
         //
@@ -258,10 +270,10 @@ namespace rtcw.Renderer.Models
         //
         // TessModel
         // 
-        public override void TessModel()
+        public override void TessModel(ref idRenderEntityLocal entity)
         {
             Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
-            Globals.SortSurfaces(0, ref surfaces);
+            Globals.SortSurfaces(entity.frame * numVertsPerFrame, ref surfaces);
         }
 
         //

@@ -417,8 +417,30 @@ namespace ui
         }
 
         //
+        // Proejct2DCoordinates
+        //
+        private void Project2DCoordinates( ref idVector3 org, int x, int y, int width, int height )
+        {
+            int posx, posy;
+            idVector3 normCoords;
+
+            normCoords.X = org.X;
+            normCoords.Y = org.Z;
+            normCoords.Z = 0;
+
+            normCoords.Normalize();
+
+            posx = (int)((normCoords.X) * (width / 2) + x);
+            posy = (int)((normCoords.Y) * (height / 2) + y);
+
+          //  org.X += posx;
+          //  org.Z += posy;
+        }
+
+        //
         // PaintItemModel
         //
+        float posTest = 0;
         private void PaintItemModel(ref idUserInterfaceItem item)
         {
             float x, y, w, h;   //,xx;
@@ -443,14 +465,29 @@ namespace ui
 
 	        refdef.rdflags = idRenderType.RDF_NOWORLDMODEL;
             refdef.viewaxis = idVector3.vector_origin.ToAxis();
-           // refdef.vieworg[0] = -item.window.rectClient.x;
+            
 	        //AxisClear( refdef.viewaxis );
 	        x = item.window.rect.x + 1;
 	        y = item.window.rect.y + 1;
 	        w = item.window.rect.w - 2;
 	        h = item.window.rect.h - 2;
 
+           // refdef.vieworg[0] = x;
+           
+
 	        AdjustFrom640( ref x, ref y, ref w, ref h );
+
+            refdef.vieworg.Y = (x / 6);
+            refdef.vieworg.Z = (y / 10);
+
+            posTest++;
+            if (posTest > 100)
+            {
+                posTest = 0;
+            }
+            
+          //  refdef.vieworg[1] = y;
+          //  refdef.vieworg[2] = -50;
 
 	        refdef.x = (int)x;
 	        refdef.y = (int)y;
@@ -458,6 +495,7 @@ namespace ui
 	        refdef.height = (int)h;
 
             item.model.GetModelBounds( out mins, out maxs );
+
 
             ent = world.AllocRenderEntity(ref refdef);
             ent.hModel = item.model;
@@ -473,13 +511,11 @@ namespace ui
                 ent.origin[0] = item.textscale;
 	        }
 
-           // ent.origin[0] += 20;
-            //ent.origin[1] -= x;
-          //  ent.origin[2] -= y;
+            //Project2DCoordinates(ref ent.origin, refdef.x, refdef.y, refdef.width, refdef.height);
 
         #if true
-	        refdef.fov_x = ( modelPtr.fov_x != 0 ) ? modelPtr.fov_x : item.window.rectClient.w;
-            refdef.fov_y = (modelPtr.fov_y != 0) ? modelPtr.fov_y : item.window.rectClient.h;
+	        refdef.fov_x = ( modelPtr.fov_x != 0 ) ? modelPtr.fov_x : w;
+            refdef.fov_y = (modelPtr.fov_y != 0) ? modelPtr.fov_y : h;
         #else
 	        refdef.fov_x = (int)( (float)refdef.width / 640.0f * 90.0f );
 	        xx = refdef.width / tan( refdef.fov_x / 360 * M_PI );
@@ -508,6 +544,23 @@ namespace ui
 	      //  }
             angles = new idVector3(0, modelPtr.angle, 0);
             ent.axis = angles.ToAxis();
+
+            if (modelPtr.frame < item.model.GetNumFrames())
+            {
+                if (modelPtr.backlerp < 1)
+                {
+                    modelPtr.backlerp += 0.5f;
+                }
+                else
+                {
+                    modelPtr.frame++;
+                    modelPtr.backlerp = 0;
+                }
+            }
+            else
+            {
+                modelPtr.frame = 0;
+            }
 
             /*
 	        if ( modelPtr->frameTime ) { // don't advance on the first frame

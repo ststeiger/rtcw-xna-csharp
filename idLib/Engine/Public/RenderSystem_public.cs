@@ -433,6 +433,7 @@ namespace idLib.Engine.Public
     {
         public abstract string GetName();
         public abstract void GetModelBounds(out idVector3 mins, out idVector3 maxs);
+        public abstract int GetNumFrames();
     }
 
     //

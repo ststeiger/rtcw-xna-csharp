@@ -78,6 +78,8 @@ namespace rtcw.Renderer
         public int vertexBufferSize;
         public int vertexBufferStart;
 
+        public int frame;
+
 
         //
         // UploadVertex

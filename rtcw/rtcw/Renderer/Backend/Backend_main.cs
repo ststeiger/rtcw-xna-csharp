@@ -203,6 +203,24 @@ namespace rtcw.Renderer.Backend
         }
 
         //
+        // SetViewportAndScissor
+        //
+        private void SetViewportAndScissor(idRefdefLocal viewParms)
+        {
+	        // set the window clipping
+	      //  qglViewport(    backEnd.viewParms.viewportX,
+			//		        backEnd.viewParms.viewportY,
+				//	        backEnd.viewParms.viewportWidth,
+					//        backEnd.viewParms.viewportHeight );
+
+        // TODO: insert handling for widescreen?  (when looking through camera)
+	        //qglScissor(     backEnd.viewParms.viewportX,
+				//	        backEnd.viewParms.viewportY,
+				//	        backEnd.viewParms.viewportWidth,
+				//	        backEnd.viewParms.viewportHeight );
+        }
+
+        //
         // EndSurface
         //
         private void EndSurface()
@@ -221,6 +239,7 @@ namespace rtcw.Renderer.Backend
             Globals.tess.numVertexes = 0;
             Globals.tess.numIndexes = 0;
             Globals.tess.indexBufferSize = 0;
+            Globals.tess.frame = 0;
         }
 
 
@@ -319,6 +338,7 @@ namespace rtcw.Renderer.Backend
         */
         private void RB_BeginDrawingView()
         {
+            SetViewportAndScissor(state.refdef);
             Globals.graphics3DDevice.Clear(ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
         }
 
@@ -339,6 +359,7 @@ namespace rtcw.Renderer.Backend
                 Globals.tess.indexBufferStart = surf.startIndex;
                 Globals.tess.indexBufferSize = surf.numIndexes;
                 Globals.tess.vertexBufferSize = surf.numVertexes;
+                Globals.tess.frame = cmd.vertexOffset;
 
                 EndSurface();
             }

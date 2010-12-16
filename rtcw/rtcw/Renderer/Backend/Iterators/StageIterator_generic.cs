@@ -72,7 +72,7 @@ namespace rtcw.Renderer.Backend.Iterators
 
                     if (Globals.tess.indexBufferSize > 0)
                     {
-                        Shade.DrawElements(Globals.tess.vertexBufferStart, Globals.tess.vertexBufferSize, Globals.tess.indexBufferStart, Globals.tess.indexBufferSize, 0);
+                        Shade.DrawElements(Globals.tess.vertexBufferStart, Globals.tess.vertexBufferSize, Globals.tess.indexBufferStart, Globals.tess.indexBufferSize, Globals.tess.frame);
                     }
                     else
                     {

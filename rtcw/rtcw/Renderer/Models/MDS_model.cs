@@ -69,6 +69,14 @@ namespace rtcw.Renderer.Models
         }
 
         //
+        // GetNumFrames
+        //
+        public override int GetNumFrames()
+        {
+            return 0;
+        }
+
+        //
         // GetName
         //
         public override string GetName()
