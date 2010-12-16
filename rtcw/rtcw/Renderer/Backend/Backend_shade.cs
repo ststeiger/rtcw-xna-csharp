@@ -19,6 +19,9 @@ namespace rtcw.Renderer.Backend
         private static Vector3 pushedColor;
         private static idRenderMatrix drawMatrix;
 
+        private static BlendState blending = BlendState.AlphaBlend;
+        private static cullType_t faceCulling = cullType_t.CT_FRONT_SIDED;
+
         // Dynamic vertex and index buffers for uploading vertex and index data.
         private static VertexBuffer dynVertexBuffer;
         private static IndexBuffer dynIndexBuffer;
@@ -155,17 +158,53 @@ namespace rtcw.Renderer.Backend
         }
 
         //
+        // SetCullMode
+        //
+        public static void SetCullMode( cullType_t cullType )
+        {
+	        if ( faceCulling == cullType ) {
+		        return;
+	        }
+
+	        faceCulling = cullType;
+
+            if (cullType == cullType_t.CT_TWO_SIDED)
+            {
+                Globals.graphics3DDevice.RasterizerState = RasterizerState.CullNone;
+	        } 
+            else
+	        {
+                if (cullType == cullType_t.CT_BACK_SIDED)
+                {
+                    Globals.graphics3DDevice.RasterizerState = RasterizerState.CullClockwise;
+		        } 
+                else
+		        {
+                    Globals.graphics3DDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+		        }
+	        }
+        }
+
+        //
         // SetMaterialStageState
         //
         public static void SetMaterialStageState(shaderStage_t stage)
         {
             if (stage.useBlending == true)
             {
-                Globals.graphics3DDevice.BlendState = stage.blendState;
+                if (blending != stage.blendState)
+                {
+                    Globals.graphics3DDevice.BlendState = stage.blendState;
+                    blending = stage.blendState;
+                }
             }
             else
             {
-                Globals.graphics3DDevice.BlendState = BlendState.AlphaBlend;
+                if (blending != BlendState.AlphaBlend)
+                {
+                    Globals.graphics3DDevice.BlendState = BlendState.AlphaBlend;
+                    blending = BlendState.AlphaBlend;
+                }
             }
         }
     }

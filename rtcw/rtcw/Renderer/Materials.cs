@@ -307,7 +307,7 @@ namespace rtcw.Renderer
 
 	    public BlendState multitextureEnv;                // 0, GL_MODULATE, GL_ADD (FIXME: put in stage)
 
-        public cullType_t cullType;                // CT_FRONT_SIDED, CT_BACK_SIDED, or CT_TWO_SIDED
+        public cullType_t cullType = cullType_t.CT_FRONT_SIDED;                // CT_FRONT_SIDED, CT_BACK_SIDED, or CT_TWO_SIDED
 	    public bool polygonOffset;             // set for decals and other items that must be offset
 	    public bool noMipMaps;                 // for console fonts, 2D elements, etc.
 	    public bool noPicMip;                  // for images that must always be full resolution

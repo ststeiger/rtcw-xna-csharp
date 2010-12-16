@@ -230,6 +230,9 @@ namespace rtcw.Renderer.Backend
                 return;
             }
 
+            // Setup culling for this shader.
+            Shade.SetCullMode(Globals.tess.shader.cullType);
+
             //
             // call off to shader specific tess end function
             //
