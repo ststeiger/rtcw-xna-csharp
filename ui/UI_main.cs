@@ -356,6 +356,26 @@ namespace ui
         }
 
         //
+        // Item_UpdatePosition
+        //
+        private void Item_UpdatePosition(ref idUserInterfaceItem item)
+        {
+            float x, y;
+
+            x = menu.window.rect.x;
+            y = menu.window.rect.y;
+
+            if (menu.window.border != 0)
+            {
+                x += menu.window.borderSize;
+                y += menu.window.borderSize;
+            }
+
+            Item_SetScreenCoords(ref item, x, y);
+
+        }
+
+        //
         // Item_SetScreenCoords
         //
         private void Item_SetScreenCoords(ref idUserInterfaceItem item, float x, float y)
@@ -423,7 +443,7 @@ namespace ui
 
 	        refdef.rdflags = idRenderType.RDF_NOWORLDMODEL;
             refdef.viewaxis = idVector3.vector_origin.ToAxis();
-            refdef.vieworg[1] = 0;
+           // refdef.vieworg[0] = -item.window.rectClient.x;
 	        //AxisClear( refdef.viewaxis );
 	        x = item.window.rect.x + 1;
 	        y = item.window.rect.y + 1;
@@ -453,9 +473,13 @@ namespace ui
                 ent.origin[0] = item.textscale;
 	        }
 
+           // ent.origin[0] += 20;
+            //ent.origin[1] -= x;
+          //  ent.origin[2] -= y;
+
         #if true
-	        refdef.fov_x = ( modelPtr.fov_x != 0 ) ? modelPtr.fov_x : w;
-	        refdef.fov_y = ( modelPtr.fov_y != 0 ) ? modelPtr.fov_y : h;
+	        refdef.fov_x = ( modelPtr.fov_x != 0 ) ? modelPtr.fov_x : item.window.rectClient.w;
+            refdef.fov_y = (modelPtr.fov_y != 0) ? modelPtr.fov_y : item.window.rectClient.h;
         #else
 	        refdef.fov_x = (int)( (float)refdef.width / 640.0f * 90.0f );
 	        xx = refdef.width / tan( refdef.fov_x / 360 * M_PI );
@@ -535,9 +559,11 @@ namespace ui
             switch (item.type)
             {
                 case ui_menudef.ITEM_TYPE_MENUMODEL:
+                    Item_UpdatePosition(ref item);
                     PaintItemModel(ref item);
                     break;
                 case ui_menudef.ITEM_TYPE_MODEL:
+                    Item_UpdatePosition(ref item);
                     PaintItemModel(ref item);
                     break;
             }

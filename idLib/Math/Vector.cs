@@ -297,9 +297,9 @@ namespace idLib.Math
             axis.M14 = 0;
 
             // Right
-            axis.M21 = -1 * sr * sp * cy + -1 * cr * -sy;
-            axis.M22 = -1 * sr * sp * sy + -1 * cr * cy;
-            axis.M23 = -1 * sr * cp;
+            axis.M21 = -(-1 * sr * sp * cy + -1 * cr * -sy);
+            axis.M22 = -(-1 * sr * sp * sy + -1 * cr * cy);
+            axis.M23 = -(-1 * sr * cp);
             axis.M24 = 0;
 
             // Right
