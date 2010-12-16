@@ -19,6 +19,8 @@ namespace ui
         private idUserInterfaceCachedAssets assets;
         private idImage whiteImage;
         private idWorld world;
+        private bool isOpen = false;
+        private idUserInterfaceCommandHandler cmd = new idUserInterfaceCommandHandler();
 
         //
         // idUserInterfaceLocal
@@ -787,10 +789,28 @@ namespace ui
         }
 
         //
+        // OpenMenuEvents
+        //
+        private void OpenMenuEvents()
+        {
+            cmd.Execute(ref menu, menu.onOpen);
+
+            for (int i = 0; i < menu.itemCount; i++)
+            {
+                //cmd.Execute(ref menu.items[i], menu.items[i].on
+            }
+        }
+
+        //
         // Draw
         //
         public override void Draw()
         {
+            if (isOpen == false)
+            {
+                OpenMenuEvents();
+                isOpen = true;
+            }
             // draw the background if necessary
             if (menu.fullScreen == true && menu.window.backgroundHandle != null)
             {

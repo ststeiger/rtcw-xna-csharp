@@ -35,7 +35,7 @@ menuDef {
 		playlooped "sound/music/l_theme.wav" ;
 		fadeout fadebox ;
 	 //  	play "sound/misc/tim_pump.wav" ; 
-		uiScript stopRefresh ;
+		// uiScript stopRefresh ;
 		}
 		
 	onESC { open quit_popmenu }

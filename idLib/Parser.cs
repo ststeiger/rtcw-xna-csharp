@@ -158,6 +158,14 @@ namespace idLib
             }
         }
 
+        public void NextVector4NonGrouped(ref idVector4 v)
+        {
+            v.X = NextFloat;
+            v.Y = NextFloat;
+            v.Z = NextFloat;
+            v.W = NextFloat;
+        }
+
         //
         // NextInt
         //

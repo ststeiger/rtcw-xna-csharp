@@ -38,6 +38,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using idLib.Engine.Public;
 using rtcw.Framework.Files;
 
@@ -178,11 +179,70 @@ namespace rtcw.Sound
     }
 
     //
+    // idSoundMusic
+    //
+    public class idSoundMusic : idSound
+    {
+        Song handle;
+        string name;
+
+        //
+        // idSoundLocal
+        //
+        public idSoundMusic(string fileName)
+        {
+            handle = Engine.fileSystem.ReadContent<Song>(fileName);
+            name = fileName;
+        }
+
+        //
+        // BlitSoundData
+        //
+        public override void BlitSoundData(byte[] buffer, int offset, int length)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Play()
+        {
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(handle);
+        }
+
+        public override void Dipose()
+        {
+            handle.Dispose();
+        }
+
+        public override void SetVolume(float vol)
+        {
+            MediaPlayer.Volume = vol;
+        }
+
+        public override void Stop()
+        {
+            MediaPlayer.Stop();
+        }
+
+        public override void Pause()
+        {
+            MediaPlayer.Pause();
+        }
+
+        public override string GetName()
+        {
+            return name;
+        }
+    }
+
+    //
     // idSoundManagerLocal
     //
     public class idSoundManagerLocal : idSoundManager
     {
         List<idSound> soundpool = new List<idSound>();
+
+        idSoundMusic backgroundTrack = null;
 
         //
         // Init
@@ -198,6 +258,51 @@ namespace rtcw.Sound
         public override void Update()
         {
             
+        }
+
+        //
+        // LoadBackgroundTrack
+        //
+        public override idSound LoadBackgroundTrack(string fileName)
+        {
+            idSound sound;
+
+            // Check to see if the sound is already loaded.
+            for (int i = 0; i < soundpool.Count; i++)
+            {
+                if (soundpool[i].GetName() == fileName)
+                {
+                    return soundpool[i];
+                }
+            }
+
+            fileName = Engine.fileSystem.RemoveExtensionFromPath(fileName);
+
+            // Check to see if the sound exists.
+            if (!Engine.fileSystem.FileExists(fileName + ".xnb"))
+            {
+                Engine.common.Warning("S_LoadSound: Failed to find sound " + fileName + " defaulting...\n");
+                return null;
+            }
+
+            StopBackgroundTrack();
+
+            sound = new idSoundMusic(fileName);
+            backgroundTrack = (idSoundMusic)sound;
+            soundpool.Add(sound);
+
+            return soundpool[soundpool.Count - 1];
+        }
+
+        //
+        // StopBackgroundTrack
+        //
+        public override void StopBackgroundTrack()
+        {
+            if (backgroundTrack != null)
+            {
+                backgroundTrack.Stop();
+            }
         }
 
         //

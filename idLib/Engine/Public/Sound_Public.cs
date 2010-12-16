@@ -61,5 +61,7 @@ namespace idLib.Engine.Public
         public abstract idSound LoadSound(string fileName);
         public abstract idSound CreateStreamingSound(int bitrate, int numChannels);
         public abstract void Update();
+        public abstract idSound LoadBackgroundTrack(string fileName);
+        public abstract void StopBackgroundTrack();
     }
 }

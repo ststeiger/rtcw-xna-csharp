@@ -92,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UI_cmds.cs" />
     <Compile Include="UI_main.cs" />
     <Compile Include="UI_text.cs" />
     <Compile Include="UserInterfaceManager.cs" />
