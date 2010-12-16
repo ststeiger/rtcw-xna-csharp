@@ -436,7 +436,7 @@ namespace ui
         //
         // AdjustFrom640
         //
-        private void AdjustFrom640(ref float x, ref float y, ref float w, ref float h)
+        public static void AdjustFrom640(ref float x, ref float y, ref float w, ref float h)
         {
             float yscale = Engine.RenderSystem.GetViewportHeight() * (1.0f / 480.0f);
             float xscale = Engine.RenderSystem.GetViewportWidth() * (1.0f / 640.0f);
@@ -531,9 +531,6 @@ namespace ui
                 item.font = "0"; // default.
             }
 
-            item.textscale = 0.55f; // hack jv
-            item.textalignx = 0.0f;
-            item.textaligny = 0.0f;
 
             idText.SetTextExtents(ref item, GetFontForSize(int.Parse(item.font), item.textscale), ref width, ref height, item.text);
             Item_TextColor(ref item, out color);

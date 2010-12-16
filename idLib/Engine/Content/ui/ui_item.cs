@@ -107,9 +107,9 @@ namespace idLib.Engine.Content.ui
             font = reader.ReadString();
             fontSize = reader.ReadInt32();
             textalignment = reader.ReadInt32();
-            textalignx = reader.ReadInt32();
-            textaligny = reader.ReadInt32();
-            textscale = reader.ReadInt32();
+            textalignx = reader.ReadSingle();
+            textaligny = reader.ReadSingle();
+            textscale = reader.ReadSingle();
             textStyle = reader.ReadInt32();
             text = reader.ReadString();
             textSavegameInfo = reader.ReadBoolean();

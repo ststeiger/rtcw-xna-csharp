@@ -185,6 +185,7 @@ menuDef {
 		visible 1
 		decoration
 		}
+		/*
 	itemDef {
 		name testmodel_icon_burn
 		type ITEM_TYPE_MODEL
@@ -197,7 +198,7 @@ menuDef {
 		visible 1
 		decoration
 		}
-
+		*/
 
 	itemDef {
 		name WOLFFLAMELOGO				// WOLFFLAMELOGO

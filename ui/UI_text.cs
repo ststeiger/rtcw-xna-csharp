@@ -30,6 +30,7 @@ namespace ui
             float w, h;
             w = width * scale;
             h = height * scale;
+            idUserInterfaceLocal.AdjustFrom640(ref x, ref y, ref w, ref h);
             Engine.RenderSystem.DrawStretchPic(x, y, w, h, s, t, s2, t2, hShader);
         }
 
