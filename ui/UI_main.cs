@@ -545,7 +545,7 @@ namespace ui
             angles = new idVector3(0, modelPtr.angle, 0);
             ent.axis = angles.ToAxis();
 
-            if (modelPtr.frame < item.model.GetNumFrames())
+            if (modelPtr.frame < item.model.GetNumFrames()-1)
             {
                 if (modelPtr.backlerp < 1)
                 {
