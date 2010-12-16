@@ -2047,12 +2047,13 @@ namespace rtcw.Renderer
             }
 
             // Check to see if we can find a valid image.
-            if (Engine.fileSystem.FileExists(name) == false)
+            string filepath = Engine.fileSystem.RemoveExtensionFromPath(name);
+            if (Engine.fileSystem.FileExists(filepath + ".xnb") == false)
             {
                 return CreateImplicitMaterial(name, "*white", lightmapIndex);
             }
 
-            return CreateImplicitMaterial(name, name, lightmapIndex);
+            return CreateImplicitMaterial(name, filepath, lightmapIndex);
         }
     }
 }

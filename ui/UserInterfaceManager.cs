@@ -17,12 +17,18 @@ namespace ui
     {
         List<idUserInterfaceLocal> uipool = new List<idUserInterfaceLocal>();
 
+        public static idCVar ui_smallFont;
+        public static idCVar ui_bigFont;
+
         //
         // idUserInterfaceManagerLocal
         //
         public idUserInterfaceManagerLocal( int version )
         {
             Engine.common.Printf("UI Module Loaded...\n");
+
+            ui_smallFont = Engine.cvarManager.Cvar_Get("ui_smallFont", "0.25", idCVar.CVAR_ARCHIVE);
+            ui_bigFont = Engine.cvarManager.Cvar_Get("ui_bigFont", "0.4", idCVar.CVAR_ARCHIVE);
         }
 
         //

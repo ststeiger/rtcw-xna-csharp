@@ -426,6 +426,69 @@ namespace idLib.Engine.Public
         public abstract void DestroyImage(ref idImage image);
     }
 
+    public static class idColor
+    {
+        public const char Q_COLOR_ESCAPE = '^';
+
+        public static bool IsColorString( string s, int basePos )
+        {
+            if( s == null || s.Length < 1 )
+            {
+                return false;
+            }
+
+            if( s[basePos + 0] != Q_COLOR_ESCAPE )
+            {
+                return false;
+            }
+
+            if( s[basePos + 1] == Q_COLOR_ESCAPE )
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public const char COLOR_BLACK   =  '0';
+        public const char COLOR_RED     =  '1';
+        public const char COLOR_GREEN   =  '2';
+        public const char COLOR_YELLOW  =  '3';
+        public const char COLOR_BLUE    =  '4';
+        public const char COLOR_CYAN    =  '5';
+        public const char COLOR_MAGENTA =  '6';
+        public const char COLOR_WHITE   =  '7';
+
+        //
+        // ColorIndex
+        //
+        public static int ColorIndex( char c )
+        {
+            return ( ( ( c ) - '0' ) & 7 );
+        }
+
+        public const string S_COLOR_BLACK  = "^0";
+        public const string S_COLOR_RED    = "^1";
+        public const string S_COLOR_GREEN  = "^2";
+        public const string S_COLOR_YELLOW = "^3";
+        public const string S_COLOR_BLUE   = "^4";
+        public const string S_COLOR_CYAN   = "^5";
+        public const string S_COLOR_MAGENTA = "^6";
+        public const string S_COLOR_WHITE   = "^7";
+
+        public static idVector4[] g_color_table = new idVector4[8]
+        {
+	        new idVector4(0.0f, 0.0f, 0.0f, 1.0f),
+	        new idVector4(1.0f, 0.0f, 0.0f, 1.0f),
+	        new idVector4(0.0f, 1.0f, 0.0f, 1.0f),
+	        new idVector4(1.0f, 1.0f, 0.0f, 1.0f),
+	        new idVector4(0.0f, 0.0f, 1.0f, 1.0f),
+	        new idVector4(0.0f, 1.0f, 1.0f, 1.0f),
+	        new idVector4(1.0f, 0.0f, 1.0f, 1.0f),
+	        new idVector4(1.0f, 1.0f, 1.0f, 1.0f)
+        };
+    }
+
     //
     // idModel
     //

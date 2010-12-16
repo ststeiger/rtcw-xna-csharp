@@ -1100,16 +1100,19 @@
       <Name>fontImage_0_12</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>255, 255, 255, 0</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="fonts\fontImage_0_16.tga">
       <Name>fontImage_0_16</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>255, 255, 255, 0</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="fonts\fontImage_0_17.tga">
       <Name>fontImage_0_17</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>255, 255, 255, 0</ProcessorParameters_ColorKeyColor>
     </Compile>
     <Compile Include="fonts\fontImage_0_24.tga">
       <Name>fontImage_0_24</Name>
@@ -1132,6 +1135,7 @@
       <Name>fontImage_1_24</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>255, 255, 255, 0</ProcessorParameters_ColorKeyColor>
     </Compile>
     <None Include="fonts\fontImage_24.dat">
       <Name>fontImage_24</Name>

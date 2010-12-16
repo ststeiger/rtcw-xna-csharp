@@ -43,7 +43,7 @@ namespace idLib.Engine.Content.ui.Private
     //
     public class idUserInterfaceRectangle
     {
-        idVector4 v;
+        public idVector4 v;
         public idUserInterfaceRectangle()
         {
             v = new idVector4();

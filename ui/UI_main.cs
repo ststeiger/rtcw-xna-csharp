@@ -36,6 +36,38 @@ namespace ui
         }
 
         //
+        // GetFontForSize
+        //
+        public idFont GetFontForSize(int font, float scale)
+        {
+            if (font == ui_menudef.UI_FONT_DEFAULT)
+            {
+                if (scale <= idUserInterfaceManagerLocal.ui_smallFont.GetValueFloat())
+                {
+                    return assets.handles.smallFont;
+                }
+                else if (scale > idUserInterfaceManagerLocal.ui_bigFont.GetValueFloat())
+                {
+                    return assets.handles.bigFont;
+                }
+            }
+            else if (font == ui_menudef.UI_FONT_BIG)
+            {
+                return assets.handles.bigFont;
+            }
+            else if (font == ui_menudef.UI_FONT_SMALL)
+            {
+                return assets.handles.smallFont;
+            }
+            else if (font == ui_menudef.UI_FONT_HANDWRITING)
+            {
+                return assets.handles.handwritingFont;
+            }
+
+            return assets.handles.textFont;
+        }
+
+        //
         // AssetStringValid
         //
         private bool AssetStringValid(string str)
@@ -438,6 +470,78 @@ namespace ui
         }
 
         //
+        // Item_TextColor
+        //
+        private void Item_TextColor(ref idUserInterfaceItem item, out idVector4 newColor)
+        {
+            newColor = item.window.foreColor;
+#if false
+            vec4_t lowLight;
+            menuDef_t* parent = (menuDef_t*)item->parent;
+
+            Fade(&item->window.flags, &item->window.foreColor[3], parent->fadeClamp, &item->window.nextTime, parent->fadeCycle, qtrue, parent->fadeAmount);
+
+            if (item->window.flags & WINDOW_HASFOCUS)
+            {
+                lowLight[0] = 0.8 * parent->focusColor[0];
+                lowLight[1] = 0.8 * parent->focusColor[1];
+                lowLight[2] = 0.8 * parent->focusColor[2];
+                lowLight[3] = 0.8 * parent->focusColor[3];
+                LerpColor(parent->focusColor, lowLight, *newColor, 0.5 + 0.5 * sin(DC->realTime / PULSE_DIVISOR));
+            }
+            else if (item->textStyle == ITEM_TEXTSTYLE_BLINK && !((DC->realTime / BLINK_DIVISOR) & 1))
+            {
+                lowLight[0] = 0.8 * item->window.foreColor[0];
+                lowLight[1] = 0.8 * item->window.foreColor[1];
+                lowLight[2] = 0.8 * item->window.foreColor[2];
+                lowLight[3] = 0.8 * item->window.foreColor[3];
+                LerpColor(item->window.foreColor, lowLight, *newColor, 0.5 + 0.5 * sin(DC->realTime / PULSE_DIVISOR));
+            }
+            else
+            {
+                newColor = item.window.foreColor;
+                // items can be enabled and disabled based on cvars
+            }
+
+            if (item->enableCvar && *item->enableCvar && item->cvarTest && *item->cvarTest)
+            {
+                if (item->cvarFlags & (CVAR_ENABLE | CVAR_DISABLE) && !Item_EnableShowViaCvar(item, CVAR_ENABLE))
+                {
+                    memcpy(newColor, &parent->disableColor, sizeof(vec4_t));
+                }
+            }
+#endif
+        }
+
+        //
+        // PaintItemText
+        //
+        private void PaintItemText(ref idUserInterfaceItem item)
+        {
+            idVector4 color;
+            int width = 0;
+            int height = 0;
+
+            if (item.text.Length <= 0)
+            {
+                return;
+            }
+            if (item.font.Length <= 0)
+            {
+                item.font = "0"; // default.
+            }
+
+            item.textscale = 0.55f; // hack jv
+            item.textalignx = 0.0f;
+            item.textaligny = 0.0f;
+
+            idText.SetTextExtents(ref item, GetFontForSize(int.Parse(item.font), item.textscale), ref width, ref height, item.text);
+            Item_TextColor(ref item, out color);
+
+            idText.PaintText(this, item.textRect.x, item.textRect.y, int.Parse(item.font), item.textscale, color, item.text, 0, 0, item.textStyle);
+        }
+
+        //
         // PaintItemModel
         //
         float posTest = 0;
@@ -618,6 +722,15 @@ namespace ui
                 case ui_menudef.ITEM_TYPE_MODEL:
                     Item_UpdatePosition(ref item);
                     PaintItemModel(ref item);
+                    break;
+
+                case ui_menudef.ITEM_TYPE_TEXT:
+                  //  Item_UpdatePosition(ref item);
+                    PaintItemText(ref item);
+                    break;
+                case ui_menudef.ITEM_TYPE_BUTTON:
+                    Item_UpdatePosition(ref item);
+                    PaintItemText(ref item);
                     break;
             }
         }

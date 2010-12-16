@@ -770,6 +770,7 @@ namespace rtcw.Renderer
                 if (font.glyphs[i].shaderName.Length > 0)
                 {
                     font.glyphs[i].glyph = Engine.materialManager.FindMaterial(font.glyphs[i].shaderName, -1);
+                    //Engine.common.Printf("Loading Font Texture: " + font.glyphs[i].shaderName + "\n");
                 }
 		    }
 		    font.glyphScale = _file.ReadFloat();
