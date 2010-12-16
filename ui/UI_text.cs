@@ -30,7 +30,16 @@ namespace ui
             float w, h;
             w = width * scale;
             h = height * scale;
+
             idUserInterfaceLocal.AdjustFrom640(ref x, ref y, ref w, ref h);
+
+            // This really is a hack for proper text scaling.
+            if (Engine.RenderSystem.GetViewportWidth() * 480 > Engine.RenderSystem.GetViewportHeight() * 640)
+            {
+                //x -= 0.7f * (Engine.RenderSystem.GetViewportWidth() - (Engine.RenderSystem.GetViewportHeight() * 640 / 480));
+                x *= 0.8f; // Hack for widescreens.
+            }
+
             Engine.RenderSystem.DrawStretchPic(x, y, w, h, s, t, s2, t2, hShader);
         }
 
