@@ -128,6 +128,11 @@ namespace rtcw.Renderer.Models
             drawVertexes.Clear();
             drawIndexes.Clear();
             renderVertexes.Clear();
+
+            drawVertexes = null;
+            drawIndexes = null;
+            renderVertexes = null;
+            Engine.common.ForceGCCollect();
         }
 
         //
