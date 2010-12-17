@@ -737,10 +737,258 @@ namespace ui
         }
 
         //
+        // Rect_ContainsPoint
+        //
+        private bool Rect_ContainsPoint(idUserInterfaceRectangle rect, float x, float y)
+        {
+            if (rect != null)
+            {
+                if (x > rect.x && x < rect.x + rect.w && y > rect.y && y < rect.y + rect.h)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //
+        // Item_CorrectedTextRect
+        //
+        idUserInterfaceRectangle itemCorrectedRect = new idUserInterfaceRectangle();
+        private idUserInterfaceRectangle Item_CorrectedTextRect( idUserInterfaceItem item ) {
+	        if ( item != null ) {
+		        itemCorrectedRect = item.textRect;
+		        if ( itemCorrectedRect.w != 0 ) {
+			        itemCorrectedRect.y -= itemCorrectedRect.h;
+		        }
+	        }
+	        return itemCorrectedRect;
+        }
+
+        //
+        // IsVisible
+        //
+        private bool IsVisible( int flags ) {
+            return ((flags & ui_globals.WINDOW_VISIBLE) != 0 && (flags & ui_globals.WINDOW_FADINGOUT) == 0);
+        }
+
+        //
+        // Item_MouseEnter
+        //
+        private void Item_MouseEnter(ref idUserInterfaceItem item, float x, float y)
+        {
+            idUserInterfaceRectangle r;
+            if (item != null)
+            {
+                r = item.textRect;
+                r.y -= r.h;
+                // in the text rect?
+                /*
+                // items can be enabled and disabled based on cvars
+                if (item->cvarFlags & (CVAR_ENABLE | CVAR_DISABLE) && !Item_EnableShowViaCvar(item, CVAR_ENABLE))
+                {
+                    return;
+                }
+
+                if (item->cvarFlags & (CVAR_SHOW | CVAR_HIDE) && !Item_EnableShowViaCvar(item, CVAR_SHOW))
+                {
+                    return;
+                }
+                */
+
+                if (Rect_ContainsPoint(r, x, y))
+                {
+                    if ((item.window.flags & ui_globals.WINDOW_MOUSEOVERTEXT) == 0)
+                    {
+                        cmd.Execute(ref item, item.mouseEnterText);
+                        item.window.flags |= ui_globals.WINDOW_MOUSEOVERTEXT;
+                    }
+                    if ((item.window.flags & ui_globals.WINDOW_MOUSEOVER) == 0)
+                    {
+                        cmd.Execute(ref item, item.mouseEnter);
+                        item.window.flags |= ui_globals.WINDOW_MOUSEOVER;
+                    }
+
+                }
+                else
+                {
+                    // not in the text rect
+                    if ((item.window.flags & ui_globals.WINDOW_MOUSEOVERTEXT) != 0)
+                    {
+                        // if we were
+                        cmd.Execute(ref item, item.mouseExitText);
+                        item.window.flags &= ~ui_globals.WINDOW_MOUSEOVERTEXT;
+                    }
+                    if ((item.window.flags & ui_globals.WINDOW_MOUSEOVER) == 0)
+                    {
+                        cmd.Execute(ref item, item.mouseEnter);
+                        item.window.flags |= ui_globals.WINDOW_MOUSEOVER;
+                    }
+
+                    if (item.type == ui_menudef.ITEM_TYPE_LISTBOX)
+                    {
+                       // Item_ListBox_MouseEnter(item, x, y);
+                    }
+                }
+            }
+        }
+
+        //
+        // Item_MouseLeave
+        //
+        private void Item_MouseLeave(ref idUserInterfaceItem item)
+        {
+            if (item != null)
+            {
+                if ((item.window.flags & ui_globals.WINDOW_MOUSEOVERTEXT) != 0)
+                {
+                    cmd.Execute(ref item, item.mouseExitText);
+                    item.window.flags &= ~ui_globals.WINDOW_MOUSEOVERTEXT;
+                }
+                cmd.Execute(ref item, item.mouseExit);
+                item.window.flags &= ~(ui_globals.WINDOW_LB_RIGHTARROW | ui_globals.WINDOW_LB_LEFTARROW);
+            }
+        }
+
+        //
+        // Item_SetMouseOver
+        //
+        private void Item_SetMouseOver(ref idUserInterfaceItem item, bool focus)
+        {
+            if (item != null)
+            {
+                if (focus)
+                {
+                    item.window.flags |= ui_globals.WINDOW_MOUSEOVER;
+                }
+                else
+                {
+                    item.window.flags &= ~ui_globals.WINDOW_MOUSEOVER;
+                }
+            }
+        }
+
+        //
+        // ClearFocusFromUI
+        //
+        private idUserInterfaceItem ClearFocusFromUI()
+        {
+            int i;
+            idUserInterfaceItem ret = null;
+
+
+            for (i = 0; i < menu.itemCount; i++)
+            {
+                if ((menu.items[i].window.flags & ui_globals.WINDOW_HASFOCUS) != 0)
+                {
+                    ret = menu.items[i];
+                }
+                menu.items[i].window.flags &= ~ui_globals.WINDOW_HASFOCUS;
+                if (menu.items[i].leaveFocus.Length > 0)
+                {
+                    cmd.Execute(ref menu.items[i], menu.items[i].leaveFocus);
+                }
+            }
+
+            return ret;
+        }
+
+        //
+        // Item_SetFocus
+        //
+        private bool Item_SetFocus(ref idUserInterfaceItem item, float x, float y)
+        {
+            int i;
+            idUserInterfaceItem oldFocus;
+            idSound sfx = assets.handles.itemFocusSound;
+            bool playSound = false;
+            idUserInterfaceMenuDef parent;
+            // sanity check, non-null, not a decoration and does not already have the focus
+            if (item == null || (item.window.flags & ui_globals.WINDOW_DECORATION) != 0 || (item.window.flags & ui_globals.WINDOW_HASFOCUS) != 0 || (item.window.flags & ui_globals.WINDOW_VISIBLE) == 0)
+            {
+                return false;
+            }
+
+            parent = item.parent;
+
+            /*
+            // items can be enabled and disabled based on cvars
+            if (item->cvarFlags & (CVAR_ENABLE | CVAR_DISABLE) && !Item_EnableShowViaCvar(item, CVAR_ENABLE))
+            {
+                return qfalse;
+            }
+
+            if (item->cvarFlags & (CVAR_SHOW | CVAR_HIDE) && !Item_EnableShowViaCvar(item, CVAR_SHOW))
+            {
+                return qfalse;
+            }
+            */
+
+            oldFocus = ClearFocusFromUI();
+
+            if (item.type == ui_menudef.ITEM_TYPE_TEXT)
+            {
+                idUserInterfaceRectangle r;
+                r = item.textRect;
+                r.y -= r.h;
+                if (Rect_ContainsPoint(r, x, y))
+                {
+                    item.window.flags |= ui_globals.WINDOW_HASFOCUS;
+                    if (item.focusSnd != null)
+                    {
+                        sfx = item.focusSnd;
+                    }
+                    playSound = true;
+                }
+                else
+                {
+                    if (oldFocus != null)
+                    {
+                        oldFocus.window.flags |= ui_globals.WINDOW_HASFOCUS;
+                        if (oldFocus.onFocus.Length > 0)
+                        {
+                            cmd.Execute(ref oldFocus, oldFocus.onFocus);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                item.window.flags |= ui_globals.WINDOW_HASFOCUS;
+                if (item.onFocus.Length > 0)
+                {
+                    cmd.Execute(ref item, item.onFocus);                    
+                }
+                if (item.focusSnd != null)
+                {
+                    sfx = item.focusSnd;
+                }
+                playSound = true;
+            }
+
+            if (playSound && sfx != null)
+            {
+                sfx.Play();
+            }
+
+            for (i = 0; i < parent.itemCount; i++)
+            {
+                if (parent.items[i] == item)
+                {
+                    parent.cursorItem = i;
+                    break;
+                }
+            }
+
+            return true;
+        }
+
+        //
         // HandleMouseEvent
         //
         public override void HandleMouseEvent(int dx, int dy)
         {
+            bool focusSet = false;
             cursorPosX += dx;
             cursorPosY += dy;
 
@@ -760,6 +1008,47 @@ namespace ui
             else if (cursorPosY > 480)
             {
                 cursorPosY = 480;
+            }
+
+            // FIXME: this is the whole issue of focus vs. mouse over..
+	        // need a better overall solution as i don't like going through everything twice
+            for (int pass = 0; pass < 2; pass++)
+            {
+                for (int i = 0; i < menu.itemCount; i++)
+                {
+                    if (Rect_ContainsPoint(menu.items[i].window.rect, cursorPosX, cursorPosY))
+                    {
+                        if (pass == 1)
+                        {
+                            idUserInterfaceItem overItem = menu.items[i];
+                            if (overItem.type == ui_menudef.ITEM_TYPE_TEXT && (overItem.text != null && overItem.text.Length > 0))
+                            {
+                                if (!Rect_ContainsPoint(Item_CorrectedTextRect(overItem), cursorPosX, cursorPosY))
+                                {
+                                    continue;
+                                }
+                            }
+                            // if we are over an item
+                            if (IsVisible(overItem.window.flags))
+                            {
+                                // different one
+                                Item_MouseEnter(ref overItem, cursorPosX, cursorPosY);
+                                // Item_SetMouseOver(overItem, qtrue);
+
+                                // if item is not a decoration see if it can take focus
+                                if (!focusSet)
+                                {
+                                    focusSet = Item_SetFocus(ref overItem, cursorPosX, cursorPosY);
+                                }
+                            }
+                        }
+                    }
+                    else if ((menu.items[i].window.flags & ui_globals.WINDOW_MOUSEOVER) != 0)
+                    {
+                        Item_MouseLeave(ref menu.items[i]);
+                        Item_SetMouseOver(ref menu.items[i], false);
+                    }
+                }
             }
         }
 

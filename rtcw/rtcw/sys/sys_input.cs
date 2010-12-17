@@ -58,8 +58,8 @@ namespace rtcw.sys
 
             if( window_center_x < 0 )
             {
-                window_center_x = ( idSysLocal.windowRect.Right + idSysLocal.windowRect.Left ) / 2;
-	            window_center_y = ( idSysLocal.windowRect.Top + idSysLocal.windowRect.Bottom ) / 2;
+                window_center_x = ( idSysLocal.windowRect.Right + idSysLocal.windowRect.Left ) / 4;
+	            window_center_y = ( idSysLocal.windowRect.Top + idSysLocal.windowRect.Bottom ) / 4;
                 Mouse.SetPosition(window_center_x, window_center_y);
                 return;
             }

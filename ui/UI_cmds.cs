@@ -545,7 +545,13 @@ namespace ui
                     {
                         commandList[i].handler(ref item, ref parser);
 
-                        parser.ExpectNextToken(";");
+                        if (parser.NextToken != ";")
+                        {
+                            if (parser.ReachedEndOfBuffer == false)
+                            {
+                                Engine.common.ErrorFatal("UI_Execute: Expected ; in command.\n");
+                            }
+                        }
                         break;
                     }
                 }
