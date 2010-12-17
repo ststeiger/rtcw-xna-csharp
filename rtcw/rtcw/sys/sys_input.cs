@@ -134,6 +134,7 @@ namespace rtcw.sys
         //
         // Get360GamepadState
         //
+        private int oldMouseState = 0;
         private void Get360GamepadState()
         {
             idSysLocal sys = (idSysLocal)Engine.Sys;
@@ -146,15 +147,23 @@ namespace rtcw.sys
 
             if (gamepad.Buttons.A == ButtonState.Pressed)
             {
-                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 1, 0, null);
+                if ((oldMouseState & 1) == 0)
+                {
+                    sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 1, 0, null);
+                    oldMouseState |= 1;
+                }
+                else
+                {
+                    sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 0, 0, null);
+                }
             }
             else
             {
-                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 0, 0, null);
+                oldMouseState &= ~1;
             }
 
-            int mx = (int)(gamepad.ThumbSticks.Right.X * 4);
-            int my = (int)(gamepad.ThumbSticks.Right.Y * 4);
+            int mx = (int)(gamepad.ThumbSticks.Right.X * 10);
+            int my = -(int)(gamepad.ThumbSticks.Right.Y * 10);
 
             sys.Sys_QueEvent(0, sysEventType_t.SE_MOUSE, mx, my, 0, null);
         }
