@@ -529,6 +529,23 @@ namespace rtcw.Client
             }
         }
 
+        /*
+        =====================
+        CL_MapLoading
+
+        A local server is starting to load a map, so update the
+        screen to let the user know about it, then dump all client
+        memory on the hunk from cgame, ui, and renderer
+        =====================
+        */
+        public void MapLoading()
+        {
+            cls.state = connstate_t.CA_CHALLENGING;
+        }
+
+        //
+        // Frame
+        //
         public void Frame()
         {
             Engine.RenderSystem.BeginFrame();

@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using idLib.Engine.Public;
+using rtcw.Framework;
 
 namespace rtcw.Server
 {
@@ -144,6 +145,37 @@ namespace rtcw.Server
             CVars.sv_mapChecksum = Engine.cvarManager.Cvar_Get("sv_mapChecksum", "", idCVar.CVAR_ROM);
 
             CVars.sv_reloading = Engine.cvarManager.Cvar_Get("g_reloading", "0", idCVar.CVAR_ROM);   //----(SA)	added
+
+            AddOperatorCommands();
+        }
+
+        //
+        // SpawnServer
+        //
+        public void SpawnServer()
+        {
+            ((idCommonLocal)Engine.common).BeginClientMapLoading();
+        }
+
+        //
+        // Command_Map
+        //
+        public void Command_Map()
+        {
+            SpawnServer();
+        }
+
+        //
+        // AddOperatorCommands
+        //
+        public void AddOperatorCommands()
+        {
+            Engine.cmdSystem.Cmd_AddCommand("spmap", Command_Map);
+#if !ID_DEMO_BUILD
+            Engine.cmdSystem.Cmd_AddCommand("map", Command_Map);
+            Engine.cmdSystem.Cmd_AddCommand("devmap", Command_Map);
+            Engine.cmdSystem.Cmd_AddCommand("spdevmap", Command_Map);
+#endif
         }
 
         public void Frame()

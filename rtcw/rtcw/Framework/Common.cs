@@ -250,10 +250,7 @@ namespace rtcw.Framework
                 }
 	        }
 
-            if (com_numConsoleLines == 0)
-            {
-                com_numConsoleLines++;
-            }
+            com_numConsoleLines++;
         }
 
         /*
@@ -435,6 +432,15 @@ namespace rtcw.Framework
 	        }
 
 	        return added;
+        }
+
+        //
+        // BeginClientMapLoading
+        // This function is called by internal engine functions, so it is not exposed in the public common class.
+        //
+        public void BeginClientMapLoading()
+        {
+            cl.MapLoading();
         }
 
         //
