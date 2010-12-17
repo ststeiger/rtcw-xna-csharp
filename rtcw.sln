@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rtcw", "rtcw\rtcw\rtcw.csproj", "{1F6E288B-49EC-4D52-9205-D67D4F963370}"
 	ProjectSection(ProjectDependencies) = postProject
 		{217CE911-1887-4C9E-8AF9-8CE9236DA8C7} = {217CE911-1887-4C9E-8AF9-8CE9236DA8C7}
+		{F565B34C-4105-428D-898F-63C06A632458} = {F565B34C-4105-428D-898F-63C06A632458}
 		{7831B87A-E2E1-4ED7-A5F8-C09BF726C34B} = {7831B87A-E2E1-4ED7-A5F8-C09BF726C34B}
 	EndProjectSection
 EndProject
@@ -32,6 +33,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ui360", "ui\ui360.csproj", "{D541BB4C-AE83-4E09-989F-42C760DEB774}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cgame360", "cgame\cgame360.csproj", "{606516F3-8A3A-4131-9BB7-48319CDB043B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{F565B34C-4105-428D-898F-63C06A632458}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -209,6 +212,18 @@ Global
 		{606516F3-8A3A-4131-9BB7-48319CDB043B}.Release|x86.ActiveCfg = Release|Xbox 360
 		{606516F3-8A3A-4131-9BB7-48319CDB043B}.Release|Xbox 360.ActiveCfg = Release|Xbox 360
 		{606516F3-8A3A-4131-9BB7-48319CDB043B}.Release|Xbox 360.Build.0 = Release|Xbox 360
+		{F565B34C-4105-428D-898F-63C06A632458}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F565B34C-4105-428D-898F-63C06A632458}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{F565B34C-4105-428D-898F-63C06A632458}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{F565B34C-4105-428D-898F-63C06A632458}.Debug|x86.ActiveCfg = Debug|x86
+		{F565B34C-4105-428D-898F-63C06A632458}.Debug|x86.Build.0 = Debug|x86
+		{F565B34C-4105-428D-898F-63C06A632458}.Debug|Xbox 360.ActiveCfg = Debug|x86
+		{F565B34C-4105-428D-898F-63C06A632458}.Release|Any CPU.ActiveCfg = Release|x86
+		{F565B34C-4105-428D-898F-63C06A632458}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{F565B34C-4105-428D-898F-63C06A632458}.Release|Mixed Platforms.Build.0 = Release|x86
+		{F565B34C-4105-428D-898F-63C06A632458}.Release|x86.ActiveCfg = Release|x86
+		{F565B34C-4105-428D-898F-63C06A632458}.Release|x86.Build.0 = Release|x86
+		{F565B34C-4105-428D-898F-63C06A632458}.Release|Xbox 360.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

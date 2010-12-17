@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using idLib.Engine.Public;
+using idLib.Game.Server;
 using rtcw.Framework;
 
 namespace rtcw.Server
@@ -77,6 +78,16 @@ namespace rtcw.Server
 
         public static idCVar sv_reloading;  //----(SA)	added
     }
+
+    static class Globals
+    {
+        public static bool killBots = false;
+        public static bool cheats = false;
+        public static idServerManager sv;
+        public static idSysModule gvm;
+        public static idGamePublic game;
+    }
+
     //
     // idServerManager
     //
@@ -87,6 +98,8 @@ namespace rtcw.Server
         //
         public void Init()
         {
+            Globals.sv = this;
+
             // serverinfo vars
             Engine.cvarManager.Cvar_Get("dmflags", "0", idCVar.CVAR_SERVERINFO);
             Engine.cvarManager.Cvar_Get("fraglimit", "20", idCVar.CVAR_SERVERINFO);
@@ -150,31 +163,61 @@ namespace rtcw.Server
         }
 
         //
-        // SpawnServer
+        // InitGameVM
         //
-        public void SpawnServer()
+        private void InitGameVM(string mapname)
         {
-            ((idCommonLocal)Engine.common).BeginClientMapLoading();
+            // Load the vm.
+            Globals.gvm = Engine.Sys.LoadDLL("game");
+
+            // Allocate the game interface from the vm.
+            Globals.game = Globals.gvm.AllocClass<idGamePublic>("game.idGameLocal");
+
+            // Init game.
+            Globals.game.Init(mapname, 0, 0, 0);
         }
 
         //
-        // Command_Map
+        // ShutdownGameProgs
         //
-        public void Command_Map()
+        private void ShutdownGameProgs()
         {
-            SpawnServer();
+            if (Globals.gvm == null)
+            {
+                return;
+            }
+
+            Globals.game.Shutdown(false);
         }
+
+        //
+        // SpawnServer
+        //
+        public void SpawnServer(string mapname, bool killBots)
+        {
+            // Shutdown the game if its already running.
+            ShutdownGameProgs();
+
+            Engine.common.Printf("------ Server Initialization ------\n");
+            Engine.common.Printf("Server: %s\n", mapname);
+
+            ((idCommonLocal)Engine.common).BeginClientMapLoading();
+
+            InitGameVM(mapname);
+        }
+
+        
 
         //
         // AddOperatorCommands
         //
         public void AddOperatorCommands()
         {
-            Engine.cmdSystem.Cmd_AddCommand("spmap", Command_Map);
+            Engine.cmdSystem.Cmd_AddCommand("spmap", idServerConsoleCommands.Command_Map);
 #if !ID_DEMO_BUILD
-            Engine.cmdSystem.Cmd_AddCommand("map", Command_Map);
-            Engine.cmdSystem.Cmd_AddCommand("devmap", Command_Map);
-            Engine.cmdSystem.Cmd_AddCommand("spdevmap", Command_Map);
+            Engine.cmdSystem.Cmd_AddCommand("map", idServerConsoleCommands.Command_Map);
+            Engine.cmdSystem.Cmd_AddCommand("devmap", idServerConsoleCommands.Command_Map);
+            Engine.cmdSystem.Cmd_AddCommand("spdevmap", idServerConsoleCommands.Command_Map);
 #endif
         }
 

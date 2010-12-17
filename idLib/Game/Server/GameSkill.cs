@@ -31,24 +31,18 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// Interface.cs (c) 2010 JV Software 
-// CG Game interface class.
+// GameSkill.cs (c) 2010 JV Software 
 //
 
-namespace idLib.Game.Client
+
+namespace idLib.Game.Server
 {
-    //
-    // idClientGamePublic
-    //
-    public abstract class idClientGamePublic
-    {
-        public abstract void Init();
-        public abstract void Shutdown();
-        public abstract void DrawMainMenu();
-        public abstract void Frame();
-        public abstract void HandleUIMouseEvent(int x, int y);
-        public abstract void HandleMouseEvent(int x, int y);
-        public abstract void HandleUIKeyEvent(int key, bool down);
-        public abstract void HandleKeyEvent(int key, bool down);
-    }
+    // Rafael gameskill
+    public enum idGameSkill {
+	    GSKILL_EASY,
+	    GSKILL_MEDIUM,
+	    GSKILL_HARD,
+	    GSKILL_MAX      // must always be last
+    };
+
 }

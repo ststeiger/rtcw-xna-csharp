@@ -36,89 +36,37 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using idLib.Engine.Public;
-using idLib.Game.Client;
+using idLib.Game.Server;
 
-namespace cgame
+namespace game
 {
     //
-    // idClientGame
+    // idGameLocal
     //
-    public class idClientGame : idClientGamePublic
+    public class idGameLocal : idGamePublic
     {
-        idUserInterface mainMenu;
-
         //
-        // idClientGame
+        // idGameLocal
         //
-        public idClientGame(int version)
+        public idGameLocal(int version)
         {
-            Engine.common.Printf("Client Game module loaded...\n");
+            Engine.common.Printf("Game module loaded...\n");
         }
 
         //
         // Init
         //
-        public override void Init()
+        public override void Init(string mapname, int levelTime, int randomSeed, int restart)
         {
-            // Load in the main menu.
-            mainMenu = Engine.ui.FindUserInterface("main");
-            if (mainMenu == null)
-            {
-                Engine.common.ErrorFatal("Failed to load the mainmenu\n");
-                return;
-            }
+            
         }
 
         //
         // Shutdown
         //
-        public override void Shutdown()
+        public override void Shutdown(bool restart)
         {
             
-        }
-
-        //
-        // DrawMainMenu
-        //
-        public override void DrawMainMenu()
-        {
-            // Set the keycatcher so the UI will pick up controller events.
-            Engine.common.SetKeyCatcher(keyCatch.UI);
-
-            // Draw the mainmenu.
-            mainMenu.Draw();
-        }
-
-        //
-        // HandleMouseEvent
-        //
-        public override void HandleMouseEvent(int x, int y)
-        {
-            
-        }
-
-        //
-        // HandleUIMouseEvent
-        //
-        public override void HandleUIMouseEvent(int x, int y)
-        {
-            mainMenu.HandleMouseEvent(x, y);
-        }
-
-        //
-        // HandleKeyEvent
-        //
-        public override void HandleKeyEvent(int key, bool down)
-        {
-            
-        }
-
-        //
-        // HandleUIKeyEvent
-        //
-        public override void HandleUIKeyEvent(int key, bool down)
-        {
-            mainMenu.HandleKeyEvent((keyNum)key, down);
         }
 
         //

@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{5236F485-6E4D-47A3-9C39-68AF719EC1E6}</ProjectGuid>
+    <ProjectGuid>{F565B34C-4105-428D-898F-63C06A632458}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>idLib</RootNamespace>
-    <AssemblyName>idLib</AssemblyName>
+    <RootNamespace>Game</RootNamespace>
+    <AssemblyName>Game</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>HiDef</XnaProfile>
-    <XnaCrossPlatformGroupID>33b9b702-523a-4440-9757-95bb5167ce21</XnaCrossPlatformGroupID>
+    <XnaCrossPlatformGroupID>5f5da2f9-04e0-40de-a15f-42354378048a</XnaCrossPlatformGroupID>
     <XnaOutputType>Library</XnaOutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\x86\Debug</OutputPath>
+    <OutputPath>..\rtcw\rtcwContent\dlls\</OutputPath>
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -92,45 +92,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dict.cs" />
-    <Compile Include="Engine\Content\FileList.cs" />
-    <Compile Include="Engine\Content\MaterialTable.cs" />
-    <Compile Include="Engine\Content\ui\Private\ui_assets.cs" />
-    <Compile Include="Engine\Content\ui\Private\ui_colorrange.cs" />
-    <Compile Include="Engine\Content\ui\Private\ui_columninfo.cs" />
-    <Compile Include="Engine\Content\ui\Private\ui_editfield.cs" />
-    <Compile Include="Engine\Content\ui\Private\ui_globals.cs" />
-    <Compile Include="Engine\Content\ui\Private\ui_listbox.cs" />
-    <Compile Include="Engine\Content\ui\Private\ui_menudef.cs" />
-    <Compile Include="Engine\Content\ui\Private\ui_model.cs" />
-    <Compile Include="Engine\Content\ui\Private\ui_multidef.cs" />
-    <Compile Include="Engine\Content\ui\Private\ui_rect.cs" />
-    <Compile Include="Engine\Content\ui\Private\ui_window.cs" />
-    <Compile Include="Engine\Content\ui\ui_item.cs" />
-    <Compile Include="Engine\Content\ui\ui_menu.cs" />
-    <Compile Include="Engine\Public\CmdManager_public.cs" />
-    <Compile Include="Engine\Public\Common_public.cs" />
-    <Compile Include="Engine\Public\Cvar_Public.cs" />
-    <Compile Include="Engine\Public\Files_public.cs" />
-    <Compile Include="Engine\Public\Net_public.cs" />
-    <Compile Include="Engine\Public\Public.cs" />
-    <Compile Include="Engine\Public\RenderSystem_public.cs" />
-    <Compile Include="Engine\Public\Sound_Public.cs" />
-    <Compile Include="Engine\Public\Sys_public.cs" />
-    <Compile Include="Engine\Public\UI_public.cs" />
-    <Compile Include="Engine\Public\Video_public.cs" />
-    <Compile Include="Game\Client\Interface.cs" />
-    <Compile Include="Game\Server\GameSkill.cs" />
-    <Compile Include="Game\Server\GameType.cs" />
-    <Compile Include="Game\Server\Interface.cs" />
-    <Compile Include="Math\Math.cs" />
-    <Compile Include="Math\Matrix.cs" />
-    <Compile Include="Math\Plane.cs" />
-    <Compile Include="Math\Vector.cs" />
-    <Compile Include="Parser.cs" />
+    <Compile Include="game_main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\idLib\idLib.csproj">
+      <Project>{5236F485-6E4D-47A3-9C39-68AF719EC1E6}</Project>
+      <Name>idLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

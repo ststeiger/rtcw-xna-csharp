@@ -32,23 +32,18 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 */
 
 // Interface.cs (c) 2010 JV Software 
-// CG Game interface class.
+// Game interface class.
 //
 
-namespace idLib.Game.Client
+namespace idLib.Game.Server
 {
     //
-    // idClientGamePublic
+    // idGamePublic
     //
-    public abstract class idClientGamePublic
+    public abstract class idGamePublic
     {
-        public abstract void Init();
-        public abstract void Shutdown();
-        public abstract void DrawMainMenu();
+        public abstract void Init(string mapname, int levelTime, int randomSeed, int restart);
+        public abstract void Shutdown(bool restart);
         public abstract void Frame();
-        public abstract void HandleUIMouseEvent(int x, int y);
-        public abstract void HandleMouseEvent(int x, int y);
-        public abstract void HandleUIKeyEvent(int key, bool down);
-        public abstract void HandleKeyEvent(int key, bool down);
     }
 }
