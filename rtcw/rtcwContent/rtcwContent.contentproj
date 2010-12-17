@@ -1146,6 +1146,10 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <None Include="hunkusage.dat">
+      <Name>hunkusage</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="maps\assault.ai">
       <Name>assault</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

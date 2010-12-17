@@ -127,6 +127,8 @@
     <Compile Include="Renderer\ImageManager.cs" />
     <Compile Include="Renderer\Images\Image.cs" />
     <Compile Include="Renderer\Images\Noise.cs" />
+    <Compile Include="Renderer\Map\Map.cs" />
+    <Compile Include="Renderer\Map\MapFormat.cs" />
     <Compile Include="Renderer\MaterialManager.cs" />
     <Compile Include="Renderer\Materials.cs" />
     <Compile Include="Renderer\ModelManager.cs" />

@@ -31,7 +31,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// parser.cs (c) 2010 id Software
+// parser.cs (c) 2010 jv Software
 //
 
 using System;

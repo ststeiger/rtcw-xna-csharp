@@ -119,7 +119,7 @@ namespace rtcw.Renderer.Models
         //
         public virtual void BuildVertexIndexBuffer()
         {
-            vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idDrawVertex.VertexDeclaration, renderVertexes.Count, BufferUsage.WriteOnly);
+            vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idRenderGlobals.idDrawVertexDeclaration, renderVertexes.Count, BufferUsage.WriteOnly);
             vertexBuffer.SetData<idDrawVertex>(renderVertexes.ToArray());
 
             indexBuffer = new IndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, drawIndexes.Count, BufferUsage.WriteOnly);

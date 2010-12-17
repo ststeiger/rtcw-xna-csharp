@@ -270,6 +270,26 @@ namespace rtcw.Framework.Files
         }
 
         //
+        // ReadVector3
+        // 
+        public override void ReadVector3(ref idLib.Math.idVector3 v)
+        {
+            v.X = ReadFloat();
+            v.Y = ReadFloat();
+            v.Z = ReadFloat();
+        }
+
+        //
+        // ReadVector2
+        //
+        public override void ReadVector2(ref idLib.Math.idVector2 v)
+        {
+            v.X = ReadFloat();
+            v.Y = ReadFloat();
+        }
+
+
+        //
         // ReadString
         //
         public override string ReadString()

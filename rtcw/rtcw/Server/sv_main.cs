@@ -39,6 +39,7 @@ using idLib.Engine.Public;
 using idLib.Engine.Public.Net;
 using idLib.Game.Server;
 using idLib.Game;
+using idLib;
 using rtcw.Framework;
 
 namespace rtcw.Server
@@ -253,6 +254,55 @@ namespace rtcw.Server
             CVars.sv_running.SetValueInt(1);
         }
 
+        /*
+        ====================
+        SV_SetExpectedHunkUsage
+
+          Sets com_expectedhunkusage, so the client knows how to draw the percentage bar
+        ====================
+        */
+        private void SetExpectedHunkUsage(string mapname)
+        {
+            int handle;
+            string token;
+            int len;
+
+            idFile hunkFile = Engine.fileSystem.OpenFileRead("hunkusage.dat", true); 
+            if (hunkFile != null)
+            { // the file exists, so read it in, strip out the current entry for this map, and save it out, so we can append the new value
+                idParser parser = new idParser(hunkFile);
+
+                // now parse the file, filtering out the current map
+                while (parser.ReachedEndOfBuffer == false)
+                {
+                    token = parser.NextToken;
+
+                    if (token == null || token.Length <= 0)
+                        break;
+
+                    if (token == mapname)
+                    {
+                        // found a match
+                        token = parser.NextToken;
+                        if (token != null || token.Length > 0)
+                        {
+                            // this is the usage
+                            Engine.cvarManager.Cvar_Set("com_expectedhunkusage", token, true);
+                            parser.Dispose();
+                            Engine.fileSystem.CloseFile(ref hunkFile);
+                            return;
+                        }
+                    }
+                }
+
+                parser.Dispose();
+                Engine.fileSystem.CloseFile(ref hunkFile);
+            }
+
+            // just set it to a negative number,so the cgame knows not to draw the percent bar
+            Engine.cvarManager.Cvar_Set("com_expectedhunkusage", "-1", true);
+        }
+
         //
         // SpawnServer
         //
@@ -294,6 +344,13 @@ namespace rtcw.Server
             // toggle the server bit so clients can detect that a
             // server has changed
             Globals.snapFlagServerBit ^= idSnapshotType.SNAPFLAG_SERVERCOUNT;
+
+            // set nextmap to the same map, but it may be overriden
+            // by the game startup or another console command
+            Engine.cvarManager.Cvar_Set("nextmap", "map_restart 0", true);
+            //	Cvar_Set( "nextmap", va("map %s", server) );
+
+            SetExpectedHunkUsage("maps/" + mapname + ".bsp");
 
             InitGameVM(mapname);
         }

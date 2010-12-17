@@ -426,6 +426,29 @@ namespace idLib.Engine.Public
         public abstract void DestroyImage(ref idImage image);
     }
 
+    //
+    // idDrawVertex
+    //
+    public struct idDrawVertex
+    {
+        public idVector3 xyz;
+        public idVector2 st;
+        public idVector2 lightmapST;
+        public idVector3 tangent;
+        public idVector3 binormal;
+        public idVector3 normal;
+
+        public idDrawVertex(int unused)
+        {
+            xyz = new idVector3();
+            st = new idVector2();
+            lightmapST = new idVector2();
+            tangent = new idVector3();
+            binormal = new idVector3();
+            normal = new idVector3();
+        }
+    }
+
     public static class idColor
     {
         public const char Q_COLOR_ESCAPE = '^';

@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using System.IO;
+using idLib.Math;
 using idLib.Engine.Content;
 
 namespace idLib.Engine.Public
@@ -83,6 +84,8 @@ namespace idLib.Engine.Public
         public abstract string      ReadString();
         public abstract string      ReadString(int len);
         public abstract char[]      ReadChars(int len);
+        public abstract void        ReadVector2(ref idVector2 v);
+        public abstract void        ReadVector3(ref idVector3 v);
 
         public abstract void        WriteInt(int val);
         public abstract void        WriteShort(short val);

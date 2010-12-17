@@ -267,41 +267,6 @@ namespace rtcw.Renderer
 	    public idFog glFog;                  // fog parameters	//----(SA)	added
     };
 
- 
-
-    //
-    // idDrawVertex
-    //
-    public struct idDrawVertex
-    {
-        public idVector3 xyz;
-        public idVector2 st;
-        public idVector2 lightmapST;
-        public idVector3 tangent;
-        public idVector3 binormal;
-        public idVector3 normal;
-
-        public idDrawVertex(int unused)
-        {
-            xyz = new idVector3();
-            st = new idVector2();
-            lightmapST = new idVector2();
-            tangent = new idVector3();
-            binormal = new idVector3();
-            normal = new idVector3();
-        }
-
-        public readonly static VertexDeclaration VertexDeclaration = new VertexDeclaration
-        (
-            new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
-            new VertexElement(12, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0),
-            new VertexElement(20, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 1),
-            new VertexElement(28, VertexElementFormat.Vector3, VertexElementUsage.Tangent, 0),
-            new VertexElement(40, VertexElementFormat.Vector3, VertexElementUsage.Binormal, 0),
-            new VertexElement(52, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0)
-        );
-    }
-
     /*
     ** idRenderGlobals
     **
@@ -329,6 +294,16 @@ namespace rtcw.Renderer
         public const int MAX_RENDER_COMMANDS = 0x40000;
         public const int SMP_FRAMES = 2;
         public const int MAX_RENDER_ENTITIES = 2000;
+
+        public readonly static VertexDeclaration idDrawVertexDeclaration = new VertexDeclaration
+        (
+            new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
+            new VertexElement(12, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0),
+            new VertexElement(20, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 1),
+            new VertexElement(28, VertexElementFormat.Vector3, VertexElementUsage.Tangent, 0),
+            new VertexElement(40, VertexElementFormat.Vector3, VertexElementUsage.Binormal, 0),
+            new VertexElement(52, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0)
+        );
 
         public int registeredFontCount = 0;
         public idFont[] registeredFont = new idFont[MAX_FONTS];
