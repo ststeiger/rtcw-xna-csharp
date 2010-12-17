@@ -50,6 +50,7 @@ namespace rtcw.sys
         //
         // GetWindowMouseInput
         //
+        int oldMouseState = 0;
         private void GetWindowMouseInput()
         {
             MouseState mouseState = Mouse.GetState();
@@ -71,18 +72,54 @@ namespace rtcw.sys
 
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
-                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 0, 1, 0, null);
+                if ((oldMouseState & 1) == 0)
+                {
+                    sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 0, 1, 0, null);
+                    oldMouseState |= 1;
+                }
+                else
+                {
+                    sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 0, 0, 0, null);
+                }
             }
-            else if (mouseState.RightButton == ButtonState.Pressed)
+            else
             {
-                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 1, 1, 0, null);
-            }
-            else if (mouseState.MiddleButton == ButtonState.Pressed)
-            {
-                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 2, 1, 0, null);
+                oldMouseState &= ~1;
             }
 
+            if (mouseState.RightButton == ButtonState.Pressed)
+            {
+                if ((oldMouseState & 2) == 0)
+                {
+                    sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 1, 1, 0, null);
+                    oldMouseState |= 2;
+                }
+                else
+                {
+                    sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 1, 0, 0, null);
+                }
+            }
+            else
+            {
+                oldMouseState &= ~2;
+            }
 
+            if (mouseState.MiddleButton == ButtonState.Pressed)
+            {
+                if ((oldMouseState & 4) == 0)
+                {
+                    sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 2, 1, 0, null);
+                    oldMouseState |= 4;
+                }
+                else
+                {
+                    sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 2, 0, 0, null);
+                }
+            }
+            else
+            {
+                oldMouseState &= ~4;
+            }
 
             if (mx == 0 || my == 0)
             {

@@ -1002,17 +1002,26 @@ namespace ui
         //
         public void OpenUI(string name)
         {
-            if (parentWindow != null && parentWindow.menu.window.name == name)
+            if (parentWindow != null && parentWindow.menu.window.name == name )
             {
                 return;
             }
 
-            childWindow = (idUserInterfaceLocal)Engine.ui.FindUserInterface(name);
+            if (parentWindow != null)
+            {
+                parentWindow.childWindow = this;
+            }
 
+            childWindow = (idUserInterfaceLocal)Engine.ui.FindUserInterface(name);
             if (childWindow == null)
             {
                 Engine.common.Warning("UI_OpenUI: Failed to find UI " + name + "\n");
                 return;
+            }
+
+            if (childWindow.assets.handles.cursor == null)
+            {
+                childWindow.assets.handles.cursor = assets.handles.cursor;
             }
 
             childWindow.parentWindow = this;
@@ -1037,6 +1046,10 @@ namespace ui
         //
         private void CloseChild()
         {
+            if (childWindow == null)
+                return;
+
+            childWindow.isOpen = false;
             childWindow = null;
         }
 
@@ -1052,6 +1065,12 @@ namespace ui
                 childWindow.HandleKeyEvent(key, down);
                 return;
             }
+
+            if (isOpen == false)
+                return;
+
+            if (down == false)
+                return;
 
             if (key == keyNum.K_MOUSE1 || key == keyNum.K_MOUSE2 || key == keyNum.K_MOUSE3)
             {
@@ -1219,18 +1238,18 @@ namespace ui
         //
         public override void Draw()
         {
-            if (isOpen == false)
-            {
-                OpenMenuEvents();
-                isOpen = true;
-            }
-
             // If the child window is fullscreen than don't draw this ui.
             if (childWindow != null && childWindow.menu.fullScreen == true)
             {
                 childWindow.Draw();
                 isOpen = false;
                 return;
+            }
+
+            if (isOpen == false)
+            {
+                OpenMenuEvents();
+                isOpen = true;
             }
 
             // draw the background if necessary
@@ -1249,7 +1268,6 @@ namespace ui
 
             if (childWindow != null)
             {
-                childWindow.assets.handles.cursor = assets.handles.cursor;
                 childWindow.Draw();
                 return;
             }

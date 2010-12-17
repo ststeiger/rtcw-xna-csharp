@@ -277,7 +277,7 @@ menuDef {
 		visible 1
 		textfont UI_FONT_NORMAL
 		mouseEnter {  fadein message_accept }
-		action { play "sound/misc/zap.wav" ; close main ; open play_menu }
+		action { play "sound/misc/zap.wav" ; open play_menu }
 		}
 
 
@@ -298,7 +298,7 @@ menuDef {
 		visible 1 
 		textfont UI_FONT_NORMAL
 		mouseEnter { fadein message_accept }
-		action { close main ; open load_menu ; play "sound/misc/zap.wav"; }
+		action { open load_menu ; play "sound/misc/zap.wav"; }
     	}
 	
 
@@ -325,7 +325,6 @@ itemDef {
 		textfont UI_FONT_NORMAL 
 		mouseEnter { fadein message_accept }
 		action { play "sound/misc/zap.wav" ; 
-		close main ; 
 		open setup_menu ;
 		open control_menu
 		} 
@@ -369,7 +368,7 @@ itemDef {
 		forecolor .9 .9 .9 .9
 		visible 1 
 	mouseEnter { fadein message_accept }
-	action {	close main; open credit} 
+	action {	open credit } 
    	}
 
 
