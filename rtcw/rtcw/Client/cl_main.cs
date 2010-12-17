@@ -541,6 +541,9 @@ namespace rtcw.Client
         public void MapLoading()
         {
             cls.state = connstate_t.CA_CHALLENGING;
+
+            // Shutdown the cgame module and clear everything from the last map.
+            cls.cgame.Shutdown();
         }
 
         //

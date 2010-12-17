@@ -24,7 +24,7 @@
     <OutputPath>bin\x86\Debug</OutputPath>
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>2</WarningLevel>
     <NoStdLib>true</NoStdLib>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
@@ -112,6 +112,7 @@
     <Compile Include="Engine\Public\Common_public.cs" />
     <Compile Include="Engine\Public\Cvar_Public.cs" />
     <Compile Include="Engine\Public\Files_public.cs" />
+    <Compile Include="Engine\Public\Net\Snapshot.cs" />
     <Compile Include="Engine\Public\Net_public.cs" />
     <Compile Include="Engine\Public\Public.cs" />
     <Compile Include="Engine\Public\RenderSystem_public.cs" />
@@ -119,10 +120,13 @@
     <Compile Include="Engine\Public\Sys_public.cs" />
     <Compile Include="Engine\Public\UI_public.cs" />
     <Compile Include="Engine\Public\Video_public.cs" />
+    <Compile Include="Game\AI\AI_state.cs" />
     <Compile Include="Game\Client\Interface.cs" />
+    <Compile Include="Game\entitystate.cs" />
     <Compile Include="Game\Server\GameSkill.cs" />
     <Compile Include="Game\Server\GameType.cs" />
     <Compile Include="Game\Server\Interface.cs" />
+    <Compile Include="Game\trajectory.cs" />
     <Compile Include="Math\Math.cs" />
     <Compile Include="Math\Matrix.cs" />
     <Compile Include="Math\Plane.cs" />

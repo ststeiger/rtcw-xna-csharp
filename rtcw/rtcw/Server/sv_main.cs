@@ -36,7 +36,9 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using idLib.Engine.Public;
+using idLib.Engine.Public.Net;
 using idLib.Game.Server;
+using idLib.Game;
 using rtcw.Framework;
 
 namespace rtcw.Server
@@ -76,6 +78,7 @@ namespace rtcw.Server
         public static idCVar sv_gameskill;
         // done
 
+        public static idCVar sv_running;
         public static idCVar sv_reloading;  //----(SA)	added
     }
 
@@ -86,6 +89,15 @@ namespace rtcw.Server
         public static idServerManager sv;
         public static idSysModule gvm;
         public static idGamePublic game;
+        public static idServerClient[] clients;
+
+        public static int numSnapshotEntities = 0;
+        public const int MAX_CONFIGSTRINGS = 2048;
+        public static string[] configstrings = new string[MAX_CONFIGSTRINGS];
+
+        public static entityState_t[] snapshotEntities;
+        public static int nextSnapshotEntities = 0;
+        public static int snapFlagServerBit = 0;
     }
 
     //
@@ -121,6 +133,7 @@ namespace rtcw.Server
             CVars.sv_maxPing = Engine.cvarManager.Cvar_Get("sv_maxPing", "0", idCVar.CVAR_ARCHIVE | idCVar.CVAR_SERVERINFO);
             CVars.sv_floodProtect = Engine.cvarManager.Cvar_Get("sv_floodProtect", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_SERVERINFO);
             CVars.sv_allowAnonymous = Engine.cvarManager.Cvar_Get("sv_allowAnonymous", "0", idCVar.CVAR_SERVERINFO);
+            CVars.sv_running = Engine.cvarManager.Cvar_Get("sv_running", "0", idCVar.CVAR_ROM);
 
             // systeminfo
             Engine.cvarManager.Cvar_Get("sv_cheats", "0", idCVar.CVAR_SYSTEMINFO | idCVar.CVAR_ROM);
@@ -187,7 +200,57 @@ namespace rtcw.Server
                 return;
             }
 
+            Globals.clients = null;
+
             Globals.game.Shutdown(false);
+            Globals.snapshotEntities = null;
+
+            Engine.common.ForceGCCollect();
+        }
+
+        //
+        // ClearServer
+        //
+        private void ClearServer() {
+	        int i;
+
+	        for ( i = 0 ; i < Globals.MAX_CONFIGSTRINGS ; i++ ) {
+                Globals.configstrings[i] = "";
+	        }
+        }
+
+        
+        /*
+        ===============
+        SV_Startup
+
+        Called when a host starts a map when it wasn't running
+        one before.  Successive map or map_restart commands will
+        NOT cause this to be called, unless the game is exited to
+        the menu system first.
+        ===============
+        */
+        private void Startup()
+        {
+            if ( CVars.sv_running.GetValueInteger() != 0 ) {
+		        Engine.common.ErrorFatal( "SV_Startup: svs.initialized" );
+	        }
+	        //SV_BoundMaxClients( 1 );
+
+            Globals.clients = new idServerClient[CVars.sv_maxclients.GetValueInteger()];
+
+            //	SV_InitReliableCommands( svs.clients );	// RF
+
+            // jv - we won't support dedicated servers.
+	       // if ( com_dedicated->integer ) {
+		   //     Globals.numSnapshotEntities = sv_maxclients->integer * PACKET_BACKUP * 64;
+	       // } else {
+		        // we don't need nearly as many when playing locally
+                Globals.numSnapshotEntities = CVars.sv_maxclients.GetValueInteger() * 4 * 64;
+	       // }
+           // jv end
+
+            CVars.sv_running.SetValueInt(1);
         }
 
         //
@@ -201,7 +264,36 @@ namespace rtcw.Server
             Engine.common.Printf("------ Server Initialization ------\n");
             Engine.common.Printf("Server: %s\n", mapname);
 
+            // if not running a dedicated server CL_MapLoading will connect the client to the server
+            // also print some status stuff 
+
+            // jv - this also shutsdown and clears cgame.
             ((idCommonLocal)Engine.common).BeginClientMapLoading();
+
+            ClearServer();
+
+            if (CVars.sv_running.GetValueInteger() != 0)
+            {
+                Startup();
+            }
+            else
+            {
+                /*
+                // check for maxclients change
+                if (sv_maxclients->modified)
+                {
+                    SV_ChangeMaxClients();
+                }
+                */
+            }
+
+            // allocate the snapshot entities on the hunk
+            Globals.snapshotEntities = new entityState_t[Globals.numSnapshotEntities];
+            Globals.nextSnapshotEntities = 0;
+
+            // toggle the server bit so clients can detect that a
+            // server has changed
+            Globals.snapFlagServerBit ^= idSnapshotType.SNAPFLAG_SERVERCOUNT;
 
             InitGameVM(mapname);
         }
