@@ -139,10 +139,24 @@ namespace rtcw.sys
             idSysLocal sys = (idSysLocal)Engine.Sys;
             gamepad = GamePad.GetState(Microsoft.Xna.Framework.PlayerIndex.One);
 
-            if (gamepad.Buttons.A == ButtonState.Pressed)
+            if (gamepad.Buttons.Start == ButtonState.Pressed)
             {
                 sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_ESCAPE, 1, 0, null);
             }
+
+            if (gamepad.Buttons.A == ButtonState.Pressed)
+            {
+                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 1, 0, null);
+            }
+            else
+            {
+                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 0, 0, null);
+            }
+
+            int mx = (int)(gamepad.ThumbSticks.Right.X * 4);
+            int my = (int)(gamepad.ThumbSticks.Right.Y * 4);
+
+            sys.Sys_QueEvent(0, sysEventType_t.SE_MOUSE, mx, my, 0, null);
         }
 #endif
 

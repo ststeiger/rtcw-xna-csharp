@@ -570,6 +570,7 @@ namespace rtcw.Renderer
         public override idVideo LoadVideo(string filename)
         {
             idFile vidFile;
+            filename = Engine.fileSystem.RemoveExtensionFromPath(filename);
             if (filename.Contains("video/") == false)
             {
                 filename = "video/" + filename;

@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rtcw", "rtcw\rtcw\rtcw.csproj", "{1F6E288B-49EC-4D52-9205-D67D4F963370}"
+	ProjectSection(ProjectDependencies) = postProject
+		{217CE911-1887-4C9E-8AF9-8CE9236DA8C7} = {217CE911-1887-4C9E-8AF9-8CE9236DA8C7}
+		{7831B87A-E2E1-4ED7-A5F8-C09BF726C34B} = {7831B87A-E2E1-4ED7-A5F8-C09BF726C34B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rtcwContent", "rtcw\rtcwContent\rtcwContent.contentproj", "{02ADCFCE-27D6-48FB-B5FE-3B6016BB139C}"
 EndProject
@@ -20,6 +24,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "idlib360", "idLib\idlib360.csproj", "{64235D89-47F0-4491-8C94-11D5A0BC30D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rtcw360", "rtcw\rtcw\rtcw360.csproj", "{48F82924-DAE0-4A06-842E-17635F1B7A62}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D541BB4C-AE83-4E09-989F-42C760DEB774} = {D541BB4C-AE83-4E09-989F-42C760DEB774}
+		{606516F3-8A3A-4131-9BB7-48319CDB043B} = {606516F3-8A3A-4131-9BB7-48319CDB043B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ui360", "ui\ui360.csproj", "{D541BB4C-AE83-4E09-989F-42C760DEB774}"
 EndProject

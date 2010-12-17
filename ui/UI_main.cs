@@ -300,21 +300,25 @@ namespace ui
             }
             else if (window.style == ui_menudef.WINDOW_STYLE_CINEMATIC)
             {
-#if false
-                if (w->cinematic == -1)
+                if (window.cinematic != 1 && window.cinematicHandle != null)
                 {
-                    w->cinematic = DC->playCinematic(w->cinematicName, fillRect.x, fillRect.y, fillRect.w, fillRect.h);
-                    if (w->cinematic == -1)
-                    {
-                        w->cinematic = -2;
-                    }
+                    // jv - hack
+                    fillRect.x = window.rectClient.x;
+                    fillRect.y = window.rectClient.y;
+                    fillRect.w = window.rectClient.w;
+                    fillRect.h = window.rectClient.h;
+
+                    AdjustFrom640(ref fillRect.v.X, ref fillRect.v.Y, ref fillRect.v.Z, ref fillRect.v.W);
+
+                    window.cinematicHandle.SetLooping(true);
+                    window.cinematicHandle.SetExtents((int)fillRect.x, (int)fillRect.y, (int)fillRect.w, (int)fillRect.h);
+                    window.cinematic = 1;
                 }
-                if (w->cinematic >= 0)
+
+                if (window.cinematicHandle != null)
                 {
-                    DC->runCinematicFrame(w->cinematic);
-                    DC->drawCinematic(w->cinematic, fillRect.x, fillRect.y, fillRect.w, fillRect.h);
+                    window.cinematicHandle.DrawCinematic();
                 }
-#endif
             }
 
             if (window.style == ui_menudef.WINDOW_BORDER_FULL)
