@@ -23,6 +23,8 @@ namespace ui
         private idUserInterfaceCommandHandler cmd = new idUserInterfaceCommandHandler();
         private int cursorPosX = 0;
         private int cursorPosY = 0;
+        private idUserInterfaceLocal parentWindow;
+        private idUserInterfaceLocal childWindow;
 
         //
         // idUserInterfaceLocal
@@ -44,31 +46,39 @@ namespace ui
         //
         public idFont GetFontForSize(int font, float scale)
         {
+            idFont fnt = null;
             if (font == ui_menudef.UI_FONT_DEFAULT)
             {
                 if (scale <= idUserInterfaceManagerLocal.ui_smallFont.GetValueFloat())
                 {
-                    return assets.handles.smallFont;
+                    fnt = assets.handles.smallFont;
                 }
                 else if (scale > idUserInterfaceManagerLocal.ui_bigFont.GetValueFloat())
                 {
-                    return assets.handles.bigFont;
+                    fnt = assets.handles.bigFont;
                 }
             }
             else if (font == ui_menudef.UI_FONT_BIG)
             {
-                return assets.handles.bigFont;
+                fnt = assets.handles.bigFont;
             }
             else if (font == ui_menudef.UI_FONT_SMALL)
             {
-                return assets.handles.smallFont;
+                fnt = assets.handles.smallFont;
             }
             else if (font == ui_menudef.UI_FONT_HANDWRITING)
             {
-                return assets.handles.handwritingFont;
+                fnt = assets.handles.handwritingFont;
             }
 
-            return assets.handles.textFont;
+            fnt = assets.handles.textFont;
+
+            if (fnt == null)
+            {
+                fnt = Engine.RenderSystem.RegisterFont("default", 24);
+            }
+
+            return fnt;
         }
 
         //
@@ -192,6 +202,7 @@ namespace ui
             for (int i = 0; i < menu.itemCount; i++)
             {
                 menu.items[i].parent = menu;
+                menu.items[i].parentUI = this;
                 UI_RegisterModel(menu.items[i].asset_model, out menu.items[i].model);
                 UI_RegisterModel(menu.items[i].window.model, out menu.items[i].window.modelHandle);
 
@@ -230,14 +241,17 @@ namespace ui
         //
         private void PaintWindow(ref idUserInterfaceWindow window)
         {
-            idUserInterfaceRectangle fillRect;
+            idUserInterfaceRectangle fillRect = new idUserInterfaceRectangle();
 
             if (window == null || (window.style == 0 && window.border == 0))
             {
                 return;
             }
 
-            fillRect = window.rect;
+            fillRect.x = window.rect.x;
+            fillRect.y = window.rect.y;
+            fillRect.w = window.rect.w;
+            fillRect.h = window.rect.h;
 
             if (window.border != 0)
             {
@@ -984,11 +998,92 @@ namespace ui
         }
 
         //
+        // OpenUI
+        //
+        public void OpenUI(string name)
+        {
+            if (parentWindow != null && parentWindow.menu.window.name == name)
+            {
+                return;
+            }
+
+            childWindow = (idUserInterfaceLocal)Engine.ui.FindUserInterface(name);
+
+            if (childWindow == null)
+            {
+                Engine.common.Warning("UI_OpenUI: Failed to find UI " + name + "\n");
+                return;
+            }
+
+            childWindow.parentWindow = this;
+        }
+
+        //
+        // CloseUI
+        //
+        public void CloseUI()
+        {
+            if (parentWindow == null)
+            {
+                Engine.common.Warning("UI_OpenUI: Tried to close a parent window\n");
+                return;
+            }
+            parentWindow.CloseChild();
+           // parentWindow = null;
+        }
+
+        //
+        // loseChild
+        //
+        private void CloseChild()
+        {
+            childWindow = null;
+        }
+
+        //
+        // HandleKeyEvent
+        //
+        public override void HandleKeyEvent(keyNum key, bool down)
+        {
+            idUserInterfaceItem item = null;
+
+            if (childWindow != null)
+            {
+                childWindow.HandleKeyEvent(key, down);
+                return;
+            }
+
+            if (key == keyNum.K_MOUSE1 || key == keyNum.K_MOUSE2 || key == keyNum.K_MOUSE3)
+            {
+                // get the item with focus
+                for (int i = 0; i < menu.itemCount; i++)
+                {
+                    if ((menu.items[i].window.flags & ui_globals.WINDOW_HASFOCUS) != 0)
+                    {
+                        item = menu.items[i];
+                    }
+                }
+            }
+
+            if (item != null)
+            {
+                cmd.Execute(ref item, item.action);
+            }
+        }
+
+        //
         // HandleMouseEvent
         //
         public override void HandleMouseEvent(int dx, int dy)
         {
             bool focusSet = false;
+
+            if (childWindow != null)
+            {
+                childWindow.HandleMouseEvent(dx, dy);
+                return;
+            }
+
             cursorPosX += dx;
             cursorPosY += dy;
 
@@ -1129,6 +1224,15 @@ namespace ui
                 OpenMenuEvents();
                 isOpen = true;
             }
+
+            // If the child window is fullscreen than don't draw this ui.
+            if (childWindow != null && childWindow.menu.fullScreen == true)
+            {
+                childWindow.Draw();
+                isOpen = false;
+                return;
+            }
+
             // draw the background if necessary
             if (menu.fullScreen == true && menu.window.backgroundHandle != null)
             {
@@ -1141,6 +1245,13 @@ namespace ui
             for (int i = 0; i < menu.itemCount; i++)
             {
                 PaintItem(ref menu.items[i]);
+            }
+
+            if (childWindow != null)
+            {
+                childWindow.assets.handles.cursor = assets.handles.cursor;
+                childWindow.Draw();
+                return;
             }
 
             // Draw the cursor over everything else.

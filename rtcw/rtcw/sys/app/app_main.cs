@@ -53,6 +53,7 @@ namespace rtcw.sys.app
     {
         public static string cmdline = "";
         GraphicsDeviceManager graphics;
+        public static idApp app;
 
         //
         // idApp
@@ -61,6 +62,7 @@ namespace rtcw.sys.app
         {
             // Init any components that need to be attached to the application
             InitAppAttachedObjects();
+            app = this;
         }
 
         //

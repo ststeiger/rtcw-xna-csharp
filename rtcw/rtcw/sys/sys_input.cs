@@ -69,6 +69,21 @@ namespace rtcw.sys
 
             Mouse.SetPosition(window_center_x, window_center_y);
 
+            if (mouseState.LeftButton == ButtonState.Pressed)
+            {
+                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 0, 1, 0, null);
+            }
+            else if (mouseState.RightButton == ButtonState.Pressed)
+            {
+                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 1, 1, 0, null);
+            }
+            else if (mouseState.MiddleButton == ButtonState.Pressed)
+            {
+                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 2, 1, 0, null);
+            }
+
+
+
             if (mx == 0 || my == 0)
             {
                 return;

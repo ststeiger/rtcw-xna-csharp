@@ -98,6 +98,22 @@ namespace cgame
         }
 
         //
+        // HandleKeyEvent
+        //
+        public override void HandleKeyEvent(int key, bool down)
+        {
+            
+        }
+
+        //
+        // HandleUIKeyEvent
+        //
+        public override void HandleUIKeyEvent(int key, bool down)
+        {
+            mainMenu.HandleKeyEvent((keyNum)key, down);
+        }
+
+        //
         // Frame
         //
         public override void Frame()

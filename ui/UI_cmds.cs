@@ -107,6 +107,8 @@ namespace ui
 
         private static void Script_Open( ref idUserInterfaceItem item, ref idParser parser ) {
             string name = parser.NextToken;
+
+            ((idUserInterfaceLocal)item.parentUI).OpenUI(name);
 #if false
 	        const char *name;
 	        if ( String_Parse( args, &name ) ) {
@@ -117,6 +119,8 @@ namespace ui
 
         private static void Script_Close( ref idUserInterfaceItem item, ref idParser parser ) {
             string name = parser.NextToken;
+
+            ((idUserInterfaceLocal)item.parentUI).CloseUI();
 #if false
 	        const char *name;
 	        if ( String_Parse( args, &name ) ) {
@@ -377,6 +381,10 @@ namespace ui
 
         private static void Script_Play( ref idUserInterfaceItem item, ref idParser parser ) {
             idSound snd = Engine.soundManager.LoadSound( parser.NextToken );
+            if (snd == null)
+            {
+                return;
+            }
             snd.Play();
         }
 
@@ -475,6 +483,16 @@ namespace ui
            item.window.backgroundHandle = Engine.materialManager.FindMaterial(item.window.background, -1);
         }
 
+       private static void Script_UiCmd(ref idUserInterfaceItem item, ref idParser parser)
+       {
+           string cmdToken = parser.NextToken.ToLower();
+
+           if (cmdToken == "quit")
+           {
+               Engine.common.Quit();
+           }
+       }
+
 
         commandDef_t[] commandList = new commandDef_t[]
         {
@@ -501,6 +519,7 @@ namespace ui
 	        new commandDef_t("playlooped", Script_playLooped),          // group/name
 	        new commandDef_t("orbit", Script_Orbit),                    // group/name
 	        new commandDef_t("addlistitem", Script_AddListItem),     // NERVE - SMF - special command to add text items to list box
+            new commandDef_t("uiscript", Script_UiCmd),
         };
 
         public void Execute(ref idUserInterfaceMenuDef menu, string cmds)

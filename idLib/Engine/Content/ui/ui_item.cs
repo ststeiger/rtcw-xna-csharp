@@ -211,6 +211,7 @@ namespace idLib.Engine.Content.ui
         public string text = "";               // display text
         public bool textSavegameInfo = false;      //----(SA)	added
         public idUserInterfaceMenuDef parent = null;                   // menu owner
+        public idUserInterface parentUI = null;
         public string asset_model = "";                // handle to asset
         public idModel model;
 

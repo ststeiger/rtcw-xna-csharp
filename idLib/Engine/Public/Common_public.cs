@@ -54,6 +54,9 @@ namespace idLib.Engine.Public
         // Forces memory recollection of non used objects, SHOULD NOT BE USED DURING A FRAME!!
         public abstract void ForceGCCollect();
 
+        // Closes the game.
+        public abstract void Quit();
+
         // Prints a debug message to the console.
         public abstract void Printf(string fmt, params object[] args);
 

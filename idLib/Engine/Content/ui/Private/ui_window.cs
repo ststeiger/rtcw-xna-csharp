@@ -65,7 +65,7 @@ namespace idLib.Engine.Content.ui.Private
             border = reader.ReadInt32();
             ownerDraw = reader.ReadInt32();
             ownerDrawFlags = reader.ReadInt32();
-            borderSize = reader.ReadInt32();
+            borderSize = reader.ReadSingle();
             flags = reader.ReadInt32();
             offsetTime = reader.ReadInt32();
             nextTime = reader.ReadInt32();

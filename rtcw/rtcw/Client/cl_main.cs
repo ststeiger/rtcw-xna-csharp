@@ -518,6 +518,15 @@ namespace rtcw.Client
                     return;
                 }
             }
+
+            if ((cls.keyCatchers & keyCatch.UI) != 0)
+            {
+                cls.cgame.HandleUIKeyEvent(key, down);
+            }
+            else if ((cls.keyCatchers & keyCatch.CGAME) != 0)
+            {
+                cls.cgame.HandleKeyEvent( key, down );
+            }
         }
 
         public void Frame()

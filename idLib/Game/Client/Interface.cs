@@ -47,5 +47,7 @@ namespace idLib.Game.Client
         public abstract void Frame();
         public abstract void HandleUIMouseEvent(int x, int y);
         public abstract void HandleMouseEvent(int x, int y);
+        public abstract void HandleUIKeyEvent(int key, bool down);
+        public abstract void HandleKeyEvent(int key, bool down);
     }
 }

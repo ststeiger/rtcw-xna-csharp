@@ -628,6 +628,14 @@ namespace rtcw.Framework
         }
 
         //
+        // Quit
+        //
+        public override void Quit()
+        {
+            rtcw.sys.app.idApp.app.Exit();
+        }
+
+        //
         // ErrorDrop
         //
         public override void ErrorDrop(string fmt, params object[] args)
