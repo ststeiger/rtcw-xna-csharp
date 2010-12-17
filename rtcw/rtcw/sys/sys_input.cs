@@ -14,6 +14,9 @@ namespace rtcw.sys
     {
 #if WINDOWS
         Keys[] lastFrameKeys;
+
+        int window_center_x = -1;
+        int window_center_y = -1;
 #elif XBOX360
         GamePadState gamepad;
 #endif
@@ -43,6 +46,36 @@ namespace rtcw.sys
                 sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)key, 1, 0, null);
             }
         }
+
+        //
+        // GetWindowMouseInput
+        //
+        private void GetWindowMouseInput()
+        {
+            MouseState mouseState = Mouse.GetState();
+            int mx, my;
+            idSysLocal sys = (idSysLocal)Engine.Sys;
+
+            if( window_center_x < 0 )
+            {
+                window_center_x = ( idSysLocal.windowRect.Right + idSysLocal.windowRect.Left ) / 2;
+	            window_center_y = ( idSysLocal.windowRect.Top + idSysLocal.windowRect.Bottom ) / 2;
+                Mouse.SetPosition(window_center_x, window_center_y);
+                return;
+            }
+
+            mx = mouseState.X - window_center_x;
+            my = mouseState.Y - window_center_y;
+
+            Mouse.SetPosition(window_center_x, window_center_y);
+
+            if (mx == 0 || my == 0)
+            {
+                return;
+            }
+
+            sys.Sys_QueEvent(0, sysEventType_t.SE_MOUSE, mx, my, 0, null);
+        }
 #endif
 
 #if XBOX360
@@ -68,6 +101,7 @@ namespace rtcw.sys
         {
 #if WINDOWS
             GetWindowsKeyInput();
+            GetWindowMouseInput();
 #elif XBOX360
             Get360GamepadState();
 #endif

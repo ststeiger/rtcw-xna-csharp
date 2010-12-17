@@ -49,6 +49,7 @@ namespace idLib.Engine.Public
         public abstract void Com_PushEvent( sysEvent_t new_event );
         public abstract int Com_Milliseconds();
         public abstract int ScaledMilliseconds();
+        public abstract void SetKeyCatcher(int keyCatch);
 
         // Forces memory recollection of non used objects, SHOULD NOT BE USED DURING A FRAME!!
         public abstract void ForceGCCollect();

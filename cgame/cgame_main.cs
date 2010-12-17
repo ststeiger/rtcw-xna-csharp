@@ -74,8 +74,27 @@ namespace cgame
         //
         public override void DrawMainMenu()
         {
+            // Set the keycatcher so the UI will pick up controller events.
+            Engine.common.SetKeyCatcher(keyCatch.UI);
+
             // Draw the mainmenu.
             mainMenu.Draw();
+        }
+
+        //
+        // HandleMouseEvent
+        //
+        public override void HandleMouseEvent(int x, int y)
+        {
+            
+        }
+
+        //
+        // HandleUIMouseEvent
+        //
+        public override void HandleUIMouseEvent(int x, int y)
+        {
+            mainMenu.HandleMouseEvent(x, y);
         }
 
         //

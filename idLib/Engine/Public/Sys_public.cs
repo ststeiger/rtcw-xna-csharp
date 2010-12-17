@@ -241,5 +241,8 @@ namespace idLib.Engine.Public
 
         public abstract idThread CreateThread(string threadName, ThreadFunc_t func);
         public abstract void DestroyThread(ref idThread thread);
+#if WINDOWS
+        public abstract void SetWindowAttributes(bool appHasFocus, Microsoft.Xna.Framework.Rectangle rect);
+#endif
     }
 }

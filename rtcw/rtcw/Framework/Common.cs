@@ -290,6 +290,14 @@ namespace rtcw.Framework
 	        }
         }
 
+        //
+        // SetKeyCatcher
+        //
+        public override void SetKeyCatcher(int keyCatch)
+        {
+            cl.SetKeyCatcher(keyCatch);
+        }
+
         /*
         =================
         Com_EventLoop
@@ -343,7 +351,7 @@ namespace rtcw.Framework
 			       // CL_CharEvent( ev.evValue );
 			        break;
 		        case sysEventType_t.SE_MOUSE:
-			        //CL_MouseEvent( ev.evValue, ev.evValue2, ev.evTime );
+			        cl.MouseEvent( ev.evValue, ev.evValue2, ev.evTime );
 			        break;
 		        case sysEventType_t.SE_JOYSTICK_AXIS:
 			       // CL_JoystickEvent( ev.evValue, ev.evValue2, ev.evTime );

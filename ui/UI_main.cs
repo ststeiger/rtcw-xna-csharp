@@ -21,6 +21,8 @@ namespace ui
         private idWorld world;
         private bool isOpen = false;
         private idUserInterfaceCommandHandler cmd = new idUserInterfaceCommandHandler();
+        private int cursorPosX = 0;
+        private int cursorPosY = 0;
 
         //
         // idUserInterfaceLocal
@@ -735,6 +737,33 @@ namespace ui
         }
 
         //
+        // HandleMouseEvent
+        //
+        public override void HandleMouseEvent(int dx, int dy)
+        {
+            cursorPosX += dx;
+            cursorPosY += dy;
+
+            if (cursorPosX < 0)
+            {
+                cursorPosX = 0;
+            }
+            else if (cursorPosX > 640)
+            {
+                cursorPosX = 640;
+            }
+
+            if (cursorPosY < 0)
+            {
+                cursorPosY = 0;
+            }
+            else if (cursorPosY > 480)
+            {
+                cursorPosY = 480;
+            }
+        }
+
+        //
         // UI_DrawHandlePic
         //
         private void UI_DrawHandlePic(float x, float y, float w, float h, idMaterial shader)
@@ -824,6 +853,9 @@ namespace ui
             {
                 PaintItem(ref menu.items[i]);
             }
+
+            // Draw the cursor over everything else.
+            UI_DrawHandlePic(cursorPosX - 16, cursorPosY - 16, 32, 32, assets.handles.cursor);
         }
     }
 }

@@ -121,6 +121,10 @@ namespace rtcw.sys.app
         //
         protected override void Draw(GameTime gameTime)
         {
+#if WINDOWS
+            // On windows only process certain things if the app is active.
+            Engine.Sys.SetWindowAttributes(IsActive, Window.ClientBounds);
+#endif
             // The system class handles the any need required updates before the common frame,
             // this handles all incoming messaging, etc.
             Engine.Sys.Frame(gameTime.IsRunningSlowly, gameTime.ElapsedGameTime.Milliseconds, gameTime.TotalGameTime.Milliseconds);

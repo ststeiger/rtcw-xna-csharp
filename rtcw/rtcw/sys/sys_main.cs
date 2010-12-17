@@ -122,6 +122,19 @@ namespace rtcw.sys
         }
 
         //
+        // SetWindowFocus
+        //
+#if WINDOWS
+        private bool appHasFocus = true;
+        public static Microsoft.Xna.Framework.Rectangle windowRect;
+        public override void SetWindowAttributes(bool appHasFocus, Microsoft.Xna.Framework.Rectangle rect)
+        {
+            this.appHasFocus = appHasFocus;
+            windowRect = rect;
+        }
+#endif
+
+        //
         // Frame
         //
         public override void Frame(bool appIsRunningSlowly, int frameTime, int appElapsedTime)
@@ -134,8 +147,15 @@ namespace rtcw.sys
                 //return;
             }
 
+#if WINDOWS
+            // On Windows on get input if the application has focus.
+            if (appHasFocus == true)
+            {
+                sysInput.Frame();
+            }
+#else
             sysInput.Frame();
-
+#endif
             Engine.common.Frame(frameTime, appElapsedTime);
         }
 

@@ -118,6 +118,9 @@ namespace rtcw.Client
         public bool uiStarted = false;
         public bool cgameStarted = false;
 
+        public int mouseDx;
+        public int mouseDy;
+
         public idMaterial charSetShader;
         public idMaterial whiteShader;
         public idMaterial consoleShader;
@@ -247,6 +250,36 @@ namespace rtcw.Client
             cls.cgame.Init();
 
             cls.whiteImage = Engine.imageManager.FindImage("*white");
+        }
+
+        //
+        // SetKeyCatcher
+        //
+        public void SetKeyCatcher( int catcher )
+        {
+            cls.keyCatchers = catcher;
+        }
+
+        /*
+        =================
+        MouseEvent
+        =================
+        */
+        public void MouseEvent(int dx, int dy, int time)
+        {
+            if ((cls.keyCatchers & keyCatch.UI) != 0)
+            {
+                cls.cgame.HandleUIMouseEvent(dx, dy);
+            }
+            else if ((cls.keyCatchers & keyCatch.CGAME) != 0)
+            {
+                cls.cgame.HandleMouseEvent(dx, dy);
+            }
+            else
+            {
+                cls.mouseDx += dx;
+                cls.mouseDy += dy;
+            }
         }
 
         

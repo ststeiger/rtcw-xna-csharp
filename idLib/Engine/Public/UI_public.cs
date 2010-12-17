@@ -44,6 +44,7 @@ namespace idLib.Engine.Public
     {
         public abstract string GetName();
         public abstract void Draw();
+        public abstract void HandleMouseEvent(int x, int y);
     }
 
     //
