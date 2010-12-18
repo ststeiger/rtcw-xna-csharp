@@ -136,6 +136,10 @@ namespace rtcw.Client
 
         public idClientGamePublic cgame;
         public idImage loadingbackground = null;
+        public idNetAdress loopBackAddress;
+
+        public idMaterial brightnessMtr;
+        public idMaterial contrastMtr;
     };
 
     //
@@ -219,6 +223,8 @@ namespace rtcw.Client
             cls.whiteShader = Engine.materialManager.FindMaterial("white", -1);
             cls.consoleShader = Engine.materialManager.FindMaterial("console", -1);
             cls.consoleShader2 = Engine.materialManager.FindMaterial("console2", -1);
+            cls.brightnessMtr = Engine.materialManager.FindMaterial("brightness", -1);
+            cls.contrastMtr = Engine.materialManager.FindMaterial("contrast", -1);
         }
 
         //
@@ -283,7 +289,20 @@ namespace rtcw.Client
             }
         }
 
-        
+        //
+        // DrawGammaCorrection
+        // http://www.sgtconker.com/2010/06/windows-phone-7-xna-brightness-and-contrast/
+        //
+        private void DrawGammaCorrection(float brightVal, float contrastVal)
+        {
+           // Engine.RenderSystem.SetColor(brightVal, brightVal, brightVal, 1);
+         //   Engine.RenderSystem.DrawStretchPic(0, 0, Engine.RenderSystem.GetViewportWidth(), Engine.RenderSystem.GetViewportHeight(), 0, 0, 1, 1, cls.brightnessMtr);
+
+          //  Engine.RenderSystem.SetColor(contrastVal, contrastVal, contrastVal, 1);
+         //   Engine.RenderSystem.DrawStretchPic(0, 0, Engine.RenderSystem.GetViewportWidth(), Engine.RenderSystem.GetViewportHeight(), 0, 0, 1, 1, cls.contrastMtr);
+
+            Engine.RenderSystem.SetColor(1, 1, 1, 1);
+        }
 
         //
         // DrawLoadingScreen
@@ -541,7 +560,16 @@ namespace rtcw.Client
         */
         public void MapLoading()
         {
-            cls.state = connstate_t.CA_CHALLENGING;
+            idMsgWriter msg = new idMsgWriter(idNetwork.netcmd_getchallenge.Length + 4);
+
+            msg.WriteString(idNetwork.netcmd_getchallenge);
+
+            cls.state = connstate_t.CA_CONNECTING;
+
+            // Get the loop back address and send a getchallenge. 
+            cls.loopBackAddress = Engine.net.GetLoopBackAddress();
+            Engine.net.SendReliablePacketToAddress(idNetSource.NS_SERVER, cls.loopBackAddress, ref msg);
+            msg.Dispose();
 
             // Shutdown the cgame module and clear everything from the last map.
             cls.cgame.Shutdown();
@@ -556,11 +584,30 @@ namespace rtcw.Client
         }
 
         //
+        // InitCGame
+        //
+        private void InitCGame(string mappath)
+        {
+            cls.state = connstate_t.CA_LOADING;
+        }
+
+        //
         // PacketEvent
         //
         public void PacketEvent(idNetAdress from, ref idMsgReader buf)
         {
+            string cmd;
 
+            cmd = buf.ReadString();
+
+            if (cmd == idNetwork.netcmd_serverinfo)
+            {
+                InitCGame(buf.ReadString());
+            }
+            else
+            {
+                Engine.common.Warning("CL_PacketEvent: Unknown packet command recieved from " + from.GetAddress() + " " + cmd + "\n");
+            }
         }
 
         //
@@ -597,6 +644,12 @@ namespace rtcw.Client
             {
                 cls.cgame.DrawConnectScreen();
             }
+            else if (cls.state == connstate_t.CA_LOADING)
+            {
+                cls.cgame.DrawLoadingScreen();
+            }
+
+            DrawGammaCorrection(255.0f, 100.0f);
 
             Engine.RenderSystem.EndFrame();
 

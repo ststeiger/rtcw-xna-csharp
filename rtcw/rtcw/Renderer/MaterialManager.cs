@@ -667,6 +667,8 @@ namespace rtcw.Renderer
 
                     stage.useBlending = true;
                     stage.blendState = new BlendState();
+                    stage.blendState.AlphaSourceBlend = (Blend)blendSrcBits;
+                    stage.blendState.AlphaDestinationBlend = (Blend)blendDstBits;
                     stage.blendState.ColorSourceBlend = (Blend)blendSrcBits;
                     stage.blendState.ColorDestinationBlend = (Blend)blendDstBits;
 

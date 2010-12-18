@@ -46,6 +46,7 @@ namespace idLib.Engine.Public
         public abstract void Draw();
         public abstract void HandleMouseEvent(int x, int y);
         public abstract void HandleKeyEvent(keyNum key, bool down);
+        public abstract void HorizontalPercentBar(float x, float y, float width, float height, float percent);
     }
 
     //

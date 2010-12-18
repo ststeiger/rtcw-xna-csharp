@@ -54,6 +54,13 @@ namespace idLib.Engine.Public.Net
         {
             buffer = new byte[msgLen];
             writer = new BinaryWriter(new MemoryStream(buffer));
+            writer.Write((byte)0); // For the destinitation byte.
+        }
+
+        public void WriteDst(idNetSource src)
+        {
+            writer.BaseStream.Position = 0;
+            writer.Write((byte)src);
         }
 
         public void WriteInt(int val)

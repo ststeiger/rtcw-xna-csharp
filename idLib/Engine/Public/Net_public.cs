@@ -71,6 +71,9 @@ namespace idLib.Engine.Public
     //
     public abstract class idNetwork
     {
+        public const string netcmd_getchallenge = "getchallenge";
+        public const string netcmd_serverinfo = "serverinfo";
+
         public abstract void Init();
         public abstract bool LiveGuideVisible();
         public abstract bool LiveTrialMode();

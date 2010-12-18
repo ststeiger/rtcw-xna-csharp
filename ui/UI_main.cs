@@ -1237,6 +1237,148 @@ namespace ui
             }
         }
 
+        /*
+        ==============
+        CG_HorizontalPercentBar
+	        Generic routine for pretty much all status indicators that show a fractional
+	        value to the palyer by virtue of how full a drawn box is.
+
+        flags:
+	        left		- 1
+	        center		- 2		// direction is 'right' by default and orientation is 'horizontal'
+	        vert		- 4
+	        nohudalpha	- 8		// don't adjust bar's alpha value by the cg_hudalpha value
+	        bg			- 16	// background contrast box (bg set with bgColor of 'NULL' means use default bg color (1,1,1,0.25)
+	        spacing		- 32	// some bars use different sorts of spacing when drawing both an inner and outer box
+
+	        lerp color	- 256	// use an average of the start and end colors to set the fill color
+        ==============
+        */
+
+
+        // TODO: these flags will be shared, but it was easier to work on stuff if I wasn't changing header files a lot
+        private const int BAR_LEFT       = 0x0001;
+        private const int BAR_CENTER     = 0x0002;
+        private const int BAR_VERT       = 0x0004;
+        private const int BAR_NOHUDALPHA = 0x0008;
+        private const int BAR_BG         = 0x0010;
+        // different spacing modes for use w/ BAR_BG
+        private const int BAR_BGSPACING_X0Y5 = 0x0020;
+        private const int BAR_BGSPACING_X0Y0 = 0x0040;
+
+        private const int  BAR_LERP_COLOR = 0x0100;
+
+        private const int BAR_BORDERSIZE = 2;
+
+        private idVector4 backgroundcolor = new idVector4(1, 1, 1, 0.25f);  // colorAtPos is the lerped color if necessary
+        private void FilledBar(float x, float y, float w, float h, idVector4 startColorIn, idVector4 endColor, idVector4 bgColor, float frac, int flags)
+        {
+            idVector4 colorAtPos;
+            idVector4 startColor;
+            idVector4 backColor;
+
+	        int indent = BAR_BORDERSIZE;
+
+            AdjustFrom640(ref x, ref y, ref w, ref h);
+
+            startColor = startColorIn;
+
+            if ((flags & BAR_BG) != 0)
+            { // BAR_BG set, and color specified, use specified bg color
+                backColor = bgColor;
+            }
+            else
+            {
+                backColor = backgroundcolor;
+            }
+
+	        // hud alpha
+	        if ( ( flags & BAR_NOHUDALPHA ) != 0 ) {
+                /*
+		        startColor[3] *= cg_hudAlpha.value;
+		        if ( endColor ) {
+			        endColor[3] *= cg_hudAlpha.value;
+		        }
+		        if ( backgroundcolor ) {
+			        backgroundcolor[3] *= cg_hudAlpha.value;
+		        }
+                */
+	        }
+
+	        if ( (flags & BAR_LERP_COLOR) != 0 ) {
+		      //  Vector4Average( startColor, endColor, frac, colorAtPos );
+	        }
+
+	        // background
+	        if ( ( flags & BAR_BG ) != 0 ) {
+		        // draw background at full size and shrink the remaining box to fit inside with a border.  (alternate border may be specified by a BAR_BGSPACING_xx)
+		        FillRect(      (int)x,
+                               (int)y,
+                               (int)w,
+                               (int)h,
+					           backgroundcolor );
+
+		        if ( (flags & BAR_BGSPACING_X0Y0) != 0 ) {          // fill the whole box (no border)
+
+		        } else if ( (flags & BAR_BGSPACING_X0Y5) != 0 ) {   // spacing created for weapon heat
+			        indent *= 3;
+			        y += indent;
+			        h -= ( 2 * indent );
+
+		        } else {                                // default spacing of 2 units on each side
+			        x += indent;
+			        y += indent;
+			        w -= ( 2 * indent );
+			        h -= ( 2 * indent );
+		        }
+	        }
+
+
+	        // adjust for horiz/vertical and draw the fractional box
+	        if ( (flags & BAR_VERT) != 0 ) {
+		        if ( (flags & BAR_LEFT) != 0 ) {    // TODO: remember to swap colors on the ends here
+			        y += ( h * ( 1 - frac ) );
+		        } else if ( (flags & BAR_CENTER) != 0 ) {
+			        y += ( h * ( 1 - frac ) / 2 );
+		        }
+
+		        if ( (flags & BAR_LERP_COLOR) != 0 ) {
+                    FillRect((int)x, (int)y, (int)w, (int)(h * frac), startColor);
+		        } else {
+        //			CG_FillRectGradient ( x, y, w, h * frac, startColor, endColor, 0 );
+                    FillRect((int)x, (int)y, (int)w, (int)(h * frac), startColor);
+		        }
+
+	        } else {
+
+		        if ( (flags & BAR_LEFT) != 0 ) {    // TODO: remember to swap colors on the ends here
+			        x += ( w * ( 1 - frac ) );
+		        } else if ( (flags & BAR_CENTER) != 0 ) {
+			        x += ( w * ( 1 - frac ) / 2 );
+		        }
+
+		        if ( (flags & BAR_LERP_COLOR) != 0 ) {
+                    FillRect((int)x, (int)y, (int)(w * frac), (int)h, startColor);
+		        } else {
+        //			CG_FillRectGradient ( x, y, w * frac, h, startColor, endColor, 0 );
+                    FillRect((int)x, (int)y, (int)(w * frac), (int)h, startColor);
+		        }
+	        }
+
+        }
+
+
+        /*
+        =================
+        CG_HorizontalPercentBar
+        =================
+        */
+        private idVector4 percentBarBgColor = new idVector4(0.5f, 0.5f, 0.5f, 0.3f);
+        private idVector4 percentBarColor = new idVector4(1.0f, 1.0f, 1.0f, 0.3f);
+        public override void HorizontalPercentBar( float x, float y, float width, float height, float percent ) {
+            FilledBar(x, y, width, height, percentBarBgColor, percentBarBgColor, percentBarColor, percent, BAR_BG | BAR_NOHUDALPHA);
+        }
+
         //
         // Draw
         //

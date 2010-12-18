@@ -236,7 +236,7 @@ namespace rtcw.Framework
                 {
                     if (file.GetClassType() == typeof(idFile_Memory))
                     {
-                       // fs_loadStack -= file.Length();
+                        //fs_loadStack -= file.Length();
 
                         // Dispose of the file, perform all needed cleanup.
                         ((idFile_Memory)file).Dispose();
@@ -363,7 +363,15 @@ namespace rtcw.Framework
 #endif
             try
             {
-                return _contentManager.Load<T>(path);
+                T content = _contentManager.Load<T>(path);
+
+                if(content.GetType() == typeof(Microsoft.Xna.Framework.Graphics.Texture2D))
+                {
+                    object temp = content;
+                    fs_loadStack += ((Microsoft.Xna.Framework.Graphics.Texture2D)temp).Width;
+                }
+
+                return content;
             }
             catch (Exception e)
             {

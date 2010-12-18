@@ -147,13 +147,8 @@ namespace rtcw.Net
         //
         public void SendReliablePacketToAddress(idNetSource dst, idNetAdress addr, ref idMsgWriter msg)
         {
-            idMsgWriter msgheader = new idMsgWriter(1);
-
-            msgheader.WriteByte((byte)dst);
-            loopBackAddress.SendReliablePacketToAddress((idNetLiveAddress)addr, ref msgheader);
+            msg.WriteDst(dst);
             loopBackAddress.SendReliablePacketToAddress((idNetLiveAddress)addr, ref msg);
-
-            msgheader.Dispose();
         }
 
         //

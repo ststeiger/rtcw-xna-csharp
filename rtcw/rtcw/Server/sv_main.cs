@@ -287,7 +287,8 @@ namespace rtcw.Server
                         if (token != null || token.Length > 0)
                         {
                             // this is the usage
-                            Engine.cvarManager.Cvar_Set("com_expectedhunkusage", token, true);
+                            idCVar usage = Engine.cvarManager.Cvar_Set("com_expectedhunkusage", token, true);
+                            usage.SetValueInt(int.Parse(token) + Engine.fileSystem.FS_LoadStack());
                             parser.Dispose();
                             Engine.fileSystem.CloseFile(ref hunkFile);
                             return;
@@ -308,6 +309,9 @@ namespace rtcw.Server
         //
         public void SpawnServer(string mapname, bool killBots)
         {
+            // Init the live server.
+            Engine.net.CreateServer(CVars.sv_maxclients.GetValueInteger());
+
             // Shutdown the game if its already running.
             ShutdownGameProgs();
 
@@ -350,8 +354,6 @@ namespace rtcw.Server
             Engine.cvarManager.Cvar_Set("nextmap", "map_restart 0", true);
             //	Cvar_Set( "nextmap", va("map %s", server) );
 
-            Engine.net.CreateServer(CVars.sv_maxclients.GetValueInteger());
-
             SetExpectedHunkUsage("maps/" + mapname + ".bsp");
 
             InitGameVM(mapname);
@@ -373,11 +375,42 @@ namespace rtcw.Server
         }
 
         //
+        // GetChallenge
+        //
+        private void GetChallenge(idNetAdress from)
+        {
+            // If this is a loopback client, connect immediatly.
+            if (from.GetType() == idNetAddressType.NA_LOOPBACK)
+            {
+                idMsgWriter msg = new idMsgWriter(idNetwork.netcmd_serverinfo.Length + 4 + CVars.sv_mapname.GetValue().Length + 4);
+
+                msg.WriteString(idNetwork.netcmd_serverinfo);
+                msg.WriteString(CVars.sv_mapname.GetValue());
+
+                Engine.net.SendReliablePacketToAddress(idNetSource.NS_CLIENT, from, ref msg);
+
+                msg.Dispose();
+                return;
+            }
+        }
+
+        //
         // PacketEvent
         //
         public void PacketEvent(idNetAdress from, ref idMsgReader buf)
         {
+            string cmd;
 
+            cmd = buf.ReadString();
+
+            if (cmd == idNetwork.netcmd_getchallenge)
+            {
+                GetChallenge(from);
+            }
+            else
+            {
+                Engine.common.Warning("SV_PacketEvent: Unknown packet command recieved from " + from.GetAddress() + " " + cmd + "\n");
+            }
         }
 
         public void Frame()

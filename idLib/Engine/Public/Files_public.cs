@@ -171,7 +171,7 @@ namespace idLib.Engine.Public
 
         public abstract void RenameStorageFile( string from, string to );
 // JV - xna specfic content loader.
-        public abstract T ReadContent<T>(string qpath);
+        public abstract T ReadContent<T>(string qpath) where T : class;
 // jv end
 
         //void    FS_CopyFileOS(  char *from, char *to ); //DAJ

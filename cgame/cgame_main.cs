@@ -49,6 +49,7 @@ namespace cgame
         idUserInterface connectUI;
         idUserInterface briefingUI;
 
+
         //
         // idClientGame
         //
@@ -89,9 +90,38 @@ namespace cgame
         //
         // DrawLoadingScreen
         //
+        private int baseHunk = 0;
         public override void DrawLoadingScreen()
         {
+            float percentDone = 0;
+            
+            int expectedHunk = Engine.cvarManager.Cvar_Get("com_expectedhunkusage", "0", 0).GetValueInteger();
+
+            // Draw the briefing UI.
             briefingUI.Draw();
+
+            // Draw the loading bar over the briefing.
+            float bar_x = 200;
+            float bar_y = 468;
+            float bar_w = 240;
+            float bar_h = 10;
+
+            if (baseHunk == 0)
+            {
+                baseHunk = Engine.fileSystem.FS_LoadStack();
+            }
+
+            // show the percent complete bar
+            if (expectedHunk > 0)
+            {
+                percentDone = (float)(baseHunk - Engine.fileSystem.FS_LoadStack()) / (float)(expectedHunk);
+                if (percentDone > 0.97f)
+                {
+                    percentDone = 0.97f;
+                }
+
+                briefingUI.HorizontalPercentBar(bar_x, bar_y, bar_w, bar_h, percentDone);
+            }
         }
 
         //

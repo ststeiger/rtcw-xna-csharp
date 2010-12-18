@@ -39,6 +39,27 @@ white
 	}
 }
 
+// JV BEGIN
+brightness
+{
+	{
+		map *white
+		blendfunc	GL_DST_COLOR GL_ZERO
+		rgbgen identity
+	}
+}
+
+contrast
+{
+	{
+		map *white
+		blendfunc	GL_DST_COLOR GL_SRC_COLOR
+		rgbgen identity
+	}
+}
+
+// JV END
+
 
 console
 {

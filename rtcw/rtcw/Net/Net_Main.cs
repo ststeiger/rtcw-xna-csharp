@@ -59,8 +59,7 @@ namespace rtcw.Net
         public override void Init()
         {
             // Show the sign in screen, but don't force online only profiles.
-            // For now assume livetags with Player1-9 are the default profiles, which don't support live development access
-            if (LiveGuideVisible() == false && (Gamer.SignedInGamers[0] == null || Gamer.SignedInGamers[0].Gamertag.Contains("Player") == true))
+            if (LiveGuideVisible() == false && (Gamer.SignedInGamers[0] == null/* || Gamer.SignedInGamers[0].Gamertag.Contains("Player") == true*/))
             {
                 Guide.ShowSignIn(1, false);
                 Engine.common.Printf("Net_Init: Live Guide is Active...\n");
