@@ -55,6 +55,7 @@ namespace rtcw.sys
         private sysEvent_t emptySysEvent = new sysEvent_t();
         private idSystemInput sysInput;
         private List<idThreadLocal> threads = new List<idThreadLocal>();
+        private bool netInit = false;
 //byte sys_packetReceived[MAX_MSGLEN];
 
         //
@@ -147,6 +148,22 @@ namespace rtcw.sys
                 //return;
             }
 
+            // Wait until XNA is finished with everything so the profile guide shows up when the window is visible.
+            if (netInit == false)
+            {
+                Engine.net.Init();
+
+                // Don't draw anything or run any frames until the Live guide is closed.
+                if (Engine.net.LiveGuideVisible() == false)
+                {
+                    netInit = true;
+                }
+
+                Engine.RenderSystem.BeginFrame();
+                Engine.RenderSystem.EndFrame();
+
+                return;
+            }
 #if WINDOWS
             // On Windows on get input if the application has focus.
             if (appHasFocus == true)

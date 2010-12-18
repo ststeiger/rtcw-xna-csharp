@@ -44,5 +44,7 @@ namespace idLib.Engine.Public
     public abstract class idNetwork
     {
         public abstract void Init();
+        public abstract bool LiveGuideVisible();
+        public abstract bool LiveTrialMode();
     }
 }

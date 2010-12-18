@@ -48,6 +48,7 @@ namespace rtcw.Net
     {
         idCVar showpackets;
         idCVar showdrop;
+        idCVar liveProfileName;
 
         //
         // Init
@@ -55,13 +56,42 @@ namespace rtcw.Net
         public override void Init()
         {
             // Show the sign in screen, but don't force online only profiles.
-            Guide.ShowSignIn(1, false);
+            if (LiveGuideVisible() == false && Gamer.SignedInGamers[0] == null)
+            {
+                Guide.ShowSignIn(1, false);
+                Engine.common.Printf("Net_Init: Live Guide is Active...\n");
+                return;
+            }
+
+            // Wait to init till the guide is hidden.
+            if (Gamer.SignedInGamers[0] == null || LiveGuideVisible() == true)
+            {
+                return;
+            }
+
 
             // Setup the various network cvars.
             showpackets = Engine.cvarManager.Cvar_Get("showpackets", "0", idCVar.CVAR_TEMP);
             showdrop = Engine.cvarManager.Cvar_Get("showdrop", "0", idCVar.CVAR_TEMP);
+            liveProfileName = Engine.cvarManager.Cvar_Get("net_liveprofile", Gamer.SignedInGamers[0].Gamertag, idCVar.CVAR_ROM);
 
-            
+            Engine.common.Printf("Net_Init: Signed in with profile " + liveProfileName.GetValue() + "\n");
+        }
+
+        //
+        // LiveGuideVisible
+        //
+        public override bool LiveGuideVisible()
+        {
+            return Guide.IsVisible;
+        }
+
+        //
+        // LiveTrialMode
+        //
+        public override bool LiveTrialMode()
+        {
+            return Guide.IsTrialMode;
         }
     }
 }

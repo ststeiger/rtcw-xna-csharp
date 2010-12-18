@@ -535,7 +535,7 @@ namespace rtcw.Framework
             com_version = Engine.cvarManager.Cvar_Get("version", Engine.Q3_VERSION, idCVar.CVAR_ROM | idCVar.CVAR_SERVERINFO);
 
             Engine.Sys.Init();
-            Engine.net.Init(); // Init the Live API early on so the user profile is automatically selected.
+
             sv.Init();
 
             cl.Init();
