@@ -46,6 +46,8 @@ namespace cgame
     public class idClientGame : idClientGamePublic
     {
         idUserInterface mainMenu;
+        idUserInterface connectUI;
+        idUserInterface briefingUI;
 
         //
         // idClientGame
@@ -67,6 +69,21 @@ namespace cgame
                 Engine.common.ErrorFatal("Failed to load the mainmenu\n");
                 return;
             }
+
+            // Load the loading menu.
+            connectUI = Engine.ui.FindUserInterface("Connect");
+            if (connectUI == null)
+            {
+                Engine.common.ErrorFatal("Failed to load the loading menu.\n");
+                return;
+            }
+
+            briefingUI = Engine.ui.FindUserInterface("briefing");
+            if (connectUI == null)
+            {
+                Engine.common.ErrorFatal("Failed to load the briefing menu.\n");
+                return;
+            }
         }
 
         //
@@ -74,7 +91,15 @@ namespace cgame
         //
         public override void DrawLoadingScreen()
         {
-            
+            briefingUI.Draw();
+        }
+
+        //
+        // DrawConnectScreen
+        //
+        public override void DrawConnectScreen()
+        {
+            connectUI.Draw();
         }
 
         //

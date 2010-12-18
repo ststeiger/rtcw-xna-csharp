@@ -112,6 +112,7 @@
     <Compile Include="Engine\Public\Common_public.cs" />
     <Compile Include="Engine\Public\Cvar_Public.cs" />
     <Compile Include="Engine\Public\Files_public.cs" />
+    <Compile Include="Engine\Public\Net\Net_msg.cs" />
     <Compile Include="Engine\Public\Net\Snapshot.cs" />
     <Compile Include="Engine\Public\Net_public.cs" />
     <Compile Include="Engine\Public\Public.cs" />

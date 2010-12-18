@@ -584,6 +584,10 @@ namespace rtcw.Client
             {
                 cls.cgame.DrawMainMenu();
             }
+            else if (cls.state == connstate_t.CA_CHALLENGING || cls.state == connstate_t.CA_CONNECTING)
+            {
+                cls.cgame.DrawConnectScreen();
+            }
 
             Engine.RenderSystem.EndFrame();
 

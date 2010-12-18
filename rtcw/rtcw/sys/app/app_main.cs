@@ -36,6 +36,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.GamerServices;
+
 
 using idLib.Engine.Public;
 using rtcw.sys;
@@ -87,6 +89,7 @@ namespace rtcw.sys.app
         private void InitAppAttachedObjects()
         {
             graphics = new GraphicsDeviceManager(this);
+            Components.Add(new GamerServicesComponent(this));
 #if WINDOWS
             //graphics.PreferredBackBufferHeight = 600;
             //graphics.PreferredBackBufferWidth = 800;

@@ -43,6 +43,6 @@ namespace idLib.Engine.Public
     //
     public abstract class idNetwork
     {
-        public abstract void Netchan_Init(int port);
+        public abstract void Init();
     }
 }

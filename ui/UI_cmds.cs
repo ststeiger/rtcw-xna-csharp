@@ -280,6 +280,7 @@ namespace ui
 #endif
 
         private static void Script_Transition( ref idUserInterfaceItem item, ref idParser parser ) {
+            parser.ParseRestOfLine();
 #if false
 	        const char *name;
 	        rectDef_t rectFrom, rectTo;
@@ -491,6 +492,32 @@ namespace ui
            {
                Engine.common.Quit();
            }
+           else
+           {
+               Engine.common.Warning("Unknown UIScript Command " + cmdToken + "\n");
+
+               // Skip the rest of the command.
+               while (parser.ReachedEndOfBuffer == false) {
+                   string token = parser.NextToken;
+
+                   if (token == null)
+                   {
+                       Engine.common.ErrorFatal("Unexpected EOF in UiCmd.\n");
+                   }
+
+                   if (token == ";")
+                   {
+                       parser.UngetToken();
+                       break;
+                   }
+                   else if(token.Contains(";"))
+                   {
+                       break;
+                   }
+               }
+
+               
+           }
        }
 
 
@@ -564,11 +591,12 @@ namespace ui
                     {
                         commandList[i].handler(ref item, ref parser);
 
-                        if (parser.NextToken != ";")
+                        string lastToken = parser.NextToken;
+                        if (lastToken != ";" || lastToken.Contains(";") == false)
                         {
                             if (parser.ReachedEndOfBuffer == false)
                             {
-                                Engine.common.ErrorFatal("UI_Execute: Expected ; in command.\n");
+                                Engine.common.Warning("UI_Execute: Expected ; in command.\n");
                             }
                         }
                         break;

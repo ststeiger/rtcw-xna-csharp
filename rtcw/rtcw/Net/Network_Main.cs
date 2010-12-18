@@ -35,6 +35,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
+using Microsoft.Xna.Framework.Net;
+using Microsoft.Xna.Framework.GamerServices;
 using idLib.Engine.Public;
 
 namespace rtcw.Net
@@ -46,17 +48,20 @@ namespace rtcw.Net
     {
         idCVar showpackets;
         idCVar showdrop;
-        idCVar qport;
 
         //
-        // Netchan_Init
+        // Init
         //
-        public override void Netchan_Init(int port)
+        public override void Init()
         {
-            port &= 0xffff;
+            // Show the sign in screen, but don't force online only profiles.
+            Guide.ShowSignIn(1, false);
+
+            // Setup the various network cvars.
             showpackets = Engine.cvarManager.Cvar_Get("showpackets", "0", idCVar.CVAR_TEMP);
             showdrop = Engine.cvarManager.Cvar_Get("showdrop", "0", idCVar.CVAR_TEMP);
-            qport = Engine.cvarManager.Cvar_Get("net_qport", "" + port, idCVar.CVAR_INIT);
+
+            
         }
     }
 }
