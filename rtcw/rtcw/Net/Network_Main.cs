@@ -49,6 +49,7 @@ namespace rtcw.Net
         idCVar showpackets;
         idCVar showdrop;
         idCVar liveProfileName;
+        idCVar net_trialmode;
 
         //
         // Init
@@ -75,6 +76,17 @@ namespace rtcw.Net
             showdrop = Engine.cvarManager.Cvar_Get("showdrop", "0", idCVar.CVAR_TEMP);
             liveProfileName = Engine.cvarManager.Cvar_Get("net_liveprofile", Gamer.SignedInGamers[0].Gamertag, idCVar.CVAR_ROM);
 
+            if (Guide.IsTrialMode == true)
+            {
+                net_trialmode = Engine.cvarManager.Cvar_Get("net_trialmode", "1", idCVar.CVAR_ROM);
+                Engine.common.Printf("\n\n********* Trial Mode Enabled **********\n\n");
+            }
+            else
+            {
+                net_trialmode = Engine.cvarManager.Cvar_Get("net_trialmode", "0", idCVar.CVAR_ROM);
+                Engine.common.Printf("Net_Init: Registered Version Detected...\n");
+            }
+
             Engine.common.Printf("Net_Init: Signed in with profile " + liveProfileName.GetValue() + "\n");
         }
 
@@ -91,7 +103,7 @@ namespace rtcw.Net
         //
         public override bool LiveTrialMode()
         {
-            return Guide.IsTrialMode;
+            return (net_trialmode.GetValueInteger() != 0);
         }
     }
 }
