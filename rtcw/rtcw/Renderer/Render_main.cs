@@ -730,6 +730,18 @@ namespace rtcw.Renderer
         }
 
         //
+        // LoadWorld
+        //
+        public override idWorld LoadWorld(string mappath)
+        {
+            idWorldLocal world = new idWorldLocal(mappath);
+
+            Globals.tr.worlds.Add(world);
+
+            return Globals.tr.worlds[Globals.tr.worlds.Count - 1];
+        }
+
+        //
         // RegisterFont
         //
         public override idFont RegisterFont(string filename, int pointSize)

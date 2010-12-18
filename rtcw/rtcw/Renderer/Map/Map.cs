@@ -76,11 +76,11 @@ namespace rtcw.Renderer.Map
         string entityString;
 
         idModelBrush[] bmodels;
+        idPlane[] planes;
 
         // ---------- Temporary BSP Storage -----------
         idMapFormat.idMapHeader header;
         idMapFormat.idMapShader[] shaders;
-        idMapFormat.idMapPlane[] planes;
         //idMapFormat.idMapFog[] fogs;
         idMapFormat.idMapBrush[] brushes;
         idMapFormat.idMapBrushSide[] brushsides;
@@ -95,7 +95,7 @@ namespace rtcw.Renderer.Map
         //
         private int LumpCount(idMapFormat.lump_t lump, int lump_size)
         {
-            return lump.fileofs / lump_size;
+            return lump.filelen / lump_size;
         }
 
         //
@@ -122,7 +122,7 @@ namespace rtcw.Renderer.Map
             idMapFormat.idMapFog foglump = new idMapFormat.idMapFog();
 
             // Load in the bsp fog lump.
-            count = LumpCount(lump, idMapFormat.idMapShader.LUMP_SIZE);
+            count = LumpCount(lump, idMapFormat.idMapFog.LUMP_SIZE);
             fogs = new idWorldFog_t[count];
 
             // Load in the bsp brushes.
@@ -166,27 +166,27 @@ namespace rtcw.Renderer.Map
                 // brushes are always sorted with the axial sides first
                 sideNum = firstSide + 0;
                 planeNum = brushsides[sideNum].planeNum;
-                fogs[i].bounds[0][0] = -planes[planeNum].dist;
+                fogs[i].bounds[0][0] = -planes[planeNum].Dist;
 
                 sideNum = firstSide + 1;
                 planeNum = brushsides[sideNum].planeNum;
-                fogs[i].bounds[1][0] = planes[planeNum].dist;
+                fogs[i].bounds[1][0] = planes[planeNum].Dist;
 
                 sideNum = firstSide + 2;
                 planeNum = brushsides[sideNum].planeNum;
-                fogs[i].bounds[0][1] = -planes[planeNum].dist;
+                fogs[i].bounds[0][1] = -planes[planeNum].Dist;
 
                 sideNum = firstSide + 3;
                 planeNum = brushsides[sideNum].planeNum;
-                fogs[i].bounds[1][1] = planes[planeNum].dist;
+                fogs[i].bounds[1][1] = planes[planeNum].Dist;
 
                 sideNum = firstSide + 4;
                 planeNum = brushsides[sideNum].planeNum;
-                fogs[i].bounds[0][2] = -planes[planeNum].dist;
+                fogs[i].bounds[0][2] = -planes[planeNum].Dist;
 
                 sideNum = firstSide + 5;
                 planeNum = brushsides[sideNum].planeNum;
-                fogs[i].bounds[1][2] = planes[planeNum].dist;
+                fogs[i].bounds[1][2] = planes[planeNum].Dist;
 
                 // get information from the shader for fog parameters
                 shader = Engine.materialManager.FindMaterial(foglump.shader, -1);
@@ -213,9 +213,11 @@ namespace rtcw.Renderer.Map
                     planeNum = brushsides[firstSide + sideNum].planeNum;
 
                     //VectorSubtract( vec3_origin, s_worldData.planes[ planeNum ].normal, out->surface );
-                    fogs[i].surface = -planes[planeNum].normal;
+                    fogs[i].surface.X = -planes[planeNum].Normal.X;
+                    fogs[i].surface.Y = -planes[planeNum].Normal.Y;
+                    fogs[i].surface.Z = -planes[planeNum].Normal.Z;
 
-                    fogs[i].surface[3] = -planes[planeNum].dist;
+                    fogs[i].surface[3] = -planes[planeNum].Dist;
                 }
             }
         }
@@ -248,15 +250,35 @@ namespace rtcw.Renderer.Map
         private void LoadPlanes(ref idFile bspFile, idMapFormat.lump_t lump)
         {
             int count = 0;
+            idMapFormat.idMapPlane bspPlane = new idMapFormat.idMapPlane();
 
             SetLumpPosition(lump, ref bspFile);
             count = LumpCount(lump, idMapFormat.idMapPlane.LUMP_SIZE);
 
-            planes = new idMapFormat.idMapPlane[count];
+            planes = new idPlane[count * 2];
 
             for (int i = 0; i < count; i++)
             {
-                planes[i].InitFromFile(ref bspFile);
+                int bits = 0;
+                bspPlane.InitFromFile(ref bspFile);
+
+                for( int j = 0; j < 3; j++ )
+                {
+                    if ( bspPlane.normal[j] < 0 ) {
+				        bits |= 1 << j;
+			        }
+                }
+
+                planes[i] = new idPlane();
+                planes[i].Normal = bspPlane.normal;
+                planes[i].Dist = bspPlane.dist;
+                planes[i].SetPlaneType();
+                planes[i].SignBits = bits;
+            }
+
+            for (int i = count; i < planes.Length; i++)
+            {
+                planes[i] = new idPlane();
             }
         }
 
@@ -265,7 +287,8 @@ namespace rtcw.Renderer.Map
         R_LoadEntities
         ================
         */
-        private void LoadEntities(ref idFile bspFile, idMapFormat.lump_t lump) {
+        private void LoadEntities(ref idFile bspFile, idMapFormat.lump_t lump)
+        {
 	        string p, token, s;
 	        string keyname;
             string value;
@@ -510,8 +533,8 @@ namespace rtcw.Renderer.Map
             // deal with overbright bits
             for (i = 0; i < numGridPoints; i++)
             {
-                idMapFormat.ColorShiftLightingBytes(lightGridData, i * 8, i * 8, ref lightGridData);
-                idMapFormat.ColorShiftLightingBytes(lightGridData, i * 8 + 3, i * 8 + 3, ref lightGridData);
+               // idMapFormat.ColorShiftLightingBytes(lightGridData, i * 8, i * 8, ref lightGridData);
+               // idMapFormat.ColorShiftLightingBytes(lightGridData, i * 8 + 3, i * 8 + 3, ref lightGridData);
             }
         }
 
@@ -625,8 +648,8 @@ namespace rtcw.Renderer.Map
 		        } 
                 else {
 			        for ( int j = 0 ; j < LIGHTMAP_SIZE * LIGHTMAP_SIZE; j++ ) {
-                        idMapFormat.ColorShiftLightingBytes(buf_p, j * 3, j * 4, ref image);
-				        image[j * 4].A = 255;
+                        idMapFormat.ColorShiftLightingBytes(buf_p, j * 3, j, ref image);
+				        image[j].A = 255;
 			        }
 		        }
 		        lightmaps[i] = Engine.imageManager.CreateImage( "*lightmap" + i, image, LIGHTMAP_SIZE, LIGHTMAP_SIZE, false, false, SamplerState.LinearClamp );
@@ -699,8 +722,8 @@ namespace rtcw.Renderer.Map
 		        }
 
 		        p = nodeIn.planeNum;
-		        nodeOut.plane.Normal = planes[p].normal;
-                nodeOut.plane.Dist = planes[p].dist;
+		        nodeOut.plane.Normal = planes[p].Normal;
+                nodeOut.plane.Dist = planes[p].Dist;
 
 		        nodeOut.contents = idRenderNode.CONTENTS_NODE;  // differentiate from leafs
 
@@ -972,6 +995,8 @@ namespace rtcw.Renderer.Map
 			        Engine.common.ErrorFatal( "Bad surfaceType" );
                     break;
 		        }
+
+                Globals.UpdateLoadingScreen();
 	        }
 
         #if PATCH_STITCHING

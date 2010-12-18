@@ -197,7 +197,7 @@ namespace rtcw.Renderer
 
 	    // for clipping distance in fog when outside
 	    public bool hasSurface;
-        public idVector3 surface;
+        public idVector4 surface;
     };
 
     //

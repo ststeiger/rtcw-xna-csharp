@@ -88,7 +88,7 @@ namespace rtcw.Renderer.Map
 		        b = b * 255 / max;
 	        }
 
-            color[colorpos] = new Color( r, g, b, inrgb[inpos + 3] );
+            color[colorpos] = new Color( r, g, b, inrgb[inpos] );
         }
 
         /*
@@ -273,6 +273,7 @@ namespace rtcw.Renderer.Map
 
             public void InitFromFile( ref idFile file )
             {
+                file.Seek(idFileSeekOrigin.FS_SEEK_SET, 0);
                 ident = file.ReadInt();
                 version = file.ReadInt();
 

@@ -49,6 +49,7 @@ namespace cgame
         idUserInterface connectUI;
         idUserInterface briefingUI;
 
+        idWorld world;
 
         //
         // idClientGame
@@ -97,6 +98,8 @@ namespace cgame
             
             int expectedHunk = Engine.cvarManager.Cvar_Get("com_expectedhunkusage", "0", 0).GetValueInteger();
 
+            Engine.RenderSystem.BeginFrame();
+
             // Draw the briefing UI.
             briefingUI.Draw();
 
@@ -122,6 +125,23 @@ namespace cgame
 
                 briefingUI.HorizontalPercentBar(bar_x, bar_y, bar_w, bar_h, percentDone);
             }
+            Engine.RenderSystem.EndFrame();
+        }
+
+        //
+        // BeginGame
+        //
+        public override void BeginGame(string mappath)
+        {
+            RegisterGraphics(mappath);
+        }
+
+        //
+        // RegisterGraphics
+        //
+        private void RegisterGraphics(string mappath)
+        {
+            world = Engine.RenderSystem.LoadWorld(mappath);
         }
 
         //

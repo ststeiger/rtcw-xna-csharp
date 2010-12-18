@@ -39,6 +39,7 @@ using System.Collections.Generic;
 using idLib.Engine.Public;
 using rtcw.Renderer.Backend;
 using rtcw.Renderer.Models;
+using rtcw.Renderer.Map;
 
 namespace rtcw.Renderer
 {
@@ -47,6 +48,25 @@ namespace rtcw.Renderer
     //
     class idWorldLocal : idWorld
     {
+        idMap map;
+
+        //
+        // idWorldLocal
+        //
+        public idWorldLocal()
+        {
+
+        }
+
+        //
+        // idWorldLocal
+        //
+        public idWorldLocal(string mappath)
+        {
+            map = new idMap();
+            map.LoadMap(mappath);
+        }
+
         //
         // AllocRefdef
         //

@@ -584,11 +584,16 @@ namespace rtcw.Client
         }
 
         //
-        // InitCGame
+        // BeginGame
         //
-        private void InitCGame(string mappath)
+        private void BeginGame(string mappath)
         {
             cls.state = connstate_t.CA_LOADING;
+
+            // Draw the loading screen so its visible.
+            cls.cgame.DrawLoadingScreen();
+
+            cls.cgame.BeginGame(mappath);
         }
 
         //
@@ -602,7 +607,7 @@ namespace rtcw.Client
 
             if (cmd == idNetwork.netcmd_serverinfo)
             {
-                InitCGame(buf.ReadString());
+                BeginGame(buf.ReadString());
             }
             else
             {

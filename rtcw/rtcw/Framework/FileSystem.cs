@@ -368,7 +368,7 @@ namespace rtcw.Framework
                 if(content.GetType() == typeof(Microsoft.Xna.Framework.Graphics.Texture2D))
                 {
                     object temp = content;
-                    fs_loadStack += ((Microsoft.Xna.Framework.Graphics.Texture2D)temp).Width;
+                    fs_loadStack += (((Microsoft.Xna.Framework.Graphics.Texture2D)temp).Width * ((Microsoft.Xna.Framework.Graphics.Texture2D)temp).Height * 4);
                 }
 
                 return content;

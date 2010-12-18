@@ -1686,25 +1686,25 @@ namespace rtcw.Renderer
 			        Globals.tr.sunDirection[0] = (float)(Math.Cos( a ) * Math.Cos( b ));
 			        Globals.tr.sunDirection[1] = (float)(Math.Sin( a ) * Math.Cos( b ));
 			        Globals.tr.sunDirection[2] = (float)(Math.Sin( b ));
-		        } else if ( token == "deformVertexes"  )    {
+		        } else if ( token == "deformvertexes"  )    {
 			        ParseDeform( ref parser );
 			        continue;
 		        } else if ( token == "tesssize" )    {
 			        parser.ParseRestOfLine();
 			        continue;
-		        } else if ( token == "clampTime" )    {
+		        } else if ( token == "clamptime" )    {
 			        token = parser.NextToken;
 			        if ( token != null ) {
 				        shader.clampTime = float.Parse( token );
 			        }
 		        }
 		        // skip stuff that only the q3map needs
-		        else if ( token == "q3map" ) {
+		        else if ( token.Contains("q3map") ) {
 			        parser.ParseRestOfLine();
 			        continue;
 		        }
 		        // skip stuff that only q3map or the server needs
-		        else if ( token == "surfaceParm" ) {
+		        else if ( token == "surfaceparm" ) {
 			        ParseSurfaceParm( ref parser );
 			        continue;
 		        }
@@ -1725,7 +1725,7 @@ namespace rtcw.Renderer
 			        continue;
 		        }
 		        // polygonOffset
-		        else if ( token == "polygonOffset" ) {
+		        else if ( token == "polygonoffset" ) {
 			        shader.polygonOffset = true;
 			        continue;
 		        }
@@ -1733,12 +1733,12 @@ namespace rtcw.Renderer
 		        // to be merged into one batch.  This is a savings for smoke
 		        // puffs and blood, but can't be used for anything where the
 		        // shader calcs (not the surface function) reference the entity color or scroll
-		        else if ( token == "entityMergable" ) {
+		        else if ( token == "entitymergable" ) {
 			        shader.entityMergable = true;
 			        continue;
 		        }
 		        // fogParms
-		        else if ( token == "fogParms" ) {
+		        else if ( token == "fogparms" ) {
                     shader.fogParms = new fogParms_t();
                     shader.fogParms.color = new idLib.Math.idVector3();
                     parser.NextVector3(ref shader.fogParms.color);

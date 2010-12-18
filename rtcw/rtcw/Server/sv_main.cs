@@ -318,6 +318,8 @@ namespace rtcw.Server
             Engine.common.Printf("------ Server Initialization ------\n");
             Engine.common.Printf("Server: %s\n", mapname);
 
+            CVars.sv_mapname.SetValue(mapname, true);
+
             // if not running a dedicated server CL_MapLoading will connect the client to the server
             // also print some status stuff 
 

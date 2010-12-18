@@ -156,6 +156,24 @@
     <Compile Include="sys\sys_module.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="main\dlls\ui.dll">
+      <Name>ui</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="main\dlls\cgame.dll">
+      <Name>cgame</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="main\dlls\Game.dll">
+      <Name>Game</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\idLib\idLib.csproj">
       <Project>{5236F485-6E4D-47A3-9C39-68AF719EC1E6}</Project>
       <Name>idLib</Name>
