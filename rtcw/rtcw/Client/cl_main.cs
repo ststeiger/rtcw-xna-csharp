@@ -35,6 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
+using idLib.Engine.Public.Net;
 using idLib.Engine.Public;
 using idLib.Game.Client;
 
@@ -552,6 +553,14 @@ namespace rtcw.Client
         public void UpdateLoadingScreen()
         {
             cls.cgame.DrawLoadingScreen();
+        }
+
+        //
+        // PacketEvent
+        //
+        public void PacketEvent(idNetAdress from, ref idMsgReader buf)
+        {
+
         }
 
         //

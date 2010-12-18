@@ -39,6 +39,7 @@ using System.Diagnostics;
 using idLib.Engine.Public;
 using rtcw.Server;
 using rtcw.Client;
+using idLib.Engine.Public.Net;
 
 
 namespace rtcw.Framework
@@ -316,19 +317,18 @@ namespace rtcw.Framework
 
 		        // if no more events are available
 		        if ( ev.evType == sysEventType_t.SE_NONE ) {
-                    /*
+                    idNetAdress evFrom;
+                    idMsgReader buf;
+
 			        // manually send packet events for the loopback channel
-			        while ( NET_GetLoopPacket( NS_CLIENT, &evFrom, &buf ) ) {
-				        CL_PacketEvent( evFrom, &buf );
+			        while ( Engine.net.GetLoopPacket(idNetSource.NS_CLIENT, out evFrom, out buf ) ) {
+				        cl.PacketEvent( evFrom, ref buf );
 			        }
 
-			        while ( NET_GetLoopPacket( NS_SERVER, &evFrom, &buf ) ) {
-				        // if the server just shut down, flush the events
-				        if ( com_sv_running->integer ) {
-					        Com_RunAndTimeServerPacket( &evFrom, &buf );
-				        }
+                    while (Engine.net.GetLoopPacket(idNetSource.NS_SERVER, out evFrom, out buf))
+                    {
+                        sv.PacketEvent(evFrom, ref buf);
 			        }
-                    */
 
 			        return ev.evTime;
 		        }

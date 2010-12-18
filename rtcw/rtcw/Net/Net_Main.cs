@@ -31,7 +31,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// Network_Main.cs (c) 2010 JV Software
+// Net_Main.cs (c) 2010 JV Software
 //
 
 using System;
@@ -51,13 +51,16 @@ namespace rtcw.Net
         idCVar liveProfileName;
         idCVar net_trialmode;
 
+        idNetProtocolLive live;
+
         //
         // Init
         //
         public override void Init()
         {
             // Show the sign in screen, but don't force online only profiles.
-            if (LiveGuideVisible() == false && Gamer.SignedInGamers[0] == null)
+            // For now assume livetags with Player1-9 are the default profiles, which don't support live development access
+            if (LiveGuideVisible() == false && (Gamer.SignedInGamers[0] == null || Gamer.SignedInGamers[0].Gamertag.Contains("Player") == true))
             {
                 Guide.ShowSignIn(1, false);
                 Engine.common.Printf("Net_Init: Live Guide is Active...\n");
@@ -87,6 +90,8 @@ namespace rtcw.Net
                 Engine.common.Printf("Net_Init: Registered Version Detected...\n");
             }
 
+            live = new idNetProtocolLive(liveProfileName.GetValue());
+
             Engine.common.Printf("Net_Init: Signed in with profile " + liveProfileName.GetValue() + "\n");
         }
 
@@ -104,6 +109,51 @@ namespace rtcw.Net
         public override bool LiveTrialMode()
         {
             return (net_trialmode.GetValueInteger() != 0);
+        }
+
+        //
+        // SendReliablePacketToAddress
+        //
+        public override void SendReliablePacketToAddress(idNetSource dst, idNetAdress addr, ref idLib.Engine.Public.Net.idMsgWriter msg)
+        {
+            live.SendReliablePacketToAddress(dst, addr, ref msg);
+        }
+
+        //
+        // GetLoopBackAddress
+        //
+        public override idNetAdress GetLoopBackAddress()
+        {
+            return live.GetLoopBackAddress();
+        }
+
+        //
+        // ConnectToSession
+        //
+        public override void ConnectToSession(idNetAdress addr)
+        {
+            live.ConnectToSession(addr);
+        }
+
+        //
+        // CreateServer
+        //
+        public override void CreateServer(int maxclients)
+        {
+            live.CreateServer(maxclients);
+        }
+
+        //
+        // GetLoopPacket
+        //
+        public override bool GetLoopPacket(idNetSource src, out idNetAdress addr, out idLib.Engine.Public.Net.idMsgReader msg)
+        {
+            msg = live.GetNextPendingPacket(src, out addr);
+
+            if (msg == null)
+                return false;
+
+            return true;
         }
     }
 }

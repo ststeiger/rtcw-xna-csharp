@@ -350,6 +350,8 @@ namespace rtcw.Server
             Engine.cvarManager.Cvar_Set("nextmap", "map_restart 0", true);
             //	Cvar_Set( "nextmap", va("map %s", server) );
 
+            Engine.net.CreateServer(CVars.sv_maxclients.GetValueInteger());
+
             SetExpectedHunkUsage("maps/" + mapname + ".bsp");
 
             InitGameVM(mapname);
@@ -368,6 +370,14 @@ namespace rtcw.Server
             Engine.cmdSystem.Cmd_AddCommand("devmap", idServerConsoleCommands.Command_Map);
             Engine.cmdSystem.Cmd_AddCommand("spdevmap", idServerConsoleCommands.Command_Map);
 #endif
+        }
+
+        //
+        // PacketEvent
+        //
+        public void PacketEvent(idNetAdress from, ref idMsgReader buf)
+        {
+
         }
 
         public void Frame()

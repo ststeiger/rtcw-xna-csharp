@@ -34,10 +34,38 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // Net_public.cs (c) 2010 JV Software
 //
 
-using System;
+using idLib.Engine.Public.Net;
 
 namespace idLib.Engine.Public
 {
+    //
+    // idNetAdress
+    //
+    public abstract class idNetAdress
+    {
+        public abstract string GetAddress();
+        public abstract idNetAddressType GetType();
+    }
+
+    //
+    // idNetAddressType
+    //
+    public enum idNetAddressType
+    {
+	    NA_BOT,
+	    NA_BAD,                 // an address lookup failed
+	    NA_LOOPBACK,
+	    NA_LIVE
+    };
+
+    //
+    // idNetSource
+    //
+    public enum idNetSource {
+	    NS_CLIENT,
+	    NS_SERVER
+    };
+
     //
     // idNetwork
     //
@@ -46,5 +74,10 @@ namespace idLib.Engine.Public
         public abstract void Init();
         public abstract bool LiveGuideVisible();
         public abstract bool LiveTrialMode();
+        public abstract bool GetLoopPacket(idNetSource src, out idNetAdress addr, out idMsgReader msg);
+        public abstract idNetAdress GetLoopBackAddress();
+        public abstract void CreateServer(int maxclients);
+        public abstract void ConnectToSession(idNetAdress addr);
+        public abstract void SendReliablePacketToAddress(idNetSource dst, idNetAdress addr, ref idMsgWriter msg);
     }
 }

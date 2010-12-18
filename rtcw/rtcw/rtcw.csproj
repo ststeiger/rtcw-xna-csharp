@@ -114,7 +114,8 @@
     <Compile Include="Framework\CvarManager.cs" />
     <Compile Include="Framework\FileSystem.cs" />
     <Compile Include="Framework\Files\File_Memory.cs" />
-    <Compile Include="Net\Network_Main.cs" />
+    <Compile Include="Net\Net_Live.cs" />
+    <Compile Include="Net\Net_Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Renderer\Backend\Backend_cmd.cs" />
     <Compile Include="Renderer\Backend\Backend_shade.cs" />
