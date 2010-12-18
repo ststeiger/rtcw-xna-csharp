@@ -444,6 +444,14 @@ namespace rtcw.Framework
         }
 
         //
+        // UpdateLoadingScreen
+        //
+        public void UpdateLoadingScreen()
+        {
+            cl.UpdateLoadingScreen();
+        }
+
+        //
         // Init
         //
         public override void Init(string commandLine)

@@ -47,6 +47,8 @@ namespace idLib.Math
         public float X;
         public float Y;
 
+        public const int Size = sizeof(float) * 2;
+
         public float this[int index]
         {
             get
@@ -95,6 +97,8 @@ namespace idLib.Math
             this.Y = y;
             this.Z = z;
         }
+
+        public const int Size = sizeof(float) * 3;
 
         public float this[int index]
         {

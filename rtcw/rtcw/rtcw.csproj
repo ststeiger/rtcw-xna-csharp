@@ -132,6 +132,7 @@
     <Compile Include="Renderer\MaterialManager.cs" />
     <Compile Include="Renderer\Materials.cs" />
     <Compile Include="Renderer\ModelManager.cs" />
+    <Compile Include="Renderer\Models\Brush_model.cs" />
     <Compile Include="Renderer\Models\MD3_format.cs" />
     <Compile Include="Renderer\Models\MD3_model.cs" />
     <Compile Include="Renderer\Models\MDC_format.cs" />

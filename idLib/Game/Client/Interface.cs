@@ -45,6 +45,7 @@ namespace idLib.Game.Client
         public abstract void Init();
         public abstract void Shutdown();
         public abstract void DrawMainMenu();
+        public abstract void DrawLoadingScreen();
         public abstract void Frame();
         public abstract void HandleUIMouseEvent(int x, int y);
         public abstract void HandleMouseEvent(int x, int y);

@@ -104,7 +104,42 @@ namespace rtcw.Renderer
 
         public int startIndex;
         public int numIndexes;
+
+        public int fogIndex;
     }
+
+    //
+    // idDrawSurfaceFace
+    //
+    public class idDrawSurfaceFace : idDrawSurface
+    {
+        public idPlane plane = new idPlane();
+    }
+
+    //
+    // idDrawSurfaceTri
+    //
+    public class idDrawSurfaceTri : idDrawSurface
+    {
+        
+    }
+
+    //
+    // idDrawSurfacePatchMesh
+    //
+    public class idDrawSurfacePatchMesh : idDrawSurface
+    {
+
+    }
+
+    //
+    // idDrawSurfaceFlare
+    //
+    public class idDrawSurfaceFlare : idDrawSurface {
+	    public idVector3 origin;
+        public idVector3 normal;
+	    public idVector3 color;
+    };
 
     /*
     ** performanceCounters_t
@@ -148,6 +183,45 @@ namespace rtcw.Renderer
 	    public idVector3 directedLight;
 	    public float brightness;
     }
+
+    //
+    // idWorldFog_t
+    //
+    public class idWorldFog_t {
+	    public int originalBrushNumber;
+	    public idVector3[] bounds = new idVector3[2];
+
+	    public uint colorInt;                  // in packed byte format
+	    public float tcScale;                      // texture coordinate vector scales
+	    public fogParms_t parms;
+
+	    // for clipping distance in fog when outside
+	    public bool hasSurface;
+        public idVector3 surface;
+    };
+
+    //
+    // idRenderNode
+    //
+    public class idRenderNode {
+        public const int CONTENTS_NODE   =    -1;
+	    // common with leaf and node
+	    public int contents;               // -1 for nodes, to differentiate from leafs
+	    public int visframe;               // node needs to be traversed if current
+	    public idVector3 mins, maxs;          // for bounding box culling
+	    public idRenderNode parent;
+
+	    // node specific
+	    public idPlane    plane;
+        public idRenderNode[] children = new idRenderNode[2];
+
+	    // leaf specific
+	    public int cluster;
+        public int area;
+
+        public int firstmarksurface;
+        public int nummarksurfaces;
+    };
 
     //
     // corona_t
@@ -355,7 +429,7 @@ namespace rtcw.Renderer
 
         public viewParms_t viewParms;
 
-	    public float identityLight;                        // 1.0 / ( 1 << overbrightBits )
+	    public float identityLight = 1;                        // 1.0 / ( 1 << overbrightBits )
 	    public int identityLightByte;                      // identityLight * 255
 	    public int overbrightBits;                         // r_overbrightBits->integer, but set to 0 if no hw gamma
 

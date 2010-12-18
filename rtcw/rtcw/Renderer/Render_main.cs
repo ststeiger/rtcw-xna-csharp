@@ -41,8 +41,10 @@ using Microsoft.Xna.Framework.Graphics;
 using idLib.Engine.Public;
 using idLib.Math;
 
+using rtcw.Framework;
 using rtcw.Renderer.Backend;
 using rtcw.Renderer.Images;
+using rtcw.Renderer.Models;
 namespace rtcw.Renderer
 {
     //
@@ -272,6 +274,22 @@ namespace rtcw.Renderer
             cmd.type = renderCommandType.RC_SET_VERTEXINDEXBUFFER;
             cmd.vertexBuffer = vertexBuffer;
             cmd.indexBuffer = indexBuffer;
+        }
+
+        //
+        // AllocModelBrush
+        //
+        public static idModelBrush AllocModelBrush(string name)
+        {
+            return ((idModelManagerLocal)Engine.modelManager).AllocBrushModel(name);
+        }
+
+        //
+        // UpdateLoadingScreen
+        //
+        public static void UpdateLoadingScreen()
+        {
+            ((idCommonLocal)Engine.common).UpdateLoadingScreen();
         }
 
         //

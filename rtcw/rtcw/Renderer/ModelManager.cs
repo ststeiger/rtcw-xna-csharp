@@ -66,6 +66,23 @@ namespace rtcw.Renderer
         }
 
         //
+        // AllocBrushModel
+        //
+        public idModelBrush AllocBrushModel(string name)
+        {
+            // Check to see if the model has already been loaded.
+            for (int i = 0; i < modelpool.Count; i++)
+            {
+                if (modelpool[i].GetName() == name)
+                {
+                    return (idModelBrush)modelpool[i];
+                }
+            }
+
+            return new idModelBrush(name);
+        }
+
+        //
         // LoadModel
         //
         public override idModel LoadModel(string qpath)

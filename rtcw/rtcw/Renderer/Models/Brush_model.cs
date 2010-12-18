@@ -1,4 +1,4 @@
-/*
+﻿/*
 ===========================================================================
 
 Return to Castle Wolfenstein XNA Managed C# Port
@@ -31,108 +31,94 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// cgame_main.cs (c) 2010 JV Software
+// Brush_Model.cs (c) 2010 JV Software
 //
 
-using System;
+using Microsoft.Xna.Framework.Graphics;
+using idLib.Math;
 using idLib.Engine.Public;
-using idLib.Game.Client;
 
-namespace cgame
+namespace rtcw.Renderer.Models
 {
     //
-    // idClientGame
+    // idModelBrush
     //
-    public class idClientGame : idClientGamePublic
+    public class idModelBrush : idModelLocal
     {
-        idUserInterface mainMenu;
+        idVector3 mins = new idVector3();
+        idVector3 maxs = new idVector3();
+        int firstSurface;
+        int numSurfaces;
+        string modelname;
 
         //
-        // idClientGame
+        // idModelBrush
         //
-        public idClientGame(int version)
+        public idModelBrush(string name)
         {
-            Engine.common.Printf("Client Game module loaded...\n");
+            modelname = name;
         }
 
         //
-        // Init
+        // SetModelBounds
         //
-        public override void Init()
+        public void SetModelBounds(idVector3 mins, idVector3 maxs)
         {
-            // Load in the main menu.
-            mainMenu = Engine.ui.FindUserInterface("main");
-            if (mainMenu == null)
-            {
-                Engine.common.ErrorFatal("Failed to load the mainmenu\n");
-                return;
-            }
+            this.mins.X = mins.X;
+            this.mins.Y = mins.Y;
+            this.mins.Z = mins.Z;
+
+            this.maxs.X = maxs.X;
+            this.maxs.Y = maxs.Y;
+            this.maxs.Z = maxs.Z;
         }
 
         //
-        // DrawLoadingScreen
+        // SetSurfaceParams
         //
-        public override void DrawLoadingScreen()
+        public void SetSurfaceParams(int firstSurface, int numSurfaces)
         {
-            
+            this.firstSurface = firstSurface;
+            this.numSurfaces = numSurfaces;
         }
 
         //
-        // Shutdown
+        // GetModelBounds
         //
-        public override void Shutdown()
+        public override void GetModelBounds(out idLib.Math.idVector3 mins, out idLib.Math.idVector3 maxs)
         {
-            
+            mins = this.mins;
+            maxs = this.maxs;
         }
 
         //
-        // DrawMainMenu
+        // GetName
         //
-        public override void DrawMainMenu()
+        public override string GetName()
         {
-            // Set the keycatcher so the UI will pick up controller events.
-            Engine.common.SetKeyCatcher(keyCatch.UI);
-
-            // Draw the mainmenu.
-            mainMenu.Draw();
+            return base.GetName();
         }
 
         //
-        // HandleMouseEvent
+        // GetNumFrames
         //
-        public override void HandleMouseEvent(int x, int y)
+        public override int GetNumFrames()
         {
-            
+            return -1;
         }
 
         //
-        // HandleUIMouseEvent
+        // TestModel
         //
-        public override void HandleUIMouseEvent(int x, int y)
-        {
-            mainMenu.HandleMouseEvent(x, y);
-        }
-
-        //
-        // HandleKeyEvent
-        //
-        public override void HandleKeyEvent(int key, bool down)
+        public override void TessModel(ref idRenderEntityLocal entity)
         {
             
         }
 
         //
-        // HandleUIKeyEvent
+        // BuildVertexIndexBuffer
         //
-        public override void HandleUIKeyEvent(int key, bool down)
-        {
-            mainMenu.HandleKeyEvent((keyNum)key, down);
-        }
-
-        //
-        // Frame
-        //
-        public override void Frame()
+        public override void BuildVertexIndexBuffer()
         {
             
         }

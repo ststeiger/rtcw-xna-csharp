@@ -80,6 +80,7 @@ namespace idLib.Engine.Public
         public abstract long        ReadLong();
         public abstract float       ReadFloat();
         public abstract double      ReadDouble();
+        public abstract byte        ReadByte();
         public abstract byte[]      ReadBytes(int len);
         public abstract string      ReadString();
         public abstract string      ReadString(int len);

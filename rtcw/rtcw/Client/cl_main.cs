@@ -547,6 +547,14 @@ namespace rtcw.Client
         }
 
         //
+        // UpdateLoadingScreen
+        //
+        public void UpdateLoadingScreen()
+        {
+            cls.cgame.DrawLoadingScreen();
+        }
+
+        //
         // Frame
         //
         public void Frame()

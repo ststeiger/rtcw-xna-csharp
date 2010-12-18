@@ -32,11 +32,9 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 */
 
 // mapformat.cs (c) 2010 jv Software
-// I put this in idLib since some of the same functions are shared between
-// the collisionModelManager and idWorld.
 //
 
-using idLib;
+using Microsoft.Xna.Framework;
 using idLib.Math;
 using idLib.Engine.Public;
 
@@ -48,6 +46,137 @@ namespace rtcw.Renderer.Map
     //
     public class idMapFormat
     {
+        //
+        // ColorBytes4
+        //
+        public static uint ColorBytes4( float rf, float gf, float bf, float af ) {
+	        uint i;
+
+	        int r = (int)(rf * 255);
+	        int g = (int)(gf * 255);
+	        int b = (int)(bf * 255);
+	        int a = (int)(af * 255);
+
+	        return (uint)((r)|(g<<8)|(b<<16)|(255<<24));
+        }
+
+        /*
+        ===============
+        ColorShiftLightingBytes
+
+        ===============
+        */
+        public static void ColorShiftLightingBytes( byte[] inrgb, int inpos, int colorpos, ref Color[] color ) {
+	        int shift, r, g, b;
+
+	        // shift the color data based on overbright range
+	        shift = Globals.r_mapOverBrightBits.GetValueInteger(); // - tr.overbrightBits;
+
+	        // shift the data based on overbright range
+	        r = inrgb[inpos + 0] << shift;
+	        g = inrgb[inpos + 1] << shift;
+	        b = inrgb[inpos + 2] << shift;
+
+	        // normalize by color instead of saturating to white
+	        if ( ( r | g | b ) > 255 ) {
+		        int max;
+
+		        max = r > g ? r : g;
+		        max = max > b ? max : b;
+		        r = r * 255 / max;
+		        g = g * 255 / max;
+		        b = b * 255 / max;
+	        }
+
+            color[colorpos] = new Color( r, g, b, inrgb[inpos + 3] );
+        }
+
+        /*
+        ===============
+        ColorShiftLightingBytes
+
+        ===============
+        */
+        public static void ColorShiftLightingBytes( Color[] inrgb, int inpos, int colorpos, ref Color[] color ) {
+	        int shift, r, g, b;
+
+	        // shift the color data based on overbright range
+	        shift = Globals.r_mapOverBrightBits.GetValueInteger(); // - tr.overbrightBits;
+
+	        // shift the data based on overbright range
+	        r = inrgb[inpos].R << shift;
+	        g = inrgb[inpos].G << shift;
+	        b = inrgb[inpos].B << shift;
+
+	        // normalize by color instead of saturating to white
+	        if ( ( r | g | b ) > 255 ) {
+		        int max;
+
+		        max = r > g ? r : g;
+		        max = max > b ? max : b;
+		        r = r * 255 / max;
+		        g = g * 255 / max;
+		        b = b * 255 / max;
+	        }
+
+            color[colorpos].R = (byte)r;
+            color[colorpos].G = (byte)g;
+            color[colorpos].B = (byte)b;
+            color[colorpos].A = (byte)inrgb[inpos + 3].A;
+        }
+
+        //
+        // HSVtoRGB
+        //
+        public static void HSVtoRGB( float h, float s, float v, ref idVector3 rgb ) {
+	        int i;
+	        float f;
+	        float p, q, t;
+
+	        h *= 5;
+
+	        i = (int)System.Math.Floor( h );
+	        f = h - i;
+
+	        p = v * ( 1 - s );
+	        q = v * ( 1 - s * f );
+	        t = v * ( 1 - s * ( 1 - f ) );
+
+	        switch ( i )
+	        {
+	        case 0:
+		        rgb[0] = v;
+		        rgb[1] = t;
+		        rgb[2] = p;
+		        break;
+	        case 1:
+		        rgb[0] = q;
+		        rgb[1] = v;
+		        rgb[2] = p;
+		        break;
+	        case 2:
+		        rgb[0] = p;
+		        rgb[1] = v;
+		        rgb[2] = t;
+		        break;
+	        case 3:
+		        rgb[0] = p;
+		        rgb[1] = q;
+		        rgb[2] = v;
+		        break;
+	        case 4:
+		        rgb[0] = t;
+		        rgb[1] = p;
+		        rgb[2] = v;
+		        break;
+	        case 5:
+		        rgb[0] = v;
+		        rgb[1] = p;
+		        rgb[2] = q;
+		        break;
+	        }
+        }
+
         public const int BSP_IDENT =  ( ( 'P' << 24 ) + ( 'S' << 16 ) + ( 'B' << 8 ) + 'I' );
         // little-endian "IBSP"
 
@@ -172,12 +301,14 @@ namespace rtcw.Renderer.Map
         // idMapModel
         //
         public struct idMapModel {
-	        public idVector3 mins; 
+	        public idVector3 mins;
             public idVector3 maxs;
 	        public int firstSurface;
             public int numSurfaces;
 	        public int firstBrush;
             public int numBrushes;
+
+            public const int LUMP_SIZE = idVector3.Size + idVector3.Size + (sizeof(int) * 4);
 
             public void InitFromFile( ref idFile file )
             {
@@ -200,6 +331,8 @@ namespace rtcw.Renderer.Map
 	        public int surfaceFlags;
 	        public int contentFlags;
 
+            public const int LUMP_SIZE = Engine.MAX_QPATH + (sizeof(int) * 2);
+
             public void InitFromFile( ref idFile file )
             {
                 shader = file.ReadString( Engine.MAX_QPATH );
@@ -217,6 +350,8 @@ namespace rtcw.Renderer.Map
 	        public idVector3 normal;
 	        public float dist;
 
+            public const int LUMP_SIZE = idVector3.Size + sizeof(float);
+
             public void InitFromFile( ref idFile file )
             {
                 file.ReadVector3( ref normal );
@@ -232,6 +367,9 @@ namespace rtcw.Renderer.Map
 	        public int[] children;            // negative numbers are -(leafs+1), not nodes
 	        public int[] mins;                // for frustom culling
 	        public int[] maxs;
+
+            public const int LUMP_SIZE = sizeof(int) * 9;
+
 
             public void InitFromFile( ref idFile file )
             {
@@ -274,6 +412,8 @@ namespace rtcw.Renderer.Map
 	        public int firstLeafBrush;
 	        public int numLeafBrushes;
 
+            public const int LUMP_SIZE = sizeof(int) * 12;
+
             public void InitFromFile( ref idFile file )
             {
                 mins = new int[3];
@@ -306,6 +446,8 @@ namespace rtcw.Renderer.Map
 	        public int planeNum;                   // positive plane side faces out of the leaf
 	        public int shaderNum;
 
+            public const int LUMP_SIZE = sizeof(int) * 2;
+
             public void InitFromFile( ref idFile file )
             {
                 planeNum = file.ReadInt();
@@ -320,6 +462,8 @@ namespace rtcw.Renderer.Map
 	        public int firstSide;
 	        public int numSides;
 	        public int shaderNum;              // the shader that determines the contents flags
+
+            public const int LUMP_SIZE = sizeof(int) * 3;
 
             public void InitFromFile( ref idFile file )
             {
@@ -338,6 +482,8 @@ namespace rtcw.Renderer.Map
 	        public int brushNum;
 	        public int visibleSide;            // the brush side that ray tests need to clip against (-1 == none)
 
+            public const int LUMP_SIZE = Engine.MAX_QPATH + sizeof(int) * 2;
+
             public void InitFromFile( ref idFile file )
             {
                 shader = file.ReadString( Engine.MAX_QPATH );
@@ -355,6 +501,8 @@ namespace rtcw.Renderer.Map
 	        public idVector2 lightmap;
 	        public idVector3 normal;
 	        public byte[] color; // 4 bytes
+
+            public const int LUMP_SIZE = (idVector3.Size * 2) + (idVector2.Size * 2) + 4;
 
             public void InitFromFile( ref idFile file )
             {
@@ -392,6 +540,7 @@ namespace rtcw.Renderer.Map
             public int patchWidth;
             public int patchHeight;
 
+            public const int LUMP_SIZE = (idVector3.Size * 4) + (sizeof(int) * 14);
 
             public void InitFromFile(ref idFile file)
             {

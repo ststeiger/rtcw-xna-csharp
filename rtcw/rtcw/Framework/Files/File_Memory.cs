@@ -238,6 +238,14 @@ namespace rtcw.Framework.Files
         }
 
         //
+        // ReadByte
+        //
+        public override byte ReadByte()
+        {
+            return reader.ReadByte();
+        }
+
+        //
         // ReadInt
         //
         public override int ReadInt()

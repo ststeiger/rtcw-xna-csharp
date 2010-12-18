@@ -43,8 +43,15 @@ namespace idLib.Math
     //
     public class idPlane
     {
+        public const int PLANE_X         = 0;
+        public const int PLANE_Y         = 1;
+        public const int PLANE_Z         = 2;
+        public const int PLANE_NON_AXIAL = 3;
+
         public idVector3 Normal = new idVector3();
         public float Dist;
+        public int Type;
+        public int SignBits = 0;
 
         public const int PLANESIDE_FRONT = 0;
         public const int PLANESIDE_BACK = 1;
@@ -57,6 +64,24 @@ namespace idLib.Math
 
         public float Distance(idVector3 v ) {
             return Normal.X * v.X + Normal.Y * v.Y + Normal.Z * v.Z + Dist;
+        }
+
+        public void SetPlaneSignbits() {
+	        int bits, j;
+
+	        // for fast box on planeside test
+	        bits = 0;
+	        for ( j = 0 ; j < 3 ; j++ ) {
+		        if ( Normal[j] < 0 ) {
+			        bits |= 1 << j;
+		        }
+	        }
+            SignBits = bits;
+        }
+
+        public void SetPlaneType()
+        {
+            Type = (Normal[0] == 1.0 ? PLANE_X : (Normal[1] == 1.0 ? PLANE_Y : (Normal[2] == 1.0 ? PLANE_Z : PLANE_NON_AXIAL)));
         }
     }
 }
