@@ -97,5 +97,6 @@ namespace idLib.Engine.Public
         public static idSoundManager    soundManager;
         public static idUserInterfaceManager ui;
         public static idModelManager    modelManager;   // All models get loaded through the model manager.
+        public static idCollisionModelManager collisionModelManager;
     }
 }

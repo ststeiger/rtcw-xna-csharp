@@ -109,6 +109,7 @@
     <Compile Include="Engine\Content\ui\ui_item.cs" />
     <Compile Include="Engine\Content\ui\ui_menu.cs" />
     <Compile Include="Engine\Public\CmdManager_public.cs" />
+    <Compile Include="Engine\Public\CollisionModelPublic.cs" />
     <Compile Include="Engine\Public\Common_public.cs" />
     <Compile Include="Engine\Public\Cvar_Public.cs" />
     <Compile Include="Engine\Public\Files_public.cs" />

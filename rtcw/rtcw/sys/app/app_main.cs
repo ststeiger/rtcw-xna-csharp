@@ -45,6 +45,7 @@ using rtcw.Renderer;
 using rtcw.Framework;
 using rtcw.Net;
 using rtcw.Sound;
+using rtcw.CM;
 
 namespace rtcw.sys.app
 {
@@ -81,6 +82,7 @@ namespace rtcw.sys.app
             Engine.net = new idNetworkLocal();
             Engine.soundManager = new idSoundManagerLocal();
             Engine.modelManager = new idModelManagerLocal();
+            Engine.collisionModelManager = new idCollisionModelManagerLocal();
         }
 
         //

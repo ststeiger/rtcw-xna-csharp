@@ -109,6 +109,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\cl_main.cs" />
+    <Compile Include="CM\CollisionModel.cs" />
+    <Compile Include="CM\CollisionModelManager.cs" />
     <Compile Include="Framework\CmdManager.cs" />
     <Compile Include="Framework\Common.cs" />
     <Compile Include="Framework\CvarManager.cs" />

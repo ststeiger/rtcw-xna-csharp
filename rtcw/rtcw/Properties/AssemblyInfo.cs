@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("rtcw")]
-[assembly: AssemblyProduct("rtcw")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
+[assembly: AssemblyTitle("Return to Castle Wolfenstein C# Port")]
+[assembly: AssemblyProduct("Return to Castle Wolfenstein")]
+[assembly: AssemblyDescription("C# Port")]
+[assembly: AssemblyCompany("JMV Software")]
+[assembly: AssemblyCopyright("Copyright © JMV Software 2010 (c) id Software 2001")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
