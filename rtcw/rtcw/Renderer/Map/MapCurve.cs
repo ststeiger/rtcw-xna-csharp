@@ -365,7 +365,7 @@ namespace rtcw.Renderer.Map
 
         #if PATCH_STITCHING
             grid = new idGridSurface();
-            grid.verts = new idDrawVertex[width * height - 1];
+            grid.verts = new idDrawVertex[width * height];
 
             grid.widthLodError = new float[width * 4];
             for (i = 0; i < width * 4; i++)
@@ -395,8 +395,8 @@ namespace rtcw.Renderer.Map
             grid.bounds = new idBounds();
 	        for ( i = 0 ; i < width ; i++ ) {
 		        for ( j = 0 ; j < height ; j++ ) {
-			        vert = grid.verts[j * width + i];
-			        vert.xyz = ctrl[j,i].xyz;
+                    vert = ctrl[j, i];
+                    grid.verts[j * width + i] = vert;
 
 			        grid.bounds.AddPointToBounds( vert.xyz );
 		        }

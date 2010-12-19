@@ -125,14 +125,6 @@ namespace rtcw.Renderer
     }
 
     //
-    // idDrawSurfacePatchMesh
-    //
-    public class idDrawSurfacePatchMesh : idDrawSurface
-    {
-
-    }
-
-    //
     // idDrawSurfaceFlare
     //
     public class idDrawSurfaceFlare : idDrawSurface {

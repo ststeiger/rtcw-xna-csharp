@@ -845,68 +845,38 @@ namespace rtcw.Renderer.Map
         ===============
         */
         private void ParseMesh(idMapFormat.idMapSurface ds, idMapFormat.idMapVertex[] verts, out idDrawSurface surf) {
-            surf = new idDrawSurfacePatchMesh();
-#if false
-	        srfGridMesh_t   *grid;
-	        int i, j;
-	        int width, height, numPoints;
-	        MAC_STATIC drawVert_t points[MAX_PATCH_SIZE * MAX_PATCH_SIZE];
-	        int lightmapNum;
-	        vec3_t bounds[2];
-	        vec3_t tmpVec;
-	        static surfaceType_t skipData = SF_SKIP;
-
-	        lightmapNum = LittleLong( ds->lightmapNum );
-
-	        // get fog volume
-	        surf->fogIndex = LittleLong( ds->fogNum ) + 1;
-
-	        // get shader value
-	        surf->shader = ShaderForShaderNum( ds->shaderNum, lightmapNum );
-	        if ( r_singleShader->integer && !surf->shader->isSky ) {
-		        surf->shader = tr.defaultShader;
-	        }
+	        int width, height;
+            idBounds bounds;
+	        idVector3 tmpVec;
 
 	        // we may have a nodraw surface, because they might still need to
 	        // be around for movement clipping
-	        if ( s_worldData.shaders[ LittleLong( ds->shaderNum ) ].surfaceFlags & SURF_NODRAW ) {
-		        surf->data = &skipData;
+            if ((shaders[ds.shaderNum].surfaceFlags & surfaceFlags.SURF_NODRAW) != 0)
+            {
+                surf = null;
 		        return;
 	        }
 
-	        width = LittleLong( ds->patchWidth );
-	        height = LittleLong( ds->patchHeight );
-
-	        verts += LittleLong( ds->firstVert );
-	        numPoints = width * height;
-	        for ( i = 0 ; i < numPoints ; i++ ) {
-		        for ( j = 0 ; j < 3 ; j++ ) {
-			        points[i].xyz[j] = LittleFloat( verts[i].xyz[j] );
-			        points[i].normal[j] = LittleFloat( verts[i].normal[j] );
-		        }
-		        for ( j = 0 ; j < 2 ; j++ ) {
-			        points[i].st[j] = LittleFloat( verts[i].st[j] );
-			        points[i].lightmap[j] = LittleFloat( verts[i].lightmap[j] );
-		        }
-		        R_ColorShiftLightingBytes( verts[i].color, points[i].color );
-	        }
+            width = ds.patchWidth;
+	        height = ds.patchHeight;
 
 	        // pre-tesseleate
-	        grid = R_SubdividePatchToGrid( width, height, points );
-	        surf->data = (surfaceType_t *)grid;
+            surf = MapCurveTessalator.SubdividePatchToGrid(width, height, ds.firstVert, drawVerts);
+
+            // Load in the material for the surface.
+            surf.materials = new idMaterial[1];
+            surf.materials[0] = Engine.materialManager.FindMaterial(shaders[ds.shaderNum].shader, ds.lightmapNum);
+
+            // Set the fog index
+            surf.fogIndex = ds.fogNum + 1;
 
 	        // copy the level of detail origin, which is the center
 	        // of the group of all curves that must subdivide the same
 	        // to avoid cracking
-	        for ( i = 0 ; i < 3 ; i++ ) {
-		        bounds[0][i] = LittleFloat( ds->lightmapVecs[0][i] );
-		        bounds[1][i] = LittleFloat( ds->lightmapVecs[1][i] );
-	        }
-	        VectorAdd( bounds[0], bounds[1], bounds[1] );
-	        VectorScale( bounds[1], 0.5f, grid->lodOrigin );
-	        VectorSubtract( bounds[0], grid->lodOrigin, tmpVec );
-	        grid->lodRadius = VectorLength( tmpVec );
-#endif
+            bounds = new idBounds(ds.lightmapVecs[0], ds.lightmapVecs[0] + ds.lightmapVecs[1]);
+            ((idGridSurface)surf).lodOrigin = bounds.Maxs * 0.5f;
+            tmpVec = bounds.Mins - ((idGridSurface)surf).lodOrigin;
+            ((idGridSurface)surf).lodRadius = tmpVec.Length();
         }
 
         /*
