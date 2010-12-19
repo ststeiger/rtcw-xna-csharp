@@ -79,8 +79,8 @@ namespace rtcw.Renderer.Map
         public idPlane[] planes;
 
         // ---------- Temporary BSP Storage -----------
-        idDrawVertex[] drawVerts;
-        short[] drawIndexes;
+        List<idDrawVertex> drawVerts;
+        List<short> drawIndexes;
 
         idMapFormat.idMapHeader header;
         idMapFormat.idMapShader[] shaders;
@@ -861,7 +861,7 @@ namespace rtcw.Renderer.Map
 	        height = ds.patchHeight;
 
 	        // pre-tesseleate
-            surf = MapCurveTessalator.SubdividePatchToGrid(width, height, ds.firstVert, drawVerts);
+            surf = MapCurveTessalator.SubdividePatchToGrid(width, height, ds.firstVert, drawVerts.ToArray());
 
             // Load in the material for the surface.
             surf.materials = new idMaterial[1];
@@ -941,18 +941,28 @@ namespace rtcw.Renderer.Map
             SetLumpPosition( verts, ref bspFile );
             numVerts = LumpCount( verts, idMapFormat.idMapVertex.LUMP_SIZE );
             dv = new idMapFormat.idMapVertex[numVerts];
-            drawVerts = new idDrawVertex[numVerts];
-            for( i = 0; i < count; i++ )
+            drawVerts = new List<idDrawVertex>();
+            //drawVerts = new idDrawVertex[numVerts];
+            for (i = 0; i < numVerts; i++)
             {
+                idDrawVertex v = new idDrawVertex();
+
                 dv[i].InitFromFile( ref bspFile );
+
+                v.xyz = dv[i].xyz;
+                v.st = dv[i].st;
+                v.lightmapST = dv[i].lightmap;
+                v.normal = dv[i].normal;
+
+                drawVerts.Add(v);
             }
 
             SetLumpPosition(indexLump, ref bspFile );
             numIndexes = LumpCount( indexLump, sizeof( int ) );
-            drawIndexes = new short[ numIndexes];
-            for( i = 0; i < count; i++ )
+            drawIndexes = new List<short>();
+            for (i = 0; i < numIndexes; i++)
             {
-                drawIndexes[i] = (short)bspFile.ReadInt();
+                drawIndexes.Add((short)bspFile.ReadInt());
             }
 
 	        for ( i = 0 ; i < count ; i++ ) {
@@ -1004,11 +1014,11 @@ namespace rtcw.Renderer.Map
         private void BuildVertexIndexBuffer()
         {
             Engine.common.Printf("R_BuildMapVertexIndexBuffer: Creating Vertex/Index Buffer...\n");
-            vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idRenderGlobals.idDrawVertexDeclaration, drawVerts.Length, BufferUsage.WriteOnly);
-            vertexBuffer.SetData<idDrawVertex>(drawVerts);
+            vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idRenderGlobals.idDrawVertexDeclaration, drawVerts.Count, BufferUsage.WriteOnly);
+            vertexBuffer.SetData<idDrawVertex>(drawVerts.ToArray());
 
-            indexBuffer = new IndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, drawIndexes.Length, BufferUsage.WriteOnly);
-            indexBuffer.SetData<short>(drawIndexes);
+            indexBuffer = new IndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, drawIndexes.Count, BufferUsage.WriteOnly);
+            indexBuffer.SetData<short>(drawIndexes.ToArray());
         }
 
         //
@@ -1019,8 +1029,10 @@ namespace rtcw.Renderer.Map
             Engine.common.Printf("R_MapDisposeOfNonPersistantMemory: Destroying Non Persistant Data...\n");
 
             header.lumps = null;
-            vertexBuffer = null;
-            indexBuffer = null;
+            drawVerts.Clear();
+            drawIndexes.Clear();
+            drawVerts = null;
+            drawIndexes = null;
             shaders = null;
             brushes = null;
             brushsides = null;
