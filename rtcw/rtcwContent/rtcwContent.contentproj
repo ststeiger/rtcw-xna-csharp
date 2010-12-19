@@ -2046,10 +2046,251 @@
       <Name>xlabs_b1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="models\mapobjects\B-25\PROPELLER.tga">
+      <Name>PROPELLER</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\barbwire\barbwire.mdc">
+      <Name>barbwire</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\barbwire\barb_wire.tga">
+      <Name>barb_wire</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\barbwire\metal_m05.tga">
+      <Name>metal_m05</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <None Include="models\mapobjects\bjui\bjui_b.MDc">
       <Name>bjui_b</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="models\mapobjects\bodyparts\bpblood.tga">
+      <Name>bpblood</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\bpblood2.tga">
+      <Name>bpblood2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\bodyparts\helarm.mdc">
+      <Name>helarm</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\bodyparts\helbody.mdc">
+      <Name>helbody</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\bodyparts\helhand.mdc">
+      <Name>helhand</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\bodyparts\helhead.mdc">
+      <Name>helhead</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\bodyparts\skin1.tga">
+      <Name>skin1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\book\book.mdc">
+      <Name>book</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\bush\bush.tga">
+      <Name>bush</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\chandelier\chandlier_new.mdc">
+      <Name>chandlier_new</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\clonetube\clone1.tga">
+      <Name>clone1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\clonetube\cl_door1.tga">
+      <Name>cl_door1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\clonetube\c_water2.tga">
+      <Name>c_water2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\corpse\bone1.mdc">
+      <Name>bone1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\corpse\bone2.mdc">
+      <Name>bone2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\corpse\bone3.mdc">
+      <Name>bone3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\corpse\how_bod1.tga">
+      <Name>how_bod1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\corpse\leg.mdc">
+      <Name>leg</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\corpse\legbroke.mdc">
+      <Name>legbroke</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\curtain\2curtains.tga">
+      <Name>2curtains</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\curtain\2curtainsb.tga">
+      <Name>2curtainsb</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\curtain\2curt_lghtwind.mdc">
+      <Name>2curt_lghtwind</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\curtain\2curt_lghtwindb.mdc">
+      <Name>2curt_lghtwindb</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\curtain\curtain_direct.mdc">
+      <Name>curtain_direct</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\deadosa\elec1.tga">
+      <Name>elec1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\debris\brick1.mdc">
+      <Name>brick1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\brick2.mdc">
+      <Name>brick2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\brick3.mdc">
+      <Name>brick3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\brick4.mdc">
+      <Name>brick4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\brick5.mdc">
+      <Name>brick5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\brick6.mdc">
+      <Name>brick6</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\personal1.mdc">
+      <Name>personal1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\personal2.mdc">
+      <Name>personal2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\personal3.mdc">
+      <Name>personal3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\personal4.mdc">
+      <Name>personal4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\personal5.mdc">
+      <Name>personal5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\rubble1.mdc">
+      <Name>rubble1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\rubble2.mdc">
+      <Name>rubble2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\debris\rubble3.mdc">
+      <Name>rubble3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\door\door.mdc">
+      <Name>door</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\electronics\alarmbox.mdc">
+      <Name>alarmbox</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\electronics\enigma.mdc">
+      <Name>enigma</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\electronics\gramophone_anim.mdc">
+      <Name>gramophone_anim</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\electronics\loudspeaker2.mdc">
+      <Name>loudspeaker2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\electronics\parloradio.mdc">
+      <Name>parloradio</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\electronics\phone.mdc">
+      <Name>phone</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\electronics\radarbeeps.tga">
+      <Name>radarbeeps</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\radar_01.tga">
+      <Name>radar_01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\electronics\radio1.mdc">
+      <Name>radio1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\electronics\tuberadio_a.mdc">
+      <Name>tuberadio_a</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\end\castle.mdc">
+      <Name>castle</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\end\castle.tga">
+      <Name>castle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <None Include="models\mapobjects\flag\american.mdc">
       <Name>american</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -2097,8 +2338,565 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <None Include="models\mapobjects\furniture\bench.mdc">
+      <Name>bench</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\furniture\fptools.mdc">
+      <Name>fptools</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\furniture\fptools_b.mdc">
+      <Name>fptools_b</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\furniture\grandclock.mdc">
+      <Name>grandclock</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\furniture\sherman_s.tga">
+      <Name>sherman_s</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\furniture\type.mdc">
+      <Name>type</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\furniture\xsink.tga">
+      <Name>xsink</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\xsink_fac.tga">
+      <Name>xsink_fac</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\gears\gear1.mdc">
+      <Name>gear1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\gears\gear4.mdc">
+      <Name>gear4</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\gears\gear5.mdc">
+      <Name>gear5</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\goblet\chalice.mdc">
+      <Name>chalice</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\goblet\gob1.tga">
+      <Name>gob1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\knight\knight_anim.mdc">
+      <Name>knight_anim</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\knight\knt.tga">
+      <Name>knt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\lamps\desklamp.mdc">
+      <Name>desklamp</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\letters\type.mdc">
+      <Name>type</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\light\ametal_m03dm.tga">
+      <Name>ametal_m03dm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\cage_lightna.tga">
+      <Name>cage_lightna</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\chandlier4.tga">
+      <Name>chandlier4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\sconce.tga">
+      <Name>sconce</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\light\sconce3.mdc">
+      <Name>sconce3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\light\searchlight1_b.mdc">
+      <Name>searchlight1_b</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\light\searchlight1_l.mdc">
+      <Name>searchlight1_l</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\light\searchlight_l_broke.mdc">
+      <Name>searchlight_l_broke</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\miltary_trim\metal_m05.tga">
+      <Name>metal_m05</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\parachute\assaultchute3.mdc">
+      <Name>assaultchute3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\parachute\bjchute.mdc">
+      <Name>bjchute</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\parachute\para.tga">
+      <Name>para</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\parachute\para2.tga">
+      <Name>para2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\plants\bush2.mdc">
+      <Name>bush2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\plants\bushes1.tga">
+      <Name>bushes1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\plants\bushes3.tga">
+      <Name>bushes3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\plants\dirt.tga">
+      <Name>dirt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\plants\flowers1.mdc">
+      <Name>flowers1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\plants\flowers1.tga">
+      <Name>flowers1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\plants\flowers1_no_pot.mdc">
+      <Name>flowers1_no_pot</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\plants\GRASS1.tga">
+      <Name>GRASS1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\plants\small_branch.tga">
+      <Name>small_branch</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\plants\small_branch_t.tga">
+      <Name>small_branch_t</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\plants\small_tree.mdc">
+      <Name>small_tree</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\sawblade\saw.mdc">
+      <Name>saw</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\sawblade\saw_arm.mdc">
+      <Name>saw_arm</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\shield\shield.mdc">
+      <Name>shield</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\skel\skel.tga">
+      <Name>skel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\Skull\skul2.mdc">
+      <Name>skul2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\Skull\skul2t.mdc">
+      <Name>skul2t</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\Skull\skull2a.tga">
+      <Name>skull2a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\Skull\skull_spirit.tga">
+      <Name>skull_spirit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\Skull\skull_tilt1.mdc">
+      <Name>skull_tilt1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\snow_tree\stree_f1.tga">
+      <Name>stree_f1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\snow_tree\stree_s1.tga">
+      <Name>stree_s1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\test3\c_bod1.tga">
+      <Name>c_bod1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\test3\c_tube.tga">
+      <Name>c_tube</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\toolshed\shovel.mdc">
+      <Name>shovel</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\toolshed\weldtanksm.mdc">
+      <Name>weldtanksm</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\torture\cage1.mdc">
+      <Name>cage1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\torture\cage2.mdc">
+      <Name>cage2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\torture\glass.tga">
+      <Name>glass</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\torture\sk_bod1.tga">
+      <Name>sk_bod1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\branch_slp1.tga">
+      <Name>branch_slp1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\branch_slp2.tga">
+      <Name>branch_slp2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\branch_vil1at.tga">
+      <Name>branch_vil1at</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\branch_vil1t.tga">
+      <Name>branch_vil1t</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\tree\training_tree1.mdc">
+      <Name>training_tree1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\tree\training_tree2.mdc">
+      <Name>training_tree2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\tree\training_tree3.mdc">
+      <Name>training_tree3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\tree\tree_m07.md3">
+      <Name>tree_m07</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\tree\tree_m07_1.md3">
+      <Name>tree_m07_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\tree\tree_m08.md3">
+      <Name>tree_m08</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\tree\tree_m08_1.md3">
+      <Name>tree_m08_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\tree\tree_m08_snow.mdc">
+      <Name>tree_m08_snow</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\tree\tree_m09s.mdc">
+      <Name>tree_m09s</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\tree\tree_mp01.mdc">
+      <Name>tree_mp01</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\tree\tree_mp01_1.mdc">
+      <Name>tree_mp01_1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\tree\tree_vil1.tga">
+      <Name>tree_vil1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\tree_vil2t.tga">
+      <Name>tree_vil2t</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <None Include="models\mapobjects\ui\icon_burn.MDc">
       <Name>icon_burn</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\v2\v4_b.mdc">
+      <Name>v4_b</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\v2\v4_c.mdc">
+      <Name>v4_c</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\v2\v4_g.mdc">
+      <Name>v4_g</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\v2\v4_tagsdestroyed.mdc">
+      <Name>v4_tagsdestroyed</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vacum\box.mdc">
+      <Name>box</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\vacum\shad.tga">
+      <Name>shad</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\vacum\vacum.mdc">
+      <Name>vacum</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\vacum\vac_glass.tga">
+      <Name>vac_glass</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vacum\wzom_head1.tga">
+      <Name>wzom_head1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vacum\wzom_helm1.tga">
+      <Name>wzom_helm1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\vacum\zom.mdc">
+      <Name>zom</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\vehicles\car_shadow.tga">
+      <Name>car_shadow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\glass.tga">
+      <Name>glass</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\vehicles\gunflare.mdc">
+      <Name>gunflare</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\vehicles\heinkel_b.tga">
+      <Name>heinkel_b</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\vehicles\jet_shadow.mdc">
+      <Name>jet_shadow</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\vehicles\jet_shadow.tga">
+      <Name>jet_shadow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\vehicles\m109.mdc">
+      <Name>m109</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\m109_prop.mdc">
+      <Name>m109_prop</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\vehicles\mercedes_1.TGA">
+      <Name>mercedes_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\vehicles\natter.mdc">
+      <Name>natter</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\panzer_a.mdc">
+      <Name>panzer_a</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\panzer_b.mdc">
+      <Name>panzer_b</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\panzer_c.mdc">
+      <Name>panzer_c</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\panzer_e.mdc">
+      <Name>panzer_e</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\vehicles\plane_flare.tga">
+      <Name>plane_flare</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\propeller1.tga">
+      <Name>propeller1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\vehicles\rocketrain.mdc">
+      <Name>rocketrain</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\rocketraingear.mdc">
+      <Name>rocketraingear</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\rocketrainwr.mdc">
+      <Name>rocketrainwr</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\rocket_trans.mdc">
+      <Name>rocket_trans</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\vehicles\sherman_s.tga">
+      <Name>sherman_s</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\vehicles\staff_car.mdc">
+      <Name>staff_car</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\truckn2.mdc">
+      <Name>truckn2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\truckn_door.mdc">
+      <Name>truckn_door</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\truck_4wheels.mdc">
+      <Name>truck_4wheels</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\truck_lwheel.mdc">
+      <Name>truck_lwheel</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\truck_rwheel.mdc">
+      <Name>truck_rwheel</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\vehicles\truck_shadow.tga">
+      <Name>truck_shadow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\vehicles\u_boat.mdc">
+      <Name>u_boat</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\vtol2.mdc">
+      <Name>vtol2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\vtol2_w1.mdc">
+      <Name>vtol2_w1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\vtol2_w2.mdc">
+      <Name>vtol2_w2</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\vehicles\vtol2_w3.mdc">
+      <Name>vtol2_w3</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\vehicles\wagon\wag_whl.tga">
+      <Name>wag_whl</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\weapons\mg42a.mdc">
+      <Name>mg42a</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\weapons\mg42b.mdc">
+      <Name>mg42b</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Compile Include="models\mapobjects\zemph\drz_glass1.tga">
+      <Name>drz_glass1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="models\mapobjects\zemph\zemph.mdc">
+      <Name>zemph</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="models\mapobjects\zombie\zombie.mdc">
+      <Name>zombie</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="sound\scripts\ai.sounds">
@@ -3364,6 +4162,56 @@
     </Compile>
     <Compile Include="textures\props\gold_m01.tga">
       <Name>gold_m01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\skies\sky_1.tga">
+      <Name>sky_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\skies\sky_10.tga">
+      <Name>sky_10</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\skies\sky_2.tga">
+      <Name>sky_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\skies\sky_3.tga">
+      <Name>sky_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\skies\sky_4.tga">
+      <Name>sky_4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\skies\sky_5.tga">
+      <Name>sky_5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\skies\sky_6.tga">
+      <Name>sky_6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\skies\sky_7.tga">
+      <Name>sky_7</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\skies\sky_8.tga">
+      <Name>sky_8</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\skies\sky_9.tga">
+      <Name>sky_9</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -15486,6 +16334,696 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="models\mapobjects\archeology\jug.jpg">
+      <Name>jug</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\archeology\vase2.jpg">
+      <Name>vase2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\archeology\vase3.jpg">
+      <Name>vase3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\archeology\vase4.jpg">
+      <Name>vase4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\ammo1.jpg">
+      <Name>ammo1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\bphead.jpg">
+      <Name>bphead</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\deadnazi2.jpg">
+      <Name>deadnazi2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\deadnazi3.jpg">
+      <Name>deadnazi3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\gibs.jpg">
+      <Name>gibs</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\hel_body1.jpg">
+      <Name>hel_body1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\hel_head1.jpg">
+      <Name>hel_head1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\hel_legs1.jpg">
+      <Name>hel_legs1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\i_body1.jpg">
+      <Name>i_body1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\i_head.jpg">
+      <Name>i_head</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\i_legs1.jpg">
+      <Name>i_legs1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\bodyparts\lop_head1.jpg">
+      <Name>lop_head1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\book\book.jpg">
+      <Name>book</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\book\zemphr_book.jpg">
+      <Name>zemphr_book</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\chandelier\candle_m01.jpg">
+      <Name>candle_m01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\chandelier\metal_m01.jpg">
+      <Name>metal_m01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\clipboard\envelope.jpg">
+      <Name>envelope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\clipboard\shiny_metal_small.jpg">
+      <Name>shiny_metal_small</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\clipboard\wood_m12.jpg">
+      <Name>wood_m12</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\clipboard\wood_m12d.jpg">
+      <Name>wood_m12d</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\clonetube\bod.jpg">
+      <Name>bod</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\clonetube\c_glass1.jpg">
+      <Name>c_glass1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\coat\hanger.jpg">
+      <Name>hanger</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\corpse\how_legs1.jpg">
+      <Name>how_legs1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\debris\mxrock3_a.jpg">
+      <Name>mxrock3_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\controlpanel.jpg">
+      <Name>controlpanel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\controlpanel_blown.jpg">
+      <Name>controlpanel_blown</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\enigma.jpg">
+      <Name>enigma</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\gramophone.jpg">
+      <Name>gramophone</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\loudspeaker2.jpg">
+      <Name>loudspeaker2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\parloradio.jpg">
+      <Name>parloradio</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\radarsweep.jpg">
+      <Name>radarsweep</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\radio1.jpg">
+      <Name>radio1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\tele.jpg">
+      <Name>tele</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\tube.jpg">
+      <Name>tube</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\electronics\tuberadio.jpg">
+      <Name>tuberadio</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\bedlinenpillow_c01.jpg">
+      <Name>bedlinenpillow_c01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\bread.jpg">
+      <Name>bread</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\chair1.jpg">
+      <Name>chair1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\chairmetal.jpg">
+      <Name>chairmetal</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\clubchair.jpg">
+      <Name>clubchair</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\fire.jpg">
+      <Name>fire</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\fp_tool.jpg">
+      <Name>fp_tool</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\furnace.jpg">
+      <Name>furnace</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\grandfatherclock01.jpg">
+      <Name>grandfatherclock01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\heinrichair.jpg">
+      <Name>heinrichair</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\heinrichead.jpg">
+      <Name>heinrichead</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\hibackchair_a.jpg">
+      <Name>hibackchair_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\loveseat.jpg">
+      <Name>loveseat</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\metal_m04g2.jpg">
+      <Name>metal_m04g2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\sausage.jpg">
+      <Name>sausage</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\silverware.jpg">
+      <Name>silverware</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\trim_c01.jpg">
+      <Name>trim_c01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\type.jpg">
+      <Name>type</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\wood1.jpg">
+      <Name>wood1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\furniture\wood_c05.jpg">
+      <Name>wood_c05</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\knight\knt_stone.jpg">
+      <Name>knt_stone</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\knight\weap.jpg">
+      <Name>weap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\knight\weap_stone.jpg">
+      <Name>weap_stone</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\lamps\desklamp.jpg">
+      <Name>desklamp</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\lamps\desklamp_lt.jpg">
+      <Name>desklamp_lt</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\letters\OSA.jpg">
+      <Name>OSA</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\bel_lamp.blend.jpg">
+      <Name>bel_lamp.blend</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\bel_lamp.jpg">
+      <Name>bel_lamp</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\cagelight.blenda.jpg">
+      <Name>cagelight.blenda</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\cagelight.blendr.jpg">
+      <Name>cagelight.blendr</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\cagelight_a.jpg">
+      <Name>cagelight_a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\cagelight_r.jpg">
+      <Name>cagelight_r</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\cage_light.blendn.jpg">
+      <Name>cage_light.blendn</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\cage_lightn.jpg">
+      <Name>cage_lightn</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\camplt_in.blend.jpg">
+      <Name>camplt_in.blend</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\camplt_in.jpg">
+      <Name>camplt_in</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\camplt_out.jpg">
+      <Name>camplt_out</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\chandlier4l.jpg">
+      <Name>chandlier4l</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\light_m4.jpg">
+      <Name>light_m4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\light_m4b.jpg">
+      <Name>light_m4b</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\pendant2.jpg">
+      <Name>pendant2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\light\sconce2.jpg">
+      <Name>sconce2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\lion\lion.jpg">
+      <Name>lion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\plants\pot.jpg">
+      <Name>pot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\shield\shield.jpg">
+      <Name>shield</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\Skull\skull.jpg">
+      <Name>skull</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\Skull\skull_wall.jpg">
+      <Name>skull_wall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\test3\c_bibbles.jpg">
+      <Name>c_bibbles</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\test3\c_glass1.jpg">
+      <Name>c_glass1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\test3\c_glass2.jpg">
+      <Name>c_glass2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\test3\c_water2.jpg">
+      <Name>c_water2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\test3\hologirl2.jpg">
+      <Name>hologirl2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\test\kid.jpg">
+      <Name>kid</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\toolshed\generator.jpg">
+      <Name>generator</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\toolshed\shovel.jpg">
+      <Name>shovel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\toolshed\shovel_xl.jpg">
+      <Name>shovel_xl</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\toolshed\tools.jpg">
+      <Name>tools</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\toolshed\weldtanks.jpg">
+      <Name>weldtanks</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\torture\ametal_m03dm.jpg">
+      <Name>ametal_m03dm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\torture\sk_head1.jpg">
+      <Name>sk_head1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\torture\sk_legs1.jpg">
+      <Name>sk_legs1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\trunck2a.jpg">
+      <Name>trunck2a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\trunck2al.jpg">
+      <Name>trunck2al</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\trunck2l.jpg">
+      <Name>trunck2l</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\trunck_vil1.jpg">
+      <Name>trunck_vil1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\trunck_vil1a.jpg">
+      <Name>trunck_vil1a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\trunk_trn1.jpg">
+      <Name>trunk_trn1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\tree\trunk_trn2.jpg">
+      <Name>trunk_trn2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\v2\v2.jpg">
+      <Name>v2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vacum\armor1.jpg">
+      <Name>armor1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vacum\macj.jpg">
+      <Name>macj</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vacum\vac_goo.jpg">
+      <Name>vac_goo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\halftrack3.jpg">
+      <Name>halftrack3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\layout.jpg">
+      <Name>layout</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\natter.jpg">
+      <Name>natter</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\rocket6.jpg">
+      <Name>rocket6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\rocket_trn2.jpg">
+      <Name>rocket_trn2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\sub5.jpg">
+      <Name>sub5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\sub5s.jpg">
+      <Name>sub5s</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\tankside3l.jpg">
+      <Name>tankside3l</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\torp.jpg">
+      <Name>torp</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\train1.jpg">
+      <Name>train1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\truckside4l.jpg">
+      <Name>truckside4l</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\vtol3.jpg">
+      <Name>vtol3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\wagon\metal_m05.jpg">
+      <Name>metal_m05</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\wagon\wag_side.jpg">
+      <Name>wag_side</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\vehicles\wood_m02a.jpg">
+      <Name>wood_m02a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\weapons\Flakgun.jpg">
+      <Name>Flakgun</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\weapons\mg42b.jpg">
+      <Name>mg42b</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\weapons\monoflak.jpg">
+      <Name>monoflak</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\wine\wine.jpg">
+      <Name>wine</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\xlab\cart.jpg">
+      <Name>cart</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\xlab\chair.jpg">
+      <Name>chair</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\xlab_props\light.jpg">
+      <Name>light</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\zemph\drz_head4_blink.jpg">
+      <Name>drz_head4_blink</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\zemph\drz_xbody1.jpg">
+      <Name>drz_xbody1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="models\mapobjects\zemph\drz_xlegs1.jpg">
+      <Name>drz_xlegs1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="models\mapobjects\piano\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

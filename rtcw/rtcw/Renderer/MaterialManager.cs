@@ -1529,6 +1529,12 @@ namespace rtcw.Renderer
 	        if ( token != "-" ) {
 		        for ( i = 0 ; i < 6 ; i++ ) {
                     pathname = token + "_" + suf[i];
+                    if (Engine.fileSystem.FileExists(pathname + ".xnb") == false)
+                    {
+                        shader.sky.outerbox[i] = Globals.tr.defaultImage;
+                        continue;
+                    }
+
 			        shader.sky.outerbox[i] = Engine.imageManager.FindImageFile(pathname, true, true, SamplerState.LinearClamp );
 			        if ( shader.sky.outerbox[i] == null ) {
 				        shader.sky.outerbox[i] = Globals.tr.defaultImage;

@@ -522,7 +522,7 @@ namespace rtcw.Renderer.Map
             }
 
             SetLumpPosition(lump, ref bspFile);
-            lightGridData = new Color[lump.filelen / 4];
+            lightGridData = new Color[lump.filelen];
             for (i = 0; i < lump.filelen; i += 4)
             {
                 lightGridData[i] = new Color();
@@ -565,6 +565,7 @@ namespace rtcw.Renderer.Map
 
                 model.SetModelBounds( mapmodel.mins, mapmodel.maxs );
                 model.SetSurfaceParams( mapmodel.firstSurface, mapmodel.numSurfaces );
+                bmodels[i] = model;
             }
         }
 
@@ -704,18 +705,23 @@ namespace rtcw.Renderer.Map
             SetLumpPosition( leaflump, ref bspFile );
             numLeafs = LumpCount( leaflump, idMapFormat.idMapLeaf.LUMP_SIZE );
             inLeafs = new idMapFormat.idMapLeaf[numLeafs];
-            for( i = 0; i < numNodes; i++ )
+            for (i = 0; i < numLeafs; i++)
             {
                 inLeafs[i].InitFromFile( ref bspFile );
             }
 
+            // jv- We allocate the nodes before we set them up so we can set the children and repartent everything properly.
 	        nodes = new idRenderNode[numNodes + numLeafs];
+            for (i = 0; i < numNodes + numLeafs; i++)
+            {
+                nodes[i] = new idRenderNode();
+            }
 	        numDecisionNodes = numNodes;
 
 	        // load nodes
 	        for ( i = 0 ; i < numNodes; i++ )
 	        {
-                idRenderNode nodeOut = new idRenderNode();
+                idRenderNode nodeOut = nodes[i];
                 idMapFormat.idMapNode nodeIn = inNodes[i];
 
 		        for ( j = 0 ; j < 3 ; j++ )
@@ -725,6 +731,7 @@ namespace rtcw.Renderer.Map
 		        }
 
 		        p = nodeIn.planeNum;
+                nodeOut.plane = new idPlane();
 		        nodeOut.plane.Normal = planes[p].Normal;
                 nodeOut.plane.Dist = planes[p].Dist;
 
@@ -746,7 +753,7 @@ namespace rtcw.Renderer.Map
 	        // load leafs
 	        for ( i = numNodes ; i < numNodes + numLeafs ; i++ )
 	        {
-                idRenderNode nodeOut = new idRenderNode();
+                idRenderNode nodeOut = nodes[i];
                 idMapFormat.idMapLeaf inLeaf = inLeafs[i - numNodes];
 
 		        for ( j = 0 ; j < 3 ; j++ )
@@ -764,6 +771,8 @@ namespace rtcw.Renderer.Map
 
 		        nodeOut.firstmarksurface = inLeaf.firstLeafSurface;
                 nodeOut.nummarksurfaces = inLeaf.numLeafSurfaces;
+
+                nodes[i] = nodeOut;
 	        }
 
             inNodes = null;
@@ -1055,18 +1064,32 @@ namespace rtcw.Renderer.Map
         //
         private bool MapLoadIsActive()
         {
-            return (vertexBuffer == null);
+            return (lightGridData == null);
         }
 
         //
         // UpdateLoadScreenThread
         //
+        private bool loadScreenThreadActive = false;
         private void UpdateLoadScreenThread()
         {
+            loadScreenThreadActive = true;
             while (MapLoadIsActive())
             {
                 Globals.UpdateLoadingScreen();
                 System.Threading.Thread.Sleep(1);
+            }
+            loadScreenThreadActive = false;
+        }
+
+        //
+        // SyncLoadScreenThread
+        //
+        private void SyncLoadScreenThread()
+        {
+            while (loadScreenThreadActive == true)
+            {
+                System.Threading.Thread.Sleep(10);
             }
         }
 
@@ -1115,6 +1138,9 @@ namespace rtcw.Renderer.Map
 
             // Close the bsp file.
             Engine.fileSystem.CloseFile(ref bspFile);
+
+            // Wait for the loading thread to exit.
+            SyncLoadScreenThread();
 
             // Build the vertex/index buffer from drawverts/drawindexes.
             BuildVertexIndexBuffer();
