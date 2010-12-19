@@ -909,12 +909,163 @@ namespace rtcw.Renderer.Map
             surf = flareSurf;
         }
 
+        //
+        // TessPatchSurface
+        //
+        private void TessPatchSurface(ref idGridSurface cv)
+        {
+            int i, j;
+	        int rows, irows, vrows;
+	        int used;
+	        int[] widthTable = new int[MapCurveTessalator.MAX_GRID_SIZE];
+	        int[] heightTable = new int[MapCurveTessalator.MAX_GRID_SIZE];
+	       // float lodError;
+            int numVertexes=0;
+            int numIndexes = 0;
+	        int lodWidth, lodHeight;
+	        bool needsNormal;
+
+
+	        // determine the allowable discrepance
+	        //lodError = LodErrorForVolume( cv->lodOrigin, cv->lodRadius );
+
+	        // determine which rows and columns of the subdivision
+	        // we are actually going to use
+	        widthTable[0] = 0;
+	        lodWidth = 1;
+	        for ( i = 1 ; i < cv.width - 1 ; i++ ) {
+		       // if ( cv->widthLodError[i] <= lodError ) {
+			        widthTable[lodWidth] = i;
+			        lodWidth++;
+		     //   }
+	        }
+	        widthTable[lodWidth] = cv.width - 1;
+	        lodWidth++;
+
+	        heightTable[0] = 0;
+	        lodHeight = 1;
+	        for ( i = 1 ; i < cv.height - 1 ; i++ ) {
+		       // if ( cv->heightLodError[i] <= lodError ) {
+			        heightTable[lodHeight] = i;
+			        lodHeight++;
+		     //   }
+	        }
+	        heightTable[lodHeight] = cv.height - 1;
+	        lodHeight++;
+
+
+	        // very large grids may have more points or indexes than can be fit
+	        // in the tess structure, so we may have to issue it in multiple passes
+
+	        used = 0;
+	        rows = 0;
+
+            // Jv - this is just stupid, just a quick hack so everything works.
+            vrows = idMaterialBase.SHADER_MAX_VERTEXES / lodWidth;
+            irows = idMaterialBase.SHADER_MAX_INDEXES / ( lodWidth * 6 );
+
+            cv.startVertex = drawVerts.Count;
+            cv.startIndex = drawIndexes.Count;
+
+	        while ( used < lodHeight - 1 ) {
+		        rows = irows;
+		        if ( vrows < irows + 1 ) {
+			        rows = vrows - 1;
+		        }
+		        if ( used + rows > lodHeight ) {
+			        rows = lodHeight - used;
+		        }
+
+		        for ( i = 0 ; i < rows ; i++ ) {
+			        for ( j = 0 ; j < lodWidth ; j++ ) {
+                        idDrawVertex vert = new idDrawVertex();
+                        idDrawVertex dv;
+                        int dvpos = 0;
+
+                        dvpos = heightTable[ used + i ] * cv.width + widthTable[ j ];
+                        dv = cv.verts[dvpos];
+
+                        vert.xyz = dv.xyz;
+                        vert.st = dv.st;
+                        vert.lightmapST = dv.lightmapST;
+                        vert.normal = dv.normal;
+                        vert.tangent = dv.tangent;
+                        vert.binormal = dv.binormal;
+
+                        drawVerts.Add(vert);
+                        numVertexes++;
+			        }
+		        }
+
+
+		        // add the indexes
+		        {
+			        int w, h;
+
+			        h = rows - 1;
+			        w = lodWidth - 1;
+			        for ( i = 0 ; i < h ; i++ ) {
+				        for ( j = 0 ; j < w ; j++ ) {
+					        int v1, v2, v3, v4;
+
+					        // vertex order to be reckognized as tristrips
+					        v1 = numVertexes + i * lodWidth + j + 1;
+					        v2 = v1 - 1;
+					        v3 = v2 + lodWidth;
+					        v4 = v3 + 1;
+
+                            drawIndexes.Add((short)v2);
+                            drawIndexes.Add((short)v3);
+                            drawIndexes.Add((short)v1);
+
+                            drawIndexes.Add((short)v1);
+                            drawIndexes.Add((short)v3);
+                            drawIndexes.Add((short)v4);
+
+					        numIndexes += 6;
+				        }
+			        }
+		        }
+		        used += rows - 1;
+	        }
+
+            cv.numIndexes = numIndexes;
+            cv.numVertexes = numVertexes;
+
+            cv.verts = null;
+        }
+
+        //
+        // TessAllPatchSurfaces
+        //
+        private void TessAllPatchSurfaces()
+        {
+            int vertexCount = drawVerts.Count;
+            int indexCount = drawIndexes.Count;
+            int numSurfsTessalated = 0;
+
+            for (int i = 0; i < drawSurfs.Length; i++)
+            {
+                if (drawSurfs[i].type == surfaceType_t.SF_GRID)
+                {
+                    idGridSurface surf = (idGridSurface)drawSurfs[i];
+                    TessPatchSurface(ref surf);
+                    drawSurfs[i] = surf;
+
+                    numSurfsTessalated++;
+                }
+            }
+
+            Engine.common.Printf("TessAllPatchSurfaces: NumSurfs %d NumVertexes %d NumIndexes %d\n", numSurfsTessalated, drawVerts.Count - vertexCount, drawIndexes.Count - indexCount);
+        }
+
         /*
         ===============
         LoadSurfaces
         ===============
         */
-        private void LoadSurfaces( ref idFile bspFile, idMapFormat.lump_t surfs, idMapFormat.lump_t verts, idMapFormat.lump_t indexLump ) {
+        private void LoadSurfaces(ref idFile bspFile, idMapFormat.lump_t surfs, idMapFormat.lump_t verts, idMapFormat.lump_t indexLump)
+        {
 	        idMapFormat.idMapSurface[] inSurf;
 	        idMapFormat.idMapVertex[] dv;
 	        int count;
@@ -1000,6 +1151,10 @@ namespace rtcw.Renderer.Map
         #if PATCH_STITCHING
 	        R_MovePatchSurfacesToHunk();
         #endif
+
+            // Tessalate the patch surfaces, upload them to the end of the vertex/index buffers,
+            // and correct the patch surface vert/index buffers and destroy the stored control points.
+            TessAllPatchSurfaces();
 
             inSurf = null;
             dv = null;
