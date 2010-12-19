@@ -34,8 +34,10 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // game_main.cs (c) 2010 JV Software
 //
 
-using System;
+using idLib;
+using idLib.Math;
 using idLib.Engine.Public;
+using idLib.Engine.Public.Net;
 using idLib.Game.Server;
 
 namespace Game
@@ -61,9 +63,52 @@ namespace Game
             Engine.common.Printf("------- Game Initialization -------\n");
             Engine.common.Printf("gamename: %s\n", Level.GAMEVERSION);
 
+            // Reset the game network manager.
+            Level.net.Reset();
+
             // Allocate the spawn, and spawn the 
             Level.spawner = new idGameSpawner();
             Level.spawner.SpawnEntitiesFromBsp(mapname);
+        }
+
+        //
+        // ClientConnect
+        //
+        public override void ClientConnect(int clientNum, bool firstTime, bool isBot)
+        {
+            idDict dict = new idDict();
+            idVector3 spawnpoint;
+
+            dict.AddKey("classname", "player");
+            dict.AddKey("clientnum", clientNum);
+
+            // Set the body model/skin
+            dict.AddKey("skin", "models/players/bj2/head_default.skin");
+            dict.AddKey("model", "models/players/bj2/body.mds");
+            
+            // Set the head model/skin.
+            dict.AddKey("head", "models/players/bj2/head_default.skin");
+            dict.AddKey("model2", "models/players/bj2/head.mdc");
+
+            // Try to find a valid spawn point for the client.
+            if (Level.spawner.FindSpawnPoint(out spawnpoint) == false)
+            {
+                Engine.common.ErrorFatal("Failed to find spawn point or an info_player_start for client...\n");
+                return;
+            }
+
+            // Set the spawn point for the entity.
+            dict.AddKey("origin", spawnpoint.ToString());
+
+            Level.spawner.SpawnEntity(dict);
+        }
+
+        //
+        // GetConfigString
+        //
+        public override string GetConfigString()
+        {
+            return Level.net.ConfigStr;
         }
 
         //

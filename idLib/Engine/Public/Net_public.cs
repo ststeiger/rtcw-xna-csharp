@@ -73,6 +73,8 @@ namespace idLib.Engine.Public
     {
         public const string netcmd_getchallenge = "getchallenge";
         public const string netcmd_serverinfo = "serverinfo";
+        public const string netcmd_getconfigmsg = "getconfigmsg";
+        public const string netcmd_sendconfigmsg = "configstr";
 
         public abstract void Init();
         public abstract bool LiveGuideVisible();

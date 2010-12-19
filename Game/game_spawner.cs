@@ -36,10 +36,12 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using idLib;
+using idLib.Math;
 using idLib.Engine.Public;
 using idLib.Game.Server;
 
 using Game.Entities.Info;
+using Game.Entities.Player;
 
 namespace Game
 {
@@ -67,6 +69,7 @@ namespace Game
     {
         private idGameSpawnDefs[] spawnDefs = new idGameSpawnDefs[] {
             new idGameSpawnDefs( "info_player_start", () => new idEntityPlayerStart() ),
+            new idGameSpawnDefs( "player", () => new idPlayer() )
         };
         //
         // RegisterEntity
@@ -74,12 +77,21 @@ namespace Game
         private idEntity RegisterEntity(idEntity entity, idDict dict)
         {
             int i, force;
+            int basepos = idGamePublic.MAX_CLIENTS;
+            int endpos = idGamePublic.MAX_GENTITIES;
+
+            if (dict.FindKey("classname") == "player")
+            {
+                basepos = 0;
+                endpos = idGamePublic.MAX_CLIENTS;
+            }
 
 	        i = 0;      // shut up warning
 	        for ( force = 0 ; force < 2 ; force++ ) {
 		        // if we go through all entities and can't find one to free,
 		        // override the normal minimum times before use
-		        for ( i = idGamePublic.MAX_CLIENTS ; i < idGamePublic.MAX_GENTITIES ; i++ ) {
+                for (i = basepos; i < endpos; i++)
+                {
                     idEntity e = Level.entities[i];
 			        if ( e != null ) {
 				        continue;
@@ -107,6 +119,24 @@ namespace Game
 
             Engine.common.ErrorFatal("No open entity slots...\n");
             return null;
+        }
+
+        //
+        // FindSpawnPoint
+        //
+        public bool FindSpawnPoint( out idVector3 org )
+        {
+            for (int i = idGamePublic.MAX_CLIENTS; i < idGamePublic.MAX_GENTITIES; i++)
+            {
+                if (Level.entities[i].classname == "info_player_start")
+                {
+                    org = Level.entities[i].state.origin;
+                    return true;
+                }
+            }
+
+            org = idVector3.vector_origin;
+            return false;
         }
 
         //

@@ -35,6 +35,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // Game interface class.
 //
 
+using idLib.Engine.Public.Net;
+
 namespace idLib.Game.Server
 {
     //
@@ -54,6 +56,8 @@ namespace idLib.Game.Server
 
         public abstract void Init(string mapname, int levelTime, int randomSeed, int restart);
         public abstract void Shutdown(bool restart);
+        public abstract void ClientConnect(int clientNum, bool firstTime, bool isBot);
+        public abstract string GetConfigString();
         public abstract void Frame();
     }
 }

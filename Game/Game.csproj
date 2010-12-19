@@ -92,9 +92,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Player\Player.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="game_globals.cs" />
     <Compile Include="game_main.cs" />
+    <Compile Include="game_network.cs" />
     <Compile Include="game_spawner.cs" />
     <Compile Include="Entities\Info\player_start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

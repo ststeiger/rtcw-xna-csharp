@@ -63,6 +63,11 @@ namespace idLib.Engine.Public.Net
             writer.Write((byte)src);
         }
 
+        public void SetPosition(int pos)
+        {
+            writer.BaseStream.Position = pos;
+        }
+
         public void WriteInt(int val)
         {
             writer.Write(val);

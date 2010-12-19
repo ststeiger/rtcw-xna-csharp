@@ -316,6 +316,14 @@ namespace idLib.Math
 
             return axis;
         }
+
+        //
+        // ToString
+        //
+        public override string ToString()
+        {
+            return "" + X + " " + Y + " " + Z;
+        }
     }
 
         //

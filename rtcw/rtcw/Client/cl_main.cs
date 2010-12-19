@@ -580,7 +580,7 @@ namespace rtcw.Client
         //
         public void UpdateLoadingScreen()
         {
-            cls.cgame.DrawLoadingScreen();
+            cls.cgame.DrawLoadingScreen(true);
         }
 
         //
@@ -591,9 +591,16 @@ namespace rtcw.Client
             cls.state = connstate_t.CA_LOADING;
 
             // Draw the loading screen so its visible.
-            cls.cgame.DrawLoadingScreen();
+            cls.cgame.DrawLoadingScreen(true);
 
             cls.cgame.BeginGame(mappath);
+
+            // Fetch the config buffer.
+            idMsgWriter msg = new idMsgWriter(idNetwork.netcmd_getconfigmsg.Length + 4);
+            msg.WriteString(idNetwork.netcmd_getconfigmsg);
+            Engine.net.SendReliablePacketToAddress(idNetSource.NS_SERVER, cls.loopBackAddress, ref msg);
+
+            msg.Dispose();
         }
 
         //
@@ -608,6 +615,10 @@ namespace rtcw.Client
             if (cmd == idNetwork.netcmd_serverinfo)
             {
                 BeginGame(buf.ReadString());
+            }
+            else if (cmd == idNetwork.netcmd_sendconfigmsg)
+            {
+                cls.cgame.ParseConfigString(buf.ReadString());
             }
             else
             {
@@ -651,7 +662,7 @@ namespace rtcw.Client
             }
             else if (cls.state == connstate_t.CA_LOADING)
             {
-                cls.cgame.DrawLoadingScreen();
+                cls.cgame.DrawLoadingScreen(false);
             }
 
             DrawGammaCorrection(255.0f, 100.0f);

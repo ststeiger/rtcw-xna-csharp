@@ -92,13 +92,16 @@ namespace cgame
         // DrawLoadingScreen
         //
         private int baseHunk = 0;
-        public override void DrawLoadingScreen()
+        public override void DrawLoadingScreen(bool forceRefresh)
         {
             float percentDone = 0;
             
             int expectedHunk = Engine.cvarManager.Cvar_Get("com_expectedhunkusage", "0", 0).GetValueInteger();
 
-            Engine.RenderSystem.BeginFrame();
+            if (forceRefresh)
+            {
+                Engine.RenderSystem.BeginFrame();
+            }
 
             // Draw the briefing UI.
             briefingUI.Draw();
@@ -125,7 +128,19 @@ namespace cgame
 
                 briefingUI.HorizontalPercentBar(bar_x, bar_y, bar_w, bar_h, percentDone);
             }
-            Engine.RenderSystem.EndFrame();
+
+            if (forceRefresh)
+            {
+                Engine.RenderSystem.EndFrame();
+            }
+        }
+
+        //
+        // ParseConfigString
+        //
+        public override void ParseConfigString(string cfgstr)
+        {
+            
         }
 
         //

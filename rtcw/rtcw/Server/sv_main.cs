@@ -442,6 +442,21 @@ namespace rtcw.Server
             {
                 GetChallenge(from);
             }
+            else if (cmd == idNetwork.netcmd_getconfigmsg)
+            {
+                idMsgWriter msg;
+                string configstr;
+
+                // Have the client connect first so the config string is properly updated.
+                Globals.game.ClientConnect(0, true, false);
+
+                configstr = Globals.game.GetConfigString();
+                msg = new idMsgWriter(configstr.Length + 4 + configstr.Length + 4);
+                msg.WriteString(idNetwork.netcmd_sendconfigmsg);
+                msg.WriteString(configstr);
+
+                Engine.net.SendReliablePacketToAddress(idNetSource.NS_CLIENT, Engine.net.GetLoopBackAddress(), ref msg);
+            }
             else
             {
                 Engine.common.Warning("SV_PacketEvent: Unknown packet command recieved from " + from.GetAddress() + " " + cmd + "\n");

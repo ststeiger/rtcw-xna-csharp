@@ -31,27 +31,74 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// game_globals.cs (c) 2010 JV Software
+// game_network.cs (c) 2010 JV Software
 //
 
-using idLib.Game.Server;
-using idLib.Engine.Public;
 
 namespace Game
 {
     //
-    // Level
+    // idGameNetwork
     //
-    static class Level
+    public class idGameNetwork
     {
-        public const string GAME = "RTCW";
-        public const string GAMEVERSION = GAME + " " + Engine.CPUSTRING + "\n";
+        string configstr;
+        int numModels;
+        int numSounds;
+        int numSkins;
 
-        public static idGameSpawner spawner;
-        public static idEntity[] entities = new idEntity[idGamePublic.MAX_GENTITIES];
-        public static int num_entities = 0;
-        public static int num_clients = 0;
+        public string ConfigStr
+        {
+            get
+            {
+                return configstr;
+            }
+        }
 
-        public static idGameNetwork net = new idGameNetwork();
+        //
+        // Reset
+        //
+        public void Reset()
+        {
+            numModels = 0;
+            numSounds = 0;
+            configstr = "";
+        }
+
+        //
+        // ModelIndex
+        //
+        public int ModelIndex(string modelpath)
+        {
+            configstr += "model ";
+            configstr += modelpath;
+            configstr += " ";
+
+            return numModels++;
+        }
+
+        //
+        // SoundIndex
+        //
+        public int SoundIndex(string soundpath)
+        {
+            configstr += "sound ";
+            configstr += soundpath;
+            configstr += " ";
+
+            return numSounds++;
+        }
+
+        //
+        // SkinIndex
+        //
+        public int SkinIndex(string skinpath)
+        {
+            configstr += "skin ";
+            configstr += skinpath;
+            configstr += " ";
+
+            return numSounds++;
+        }
     }
 }

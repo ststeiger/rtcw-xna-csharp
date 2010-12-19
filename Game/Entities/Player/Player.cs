@@ -31,27 +31,37 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// game_globals.cs (c) 2010 JV Software
+// Player.cs (c) 2010 JV Software
 //
 
-using idLib.Game.Server;
-using idLib.Engine.Public;
-
-namespace Game
+namespace Game.Entities.Player
 {
     //
-    // Level
+    // idPlayer
     //
-    static class Level
+    public class idPlayer : idEntity
     {
-        public const string GAME = "RTCW";
-        public const string GAMEVERSION = GAME + " " + Engine.CPUSTRING + "\n";
+        int bodymodel = 0;
+        int headmodel = 0;
 
-        public static idGameSpawner spawner;
-        public static idEntity[] entities = new idEntity[idGamePublic.MAX_GENTITIES];
-        public static int num_entities = 0;
-        public static int num_clients = 0;
+        int bodyskin = 0;
+        int headskin = 0;
 
-        public static idGameNetwork net = new idGameNetwork();
+        //
+        // Spawn
+        //
+        public override void Spawn()
+        {
+            bodymodel = Level.net.ModelIndex(model);
+            headmodel = Level.net.ModelIndex(model2);
+
+            bodyskin = Level.net.SkinIndex(aiSkin);
+            headskin = Level.net.SkinIndex(aihSkin);
+        }
+
+        public override void Frame()
+        {
+            
+        }
     }
 }
