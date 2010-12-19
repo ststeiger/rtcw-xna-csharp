@@ -247,7 +247,7 @@ itemDef {
 	forecolor 1 1 1 .9
 	visible 1 
 	action {	play "sound/misc/kcaction.wav";
-   				close resetscore_menu;
+   				// close resetscore_menu;
 				setCvar g_gameskill "1";
 				exec "spmap cutscene1" }
 	mouseenter { show message_controls }
@@ -270,7 +270,7 @@ itemDef {
 	forecolor 1 1 1 .9
 	visible 1 
 	action {	play "sound/misc/kcaction.wav";
-   				close resetscore_menu;
+   				// close resetscore_menu;
 				setCvar g_gameskill "2";
 				exec "spmap cutscene1" }
 	mouseenter { show message_controls }
@@ -293,7 +293,7 @@ itemDef {
 	forecolor 1 1 1 .9
 	visible 1 
 	action {	play "sound/misc/kcaction.wav";
-   				close resetscore_menu;
+   				// close resetscore_menu;
 				setCvar g_gameskill "3";
 				exec "spmap cutscene1" }
 	mouseenter { show message_controls }
