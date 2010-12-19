@@ -46,7 +46,7 @@ namespace idLib.Game
     //
     // NOTE: all fields in here must be 32 bits (or those within sub-structures)
 
-    public struct entityState_t {
+    public class entityState_t {
 	    public int number;             // entity index
 	    public int eType;              // entityType_t
 	    public int eFlags;

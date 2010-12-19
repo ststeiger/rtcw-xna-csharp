@@ -45,6 +45,7 @@ using rtcw.Framework;
 using rtcw.Renderer.Backend;
 using rtcw.Renderer.Images;
 using rtcw.Renderer.Models;
+using rtcw.Renderer.Map;
 namespace rtcw.Renderer
 {
     //
@@ -739,6 +740,20 @@ namespace rtcw.Renderer
             Globals.tr.worlds.Add(world);
 
             return Globals.tr.worlds[Globals.tr.worlds.Count - 1];
+        }
+
+        //
+        // LoadWorldEntityString
+        //
+        public override string LoadWorldEntityString(string mappath)
+        {
+            idMap map = new idMap();
+            string entityString;
+
+            entityString = map.LoadMapEntityString(mappath);
+
+            map = null;
+            return entityString;
         }
 
         //

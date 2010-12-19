@@ -31,14 +31,14 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// cgame_main.cs (c) 2010 JV Software
+// game_main.cs (c) 2010 JV Software
 //
 
 using System;
 using idLib.Engine.Public;
 using idLib.Game.Server;
 
-namespace game
+namespace Game
 {
     //
     // idGameLocal
@@ -58,7 +58,12 @@ namespace game
         //
         public override void Init(string mapname, int levelTime, int randomSeed, int restart)
         {
-            
+            Engine.common.Printf("------- Game Initialization -------\n");
+            Engine.common.Printf("gamename: %s\n", Level.GAMEVERSION);
+
+            // Allocate the spawn, and spawn the 
+            Level.spawner = new idGameSpawner();
+            Level.spawner.SpawnEntitiesFromBsp(mapname);
         }
 
         //

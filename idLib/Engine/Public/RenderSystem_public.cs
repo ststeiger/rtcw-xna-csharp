@@ -560,5 +560,6 @@ namespace idLib.Engine.Public
         public abstract void DrawStretchPic(float x, float y, float w, float h, float s1, float t1, float s2, float t2, idMaterial material);
         public abstract idWorld AllocWorld();
         public abstract idWorld LoadWorld(string mappath);
+        public abstract string LoadWorldEntityString(string mappath);
     }
 }

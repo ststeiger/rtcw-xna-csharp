@@ -125,6 +125,7 @@
     <Compile Include="Engine\Public\Video_public.cs" />
     <Compile Include="Game\AI\AI_state.cs" />
     <Compile Include="Game\Client\Interface.cs" />
+    <Compile Include="Game\entityshared.cs" />
     <Compile Include="Game\entitystate.cs" />
     <Compile Include="Game\Server\GameSkill.cs" />
     <Compile Include="Game\Server\GameType.cs" />

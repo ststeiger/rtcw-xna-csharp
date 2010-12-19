@@ -612,6 +612,14 @@ namespace rtcw.Framework
         }
 
         //
+        // ServerRegisterEntity
+        //
+        public override void ServerRegisterEntity(int entityNum, out idLib.Game.entityShared_t shared, out idLib.Game.entityState_t state)
+        {
+            sv.RegisterEntity(entityNum, out shared, out state);
+        }
+
+        //
         // DPrintf
         //
         public override void DPrintf(string fmt, params object[] args)

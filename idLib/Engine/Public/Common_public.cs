@@ -34,7 +34,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // Common_public.cs (c) 2010 JV Software
 //
 
-using System;
+using  idLib.Game;
 
 namespace idLib.Engine.Public
 {
@@ -53,6 +53,9 @@ namespace idLib.Engine.Public
 
         // Forces memory recollection of non used objects, SHOULD NOT BE USED DURING A FRAME!!
         public abstract void ForceGCCollect();
+
+        // Register a entity on the server side(called from the Game module ONLY!).
+        public abstract void ServerRegisterEntity(int entityNum, out entityShared_t shared, out entityState_t state);
 
         // Closes the game.
         public abstract void Quit();

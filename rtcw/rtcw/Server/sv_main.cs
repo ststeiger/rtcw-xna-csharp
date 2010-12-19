@@ -45,6 +45,15 @@ using rtcw.Framework;
 namespace rtcw.Server
 {
     //
+    // idSharedEntity
+    //
+    class idSharedEntity
+    {
+        public entityShared_t shared = new entityShared_t();
+        public entityState_t state = new entityState_t();
+    }
+
+    //
     // CVars
     //
     static class CVars
@@ -99,6 +108,8 @@ namespace rtcw.Server
         public static entityState_t[] snapshotEntities;
         public static int nextSnapshotEntities = 0;
         public static int snapFlagServerBit = 0;
+
+        public static idSharedEntity[] gentities;
 
         public static idCollisionModel cm;
     }
@@ -187,10 +198,26 @@ namespace rtcw.Server
             Globals.gvm = Engine.Sys.LoadDLL("game");
 
             // Allocate the game interface from the vm.
-            Globals.game = Globals.gvm.AllocClass<idGamePublic>("game.idGameLocal");
+            Globals.game = Globals.gvm.AllocClass<idGamePublic>("Game.idGameLocal");
 
             // Init game.
             Globals.game.Init(mapname, 0, 0, 0);
+        }
+
+        //
+        // RegisterEntity
+        //
+        public void RegisterEntity(int entityNum, out idLib.Game.entityShared_t shared, out idLib.Game.entityState_t state)
+        {
+            if (Globals.gentities[entityNum] != null)
+            {
+                Engine.common.ErrorFatal("Entity %d already registered...\n", entityNum);
+            }
+
+            Globals.gentities[entityNum] = new idSharedEntity();
+
+            shared = Globals.gentities[entityNum].shared;
+            state = Globals.gentities[entityNum].state;
         }
 
         //
@@ -361,6 +388,8 @@ namespace rtcw.Server
             Globals.cm = Engine.collisionModelManager.LoadCollisonModelFromBsp("maps/" + mapname + ".bsp");
 
             SetExpectedHunkUsage("maps/" + mapname + ".bsp");
+
+            Globals.gentities = new idSharedEntity[idGamePublic.MAX_GENTITIES];
 
             InitGameVM(mapname);
         }

@@ -31,29 +31,24 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// Interface.cs (c) 2010 JV Software 
-// Game interface class.
+// game_globals.cs (c) 2010 JV Software
 //
 
-namespace idLib.Game.Server
+using idLib.Game.Server;
+using idLib.Engine.Public;
+
+namespace Game
 {
     //
-    // idGamePublic
+    // Level
     //
-    public abstract class idGamePublic
+    static class Level
     {
-        //
-        // per-level limits
-        //
-        public const int MAX_CLIENTS    =     128;     // absolute limit
-        public const int MAX_LOCATIONS  =     64;
+        public const string GAME = "RTCW";
+        public const string GAMEVERSION = GAME + " " + Engine.CPUSTRING + "\n";
 
-        public const int GENTITYNUM_BITS  =   10;      // don't need to send any more
-        //#define	GENTITYNUM_BITS		11		// don't need to send any more		(SA) upped 4/21/2001 adjusted: tr_local.h (802-822), tr_main.c (1501), sv_snapshot (206)
-        public const int MAX_GENTITIES = (1 << GENTITYNUM_BITS);
-
-        public abstract void Init(string mapname, int levelTime, int randomSeed, int restart);
-        public abstract void Shutdown(bool restart);
-        public abstract void Frame();
+        public static idGameSpawner spawner;
+        public static idEntity[] entities = new idEntity[idGamePublic.MAX_GENTITIES];
+        public static int num_entities = 0;
     }
 }

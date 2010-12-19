@@ -1231,6 +1231,34 @@ namespace rtcw.Renderer.Map
         }
 
         //
+        // LoadMapEntityString
+        //
+        public string LoadMapEntityString(string mappath)
+        {
+            idFile bspFile;
+
+            baseName = "maps/" + mappath;
+            name = baseName + ".bsp";
+
+            bspFile = Engine.fileSystem.OpenFileRead(name, true);
+
+            // This should have been caught long before this.
+            if (bspFile == null)
+            {
+                Engine.common.ErrorFatal("R_LoadMap: Failed to open map %s \n", mappath);
+            }
+
+            // Load in the header and ensure the iden and version's are valid.
+            header.InitFromFile(ref bspFile);
+
+            LoadEntities(ref bspFile, header.lumps[idMapFormat.LUMP_ENTITIES]);
+
+            Engine.fileSystem.CloseFile(ref bspFile);
+
+            return entityString;
+        }
+
+        //
         // LoadMap
         //
         public void LoadMap(string mappath)
