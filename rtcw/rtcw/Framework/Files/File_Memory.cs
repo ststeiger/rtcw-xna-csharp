@@ -61,7 +61,12 @@ namespace rtcw.Framework.Files
             }
             else
             {
-                reader = new BinaryReader(fstream);
+                byte[] buffer = new byte[fstream.Length];
+
+                // Read the entire buffer into memory.
+                fstream.Read(buffer, 0, (int)fstream.Length);
+                reader = new BinaryReader(new MemoryStream( buffer ));                
+                fstream.Dispose();
             }
             _filename = filename;
         }

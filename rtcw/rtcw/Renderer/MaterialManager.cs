@@ -892,7 +892,7 @@ namespace rtcw.Renderer
 					           atestBits |
 					           depthFuncBits);
 
-            FinishShader();
+            
 
             return true;
         }
@@ -1639,6 +1639,7 @@ namespace rtcw.Renderer
                     // This is allowed because the trailing bracket is removed by the content builder.
                    // Engine.common.Warning("no concluding '}' in shader %s\n", name);
                    // return false;
+                    FinishShader();
                     return true;
                 }
 
@@ -1901,6 +1902,8 @@ namespace rtcw.Renderer
 		        }
             }
 
+            
+
             //
             // ignore shaders that don't have any stages, unless it is a sky or fog
             //
@@ -1909,6 +1912,7 @@ namespace rtcw.Renderer
                 return false;
             }
 
+            FinishShader();
             shader.explicitlyDefined = true;
 
             return true;

@@ -117,7 +117,7 @@ namespace cgame
             // show the percent complete bar
             if (expectedHunk > 0)
             {
-                percentDone = (float)(baseHunk - Engine.fileSystem.FS_LoadStack()) / (float)(expectedHunk);
+                percentDone = (float)(Engine.fileSystem.FS_LoadStack() - baseHunk) / (float)(expectedHunk);
                 if (percentDone > 0.97f)
                 {
                     percentDone = 0.97f;

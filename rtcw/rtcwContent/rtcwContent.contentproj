@@ -3282,6 +3282,91 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="textures\decals\luff.tga">
+      <Name>luff</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\decals\maps.tga">
+      <Name>maps</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\decals\maps_rocket.tga">
+      <Name>maps_rocket</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\intro\md_slide2.tga">
+      <Name>md_slide2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\intro\md_slide4.tga">
+      <Name>md_slide4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\miltary_door\mdoor_m06a.tga">
+      <Name>mdoor_m06a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flags_m1.tga">
+      <Name>flags_m1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flags_m1_fac.tga">
+      <Name>flags_m1_fac</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flags_m1_snow.tga">
+      <Name>flags_m1_snow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flags_m1_snowtad.tga">
+      <Name>flags_m1_snowtad</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flags_temp.tga">
+      <Name>flags_temp</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flags_temptad.tga">
+      <Name>flags_temptad</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flag_c03dmtad.tga">
+      <Name>flag_c03dmtad</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flag_l_m01.tga">
+      <Name>flag_l_m01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flag_l_m01_tad.tga">
+      <Name>flag_l_m01_tad</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flag_m02.tga">
+      <Name>flag_m02</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\gold_m01.tga">
+      <Name>gold_m01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <None Include="ui\menudef.h">
       <Name>menudef</Name>
     </None>
@@ -3323,10 +3408,6 @@
     <ProjectReference Include="..\..\idLib.Engine.Content.ui\idLib.Engine.Content.ui.csproj">
       <Project>{FDBC6D91-3DA8-48E3-96FC-8D44BC4C09B0}</Project>
       <Name>idLib.Engine.Content.ui</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ui\ui.csproj">
-      <Project>{217CE911-1887-4C9E-8AF9-8CE9236DA8C7}</Project>
-      <Name>ui</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -3398,7 +3479,6 @@
       <Processor>jvDirectoryProcessor</Processor>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <Compile Include="sound\music\c_atmos.wav">
       <Name>c_atmos</Name>
@@ -10322,7 +10402,6 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  
   <ItemGroup>
     <Compile Include="ui\assets\backscreen2.jpg">
       <Name>backscreen2</Name>
@@ -10337,7 +10416,6 @@
       <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <Compile Include="ui\levelshots\assault.jpg">
       <Name>assault</Name>
@@ -15218,6 +15296,193 @@
     </Compile>
     <Compile Include="textures\xlab_window\XWINDOW_C02.jpg">
       <Name>XWINDOW_C02</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="textures\assault\adoor_m01.jpg">
+      <Name>adoor_m01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\assault\adoor_m02e.jpg">
+      <Name>adoor_m02e</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\chateau\brick_c04.jpg">
+      <Name>brick_c04</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\chateau\desk_c01.jpg">
+      <Name>desk_c01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\chateau\wood_c22.jpg">
+      <Name>wood_c22</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\chat\picture_03.jpg">
+      <Name>picture_03</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\chat\picture_06.jpg">
+      <Name>picture_06</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\intro\doc1.jpg">
+      <Name>doc1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\miltary_door\mdoor_m12.jpg">
+      <Name>mdoor_m12</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\al_hitler.jpg">
+      <Name>al_hitler</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\barrel_m01.jpg">
+      <Name>barrel_m01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\barrel_m02.jpg">
+      <Name>barrel_m02</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\board_c01.jpg">
+      <Name>board_c01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\board_cl01.jpg">
+      <Name>board_cl01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\board_cl01m.jpg">
+      <Name>board_cl01m</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\board_cl02m.jpg">
+      <Name>board_cl02m</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\board_m01.jpg">
+      <Name>board_m01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\box_m04a.jpg">
+      <Name>box_m04a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\box_t_m01.jpg">
+      <Name>box_t_m01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\box_t_m02.jpg">
+      <Name>box_t_m02</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\box_t_m04a.jpg">
+      <Name>box_t_m04a</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flag_c03.jpg">
+      <Name>flag_c03</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\flag_c03dm.jpg">
+      <Name>flag_c03dm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\letter.jpg">
+      <Name>letter</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\lockers_c02.jpg">
+      <Name>lockers_c02</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\picture_c01.jpg">
+      <Name>picture_c01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\picture_c03.jpg">
+      <Name>picture_c03</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\picture_c06.jpg">
+      <Name>picture_c06</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\picture_c09.jpg">
+      <Name>picture_c09</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\picture_c11.jpg">
+      <Name>picture_c11</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\picture_c13dm.jpg">
+      <Name>picture_c13dm</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\picture_c18.jpg">
+      <Name>picture_c18</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\sho_box_c01.jpg">
+      <Name>sho_box_c01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\props\wine_c02.jpg">
+      <Name>wine_c02</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\swf\adoor_m01s.jpg">
+      <Name>adoor_m01s</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\town_props\tsign_c04.jpg">
+      <Name>tsign_c04</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="textures\town_props\tsign_c06.jpg">
+      <Name>tsign_c06</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

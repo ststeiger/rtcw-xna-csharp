@@ -53,32 +53,35 @@ namespace rtcw.Renderer.Map
     public class idMap
     {
         // ---------- Persistant BSP Storage -----------
-        idImage[] lightmaps;
-        idWorldFog_t[] fogs;
+        //public idImage[] lightmaps;
+        public idWorldFog_t[] fogs;
 
-        idDrawVertex[] drawVerts;        
-        short[] drawIndexes;
-        idDrawSurface[] drawSurfs;
-        
-        idVector3 lightGridSize;
-        idVector3 lightGridInverseSize;
-        idVector3 lightGridOrigin;
-        idVector3 lightGridBounds;
-        Color[] lightGridData;
+        public VertexBuffer vertexBuffer;
+        public IndexBuffer indexBuffer;
+        public idDrawSurface[] drawSurfs;
 
-        idRenderNode[] nodes;
-        int numDecisionNodes;
+        public idVector3 lightGridSize;
+        public idVector3 lightGridInverseSize;
+        public idVector3 lightGridOrigin;
+        public idVector3 lightGridBounds;
+        public Color[] lightGridData;
 
-        int clusterBytes;
-        int numClusters;
-        byte[] vis;
+        public idRenderNode[] nodes;
+        public int numDecisionNodes;
 
-        string entityString;
+        public int clusterBytes;
+        public int numClusters;
+        public byte[] vis;
 
-        idModelBrush[] bmodels;
-        idPlane[] planes;
+        public string entityString;
+
+        public idModelBrush[] bmodels;
+        public idPlane[] planes;
 
         // ---------- Temporary BSP Storage -----------
+        idDrawVertex[] drawVerts;
+        short[] drawIndexes;
+
         idMapFormat.idMapHeader header;
         idMapFormat.idMapShader[] shaders;
         //idMapFormat.idMapFog[] fogs;
@@ -605,7 +608,7 @@ namespace rtcw.Renderer.Map
             count = LumpCount(lump,LIGHTMAP_LUMP_SIZE );
             SetLumpPosition( lump, ref bspFile );
 
-            lightmaps = new idImage[count];
+            Globals.tr.lightmaps = new idImage[count];
 
             if (count == 1)
             {
@@ -652,7 +655,7 @@ namespace rtcw.Renderer.Map
 				        image[j].A = 255;
 			        }
 		        }
-		        lightmaps[i] = Engine.imageManager.CreateImage( "*lightmap" + i, image, LIGHTMAP_SIZE, LIGHTMAP_SIZE, false, false, SamplerState.LinearClamp );
+                Globals.tr.lightmaps[i] = Engine.imageManager.CreateImage("*lightmap" + i, image, LIGHTMAP_SIZE, LIGHTMAP_SIZE, false, false, SamplerState.LinearClamp);
 	        }
 
             if (Globals.r_lightmap.GetValueInteger() == 2)
@@ -966,7 +969,7 @@ namespace rtcw.Renderer.Map
             }
 
             SetLumpPosition(indexLump, ref bspFile );
-            numIndexes = LumpCount( indexLump, idMapFormat.idMapVertex.LUMP_SIZE );
+            numIndexes = LumpCount( indexLump, sizeof( int ) );
             drawIndexes = new short[ numIndexes];
             for( i = 0; i < count; i++ )
             {
@@ -996,7 +999,7 @@ namespace rtcw.Renderer.Map
                     break;
 		        }
 
-                Globals.UpdateLoadingScreen();
+               // 
 	        }
 
         #if PATCH_STITCHING
@@ -1016,7 +1019,56 @@ namespace rtcw.Renderer.Map
 			           numFaces, numMeshes, numTriSurfs, numFlares );
         }
 
+        //
+        // BuildVertexIndexBuffer
+        //
+        private void BuildVertexIndexBuffer()
+        {
+            Engine.common.Printf("R_BuildMapVertexIndexBuffer: Creating Vertex/Index Buffer...\n");
+            vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idRenderGlobals.idDrawVertexDeclaration, drawVerts.Length, BufferUsage.WriteOnly);
+            vertexBuffer.SetData<idDrawVertex>(drawVerts);
 
+            indexBuffer = new IndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, drawIndexes.Length, BufferUsage.WriteOnly);
+            indexBuffer.SetData<short>(drawIndexes);
+        }
+
+        //
+        // DisposeOfNonPersistantMemory
+        //
+        private void DisposeOfNonPersistantMemory()
+        {
+            Engine.common.Printf("R_MapDisposeOfNonPersistantMemory: Destroying Non Persistant Data...\n");
+
+            header.lumps = null;
+            vertexBuffer = null;
+            indexBuffer = null;
+            shaders = null;
+            brushes = null;
+            brushsides = null;
+
+            // Force the GC to reclaim the unneeded memory.
+            Engine.common.ForceGCCollect();
+        }
+
+        //
+        // MapLoadIsActive
+        //
+        private bool MapLoadIsActive()
+        {
+            return (vertexBuffer == null);
+        }
+
+        //
+        // UpdateLoadScreenThread
+        //
+        private void UpdateLoadScreenThread()
+        {
+            while (MapLoadIsActive())
+            {
+                Globals.UpdateLoadingScreen();
+                System.Threading.Thread.Sleep(1);
+            }
+        }
 
         //
         // LoadMap
@@ -1024,6 +1076,13 @@ namespace rtcw.Renderer.Map
         public void LoadMap(string mappath)
         {
             idFile bspFile;
+            idThread loadScreenThread;
+
+            Engine.common.Printf("------ R_LoadMap ------\n");
+
+            // Create the loadscreen thread and start it.
+            loadScreenThread = Engine.Sys.CreateThread("map_thread", () => UpdateLoadScreenThread());
+            loadScreenThread.Start(null);
 
             baseName = "maps/" + mappath;
             name = baseName + ".bsp";
@@ -1040,42 +1099,30 @@ namespace rtcw.Renderer.Map
             header.InitFromFile(ref bspFile);
 
             // load into heap
-            Globals.UpdateLoadingScreen();
+            
             LoadShaders(ref bspFile, header.lumps[idMapFormat.LUMP_SHADERS]);
-
-            Globals.UpdateLoadingScreen();
             LoadLightmaps(ref bspFile, header.lumps[idMapFormat.LUMP_LIGHTMAPS]);
-
-            Globals.UpdateLoadingScreen();
             LoadPlanes(ref bspFile, header.lumps[idMapFormat.LUMP_PLANES]);
-
-            Globals.UpdateLoadingScreen();
             LoadFogs(ref bspFile, header.lumps[idMapFormat.LUMP_FOGS], header.lumps[idMapFormat.LUMP_BRUSHES], header.lumps[idMapFormat.LUMP_BRUSHSIDES]);
-
-            Globals.UpdateLoadingScreen();
             LoadSurfaces(ref bspFile, header.lumps[idMapFormat.LUMP_SURFACES], header.lumps[idMapFormat.LUMP_DRAWVERTS], header.lumps[idMapFormat.LUMP_DRAWINDEXES]);
-
-           // Globals.UpdateLoadingScreen();
+           // 
            // LoadMarksurfaces(ref bspFile, header.lumps[idMapFormat.LUMP_LEAFSURFACES]);
-
-            Globals.UpdateLoadingScreen();
             LoadNodesAndLeafs(ref bspFile, header.lumps[idMapFormat.LUMP_NODES], header.lumps[idMapFormat.LUMP_LEAFS]);
-
-            Globals.UpdateLoadingScreen();
             LoadSubmodels(ref bspFile, header.lumps[idMapFormat.LUMP_MODELS]);
-
-            Globals.UpdateLoadingScreen();
             LoadVisibility(ref bspFile, header.lumps[idMapFormat.LUMP_VISIBILITY]);
-
-            Globals.UpdateLoadingScreen();
             LoadEntities(ref bspFile, header.lumps[idMapFormat.LUMP_ENTITIES]);
-
-            Globals.UpdateLoadingScreen();
             LoadLightGrid(ref bspFile, header.lumps[idMapFormat.LUMP_LIGHTGRID]);
 
-            Globals.UpdateLoadingScreen();
-
+            // Close the bsp file.
             Engine.fileSystem.CloseFile(ref bspFile);
+
+            // Build the vertex/index buffer from drawverts/drawindexes.
+            BuildVertexIndexBuffer();
+
+            // Destroy anything we don't need to keep, and free up non-needed memory.
+            DisposeOfNonPersistantMemory();
+
+            Engine.common.Printf("Map Loaded Successfully...\n");
         }
     }
 }
