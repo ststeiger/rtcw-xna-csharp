@@ -92,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bounds.cs" />
     <Compile Include="Dict.cs" />
     <Compile Include="Engine\Content\FileList.cs" />
     <Compile Include="Engine\Content\MaterialTable.cs" />
