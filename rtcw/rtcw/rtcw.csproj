@@ -146,6 +146,7 @@
     <Compile Include="Renderer\Models\ModelBase.cs" />
     <Compile Include="Renderer\Render_globals.cs" />
     <Compile Include="Renderer\Render_main.cs" />
+    <Compile Include="Renderer\Render_skins.cs" />
     <Compile Include="Renderer\Video.cs" />
     <Compile Include="Renderer\World.cs" />
     <Compile Include="Server\sv_ccmds.cs" />

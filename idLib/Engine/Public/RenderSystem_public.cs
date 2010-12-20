@@ -559,5 +559,6 @@ namespace idLib.Engine.Public
         public abstract idWorld AllocWorld();
         public abstract idWorld LoadWorld(string mappath);
         public abstract string LoadWorldEntityString(string mappath);
+        public abstract idSkin LoadSkin(string skinpath);
     }
 }

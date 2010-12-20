@@ -265,6 +265,8 @@ namespace rtcw.Renderer
 
         public static int colorBits = 32;
 
+        public static idSkinManager skinManager = new idSkinManager();
+
         //
         // SetVertexIndexBuffers
         //
@@ -581,6 +583,14 @@ namespace rtcw.Renderer
             Engine.materialManager.Init();
 
             Engine.common.Printf( "----- finished R_Init -----\n");
+        }
+
+        //
+        // LoadSkin
+        //
+        public override idSkin LoadSkin(string skinpath)
+        {
+            return Globals.skinManager.RegisterSkin(skinpath);
         }
 
         //

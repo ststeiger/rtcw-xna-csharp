@@ -155,8 +155,7 @@ namespace cgame
                 }
                 else if (token == "skin")
                 {
-                 //   Globals.skins[Globals.numSkins++] = null;
-                    token = parser.NextToken;
+                    Globals.skins[Globals.numSkins++] = Engine.RenderSystem.LoadSkin(parser.NextToken);
                 }
                 else if (token == "sound")
                 {
