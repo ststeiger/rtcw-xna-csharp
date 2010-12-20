@@ -1671,25 +1671,25 @@
 //
 // the button
 //
-//		itemDef {
-//			name but2
-//			rect 560 420 80 60
-//			style 3
-//		  	background "forwardarrow"
-//			visible 1
-//			mouseEnter { hide but2 ; show but2_alt}
-//		}
-//
-//		itemDef {
-//			name but2_alt
-//			type ITEM_TYPE_BUTTON
-//			rect 560 420 80 60
-//			style 3
-//			visible 0
-//			background "ui/assets/forwardarrow_alt.tga"
-//			action { exec "fade 0 0 0 0 3"; close pregame }
-//			mouseExit { hide but2_alt ; show but2 }
-//		}
+		itemDef {
+			name but2
+			rect 560 420 80 60
+			style 3
+		  	background "ui/assets/forwardarrow_h1.tga"
+			visible 0
+			mouseEnter { hide but2 ; show but2_alt}
+		}
+
+		itemDef {
+			name but2_alt
+			type ITEM_TYPE_BUTTON
+			rect 560 420 80 60
+			style 3
+			visible 0
+			background "ui/assets/forwardarrow_alt.tga"
+			action { exec "fade 0 0 0 0 3"; close pregame }
+			mouseExit { hide but2_alt ; show but2 }
+		}
 
 
 }	// menudef

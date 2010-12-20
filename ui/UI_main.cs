@@ -1380,6 +1380,36 @@ namespace ui
         }
 
         //
+        // SetItemVisible
+        //
+        public override void SetItemVisible(string name, bool visible)
+        {
+            for (int i = 0; i < menu.itemCount; i++)
+            {
+                if (menu.items[i].window.name == name)
+                {
+                    if (visible)
+                    {
+                        if (IsVisible(menu.items[i].window.flags) == false)
+                        {
+                            menu.items[i].window.flags |= ui_globals.WINDOW_VISIBLE;
+                        }
+                    }
+                    else
+                    {
+                        if (IsVisible(menu.items[i].window.flags) == true)
+                        {
+                            menu.items[i].window.flags &= ~ui_globals.WINDOW_VISIBLE;
+                        }
+                    }
+                    return;
+                }
+            }
+
+            Engine.common.Warning("UI_SetItemVisible: Failed to find item " + name + " to toggle visibility\n");
+        }
+
+        //
         // Draw
         //
         public override void Draw()
@@ -1409,7 +1439,10 @@ namespace ui
 
             for (int i = 0; i < menu.itemCount; i++)
             {
-                PaintItem(ref menu.items[i]);
+                if (IsVisible(menu.items[i].window.flags))
+                {
+                    PaintItem(ref menu.items[i]);
+                }
             }
 
             if (childWindow != null)

@@ -448,7 +448,7 @@ namespace rtcw.Server
                 string configstr;
 
                 // Have the client connect first so the config string is properly updated.
-                Globals.game.ClientConnect(0, true, false);
+                Globals.game.ClientConnect(0, buf.ReadString(), true, false);
 
                 configstr = Globals.game.GetConfigString();
                 msg = new idMsgWriter(configstr.Length + 4 + configstr.Length + 4);
@@ -456,6 +456,10 @@ namespace rtcw.Server
                 msg.WriteString(configstr);
 
                 Engine.net.SendReliablePacketToAddress(idNetSource.NS_CLIENT, Engine.net.GetLoopBackAddress(), ref msg);
+            }
+            else if (cmd == idNetwork.netcmd_enterworldmsg)
+            {
+                Globals.game.ClientBegin(0);
             }
             else
             {

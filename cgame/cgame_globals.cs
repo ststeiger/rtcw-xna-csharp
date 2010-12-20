@@ -55,5 +55,8 @@ namespace cgame
 
         public static idSkin[]      skins = new idSkin[idGamePublic.MAX_SKINS];
         public static int numSkins = 0;
+
+        public static bool waitingToEnterWorld = false;
+        public static float waitArrowFrame = 0;
     }
 }

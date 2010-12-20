@@ -37,6 +37,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 using idLib;
 using idLib.Engine.Public;
 using idLib.Game.Client;
+using idLib.Engine.Public.Net;
 
 namespace cgame
 {
@@ -117,16 +118,38 @@ namespace cgame
                 baseHunk = Engine.fileSystem.FS_LoadStack();
             }
 
-            // show the percent complete bar
-            if (expectedHunk > 0)
+            // show the percent complete bar if we are not waiting for the user to click a button to continue.
+            if (Globals.waitingToEnterWorld == false)
             {
-                percentDone = (float)(Engine.fileSystem.FS_LoadStack() - baseHunk) / (float)(expectedHunk);
-                if (percentDone > 0.97f)
+                if (expectedHunk > 0)
                 {
-                    percentDone = 0.97f;
+                    percentDone = (float)(Engine.fileSystem.FS_LoadStack() - baseHunk) / (float)(expectedHunk);
+                    if (percentDone > 0.97f)
+                    {
+                        percentDone = 0.97f;
+                    }
+
+                    briefingUI.HorizontalPercentBar(bar_x, bar_y, bar_w, bar_h, percentDone);
+                }
+            }
+            else
+            {
+                if (Globals.waitArrowFrame <= 2)
+                {
+                    briefingUI.SetItemVisible("but2", true);
+                    briefingUI.SetItemVisible("but2_alt", false);
+                }
+                else if (Globals.waitArrowFrame <= 4)
+                {
+                    briefingUI.SetItemVisible("but2", false);
+                    briefingUI.SetItemVisible("but2_alt", true);
+                }
+                else
+                {
+                    Globals.waitArrowFrame = 0.0f;
                 }
 
-                briefingUI.HorizontalPercentBar(bar_x, bar_y, bar_w, bar_h, percentDone);
+                Globals.waitArrowFrame += 0.3f;
             }
 
             if (forceRefresh)
@@ -166,6 +189,23 @@ namespace cgame
                     Engine.common.ErrorFatal("CG_ParseConfigString: Unknown or unexpected token in network packet %s \n", token);
                 }
             }
+
+            // Set the keycatcher so the UI will pick up controller events.
+            Engine.common.SetKeyCatcher(keyCatch.CGAME);
+
+            Globals.waitingToEnterWorld = true;
+            Globals.waitArrowFrame = 0;
+        }
+
+        //
+        // ClientReady
+        //
+        private void ClientReady()
+        {
+            idMsgWriter msg = new idMsgWriter(idNetwork.netcmd_enterworldmsg.Length + 4);
+            msg.WriteString( idNetwork.netcmd_enterworldmsg );
+            Engine.net.SendReliablePacketToAddress(idNetSource.NS_SERVER, Engine.net.GetLoopBackAddress(), ref msg);
+            msg.Dispose();
         }
 
         //
@@ -233,7 +273,11 @@ namespace cgame
         //
         public override void HandleKeyEvent(int key, bool down)
         {
-            
+            if (Globals.waitingToEnterWorld == true)
+            {
+                ClientReady();
+                Globals.waitingToEnterWorld = false;
+            }
         }
 
         //
@@ -249,7 +293,13 @@ namespace cgame
         //
         public override void Frame()
         {
-            
+            // If we are waiting for the user to click a button to continue, just wait cause the server still thinks
+            // were loading.
+            if (Globals.waitingToEnterWorld == true)
+            {
+                DrawLoadingScreen(false);
+                return;
+            }
         }
     }
 }

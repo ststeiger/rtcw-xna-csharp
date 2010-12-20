@@ -62,7 +62,8 @@ namespace idLib.Game.Server
 
         public abstract void Init(string mapname, int levelTime, int randomSeed, int restart);
         public abstract void Shutdown(bool restart);
-        public abstract void ClientConnect(int clientNum, bool firstTime, bool isBot);
+        public abstract void ClientConnect(int clientNum, string clientname, bool firstTime, bool isBot);
+        public abstract void ClientBegin(int clientNum);
         public abstract string GetConfigString();
         public abstract void Frame();
     }

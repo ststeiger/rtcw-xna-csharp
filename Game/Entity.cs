@@ -192,6 +192,14 @@ namespace Game
             scriptName = spawnArgs.FindKey("scriptName");
         }
 
+        //
+        // EnterWorld
+        //
+        public virtual void EnterWorld()
+        {
+
+        }
+
         // Spawn
         public abstract void Spawn();
 

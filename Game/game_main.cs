@@ -72,9 +72,17 @@ namespace Game
         }
 
         //
+        // ClientBegin
+        //
+        public override void ClientBegin(int clientNum)
+        {
+            Level.entities[clientNum].EnterWorld();
+        }
+
+        //
         // ClientConnect
         //
-        public override void ClientConnect(int clientNum, bool firstTime, bool isBot)
+        public override void ClientConnect(int clientNum, string playername, bool firstTime, bool isBot)
         {
             idDict dict = new idDict();
             idVector3 spawnpoint;
@@ -89,6 +97,8 @@ namespace Game
             // Set the head model/skin.
             dict.AddKey("head", "models/players/bj2/head_default.skin");
             dict.AddKey("model2", "models/players/bj2/head.mdc");
+
+            dict.AddKey("name", playername);
 
             // Try to find a valid spawn point for the client.
             if (Level.spawner.FindSpawnPoint(out spawnpoint) == false)
