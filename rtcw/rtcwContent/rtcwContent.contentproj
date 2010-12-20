@@ -1221,255 +1221,192 @@
     </None>
     <None Include="maps\assault.ai">
       <Name>assault</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\assault.bsp">
       <Name>assault</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\assault.script">
       <Name>assault</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\assault_b0.aas">
       <Name>assault_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\assault_b0.rcd">
       <Name>assault_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\assault_b1.aas">
       <Name>assault_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\assault_b1.rcd">
       <Name>assault_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\baseout.ai">
       <Name>baseout</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\baseout.bsp">
       <Name>baseout</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\baseout.script">
       <Name>baseout</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\baseout_b0.aas">
       <Name>baseout_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\baseout_b0.rcd">
       <Name>baseout_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\baseout_b1.aas">
       <Name>baseout_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\baseout_b1.rcd">
       <Name>baseout_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss1.ai">
       <Name>boss1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss1.bsp">
       <Name>boss1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss1.script">
       <Name>boss1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss1_b0.aas">
       <Name>boss1_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss1_b0.rcd">
       <Name>boss1_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss1_b1.aas">
       <Name>boss1_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss1_b1.rcd">
       <Name>boss1_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss2.ai">
       <Name>boss2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss2.bsp">
       <Name>boss2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss2.script">
       <Name>boss2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss2_b0.aas">
       <Name>boss2_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss2_b0.rcd">
       <Name>boss2_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss2_b1.aas">
       <Name>boss2_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\boss2_b1.rcd">
       <Name>boss2_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\castle.ai">
       <Name>castle</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\castle.bsp">
       <Name>castle</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\castle.script">
       <Name>castle</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\castle_b0.aas">
       <Name>castle_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\castle_b0.rcd">
       <Name>castle_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\castle_b1.aas">
       <Name>castle_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\castle_b1.rcd">
       <Name>castle_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\chateau.ai">
       <Name>chateau</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\chateau.bsp">
       <Name>chateau</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\chateau.script">
       <Name>chateau</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\chateau_b0.aas">
       <Name>chateau_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\chateau_b0.rcd">
       <Name>chateau_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\chateau_b1.aas">
       <Name>chateau_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\chateau_b1.rcd">
       <Name>chateau_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\church.ai">
       <Name>church</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\church.bsp">
       <Name>church</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\church.script">
       <Name>church</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\church_b0.aas">
       <Name>church_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\church_b0.rcd">
       <Name>church_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\church_b1.aas">
       <Name>church_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\church_b1.rcd">
       <Name>church_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt1.ai">
       <Name>crypt1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt1.bsp">
       <Name>crypt1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt1.script">
       <Name>crypt1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt1_b0.aas">
       <Name>crypt1_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt1_b0.rcd">
       <Name>crypt1_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt1_b1.aas">
       <Name>crypt1_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt1_b1.rcd">
       <Name>crypt1_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt2.ai">
       <Name>crypt2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt2.bsp">
       <Name>crypt2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt2.script">
       <Name>crypt2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt2_b0.aas">
       <Name>crypt2_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt2_b0.rcd">
       <Name>crypt2_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt2_b1.aas">
       <Name>crypt2_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\crypt2_b1.rcd">
       <Name>crypt2_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene1.ai">
       <Name>cutscene1</Name>
@@ -1485,87 +1422,66 @@
     </None>
     <None Include="maps\cutscene11.ai">
       <Name>cutscene11</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene11.bsp">
       <Name>cutscene11</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene11.script">
       <Name>cutscene11</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene11_b0.aas">
       <Name>cutscene11_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene11_b0.rcd">
       <Name>cutscene11_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene11_b1.aas">
       <Name>cutscene11_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene11_b1.rcd">
       <Name>cutscene11_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene14.ai">
       <Name>cutscene14</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene14.bsp">
       <Name>cutscene14</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene14.script">
       <Name>cutscene14</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene14_b0.aas">
       <Name>cutscene14_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene14_b0.rcd">
       <Name>cutscene14_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene14_b1.aas">
       <Name>cutscene14_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene14_b1.rcd">
       <Name>cutscene14_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene19.ai">
       <Name>cutscene19</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene19.bsp">
       <Name>cutscene19</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene19.script">
       <Name>cutscene19</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene19_b0.aas">
       <Name>cutscene19_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene19_b0.rcd">
       <Name>cutscene19_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene19_b1.aas">
       <Name>cutscene19_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene19_b1.rcd">
       <Name>cutscene19_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene1_b0.aas">
       <Name>cutscene1_b0</Name>
@@ -1585,535 +1501,402 @@
     </None>
     <None Include="maps\cutscene6.ai">
       <Name>cutscene6</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene6.bsp">
       <Name>cutscene6</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene6.script">
       <Name>cutscene6</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene6_b0.aas">
       <Name>cutscene6_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene6_b0.rcd">
       <Name>cutscene6_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene6_b1.aas">
       <Name>cutscene6_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene6_b1.rcd">
       <Name>cutscene6_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene9.ai">
       <Name>cutscene9</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene9.bsp">
       <Name>cutscene9</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene9.script">
       <Name>cutscene9</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene9_b0.aas">
       <Name>cutscene9_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene9_b0.rcd">
       <Name>cutscene9_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene9_b1.aas">
       <Name>cutscene9_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\cutscene9_b1.rcd">
       <Name>cutscene9_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dam.ai">
       <Name>dam</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dam.bsp">
       <Name>dam</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dam.script">
       <Name>dam</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dam_b0.aas">
       <Name>dam_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dam_b0.rcd">
       <Name>dam_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dam_b1.aas">
       <Name>dam_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dam_b1.rcd">
       <Name>dam_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dark.ai">
       <Name>dark</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dark.bsp">
       <Name>dark</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dark.script">
       <Name>dark</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dark_b0.aas">
       <Name>dark_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dark_b0.rcd">
       <Name>dark_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dark_b1.aas">
       <Name>dark_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dark_b1.rcd">
       <Name>dark_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dig.ai">
       <Name>dig</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dig.bsp">
       <Name>dig</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dig.script">
       <Name>dig</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dig_b0.aas">
       <Name>dig_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dig_b0.rcd">
       <Name>dig_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dig_b1.aas">
       <Name>dig_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\dig_b1.rcd">
       <Name>dig_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\end.ai">
       <Name>end</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\end.bsp">
       <Name>end</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\end.script">
       <Name>end</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\end_b0.aas">
       <Name>end_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\end_b0.rcd">
       <Name>end_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\end_b1.aas">
       <Name>end_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\end_b1.rcd">
       <Name>end_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape1.ai">
       <Name>escape1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape1.bsp">
       <Name>escape1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape1.script">
       <Name>escape1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape1_b0.aas">
       <Name>escape1_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape1_b0.rcd">
       <Name>escape1_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape1_b1.aas">
       <Name>escape1_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape1_b1.rcd">
       <Name>escape1_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape2.ai">
       <Name>escape2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape2.bsp">
       <Name>escape2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape2.script">
       <Name>escape2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape2_b0.aas">
       <Name>escape2_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape2_b0.rcd">
       <Name>escape2_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape2_b1.aas">
       <Name>escape2_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape2_b1.rcd">
       <Name>escape2_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\factory.ai">
       <Name>factory</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\factory.bsp">
       <Name>factory</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\factory.script">
       <Name>factory</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\factory_b0.aas">
       <Name>factory_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\factory_b0.rcd">
       <Name>factory_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\factory_b1.aas">
       <Name>factory_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\factory_b1.rcd">
       <Name>factory_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\forest.ai">
       <Name>forest</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\forest.bsp">
       <Name>forest</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\forest.script">
       <Name>forest</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\forest_b0.aas">
       <Name>forest_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\forest_b0.rcd">
       <Name>forest_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\forest_b1.aas">
       <Name>forest_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\forest_b1.rcd">
       <Name>forest_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\norway.ai">
       <Name>norway</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\norway.bsp">
       <Name>norway</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\norway.script">
       <Name>norway</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\norway_b0.aas">
       <Name>norway_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\norway_b0.rcd">
       <Name>norway_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\norway_b1.aas">
       <Name>norway_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\norway_b1.rcd">
       <Name>norway_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\rocket.ai">
       <Name>rocket</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\rocket.bsp">
       <Name>rocket</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\rocket.script">
       <Name>rocket</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\rocket_b0.aas">
       <Name>rocket_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\rocket_b0.rcd">
       <Name>rocket_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\rocket_b1.aas">
       <Name>rocket_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\rocket_b1.rcd">
       <Name>rocket_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\sfm.ai">
       <Name>sfm</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\sfm.bsp">
       <Name>sfm</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\sfm.script">
       <Name>sfm</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\sfm_b0.aas">
       <Name>sfm_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\sfm_b0.rcd">
       <Name>sfm_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\sfm_b1.aas">
       <Name>sfm_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\sfm_b1.rcd">
       <Name>sfm_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\swf.ai">
       <Name>swf</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\swf.bsp">
       <Name>swf</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\swf.script">
       <Name>swf</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\swf_b0.aas">
       <Name>swf_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\swf_b0.rcd">
       <Name>swf_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\swf_b1.aas">
       <Name>swf_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\swf_b1.rcd">
       <Name>swf_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\trainyard.ai">
       <Name>trainyard</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\trainyard.bsp">
       <Name>trainyard</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\trainyard.script">
       <Name>trainyard</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\trainyard_b0.aas">
       <Name>trainyard_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\trainyard_b0.rcd">
       <Name>trainyard_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\trainyard_b1.aas">
       <Name>trainyard_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\trainyard_b1.rcd">
       <Name>trainyard_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\tram.ai">
       <Name>tram</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\tram.bsp">
       <Name>tram</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\tram.script">
       <Name>tram</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\tram_b0.aas">
       <Name>tram_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\tram_b0.rcd">
       <Name>tram_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\tram_b1.aas">
       <Name>tram_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\tram_b1.rcd">
       <Name>tram_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village1.ai">
       <Name>village1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village1.bsp">
       <Name>village1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village1.script">
       <Name>village1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village1_b0.aas">
       <Name>village1_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village1_b0.rcd">
       <Name>village1_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village1_b1.aas">
       <Name>village1_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village1_b1.rcd">
       <Name>village1_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village2.ai">
       <Name>village2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village2.bsp">
       <Name>village2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village2.script">
       <Name>village2</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village2_b0.aas">
       <Name>village2_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village2_b0.rcd">
       <Name>village2_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village2_b1.aas">
       <Name>village2_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\village2_b1.rcd">
       <Name>village2_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\xlabs.ai">
       <Name>xlabs</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\xlabs.bsp">
       <Name>xlabs</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\xlabs.script">
       <Name>xlabs</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\xlabs_b0.aas">
       <Name>xlabs_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\xlabs_b0.rcd">
       <Name>xlabs_b0</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\xlabs_b1.aas">
       <Name>xlabs_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\xlabs_b1.rcd">
       <Name>xlabs_b1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Compile Include="models\mapobjects\B-25\PROPELLER.tga">
       <Name>PROPELLER</Name>
