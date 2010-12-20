@@ -34,7 +34,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // cgame_main.cs (c) 2010 JV Software
 //
 
-using System;
+using idLib;
 using idLib.Engine.Public;
 using idLib.Game.Client;
 
@@ -49,7 +49,7 @@ namespace cgame
         idUserInterface connectUI;
         idUserInterface briefingUI;
 
-        idWorld world;
+        
 
         //
         // idClientGame
@@ -140,7 +140,33 @@ namespace cgame
         //
         public override void ParseConfigString(string cfgstr)
         {
-            
+            idParser parser = new idParser(cfgstr);
+
+            while (parser.ReachedEndOfBuffer == false)
+            {
+                string token = parser.NextToken;
+
+                if (token == null || token.Length <= 0)
+                    break;
+
+                if (token == "model")
+                {
+                    Globals.models[Globals.numModels++] = Engine.modelManager.LoadModel(parser.NextToken);
+                }
+                else if (token == "skin")
+                {
+                 //   Globals.skins[Globals.numSkins++] = null;
+                    token = parser.NextToken;
+                }
+                else if (token == "sound")
+                {
+                    Globals.sounds[Globals.numSounds++] = Engine.soundManager.LoadSound(parser.NextToken);
+                }
+                else
+                {
+                    Engine.common.ErrorFatal("CG_ParseConfigString: Unknown or unexpected token in network packet %s \n", token);
+                }
+            }
         }
 
         //
@@ -156,7 +182,7 @@ namespace cgame
         //
         private void RegisterGraphics(string mappath)
         {
-            world = Engine.RenderSystem.LoadWorld(mappath);
+            Globals.world = Engine.RenderSystem.LoadWorld(mappath);
         }
 
         //

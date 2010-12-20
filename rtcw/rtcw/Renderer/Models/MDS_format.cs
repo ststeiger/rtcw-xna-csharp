@@ -38,35 +38,57 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
-
+using idLib;
 using idLib.Engine.Public;
 using idLib.Math;
 
 namespace rtcw.Renderer.Models
 {
-    class mdsWeight_t
+    struct mdsWeight_t
     {
         public int boneIndex;              // these are indexes into the boneReferences,
         public float boneWeight;           // not the global per-frame bone list
         public idVector3 offset;
+
+        public void InitFromFile(ref idFile file)
+        {
+            boneIndex = file.ReadInt();
+            boneWeight = file.ReadFloat();
+            offset = new idVector3();
+            file.ReadVector3(ref offset);
+        }
     };
 
-    class mdsVertex_t
+    struct mdsVertex_t
     {
-        public idVector3 normal = new idVector3();
-        public idVector2 texCoords = new idVector2();
+        public idVector3 normal;
+        public idVector2 texCoords;
         public int numWeights;
         public int fixedParent;            // stay equi-distant from this parent
         public float fixedDist;
         public mdsWeight_t[] weights;     // variable sized
+
+        public void InitFromFile(ref idFile file)
+        {
+            normal = new idVector3();
+            texCoords = new idVector2();
+
+            file.ReadVector3(ref normal);
+            file.ReadVector2(ref texCoords);
+            numWeights = file.ReadInt();
+            fixedParent = file.ReadInt();
+            fixedDist = file.ReadInt();
+
+            weights = new mdsWeight_t[numWeights];
+
+            for (int i = 0; i < numWeights; i++)
+            {
+                weights[i].InitFromFile(ref file);
+            }
+        }
     };
 
-    class mdsTriangle_t
-    {
-        public int[] indexes = new int[3];
-    };
-
-    class mdsSurface_t
+    class mdsSurface_t : idDrawSurface
     {
         public int ident;
 
@@ -74,16 +96,16 @@ namespace rtcw.Renderer.Models
         //char shader[MAX_QPATH];
         public string name;
         public string shader;
-        public int shaderIndex;                // for in-game use
+        //public int shaderIndex;                // for in-game use
 
         public int minLod;
 
         public int ofsHeader;                  // this will be a negative number
 
-        public int numVerts;
+        //public int numVerts;
         public int ofsVerts;
 
-        public int numTriangles;
+        //public int numTriangles;
         public int ofsTriangles;
 
         public int ofsCollapseMap;           // numVerts * int
@@ -97,12 +119,57 @@ namespace rtcw.Renderer.Models
         public int ofsBoneReferences;
 
         public int ofsEnd;                     // next surface follows
+
+// jv - added these are NOT part of the MDS format, stored for internal usage.
+        public int startCollapseMap;
+        public int startBoneRef;
+// jv end
+
+        //
+        // InitFromFile
+        //
+        public void InitFromFile(ref idFile file)
+        {
+            ident = file.ReadInt();
+            name = file.ReadString(Engine.MAX_QPATH);
+            shader = file.ReadString(Engine.MAX_QPATH);
+
+            file.ReadInt(); // shaderIndex <-- skipped.
+            minLod = file.ReadInt();
+            ofsHeader = file.ReadInt();
+            numVertexes = file.ReadInt();
+            ofsVerts = file.ReadInt();
+            numIndexes = file.ReadInt() * 3; // we read all the indexes not just the triangles.
+            ofsTriangles = file.ReadInt();
+            ofsCollapseMap = file.ReadInt();
+            numBoneReferences = file.ReadInt();
+            ofsBoneReferences = file.ReadInt();
+            ofsEnd = file.ReadInt();
+        }
     };
 
-    class mdsBoneFrameCompressed_t
+    struct mdsBoneFrameCompressed_t
     {
-        public short[] angles = new short[4];            // to be converted to axis at run-time (this is also better for lerping)
-        public short[] ofsAngles = new short[2];         // PITCH/YAW, head in this direction from parent to go to the offset position
+        public short[] angles;            // to be converted to axis at run-time (this is also better for lerping)
+        public short[] ofsAngles;         // PITCH/YAW, head in this direction from parent to go to the offset position
+
+        //
+        // InitFromFile
+        //
+        public void InitFromFile(ref idFile file)
+        {
+            angles = new short[4];
+            ofsAngles = new short[2];
+            for (int i = 0; i < 4; i++)
+            {
+                angles[i] = file.ReadShort();
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                ofsAngles[i] = file.ReadShort();
+            }
+        }
     };
 
     // NOTE: this only used at run-time
@@ -113,32 +180,56 @@ namespace rtcw.Renderer.Models
         public idVector3 translation = new idVector3();             // translation vector
     };
 
-    class mdsFrame_t
+    struct mdsFrame_t
     {
-        public idVector3 minbounds = new idVector3();               // bounds of all surfaces of all LOD's for this frame
-        public idVector3 maxbounds = new idVector3();               // bounds of all surfaces of all LOD's for this frame
-        public idVector3 localOrigin = new idVector3();             // midpoint of bounds, used for sphere cull
-        public float radius = 0;                   // dist from localOrigin to corner
-        public idVector3 parentOffset = new idVector3();            // one bone is an ascendant of all other bones, it starts the hierachy at this position
+        public idBounds bounds;              // bounds of all surfaces of all LOD's for this frame
+        public idVector3 localOrigin;             // midpoint of bounds, used for sphere cull
+        public float radius;                   // dist from localOrigin to corner
+        public idVector3 parentOffset;            // one bone is an ascendant of all other bones, it starts the hierachy at this position
         public mdsBoneFrameCompressed_t[] bones;              // [numBones]
+
+        //
+        // InitFromFile
+        // 
+        public void InitFromFile(ref idFile file, int numBones)
+        {
+            idVector3 mins = new idVector3();
+            idVector3 maxs = new idVector3();
+
+            localOrigin = new idVector3();
+            parentOffset = new idVector3();
+
+            file.ReadVector3(ref mins);
+            file.ReadVector3(ref maxs);
+            bounds = new idBounds(mins, maxs);
+            file.ReadVector3(ref localOrigin);
+            radius = file.ReadFloat();
+            file.ReadVector3(ref parentOffset);
+
+            bones = new mdsBoneFrameCompressed_t[numBones];
+            for (int i = 0; i < numBones; i++)
+            {
+                bones[i].InitFromFile(ref file);
+            }
+        }
     };
 
-    struct mdsLOD_t
-    {
-        public int numSurfaces;
-        public int ofsSurfaces;                // first surface, others follow
-        public int ofsEnd;                     // next lod follows
-    };
-
-    class mdsTag_t
+    struct mdsTag_t
     {
         //char name[MAX_QPATH];           // name of tag
         public string name;
         public float torsoWeight;
         public int boneIndex;                  // our index in the bones
+
+        public void InitFromFile(ref idFile file)
+        {
+            name = file.ReadString(Engine.MAX_QPATH);
+            torsoWeight = file.ReadFloat();
+            boneIndex = file.ReadInt();
+        }
     };
 
-    class mdsBoneInfo_t
+    struct mdsBoneInfo_t
     {
         //char name[MAX_QPATH];           // name of bone
         public string name;
@@ -146,9 +237,18 @@ namespace rtcw.Renderer.Models
         public float torsoWeight;              // scale torso rotation about torsoParent by this
         public float parentDist;
         public int flags;
+
+        public void InitFromFile(ref idFile file)
+        {
+            name = file.ReadString(Engine.MAX_QPATH);
+            parent = file.ReadInt();
+            torsoWeight = file.ReadFloat();
+            parentDist = file.ReadFloat();
+            flags = file.ReadInt();
+        }
     };
 
-    class mdsHeader_t
+    struct mdsHeader_t
     {
         public int ident;
         public int version;
@@ -173,5 +273,37 @@ namespace rtcw.Renderer.Models
         public int ofsTags;                    // mdsTag_t[numTags]
 
         public int ofsEnd;                     // end of file
+
+        //
+        // InitFromFile
+        //
+        public void InitFromFile(ref idFile file)
+        {
+            // Load the version first becuase the ident should already have been read.
+            version = file.ReadInt();
+            if (version != idModelMDS.MDS_VERSION)
+            {
+                Engine.common.ErrorFatal("R_LoadMDS: MDS Version invalid expected %d but found %d \n", idModelMDS.MDS_VERSION, version);
+                return;
+            }
+
+            name = file.ReadString(Engine.MAX_QPATH);
+            lodScale = file.ReadFloat();
+            lodBias = file.ReadFloat();
+
+            numFrames = file.ReadInt();
+            numBones = file.ReadInt();
+            ofsFrames = file.ReadInt();
+            ofsBones = file.ReadInt();
+            torsoParent = file.ReadInt();
+
+            numSurfaces = file.ReadInt(); 
+            ofsSurfaces = file.ReadInt();
+
+            numTags = file.ReadInt();
+            ofsTags = file.ReadInt();
+
+            ofsEnd = file.ReadInt();
+        }
     };
 }

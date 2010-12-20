@@ -309,8 +309,6 @@ namespace idLib.Engine.Public
     }
 
     // font support
-
-    
     public struct glyphInfo_t {
 	    public int height;     // number of scan lines
 	    public int top;        // top of glyph in buffer

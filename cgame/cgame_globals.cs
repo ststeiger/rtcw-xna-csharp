@@ -31,39 +31,29 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// Interface.cs (c) 2010 JV Software 
-// Game interface class.
+// cgame_globals.cs (c) 2010 JV Software
 //
 
-using idLib.Engine.Public.Net;
+using idLib;
+using idLib.Engine.Public;
+using idLib.Game.Client;
+using idLib.Game.Server;
 
-namespace idLib.Game.Server
+namespace cgame
 {
     //
-    // idGamePublic
+    // Globals
     //
-    public abstract class idGamePublic
+    public static class Globals
     {
-        //
-        // per-level limits
-        //
-        public const int MAX_CLIENTS    =     128;     // absolute limit
-        public const int MAX_LOCATIONS  =     64;
+        public static idWorld       world;
+        public static idModel[]     models = new idModel[idGamePublic.MAX_MODELS];
+        public static int numModels = 0;
 
-        // jv - these are no longer sent over as a 8bit, but you shouldn't change these anyway.
-        public const int MAX_MODELS     =     256; 
-        public const int MAX_SOUNDS     =     256;
-        public const int MAX_SKINS      =     256;
-        // jv end
+        public static idSound[]     sounds = new idSound[idGamePublic.MAX_SOUNDS];
+        public static int numSounds = 0;
 
-        public const int GENTITYNUM_BITS  =   10;      // don't need to send any more
-        //#define	GENTITYNUM_BITS		11		// don't need to send any more		(SA) upped 4/21/2001 adjusted: tr_local.h (802-822), tr_main.c (1501), sv_snapshot (206)
-        public const int MAX_GENTITIES = (1 << GENTITYNUM_BITS);
-
-        public abstract void Init(string mapname, int levelTime, int randomSeed, int restart);
-        public abstract void Shutdown(bool restart);
-        public abstract void ClientConnect(int clientNum, bool firstTime, bool isBot);
-        public abstract string GetConfigString();
-        public abstract void Frame();
+        public static idSkin[]      skins = new idSkin[idGamePublic.MAX_SKINS];
+        public static int numSkins = 0;
     }
 }
