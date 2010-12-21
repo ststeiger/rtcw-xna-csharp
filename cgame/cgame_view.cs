@@ -49,6 +49,8 @@ namespace cgame
             refdef.width = Engine.RenderSystem.GetViewportWidth();
             refdef.height = Engine.RenderSystem.GetViewportHeight();
 
+            refdef.rdflags = 0;
+
             Globals.world.RenderScene(refdef);
         }
     }

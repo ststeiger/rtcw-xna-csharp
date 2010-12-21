@@ -303,6 +303,7 @@ namespace cgame
                 if (entity.number == Globals.localViewEntity)
                 {
                     Globals.localview.SetViewOrigin(entity.origin);
+                    Globals.localview.SetViewAngle(entity.angles2);
                     Globals.viewPacketRecv = true;
                 }
             }

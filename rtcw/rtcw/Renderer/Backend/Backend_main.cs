@@ -643,7 +643,19 @@ namespace rtcw.Renderer.Backend
             {
                 entities[numEntities] = new idRefdefLocal();
             }
-
+            /*
+            entities[numEntities].areamaskModified = false;
+            entities[numEntities].floatTime = 0;
+            entities[numEntities].fov_x = 0;
+            entities[numEntities].fov_y = 0;
+            entities[numEntities].height = 0;
+            entities[numEntities].num_entities = 0;
+            entities[numEntities].rdflags = 0;
+            entities[numEntities].time = 0;
+            entities[numEntities].width = 0;
+            entities[numEntities].x = 0;
+            entities[numEntities].y = 0;
+            */
             return entities[numEntities++];
         }
 

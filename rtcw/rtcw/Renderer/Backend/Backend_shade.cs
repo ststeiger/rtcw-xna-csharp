@@ -139,6 +139,13 @@ namespace rtcw.Renderer.Backend
         {
             drawMatrix.SetupProjection(refdef, 1000, 1);
             drawMatrix.CreateViewMatrix(refdef);
+
+            // If there isn't a world model don't set as the active matrix.
+            if ((refdef.rdflags & idRenderType.RDF_NOWORLDMODEL) == 0)
+            {
+                drawMatrix.world = Matrix.Identity;
+                drawMatrix.SetAsActiveMatrix(ref defaultEffect);
+            }
         }
 
         //
