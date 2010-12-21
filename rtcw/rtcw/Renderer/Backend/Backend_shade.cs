@@ -1,6 +1,8 @@
 ﻿// Backend_device.cs (c) 2010 JV Software
 //
 
+#define BINDPARANOID
+
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -155,7 +157,8 @@ namespace rtcw.Renderer.Backend
         //
         public static void BindImage(idImage image)
         {
-            BindMultiImage(image, null);
+            defaultEffect.Texture = (Texture2D)image.GetDeviceHandle();
+            defaultEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
         }
 
         //
@@ -163,15 +166,15 @@ namespace rtcw.Renderer.Backend
         //
         public static void BindMultiImage(idImage image, idImage image2)
         {
+#if BINDPARANOID
+            if (image == null || image2 == null)
+            {
+                throw new Exception("Invalid bindmultiimage");
+            }
+#endif
             defaultEffect.Texture = (Texture2D)image.GetDeviceHandle();
-            if (image2 == null)
-            {
-                defaultEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
-            }
-            else
-            {
-                defaultEffect.Texture2 = (Texture2D)image2.GetDeviceHandle();
-            }
+            defaultEffect.Texture2 = (Texture2D)image2.GetDeviceHandle();
+
         }
 
 

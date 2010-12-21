@@ -1228,6 +1228,7 @@ namespace rtcw.Renderer
 		        }
 	        }
 
+            int lastNonLightmappedStage = 0;
             for (i = 0; i < shader.stages.Length; i++)
             {
                 if (shader.stages[i] == null)
@@ -1237,23 +1238,27 @@ namespace rtcw.Renderer
 
                 if (shader.stages[i].bundle[0].isLightmap)
                 {
-                    if (i == 0)
+                    // If the first stage is a lightmap, move stage 1 bundle 1 to bundle 0.
+                    if (lastNonLightmappedStage == 0)
                     {
-                        tmpBundle = shader.stages[0].bundle[0];
-                        shader.stages[0].bundle[0] = shader.stages[1].bundle[0];
-                        shader.stages[0].bundle[1] = tmpBundle;
-                        ShiftStagesDown(i);
+                        shader.stages[i].bundle[1] = shader.stages[i + 1].bundle[0];
+                        ShiftStagesDown(i + 1);
                     }
                     else
                     {
-                        shader.stages[i-1].bundle[1] = shader.stages[i].bundle[0];
-                        ShiftStagesDown(i-1);
+                        tmpBundle = shader.stages[i - 1].bundle[0];
+
+                        shader.stages[i - 1].bundle[0] = shader.stages[i].bundle[0];
+                        shader.stages[i - 1].bundle[1] = tmpBundle;
+                        ShiftStagesDown(i);
                     }
 
-                    
                     return true;
                 }
-                
+                else
+                {
+                    lastNonLightmappedStage++;
+                }
             }
 
 	        // nothing found
