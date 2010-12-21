@@ -34,7 +34,9 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // Player.cs (c) 2010 JV Software
 //
 
+using idLib.Game;
 using idLib.Engine.Public;
+using idLib.Engine.Public.Net;
 
 namespace Game.Entities.Player
 {
@@ -63,6 +65,8 @@ namespace Game.Entities.Player
             headskin = Level.net.SkinIndex(aihSkin);
 
             profilename = spawnArgs.FindKey("name");
+
+            state.eType = entityType_t.ET_PLAYER;
         }
 
         //
@@ -73,9 +77,12 @@ namespace Game.Entities.Player
             Engine.common.Printf(profilename + " has entered the world.\n");
         }
 
+        //
+        // Frame
+        //
         public override void Frame()
         {
-            
+            LinkEntity();
         }
     }
 }

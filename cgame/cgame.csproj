@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="cgame_globals.cs" />
     <Compile Include="cgame_main.cs" />
+    <Compile Include="cgame_view.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -118,7 +118,9 @@ namespace Game
         //
         public override string GetConfigString()
         {
-            return Level.net.ConfigStr;
+            // jv - this is a hack but getconfigstring should only be called when a new client,
+            // is connecting so assume numclients - 1 is the handle to the local client.
+            return Level.net.ConfigStr + " localClient " + (Level.num_clients - 1) + " ";
         }
 
         //
@@ -134,7 +136,16 @@ namespace Game
         //
         public override void Frame()
         {
-            
+            // Run the clients.
+            for (int i = 0; i < Level.num_clients; i++)
+            {
+                Level.entities[i].Frame();
+            }
+
+            for (int i = idGamePublic.MAX_CLIENTS; i < idGamePublic.MAX_CLIENTS + Level.num_entities; i++)
+            {
+                Level.entities[i].Frame();
+            }
         }
     }
 }

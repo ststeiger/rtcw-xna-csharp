@@ -84,6 +84,12 @@ namespace Game
             {
                 basepos = 0;
                 endpos = idGamePublic.MAX_CLIENTS;
+
+                Level.num_clients++;
+            }
+            else
+            {
+                Level.num_entities++;
             }
 
 	        i = 0;      // shut up warning
@@ -107,8 +113,7 @@ namespace Game
                     CallEntitySpawn(ref entity, dict);
 			        Level.entities[i] = entity;
 
-                    // open up a new slot
-                    Level.num_entities++;
+                    
 
                     return Level.entities[i];
 		        }

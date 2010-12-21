@@ -658,6 +658,14 @@ namespace rtcw.Framework
         }
 
         //
+        // LinkEntity
+        //
+        public override void LinkEntity(int entityNum)
+        {
+            sv.LinkEntity(entityNum);
+        }
+
+        //
         // ErrorDrop
         //
         public override void ErrorDrop(string fmt, params object[] args)

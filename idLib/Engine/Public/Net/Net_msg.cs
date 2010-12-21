@@ -156,6 +156,7 @@ namespace idLib.Engine.Public.Net
     public class idMsgReader
     {
         BinaryReader reader;
+        int msgLen;
 
         //
         // idMsgReader
@@ -163,6 +164,15 @@ namespace idLib.Engine.Public.Net
         public idMsgReader(byte[] buffer)
         {
             reader = new BinaryReader(new MemoryStream( buffer ));
+            msgLen = buffer.Length;
+        }
+
+        public int Length
+        {
+            get
+            {
+                return msgLen;
+            }
         }
 
         public int ReadInt()

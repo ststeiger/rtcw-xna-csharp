@@ -37,6 +37,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 using idLib;
 using idLib.Engine.Public;
 using idLib.Game.Client;
+using idLib.Game;
 using idLib.Engine.Public.Net;
 
 namespace cgame
@@ -184,6 +185,10 @@ namespace cgame
                 {
                     Globals.sounds[Globals.numSounds++] = Engine.soundManager.LoadSound(parser.NextToken);
                 }
+                else if (token == "localClient")
+                {
+                    Globals.localViewEntity = parser.NextInt;
+                }
                 else
                 {
                     Engine.common.ErrorFatal("CG_ParseConfigString: Unknown or unexpected token in network packet %s \n", token);
@@ -289,17 +294,35 @@ namespace cgame
         }
 
         //
+        // NetworkRecieveSnapshot
+        //
+        public override void NetworkRecieveSnapshot(ref entityState_t entity)
+        {
+            if (entity.eType == entityType_t.ET_PLAYER)
+            {
+                if (entity.number == Globals.localViewEntity)
+                {
+                    Globals.localview.SetViewOrigin(entity.origin);
+                    Globals.viewPacketRecv = true;
+                }
+            }
+        }
+
+        //
         // Frame
         //
         public override void Frame()
         {
             // If we are waiting for the user to click a button to continue, just wait cause the server still thinks
             // were loading.
-            if (Globals.waitingToEnterWorld == true)
+            if (Globals.waitingToEnterWorld == true || Globals.viewPacketRecv == false)
             {
                 DrawLoadingScreen(false);
                 return;
             }
+
+            // Draw the world through the current view.
+            Globals.localview.DrawView();
         }
     }
 }

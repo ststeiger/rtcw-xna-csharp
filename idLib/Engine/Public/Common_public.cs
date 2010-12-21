@@ -57,6 +57,9 @@ namespace idLib.Engine.Public
         // Register a entity on the server side(called from the Game module ONLY!).
         public abstract void ServerRegisterEntity(int entityNum, out entityShared_t shared, out entityState_t state);
 
+        // LinkEntity
+        public abstract void LinkEntity(int entityNum);
+
         // Closes the game.
         public abstract void Quit();
 

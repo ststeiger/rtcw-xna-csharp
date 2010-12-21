@@ -76,6 +76,7 @@ namespace idLib.Engine.Public
         public const string netcmd_getconfigmsg = "getconfigmsg";
         public const string netcmd_sendconfigmsg = "configstr";
         public const string netcmd_enterworldmsg = "clientbegin";
+        public const string netcmd_snapshot = "snapshot";
 
         public abstract void Init();
         public abstract bool LiveGuideVisible();

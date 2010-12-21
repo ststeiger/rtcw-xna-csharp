@@ -37,6 +37,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 using idLib;
 using idLib.Math;
 using idLib.Game;
+using idLib.Engine.Public;
 
 namespace Game
 {
@@ -190,6 +191,8 @@ namespace Game
             spawnitem = spawnArgs.FindKey("spawnitem");
             track = spawnArgs.FindKey("track");
             scriptName = spawnArgs.FindKey("scriptName");
+
+            state.number = spawnArgs.FindKeyInt("entitynum");
         }
 
         //
@@ -198,6 +201,14 @@ namespace Game
         public virtual void EnterWorld()
         {
 
+        }
+
+        //
+        // LinkEntity
+        //
+        public void LinkEntity()
+        {
+            Engine.common.LinkEntity(state.number);
         }
 
         // Spawn

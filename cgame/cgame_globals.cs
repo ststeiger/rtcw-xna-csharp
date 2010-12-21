@@ -57,6 +57,11 @@ namespace cgame
         public static int numSkins = 0;
 
         public static bool waitingToEnterWorld = false;
+        public static bool viewPacketRecv = false; // set to true the first time the viewposition is set for the localview.
         public static float waitArrowFrame = 0;
+
+        public static int localViewEntity = -1;
+
+        public static idView localview = new idView();
     }
 }

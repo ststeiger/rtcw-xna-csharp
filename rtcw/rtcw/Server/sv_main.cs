@@ -99,7 +99,6 @@ namespace rtcw.Server
         public static idServerManager sv;
         public static idSysModule gvm;
         public static idGamePublic game;
-        public static idServerClient[] clients;
 
         public static int numSnapshotEntities = 0;
         public const int MAX_CONFIGSTRINGS = 2048;
@@ -109,7 +108,11 @@ namespace rtcw.Server
         public static int nextSnapshotEntities = 0;
         public static int snapFlagServerBit = 0;
 
+        public static idServerClient[] clients = new idServerClient[idGamePublic.MAX_CLIENTS];
+
         public static idSharedEntity[] gentities;
+        public static int[] linkedEntities = new int[idGamePublic.MAX_GENTITIES];
+        public static int numLinkedEntities = 0;
 
         public static idCollisionModel cm;
     }
@@ -430,6 +433,14 @@ namespace rtcw.Server
         }
 
         //
+        // LinkEntity
+        //
+        public void LinkEntity(int entityNum)
+        {
+            Globals.linkedEntities[Globals.numLinkedEntities++] = entityNum;
+        }
+
+        //
         // PacketEvent
         //
         public void PacketEvent(idNetAdress from, ref idMsgReader buf)
@@ -455,10 +466,13 @@ namespace rtcw.Server
                 msg.WriteString(idNetwork.netcmd_sendconfigmsg);
                 msg.WriteString(configstr);
 
+                Globals.clients[0] = new idServerClient();
+
                 Engine.net.SendReliablePacketToAddress(idNetSource.NS_CLIENT, Engine.net.GetLoopBackAddress(), ref msg);
             }
             else if (cmd == idNetwork.netcmd_enterworldmsg)
             {
+                Globals.clients[0].clientIsReady = true;
                 Globals.game.ClientBegin(0);
             }
             else
@@ -467,9 +481,41 @@ namespace rtcw.Server
             }
         }
 
+        //
+        // Frame
+        //
         public void Frame()
         {
+            // Reset the linked entities.
+            Globals.numLinkedEntities = 0;
 
+            // Run the game frame.
+            Globals.game.Frame();
+
+            if (Globals.numLinkedEntities <= 0)
+            {
+                return;
+            }
+
+            if (Globals.clients[0] != null && Globals.clients[0].clientIsReady == false)
+            {
+                return;
+            }
+
+            // Loop through the linked entities and only send down the ones that are in each players view.
+            idMsgWriter msg = new idMsgWriter(Globals.numLinkedEntities * entityState_t.NET_SIZE + idNetwork.netcmd_snapshot.Length + 4 + 4);
+            msg.WriteString(idNetwork.netcmd_snapshot);
+            msg.WriteInt(Globals.numLinkedEntities);
+            for (int i = 0; i < Globals.numLinkedEntities; i++)
+            {
+                entityState_t ent = Globals.gentities[Globals.linkedEntities[i]].state;
+
+                ent.WritePacket(ref msg);
+            }
+
+            Engine.net.SendReliablePacketToAddress(idNetSource.NS_CLIENT, Engine.net.GetLoopBackAddress(), ref msg);
+
+            msg.Dispose();
         }
     }
 }

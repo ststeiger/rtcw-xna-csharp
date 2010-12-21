@@ -33,6 +33,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 // trajectory.cs (c) 2010 JV Software 
 using idLib.Math;
+using idLib.Engine.Public.Net;
+
 namespace idLib.Game
 {
     //
@@ -54,14 +56,40 @@ namespace idLib.Game
 	    TR_DECCELERATE
     };
 
-    public struct trajectory_t
+    public class trajectory_t
     {
 	    public trType_t trType;
         public int trTime;
         public int trDuration;             // if non 0, trTime + trDuration = stop time
     //----(SA)	removed
-	    public idVector3 trBase;
-        public idVector3 trDelta;             // velocity, etc
+	    public idVector3 trBase = new idVector3();
+        public idVector3 trDelta = new idVector3();             // velocity, etc
     //----(SA)	removed
+
+        public const int NET_SIZE = (idVector3.Size * 2) + (sizeof(int) * 2) + 1;
+
+        //
+        // WritePacket
+        //
+        public void WritePacket(ref idMsgWriter msg)
+        {
+            msg.WriteByte((byte)trType);
+            msg.WriteInt(trTime);
+            msg.WriteInt(trDuration);
+            msg.WriteVector3(ref trBase);
+            msg.WriteVector3(ref trDelta);
+        }
+
+        //
+        // ReadPacket
+        //
+        public void ReadPacket(ref idMsgReader msg)
+        {
+            trType = (trType_t)msg.ReadByte();
+            trTime = msg.ReadInt();
+            trDuration = msg.ReadInt();
+            msg.ReadVector3(ref trBase);
+            msg.ReadVector3(ref trDelta);
+        }
     };
 }

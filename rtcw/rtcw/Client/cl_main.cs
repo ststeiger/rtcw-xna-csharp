@@ -38,6 +38,7 @@ using System;
 using idLib.Engine.Public.Net;
 using idLib.Engine.Public;
 using idLib.Game.Client;
+using idLib.Game;
 
 namespace rtcw.Client
 {
@@ -140,6 +141,8 @@ namespace rtcw.Client
 
         public idMaterial brightnessMtr;
         public idMaterial contrastMtr;
+
+        public entityState_t netEntity = new entityState_t();
     };
 
     //
@@ -607,6 +610,20 @@ namespace rtcw.Client
         }
 
         //
+        // ProcessSnapshot
+        //
+        private void ProcessSnapshot(ref idMsgReader buf)
+        {
+            int numEntities = buf.ReadInt();
+
+            for (int i = 0; i < numEntities; i++)
+            {
+                cls.netEntity.ReadPacket(ref buf);
+                cls.cgame.NetworkRecieveSnapshot(ref cls.netEntity);
+            }
+        }
+
+        //
         // PacketEvent
         //
         public void PacketEvent(idNetAdress from, ref idMsgReader buf)
@@ -623,6 +640,10 @@ namespace rtcw.Client
             {
                 cls.cgame.ParseConfigString(buf.ReadString());
                 cls.state = connstate_t.CA_ACTIVE;
+            }
+            else if (cmd == idNetwork.netcmd_snapshot)
+            {
+                ProcessSnapshot(ref buf);
             }
             else
             {

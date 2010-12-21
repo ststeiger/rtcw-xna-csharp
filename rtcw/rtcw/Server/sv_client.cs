@@ -41,5 +41,6 @@ namespace rtcw.Server
     //
     class idServerClient
     {
+        public bool clientIsReady = false;
     }
 }
