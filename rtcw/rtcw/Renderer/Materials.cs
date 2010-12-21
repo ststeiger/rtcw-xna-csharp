@@ -284,6 +284,9 @@ namespace rtcw.Renderer
 	    public int index;                          // this shader == tr.shaders[index]
 	    public int sortedIndex;                    // this shader == tr.sortedShaders[sortedIndex]
 
+        public int lightmapStage = -1;
+        public int diffuseStage = -1;
+
 	    public float sort;                         // lower numbered shaders draw before higher numbered
 
 	    public bool defaultShader;             // we want to return index 0 if the shader failed to

@@ -1241,15 +1241,23 @@ namespace rtcw.Renderer
                     // If the first stage is a lightmap, move stage 1 bundle 1 to bundle 0.
                     if (lastNonLightmappedStage == 0)
                     {
+#if false
                         shader.stages[i].bundle[1] = shader.stages[i + 1].bundle[0];
+#endif
+                        tmpBundle = shader.stages[i].bundle[0]; // Set tmpBundle as the current image stage(the lightmap).
+                        shader.stages[i].bundle[0] = shader.stages[i + 1].bundle[0]; // Diffuse map taken from the next stage.
+                        shader.stages[i].bundle[1] = tmpBundle; // Bundle 1 is the lightmap.
+
                         ShiftStagesDown(i + 1);
                     }
                     else
                     {
+#if false
                         tmpBundle = shader.stages[i - 1].bundle[0];
-
                         shader.stages[i - 1].bundle[0] = shader.stages[i].bundle[0];
                         shader.stages[i - 1].bundle[1] = tmpBundle;
+#endif
+                        shader.stages[i - 1].bundle[1] = shader.stages[i].bundle[0]; 
                         ShiftStagesDown(i);
                     }
 

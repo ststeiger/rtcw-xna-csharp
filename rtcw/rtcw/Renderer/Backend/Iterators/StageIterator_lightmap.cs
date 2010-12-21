@@ -48,7 +48,10 @@ namespace rtcw.Renderer.Backend.Iterators
         //
         public static void Iterator()
         {
+            shaderStage_t stage = Globals.tess.shader.stages[0];
 
+            Shade.SetMaterialStageState(stage);
+            StageIteratorGeneric.DrawMultitextured(stage);
         }
     }
 }
