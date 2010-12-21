@@ -201,5 +201,15 @@ namespace rtcw.Renderer.Backend
             effect.Projection = projection;
             effect.View = view;
         }
+
+        //
+        // SetAsActiveMatrix
+        //
+        public void SetAsActiveMatrix(ref DualTextureEffect effect)
+        {
+            effect.World = world;
+            effect.Projection = projection;
+            effect.View = view;
+        }
     };
 }

@@ -37,12 +37,21 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 using System;
 
 namespace rtcw.Renderer.Backend.Iterators
-{
+{    
     //
     // StageIteratorGeneric
     //
     public static class StageIteratorGeneric
     {
+        //
+        // DrawMultitextured
+        //
+        public static void DrawMultitextured(shaderStage_t stage)
+        {
+            Shade.BindMultiImage(stage.bundle[0].image[0], stage.bundle[1].image[0]);
+            Shade.DrawElements(Globals.tess.vertexBufferStart, Globals.tess.vertexBufferSize, Globals.tess.indexBufferStart, Globals.tess.indexBufferSize, Globals.tess.frame);
+        }
+
         //
         // Iterator
         //
@@ -58,6 +67,12 @@ namespace rtcw.Renderer.Backend.Iterators
                 }
 
                 stage = Globals.tess.shader.stages[i];
+
+                if (stage.bundle[0].isLightmap)
+                {
+                    DrawMultitextured(stage);
+                    continue;
+                }
 
                 Shade.SetMaterialStageState(stage);
 

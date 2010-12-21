@@ -224,7 +224,7 @@ namespace rtcw.Renderer
 	        tmi = stage.bundle[0].texMods[stage.bundle[0].numTexMods];
 	        stage.bundle[0].numTexMods++;
 
-	        token = parser.NextToken;
+	        token = parser.NextToken.ToLower();
 
 	        //
 	        // swap
@@ -1178,6 +1178,17 @@ namespace rtcw.Renderer
         #endif
         };
 
+        //
+        // ShiftStagesDown
+        //
+        private void ShiftStagesDown(int basestage)
+        {
+            for (int i = basestage+1; i < shader.stages.Length; i++)
+            {
+                shader.stages[i - 1] = shader.stages[i];
+            }
+        }
+
         /*
         ================
         CollapseMultitexture
@@ -1186,7 +1197,8 @@ namespace rtcw.Renderer
         FIXME: I think modulated add + modulated add collapses incorrectly
         =================
         */
-        public bool CollapseMultitexture() {
+        public bool CollapseMultitexture()
+        {
 	        int abits, bbits;
 	        int i;
 	        textureBundle_t tmpBundle;
@@ -1215,6 +1227,31 @@ namespace rtcw.Renderer
 			        break;
 		        }
 	        }
+
+            for (i = 0; i < shader.stages.Length; i++)
+            {
+                if (shader.stages[i] == null)
+                {
+                    break;
+                }
+
+                if (shader.stages[i].bundle[0].isLightmap)
+                {
+                    if (i == 0)
+                    {
+                        tmpBundle = shader.stages[0].bundle[0];
+                        shader.stages[0].bundle[0] = shader.stages[1].bundle[0];
+                        shader.stages[0].bundle[1] = tmpBundle;
+                    }
+                    else
+                    {
+                        shader.stages[i-1].bundle[1] = shader.stages[i].bundle[0];
+                    }
+
+                    ShiftStagesDown(i);
+                    return true;
+                }
+            }
 
 	        // nothing found
 	        if ( /*collapse[i].blendA == -1*/ i >= collapse.Length ) {
@@ -1251,29 +1288,12 @@ namespace rtcw.Renderer
 		        }
 	        }
 
-
-	        // make sure that lightmaps are in bundle 1 for 3dfx
-	        if ( shader.stages[0].bundle[0].isLightmap ) {
-		        tmpBundle = shader.stages[0].bundle[0];
-		        shader.stages[0].bundle[0] = shader.stages[1].bundle[0];
-		        shader.stages[0].bundle[1] = tmpBundle;
-	        } else
-	        {
-		       shader. stages[0].bundle[1] = shader.stages[1].bundle[0];
-	        }
-
 	        // set the new blend state bits
 	        shader.multitextureEnv = collapse[i].multitextureEnv;
 	        shader.stages[0].stateBits &= ~( Globals.GLS_DSTBLEND_BITS | Globals.GLS_SRCBLEND_BITS );
 	        shader.stages[0].stateBits |= collapse[i].multitextureBlend;
 
-	        //
-	        // move down subsequent shaders
-	        //
-            for (i = 2; i < idMaterialBase.MAX_SHADER_STAGES; i++)
-            {
-                shader.stages[i - 1] = shader.stages[i];
-            }
+
 	      //  memmove( &stages[1], &stages[2], sizeof( stages[0] ) * ( MAX_SHADER_STAGES - 2 ) );
 	      //  memset( &stages[MAX_SHADER_STAGES - 1], 0, sizeof( stages[0] ) );
 
@@ -1633,6 +1653,7 @@ namespace rtcw.Renderer
             idParser parser = new idParser(buffer);
             int s = 0;
             this.name = name;
+            shader.name = name;
 
            // parser.ExpectNextToken("{");
 

@@ -14,7 +14,7 @@ namespace rtcw.Renderer.Backend
     //
     static class Shade
     {
-        private static BasicEffect defaultEffect;
+        private static DualTextureEffect defaultEffect;
         private static idRenderMatrix orthoMatrix;
         private static Vector3 pushedColor;
         private static idRenderMatrix drawMatrix;
@@ -31,8 +31,10 @@ namespace rtcw.Renderer.Backend
         //
         public static void Init()
         {
-            defaultEffect = new BasicEffect(Globals.graphics3DDevice);
-            defaultEffect.TextureEnabled = true;
+            defaultEffect = new DualTextureEffect(Globals.graphics3DDevice);
+            //defaultEffect.TextureEnabled = true;
+
+            //multiTextureEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
 
             orthoMatrix = new idRenderMatrix();
             orthoMatrix.Create2DOrthoMatrix(Engine.RenderSystem.GetViewportWidth(), Engine.RenderSystem.GetViewportHeight());
@@ -154,7 +156,18 @@ namespace rtcw.Renderer.Backend
         public static void BindImage(idImage image)
         {
             defaultEffect.Texture = (Texture2D)image.GetDeviceHandle();
+            defaultEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
         }
+
+        //
+        // BindMultiImage
+        //
+        public static void BindMultiImage(idImage image, idImage image2)
+        {
+            defaultEffect.Texture = (Texture2D)image.GetDeviceHandle();
+            defaultEffect.Texture2 = (Texture2D)image2.GetDeviceHandle();
+        }
+
 
         //
         // SetColor

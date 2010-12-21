@@ -72,6 +72,9 @@ namespace rtcw.Net
                 return;
             }
 
+            // Wait for any of the live stuff to clear so it won't currupt our vertex/index buffers.
+            // This is a ugly hack...
+            System.Threading.Thread.Sleep(10); 
 
             // Setup the various network cvars.
             showpackets = Engine.cvarManager.Cvar_Get("showpackets", "0", idCVar.CVAR_TEMP);
