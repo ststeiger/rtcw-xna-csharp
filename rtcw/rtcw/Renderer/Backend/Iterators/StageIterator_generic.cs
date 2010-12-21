@@ -63,12 +63,12 @@ namespace rtcw.Renderer.Backend.Iterators
 
                 for (int c = 0; c < idMaterialBase.NUM_TEXTURE_BUNDLES; c++)
                 {
-                    if (stage.bundle[i] == null)
+                    if (stage.bundle[c] == null)
                     {
                         break;
                     }
 
-                    Shade.BindImage(stage.bundle[i].image[0]);
+                    Shade.BindImage(stage.bundle[c].image[0]);
 
                     if (Globals.tess.indexBufferSize > 0)
                     {

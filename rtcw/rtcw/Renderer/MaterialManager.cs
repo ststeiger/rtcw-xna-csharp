@@ -2003,14 +2003,8 @@ namespace rtcw.Renderer
                                 "}\n";
             string defaultMtr =  "{" + "\n" +
                             "map " + defaultImage + "\n" +
-                            "blendFunc GL_DST_COLOR GL_ZERO" + "\n" +
+               //             "blendFunc GL_DST_COLOR GL_ZERO" + "\n" +
                             "rgbGen identity" + "\n" +
-                        "}" + "\n" +
-                        "{" + "\n" +
-                         "  map $lightmap" + "\n" +
-                         "  rgbGen identity" + "\n" +
-                         "  tcMod scale 1 1" + "\n" +
-                         "   tcMod turb 0 .1 0 .1" + "\n" +
                         "}" + "\n" +
                     "}\n";
             Engine.common.Warning("Creating implicit material for " + name + "\n");
@@ -2062,6 +2056,7 @@ namespace rtcw.Renderer
             string filepath = Engine.fileSystem.RemoveExtensionFromPath(name);
             if (Engine.fileSystem.FileExists(filepath + ".xnb") == false)
             {
+                Engine.common.Warning("Failed to find texture " + filepath + "\n");
                 return CreateImplicitMaterial(name, "*white", lightmapIndex);
             }
 

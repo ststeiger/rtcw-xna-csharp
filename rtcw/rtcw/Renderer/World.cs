@@ -48,7 +48,7 @@ namespace rtcw.Renderer
     //
     class idWorldLocal : idWorld
     {
-        idMap map;
+        idMap map = null;
 
         //
         // idWorldLocal
@@ -95,6 +95,16 @@ namespace rtcw.Renderer
         }
 
         //
+        // RenderWorld
+        //
+        private void RenderWorld()
+        {
+            Globals.SetVertexIndexBuffers(map.vertexBuffer, map.indexBuffer);
+
+            Globals.SortSurfaces(0, ref map.drawSurfs);
+        }
+
+        //
         // RenderScene
         //
         public override void RenderScene(idRefdef refdef)
@@ -104,6 +114,13 @@ namespace rtcw.Renderer
             cmd.type = renderCommandType.RC_SET_REFDEF;
             cmd.refdef = (idRefdefLocal)refdef;
 
+            // Render the bsp if its present.
+            if (map != null)
+            {
+                RenderWorld();
+            }
+
+            // Render the entities.
             for (int i = 0; i < cmd.refdef.num_entities; i++)
             {
                 idRenderEntityLocal entity = cmd.refdef.entities[i];

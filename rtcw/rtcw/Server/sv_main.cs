@@ -486,6 +486,10 @@ namespace rtcw.Server
         //
         public void Frame()
         {
+            if (Globals.game == null)
+            {
+                return;
+            }
             // Reset the linked entities.
             Globals.numLinkedEntities = 0;
 
