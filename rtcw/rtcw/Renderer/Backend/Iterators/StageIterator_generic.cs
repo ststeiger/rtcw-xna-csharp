@@ -63,18 +63,18 @@ namespace rtcw.Renderer.Backend.Iterators
 
                 if (Globals.tess.shader.stages[i] == null)
                 {
-                    break;
+                    continue;
                 }
 
                 stage = Globals.tess.shader.stages[i];
 
-                if (stage.bundle[0].isLightmap)
+                Shade.SetMaterialStageState(stage);
+
+                if (stage.bundle[1] != null && stage.bundle[1].isLightmap)
                 {
                     DrawMultitextured(stage);
                     continue;
                 }
-
-                Shade.SetMaterialStageState(stage);
 
                 for (int c = 0; c < idMaterialBase.NUM_TEXTURE_BUNDLES; c++)
                 {

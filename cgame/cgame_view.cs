@@ -32,6 +32,25 @@ namespace cgame
             viewangle = angle.ToAxis();
         }
 
+        /*
+        ====================
+        CalcFov
+
+        Fixed fov at intermissions, otherwise account for fov variable and zooms.
+        ====================
+        */
+
+        private void CalcFov( ref float fov_x, ref float fov_y ) {
+            float x = 0;
+
+            fov_x = 90.0f;
+
+            x = Engine.RenderSystem.GetViewportWidth() / (float)System.Math.Tan(fov_x / 360 * System.Math.PI);
+            fov_y = (float)System.Math.Atan2(Engine.RenderSystem.GetViewportHeight(), x);
+            fov_y = fov_y * 360.0f / (float)System.Math.PI;
+        }
+
+
         //
         // DrawView
         //
@@ -39,8 +58,8 @@ namespace cgame
         {
             idRefdef refdef = Globals.world.AllocRefdef();
 
-            refdef.fov_x = 90.0f;
-            refdef.fov_y = 90.0f;
+            CalcFov(ref refdef.fov_x, ref refdef.fov_y);
+
 
             refdef.viewaxis = viewangle;
             refdef.vieworg = viewxyz;

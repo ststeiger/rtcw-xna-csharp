@@ -39,8 +39,8 @@ namespace rtcw.Renderer.Backend
             orthoMatrix = new idRenderMatrix();
             orthoMatrix.Create2DOrthoMatrix(Engine.RenderSystem.GetViewportWidth(), Engine.RenderSystem.GetViewportHeight());
 
-            dynVertexBuffer = new DynamicVertexBuffer(Globals.graphics3DDevice, idRenderGlobals.idDrawVertexDeclaration, 4, BufferUsage.WriteOnly);
-            dynIndexBuffer = new DynamicIndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, 6, BufferUsage.WriteOnly);
+            dynVertexBuffer = new DynamicVertexBuffer(Globals.graphics3DDevice, idRenderGlobals.idDrawVertexDeclaration, 4, BufferUsage.None);
+            dynIndexBuffer = new DynamicIndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, 6, BufferUsage.None);
 
             pushedColor = new Vector3(1, 1, 1);
             drawMatrix = new idRenderMatrix();
@@ -155,8 +155,7 @@ namespace rtcw.Renderer.Backend
         //
         public static void BindImage(idImage image)
         {
-            defaultEffect.Texture = (Texture2D)image.GetDeviceHandle();
-            defaultEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
+            BindMultiImage(image, null);
         }
 
         //
@@ -165,7 +164,14 @@ namespace rtcw.Renderer.Backend
         public static void BindMultiImage(idImage image, idImage image2)
         {
             defaultEffect.Texture = (Texture2D)image.GetDeviceHandle();
-            defaultEffect.Texture2 = (Texture2D)image2.GetDeviceHandle();
+            if (image2 == null)
+            {
+                defaultEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
+            }
+            else
+            {
+                defaultEffect.Texture2 = (Texture2D)image2.GetDeviceHandle();
+            }
         }
 
 

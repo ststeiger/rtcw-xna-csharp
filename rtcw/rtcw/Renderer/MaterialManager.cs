@@ -1242,15 +1242,18 @@ namespace rtcw.Renderer
                         tmpBundle = shader.stages[0].bundle[0];
                         shader.stages[0].bundle[0] = shader.stages[1].bundle[0];
                         shader.stages[0].bundle[1] = tmpBundle;
+                        ShiftStagesDown(i);
                     }
                     else
                     {
                         shader.stages[i-1].bundle[1] = shader.stages[i].bundle[0];
+                        ShiftStagesDown(i-1);
                     }
 
-                    ShiftStagesDown(i);
+                    
                     return true;
                 }
+                
             }
 
 	        // nothing found
