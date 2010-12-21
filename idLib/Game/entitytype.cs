@@ -10,7 +10,7 @@ namespace idLib.Game
     //
     public enum entityType_t
     {
-	    ET_GENERAL = 0,
+	    ET_GENERAL = 1,
 	    ET_PLAYER,
 	    ET_ITEM,
 	    ET_MISSILE,

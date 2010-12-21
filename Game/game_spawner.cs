@@ -42,6 +42,9 @@ using idLib.Game.Server;
 
 using Game.Entities.Info;
 using Game.Entities.Player;
+using Game.Entities.Func;
+using Game.Entities.Misc;
+using Game.Entities.Props;
 
 namespace Game
 {
@@ -69,7 +72,13 @@ namespace Game
     {
         private idGameSpawnDefs[] spawnDefs = new idGameSpawnDefs[] {
             new idGameSpawnDefs( "info_player_start", () => new idEntityPlayerStart() ),
-            new idGameSpawnDefs( "player", () => new idPlayer() )
+            new idGameSpawnDefs( "player", () => new idPlayer() ),
+
+            new idGameSpawnDefs( "func_door_rotating", () => new idEntityFuncDoor() ),
+
+            new idGameSpawnDefs( "misc_gamemodel", () => new idEntityGameModel() ),
+            new idGameSpawnDefs( "props_decoration", () => new idEntityPropDecoration() ),
+
         };
         //
         // RegisterEntity

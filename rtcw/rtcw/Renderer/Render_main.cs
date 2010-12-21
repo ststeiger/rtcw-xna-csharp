@@ -282,9 +282,9 @@ namespace rtcw.Renderer
         //
         // AllocModelBrush
         //
-        public static idModelBrush AllocModelBrush(string name)
+        public static idModelBrush AllocModelBrush(string name, idMap map)
         {
-            return ((idModelManagerLocal)Engine.modelManager).AllocBrushModel(name);
+            return ((idModelManagerLocal)Engine.modelManager).AllocBrushModel(name, map);
         }
 
         //
@@ -831,6 +831,8 @@ namespace rtcw.Renderer
 		    }
 		    font.glyphScale = _file.ReadFloat();
             font.name = name;
+
+            Engine.fileSystem.CloseFile(ref _file);
 
             Globals.tr.registeredFont[Globals.tr.registeredFontCount] = font;
             return Globals.tr.registeredFont[Globals.tr.registeredFontCount++];

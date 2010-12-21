@@ -64,7 +64,7 @@ namespace rtcw.Net
         //
         // GetNextIncommingPacket
         //
-        public int GetNextIncommingPacket(ref byte[] buffer, out NetworkGamer sender)
+        public int GetNextIncommingPacket(ref PacketReader buffer, out NetworkGamer sender)
         {
             return livegamer.ReceiveData(buffer, out sender);
         }
@@ -110,7 +110,8 @@ namespace rtcw.Net
     {
         idNetLiveAddress loopBackAddress;
         NetworkSession liveNetworkSession;
-        byte[] packet_buffer = new byte[4996];
+        //byte[] packet_buffer = new byte[4996];
+        PacketReader packet_buffer = new PacketReader();
         string localProfileName;
 
         //
@@ -219,7 +220,7 @@ namespace rtcw.Net
 
             if (lastPacket == null)
             {
-                lastPacket = new idMsgReader(packet_buffer);
+                lastPacket = new idMsgReader(packet_buffer.ReadBytes(packet_buffer.Length));
 
                 idNetSource packetSrc = (idNetSource)lastPacket.ReadByte();
 

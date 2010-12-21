@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using Microsoft.Xna.Framework.Graphics;
 using idLib.Math;
+using rtcw.Renderer.Map;
 using idLib.Engine.Public;
 
 namespace rtcw.Renderer.Models
@@ -50,13 +51,15 @@ namespace rtcw.Renderer.Models
         int firstSurface;
         int numSurfaces;
         string modelname;
+        idMap parent;
 
         //
         // idModelBrush
         //
-        public idModelBrush(string name)
+        public idModelBrush(string name, idMap parent)
         {
             modelname = name;
+            this.parent = parent;
         }
 
         //
@@ -96,7 +99,7 @@ namespace rtcw.Renderer.Models
         //
         public override string GetName()
         {
-            return base.GetName();
+            return modelname;
         }
 
         //
@@ -112,7 +115,10 @@ namespace rtcw.Renderer.Models
         //
         public override void TessModel(ref idRenderEntityLocal entity)
         {
-            
+            for (int i = firstSurface; i < firstSurface + numSurfaces; i++)
+            {
+                Globals.backEnd.AddDrawSurface(parent.drawSurfs[i]);
+            }
         }
 
         //

@@ -92,7 +92,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Func\Door.cs" />
+    <Compile Include="Entities\Misc\gamemodel.cs" />
     <Compile Include="Entities\Player\Player.cs" />
+    <Compile Include="Entities\Props\decoration.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="game_globals.cs" />
     <Compile Include="game_main.cs" />
@@ -107,6 +110,7 @@
       <Name>idLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

@@ -560,7 +560,7 @@ namespace rtcw.Renderer.Map
             {
                 idModelBrush model;
 
-		        model = Globals.AllocModelBrush("*" + i);
+		        model = Globals.AllocModelBrush("*" + i, this);
                 mapmodel.InitFromFile( ref bspFile );
 
                 model.SetModelBounds( mapmodel.mins, mapmodel.maxs );

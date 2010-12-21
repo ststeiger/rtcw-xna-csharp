@@ -70,6 +70,10 @@ namespace Game
         //
         public int ModelIndex(string modelpath)
         {
+            if (modelpath == null || modelpath.Length <= 0)
+            {
+                return -1;
+            }
             configstr += "model ";
             configstr += modelpath;
             configstr += " ";
@@ -82,6 +86,11 @@ namespace Game
         //
         public int SoundIndex(string soundpath)
         {
+            if (soundpath == null || soundpath.Length <= 0)
+            {
+                return -1;
+            }
+
             configstr += "sound ";
             configstr += soundpath;
             configstr += " ";
@@ -94,6 +103,10 @@ namespace Game
         //
         public int SkinIndex(string skinpath)
         {
+            if (skinpath == null || skinpath.Length <= 0)
+            {
+                return -1;
+            }
             configstr += "skin ";
             configstr += skinpath;
             configstr += " ";

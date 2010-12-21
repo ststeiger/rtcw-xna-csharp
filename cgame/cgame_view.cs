@@ -13,6 +13,7 @@ namespace cgame
     {
         idVector3 viewxyz;
         idMatrix viewangle;
+        public idRefdef refdef;
 
         //
         // SetViewOrigin
@@ -50,14 +51,30 @@ namespace cgame
             fov_y = fov_y * 360.0f / (float)System.Math.PI;
         }
 
+        //
+        // GenerateRefdef
+        //
+        public void GenerateRefdef()
+        {
+            if (refdef == null && Globals.world != null)
+            {
+                refdef = Globals.world.AllocRefdef();
+            }
+        }
+
+        //
+        // ClearRefdef
+        //
+        private void ClearRefdef()
+        {
+            refdef = null;
+        }
 
         //
         // DrawView
         //
         public void DrawView()
         {
-            idRefdef refdef = Globals.world.AllocRefdef();
-
             CalcFov(ref refdef.fov_x, ref refdef.fov_y);
 
 
@@ -71,6 +88,8 @@ namespace cgame
             refdef.rdflags = 0;
 
             Globals.world.RenderScene(refdef);
+
+            ClearRefdef();
         }
     }
 }

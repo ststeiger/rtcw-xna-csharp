@@ -378,6 +378,9 @@ namespace idLib.Engine.Public
 
         // Renders the world.
         public abstract void RenderScene(idRefdef refdef);
+
+        // LoadBrushModel
+        public abstract idModel LoadBrushModel(string name);
     }
 
     //

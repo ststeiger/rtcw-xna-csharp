@@ -38,6 +38,8 @@ using System;
 using System.Collections.Generic;
 
 using idLib.Engine.Public;
+
+using rtcw.Renderer.Map;
 using rtcw.Renderer.Models;
 
 namespace rtcw.Renderer
@@ -68,7 +70,7 @@ namespace rtcw.Renderer
         //
         // AllocBrushModel
         //
-        public idModelBrush AllocBrushModel(string name)
+        public idModelBrush AllocBrushModel(string name, idMap map)
         {
             // Check to see if the model has already been loaded.
             for (int i = 0; i < modelpool.Count; i++)
@@ -79,7 +81,7 @@ namespace rtcw.Renderer
                 }
             }
 
-            return new idModelBrush(name);
+            return new idModelBrush(name, map);
         }
 
         //
@@ -106,7 +108,14 @@ namespace rtcw.Renderer
             // Fixme this should return the DEFAULT model!.
             if (_file == null)
             {
-                Engine.common.Warning("R_LoadModel: Failed to open model " + qpath + " defaulting...\n");
+                // Strip the extension and try to load it as a MDC.
+                qpath = Engine.fileSystem.RemoveExtensionFromPath(qpath) + ".mdc";
+                _file = Engine.fileSystem.OpenFileRead(qpath, true);
+
+                if (_file == null)
+                {
+                    Engine.common.Warning("R_LoadModel: Failed to open model " + qpath + " defaulting...\n");
+                }
                 return null;
             }
 
@@ -131,6 +140,8 @@ namespace rtcw.Renderer
                     return null;
 
             }
+
+            Engine.fileSystem.CloseFile(ref _file);
 
             // Add the model and return it to the caller.
             modelpool.Add(model);

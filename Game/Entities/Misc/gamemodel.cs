@@ -31,38 +31,33 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// cgame_globals.cs (c) 2010 JV Software
+// gamemodel.cs (c) 2010 JV Software
 //
 
-using idLib;
-using idLib.Engine.Public;
-using idLib.Game.Client;
-using idLib.Game.Server;
-
-namespace cgame
+namespace Game.Entities.Misc
 {
     //
-    // Globals
+    // idEntityGameModel
     //
-    public static class Globals
+    public class idEntityGameModel : idEntity
     {
-        public static idWorld       world;
+        //
+        // Spawn
+        //
+        public override void Spawn()
+        {
+            state.modelindex = Level.net.ModelIndex(model);
+        }
 
-        public static idModel[]     models = new idModel[idGamePublic.MAX_MODELS];
-        public static int numModels = 0;
+        //
+        // Frame
+        //
+        public override void Frame()
+        {
+            if (state.modelindex < 0)
+                return;
 
-        public static idSound[]     sounds = new idSound[idGamePublic.MAX_SOUNDS];
-        public static int numSounds = 0;
-
-        public static idSkin[]      skins = new idSkin[idGamePublic.MAX_SKINS];
-        public static int numSkins = 0;
-
-        public static bool waitingToEnterWorld = false;
-        public static bool viewPacketRecv = false; // set to true the first time the viewposition is set for the localview.
-        public static float waitArrowFrame = 0;
-
-        public static int localViewEntity = -1;
-
-        public static idView localview = new idView();
+            LinkEntity();
+        }
     }
 }

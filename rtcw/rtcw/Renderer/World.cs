@@ -68,6 +68,24 @@ namespace rtcw.Renderer
         }
 
         //
+        // LoadBrushModel
+        //
+        public override idModel LoadBrushModel(string name)
+        {
+            for (int i = 0; i < map.bmodels.Length; i++)
+            {
+                if (map.bmodels[i].GetName() == name)
+                {
+                    return map.bmodels[i];
+                }
+            }
+
+            Engine.common.ErrorFatal("R_LoadBrushModel: Failed to find brush model " + name + "\n");
+
+            return null;
+        }
+
+        //
         // AllocRefdef
         //
         public override idRefdef AllocRefdef()

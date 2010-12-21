@@ -31,38 +31,50 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// cgame_globals.cs (c) 2010 JV Software
+// cgame_ent.cs (c) 2010 JV Software
 //
 
 using idLib;
 using idLib.Engine.Public;
 using idLib.Game.Client;
-using idLib.Game.Server;
+using idLib.Game;
+using idLib.Engine.Public.Net;
 
 namespace cgame
 {
     //
-    // Globals
+    // idClientEntity
     //
-    public static class Globals
+    static class EntitySnapshot
     {
-        public static idWorld       world;
+        //
+        // GeneralEntity
+        //
+        public static void GeneralEntity(ref entityState_t entity)
+        {
+            idRenderEntity ent = Globals.world.AllocRenderEntity(ref Globals.localview.refdef);
 
-        public static idModel[]     models = new idModel[idGamePublic.MAX_MODELS];
-        public static int numModels = 0;
+            ent.frame = 0;
+            ent.oldframe = 0;
+            ent.origin = entity.origin;
+            ent.axis = entity.angles.ToAxis();
+            ent.hModel = Globals.models[entity.modelindex];
+        }
 
-        public static idSound[]     sounds = new idSound[idGamePublic.MAX_SOUNDS];
-        public static int numSounds = 0;
-
-        public static idSkin[]      skins = new idSkin[idGamePublic.MAX_SKINS];
-        public static int numSkins = 0;
-
-        public static bool waitingToEnterWorld = false;
-        public static bool viewPacketRecv = false; // set to true the first time the viewposition is set for the localview.
-        public static float waitArrowFrame = 0;
-
-        public static int localViewEntity = -1;
-
-        public static idView localview = new idView();
+        //
+        // PlayerEntiy
+        //
+        public static void PlayerEntiy(ref entityState_t entity)
+        {
+            if (entity.eType == entityType_t.ET_PLAYER)
+            {
+                if (entity.number == Globals.localViewEntity)
+                {
+                    Globals.localview.SetViewOrigin(entity.origin);
+                    Globals.localview.SetViewAngle(entity.angles2);
+                    Globals.viewPacketRecv = true;
+                }
+            }
+        }
     }
 }

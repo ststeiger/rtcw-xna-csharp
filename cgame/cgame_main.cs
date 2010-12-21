@@ -165,6 +165,7 @@ namespace cgame
         public override void ParseConfigString(string cfgstr)
         {
             idParser parser = new idParser(cfgstr);
+            string prevToken = "";
 
             while (parser.ReachedEndOfBuffer == false)
             {
@@ -175,7 +176,17 @@ namespace cgame
 
                 if (token == "model")
                 {
-                    Globals.models[Globals.numModels++] = Engine.modelManager.LoadModel(parser.NextToken);
+                    string modelName = parser.NextToken;
+
+                    // Check to see if this model is a brush model.
+                    if (modelName[0] == '*')
+                    {
+                        Globals.models[Globals.numModels++] = Globals.world.LoadBrushModel(modelName);
+                    }
+                    else
+                    {
+                        Globals.models[Globals.numModels++] = Engine.modelManager.LoadModel(modelName);
+                    }
                 }
                 else if (token == "skin")
                 {
@@ -191,8 +202,10 @@ namespace cgame
                 }
                 else
                 {
-                    Engine.common.ErrorFatal("CG_ParseConfigString: Unknown or unexpected token in network packet %s \n", token);
+                    Engine.common.ErrorFatal("CG_ParseConfigString: Unknown or unexpected token in network packet %s-%s \n", token, prevToken);
                 }
+
+                prevToken = token;
             }
 
             // Set the keycatcher so the UI will pick up controller events.
@@ -298,15 +311,19 @@ namespace cgame
         //
         public override void NetworkRecieveSnapshot(ref entityState_t entity)
         {
-            if (entity.eType == entityType_t.ET_PLAYER)
+            // If we need too allocate a new refdef for the localview.
+            Globals.localview.GenerateRefdef();
+
+            switch (entity.eType)
             {
-                if (entity.number == Globals.localViewEntity)
-                {
-                    Globals.localview.SetViewOrigin(entity.origin);
-                    Globals.localview.SetViewAngle(entity.angles2);
-                    Globals.viewPacketRecv = true;
-                }
+                case entityType_t.ET_GENERAL:
+
+                    break;
+                case entityType_t.ET_PLAYER:
+                    EntitySnapshot.PlayerEntiy(ref entity);
+                    break;
             }
+            
         }
 
         //
