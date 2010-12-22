@@ -47,6 +47,7 @@ namespace Game.Entities.Props
         public override void Spawn()
         {
             state.modelindex = Level.net.ModelIndex(model);
+            state.eType = idLib.Game.entityType_t.ET_GENERAL;
         }
 
         //

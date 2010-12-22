@@ -115,8 +115,8 @@ namespace rtcw.Renderer
                 if (_file == null)
                 {
                     Engine.common.Warning("R_LoadModel: Failed to open model " + qpath + " defaulting...\n");
+                    return null;
                 }
-                return null;
             }
 
             // Load the first four bytes to determine what kind of model it is.

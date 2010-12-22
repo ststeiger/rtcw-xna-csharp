@@ -52,7 +52,13 @@ namespace cgame
         //
         public static void GeneralEntity(ref entityState_t entity)
         {
-            idRenderEntity ent = Globals.world.AllocRenderEntity(ref Globals.localview.refdef);
+            idRenderEntity ent;
+
+            // This can happen until the level is actually loaded.
+            if (Globals.world == null)
+                return;
+            
+            ent = Globals.world.AllocRenderEntity(ref Globals.localview.refdef);
 
             ent.frame = 0;
             ent.oldframe = 0;

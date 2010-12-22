@@ -79,6 +79,12 @@ namespace Game
             new idGameSpawnDefs( "misc_gamemodel", () => new idEntityGameModel() ),
             new idGameSpawnDefs( "props_decoration", () => new idEntityPropDecoration() ),
 
+            new idGameSpawnDefs( "ai_civilian", () => new idEntityGameModel() ), // This is just a hack so I can test MDS
+
+            // Ignored entities.
+            new idGameSpawnDefs( "misc_model", () => null ), // misc models are ignored in rtcw.
+            new idGameSpawnDefs( "light", () => null ), // lights are ignored in rtcw
+            new idGameSpawnDefs( "lightJunior", () => null ) // lights are ignored in rtcw
         };
         //
         // RegisterEntity

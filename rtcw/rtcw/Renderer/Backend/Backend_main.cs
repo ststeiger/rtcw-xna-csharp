@@ -319,6 +319,8 @@ namespace rtcw.Renderer.Backend
         //
         private void Cmd_SetRefDef(idRenderCommand cmd)
         {
+            RB_BeginDrawingView();
+
             Shade.PushDrawMatrix(cmd.refdef);
             state.refdef = cmd.refdef;
         }
@@ -350,8 +352,6 @@ namespace rtcw.Renderer.Backend
         //
         private void Cmd_DrawSurfs(int smpFrame, idRenderCommand cmd)
         {
-            RB_BeginDrawingView();
-
             // Draw all the surfaces.
             for (int i = cmd.firstDrawSurf; i < cmd.firstDrawSurf + cmd.numDrawSurfs; i++)
             {
