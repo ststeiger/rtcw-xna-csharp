@@ -82,6 +82,11 @@ namespace Game.Entities.Player
         //
         public override void Frame()
         {
+            idUsercmd cmd = Engine.common.GetUserCmdForClient(state.number);
+
+            state.origin[0] += cmd.ForwardMove;
+            state.origin[1] += cmd.RightMove;
+
             LinkEntity();
         }
     }

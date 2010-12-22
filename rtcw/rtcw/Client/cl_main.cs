@@ -120,9 +120,6 @@ namespace rtcw.Client
         public bool uiStarted = false;
         public bool cgameStarted = false;
 
-        public int mouseDx;
-        public int mouseDy;
-
         public idMaterial charSetShader;
         public idMaterial whiteShader;
         public idMaterial consoleShader;
@@ -287,8 +284,7 @@ namespace rtcw.Client
             }
             else
             {
-                cls.mouseDx += dx;
-                cls.mouseDy += dy;
+                Engine.usercmd.MouseEvent(dx, dy);
             }
         }
 
@@ -548,7 +544,11 @@ namespace rtcw.Client
             }
             else if ((cls.keyCatchers & keyCatch.CGAME) != 0)
             {
-                cls.cgame.HandleKeyEvent( key, down );
+                cls.cgame.HandleKeyEvent(key, down);
+            }
+            else
+            {
+                Engine.usercmd.KeyEvent((byte)key, down);
             }
         }
 

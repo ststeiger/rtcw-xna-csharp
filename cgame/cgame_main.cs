@@ -294,6 +294,10 @@ namespace cgame
             if (Globals.waitingToEnterWorld == true)
             {
                 ClientReady();
+                
+                // Reset the keycatcher so user cmds can get generated.
+                Engine.common.SetKeyCatcher(0);
+
                 Globals.waitingToEnterWorld = false;
             }
         }
@@ -317,13 +321,42 @@ namespace cgame
             switch (entity.eType)
             {
                 case entityType_t.ET_GENERAL:
-
+                    EntitySnapshot.GeneralEntity(ref entity);
                     break;
                 case entityType_t.ET_PLAYER:
                     EntitySnapshot.PlayerEntiy(ref entity);
                     break;
             }
             
+        }
+
+        //
+        // UpdateUsercmd
+        //
+        private void UpdateUsercmd()
+        {
+            idMsgWriter msg;
+            idUsercmd usercmd;
+            
+            // If we haven't got the localviewentity yet send anything to the server.
+            if(Globals.localViewEntity < 0)
+            {
+                return;
+            }
+
+            usercmd = Engine.usercmd.GetCurrentCommand();
+
+            msg = new idMsgWriter(idUsercmd.Size + idNetwork.netcmd_usercmd.Length + 4 + 4);
+            msg.WriteString(idNetwork.netcmd_usercmd);
+            msg.WriteInt(Globals.localViewEntity);
+
+            usercmd.WritePacket(ref msg);
+
+            // Send the command to the server
+            Engine.net.SendReliablePacketToAddress(idNetSource.NS_SERVER, Engine.net.GetLoopBackAddress(), ref msg);
+
+            // Dispose of the msg.
+            msg.Dispose();
         }
 
         //
@@ -338,6 +371,9 @@ namespace cgame
                 DrawLoadingScreen(false);
                 return;
             }
+
+            // Get the current user cmd and send it to the server.
+            UpdateUsercmd();
 
             // Draw the world through the current view.
             Globals.localview.DrawView();

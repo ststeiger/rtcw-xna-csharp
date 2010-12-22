@@ -536,6 +536,9 @@ namespace rtcw.Framework
 
             Engine.Sys.Init();
 
+            // Init the usercmdgen manager.
+            Engine.usercmd.Init();
+
             sv.Init();
 
             cl.Init();
@@ -617,6 +620,14 @@ namespace rtcw.Framework
         public override void ServerRegisterEntity(int entityNum, out idLib.Game.entityShared_t shared, out idLib.Game.entityState_t state)
         {
             sv.RegisterEntity(entityNum, out shared, out state);
+        }
+
+        //
+        // GetUserCmdForClient
+        //
+        public override idUsercmd GetUserCmdForClient(int clientNum)
+        {
+            return sv.GetUsercmdForClient(clientNum);
         }
 
         //

@@ -34,7 +34,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // Common_public.cs (c) 2010 JV Software
 //
 
-using  idLib.Game;
+using idLib.Game;
+using idLib.Engine.Public;
 
 namespace idLib.Engine.Public
 {
@@ -59,6 +60,9 @@ namespace idLib.Engine.Public
 
         // LinkEntity
         public abstract void LinkEntity(int entityNum);
+
+        // Called by the server only to get the user command that was sent by the client.
+        public abstract idUsercmd GetUserCmdForClient(int clientNum);
 
         // Closes the game.
         public abstract void Quit();

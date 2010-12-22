@@ -83,6 +83,7 @@ namespace rtcw.sys.app
             Engine.soundManager = new idSoundManagerLocal();
             Engine.modelManager = new idModelManagerLocal();
             Engine.collisionModelManager = new idCollisionModelManagerLocal();
+            Engine.usercmd = new idUsercmdManagerLocal();
         }
 
         //

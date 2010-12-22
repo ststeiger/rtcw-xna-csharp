@@ -34,6 +34,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // sv_client.cs (c) 2010 JV Software
 //
 
+using idLib.Engine.Public;
+
 namespace rtcw.Server
 {
     //
@@ -42,5 +44,6 @@ namespace rtcw.Server
     class idServerClient
     {
         public bool clientIsReady = false;
+        public idUsercmd cmd;
     }
 }

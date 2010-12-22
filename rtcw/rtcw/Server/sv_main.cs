@@ -441,6 +441,14 @@ namespace rtcw.Server
         }
 
         //
+        // GetUsercmdForClient
+        //
+        public idUsercmd GetUsercmdForClient(int clientNum)
+        {
+            return Globals.clients[clientNum].cmd;
+        }
+
+        //
         // PacketEvent
         //
         public void PacketEvent(idNetAdress from, ref idMsgReader buf)
@@ -474,6 +482,12 @@ namespace rtcw.Server
             {
                 Globals.clients[0].clientIsReady = true;
                 Globals.game.ClientBegin(0);
+            }
+            else if (cmd == idNetwork.netcmd_usercmd)
+            {
+                int clientNum = buf.ReadInt();
+
+                Globals.clients[clientNum].cmd.ReadPacket(ref buf);
             }
             else
             {

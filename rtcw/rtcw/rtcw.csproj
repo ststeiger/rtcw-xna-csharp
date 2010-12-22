@@ -116,6 +116,7 @@
     <Compile Include="Framework\CvarManager.cs" />
     <Compile Include="Framework\FileSystem.cs" />
     <Compile Include="Framework\Files\File_Memory.cs" />
+    <Compile Include="Framework\UsercmdManager.cs" />
     <Compile Include="Net\Net_Live.cs" />
     <Compile Include="Net\Net_Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

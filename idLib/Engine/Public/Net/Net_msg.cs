@@ -113,6 +113,11 @@ namespace idLib.Engine.Public.Net
             writer.Write(val);
         }
 
+        public void WriteSbyte(sbyte val)
+        {
+            writer.Write(val);
+        }
+
         public void WriteChars(char[] val)
         {
             writer.Write(val);
@@ -173,6 +178,11 @@ namespace idLib.Engine.Public.Net
             {
                 return msgLen;
             }
+        }
+
+        public sbyte ReadSByte()
+        {
+            return reader.ReadSByte();
         }
 
         public int ReadInt()

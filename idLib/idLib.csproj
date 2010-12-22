@@ -122,6 +122,7 @@
     <Compile Include="Engine\Public\Sound_Public.cs" />
     <Compile Include="Engine\Public\Sys_public.cs" />
     <Compile Include="Engine\Public\UI_public.cs" />
+    <Compile Include="Engine\Public\Usercmd_public.cs" />
     <Compile Include="Engine\Public\Video_public.cs" />
     <Compile Include="Game\AI\AI_state.cs" />
     <Compile Include="Game\Client\Interface.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Game\Server\GameSkill.cs" />
     <Compile Include="Game\Server\GameType.cs" />
     <Compile Include="Game\Server\Interface.cs" />
+    <Compile Include="Game\weapontypes.cs" />
     <Compile Include="Game\trajectory.cs" />
     <Compile Include="Math\Math.cs" />
     <Compile Include="Math\Matrix.cs" />
