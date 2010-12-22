@@ -86,8 +86,19 @@ namespace rtcw.Framework
         //
         public override void MouseEvent(int x, int y)
         {
-            mousedelta[0] += (short)x;
-            mousedelta[1] += (short)y;
+            float speed = Engine.common.Frametime();
+
+
+            if (x > 30 || y > 30 || x < -30 || y < -30)
+            {
+                return;
+            }
+
+
+            mousedelta[0] = (short)(x * speed);
+            mousedelta[1] = (short)(y * speed);
+
+            //Engine.common.DPrintf("" + mousedelta[0] + " " + mousedelta[1] + "\n");
         }
 
         //
@@ -167,7 +178,7 @@ namespace rtcw.Framework
             int curcmd = cmdnum;
 
             cmdpool[curcmd].SetMove(forwardmove, rightmove, upmove);
-            cmdpool[curcmd].SetViewAngles(ref mousedelta[0], ref mousedelta[1]);
+            cmdpool[curcmd].SetViewAngles(mousedelta[0], mousedelta[1]);
 
             // Init the next command.
             InitNewCommand();

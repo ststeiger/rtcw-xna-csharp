@@ -92,6 +92,7 @@ namespace rtcw.sys.app
         private void InitAppAttachedObjects()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferMultiSampling = true;
             Components.Add(new GamerServicesComponent(this));
 #if WINDOWS
             //graphics.PreferredBackBufferHeight = 600;

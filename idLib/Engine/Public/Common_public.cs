@@ -84,5 +84,8 @@ namespace idLib.Engine.Public
 
         // Called once per frame, this should ONLY be called from system.
         public abstract void Frame(int frameTime, int totalGameTime);
+
+        // Returns the time it took to render the last frame.
+        public abstract int Frametime();
     }
 }

@@ -698,10 +698,20 @@ namespace rtcw.Framework
         }
 
         //
+        // 
+        //
+        private int frameTime;
+        public override int Frametime()
+        {
+            return frameTime;
+        }
+
+        //
         // Frame
         //
         public override void Frame(int frameTime, int totalGameTime)
         {
+            this.frameTime = frameTime;
             HandlePendingEvents();
             sv.Frame();
 

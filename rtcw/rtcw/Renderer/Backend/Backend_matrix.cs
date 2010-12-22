@@ -184,7 +184,7 @@ namespace rtcw.Renderer.Backend
             float v1 = -view.vieworg[0] * this.view.M11 + -view.vieworg[1] * this.view.M21 + -view.vieworg[2] * this.view.M31;
             float v2 = -view.vieworg[0] * this.view.M12 + -view.vieworg[1] * this.view.M22 + -view.vieworg[2] * this.view.M32;
             float v3 = -view.vieworg[0] * this.view.M13 + -view.vieworg[1] * this.view.M23 + -view.vieworg[2] * this.view.M33;
-            this.view = Matrix.Transpose(this.view);
+           // this.view = Matrix.Transpose(this.view);
 
             this.view.M41 = v1; // v1;
             this.view.M42 = v2; // v2;

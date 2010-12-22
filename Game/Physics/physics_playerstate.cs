@@ -31,70 +31,43 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// Player.cs (c) 2010 JV Software
+// physics_playerstate.cs (c) 2010 JV Software
 //
 
+using idLib.Math;
 using idLib.Game;
 using idLib.Engine.Public;
-using idLib.Engine.Public.Net;
 
-using Game.Physics;
-
-namespace Game.Entities.Player
+namespace Game.Physics
 {
     //
-    // idPlayer
+    // idPhysicsPlayerState
     //
-    public class idPlayer : idEntity
-    {
-        int bodymodel = 0;
-        int headmodel = 0;
+    public struct idPhysicsPlayerState {
+	    // state (in / out)
+	    public entityState_t ps;
 
-        int bodyskin = 0;
-        int headskin = 0;
+	    // command (in)
+	    public idUsercmd cmd, oldcmd;
+	    public int tracemask;                  // collide against these types of surfaces
+	    public int debugLevel;                 // if set, diagnostic output will be printed
+	    public bool noFootsteps;           // if the game is setup for no footsteps by the server
+	    public bool noWeapClips;               // if the game is setup for no weapon clips by the server
+	    public bool gauntletHit;           // true if a gauntlet attack would actually hit something
 
-        idPlayerPhysics physics;
-        idPhysicsPlayerState physicsState = new idPhysicsPlayerState();
+	    // results (out)
+	    public int numtouch;
+	    public int[] touchents; //[MAXTOUCH];
 
-        string profilename;
+	    public idVector3 mins, maxs;              // bounding box size
 
-        //
-        // Spawn
-        //
-        public override void Spawn()
-        {
-            bodymodel = Level.net.ModelIndex(model);
-            headmodel = Level.net.ModelIndex(model2);
+	    public int watertype;
+        public int waterlevel;
 
-            bodyskin = Level.net.SkinIndex(aiSkin);
-            headskin = Level.net.SkinIndex(aihSkin);
+        public float xyspeed;
 
-            profilename = spawnArgs.FindKey("name");
-
-            state.eType = entityType_t.ET_PLAYER;
-
-            physics = new idPlayerPhysics();
-        }
-
-        //
-        // EnterWorld
-        //
-        public override void EnterWorld()
-        {
-            Engine.common.Printf(profilename + " has entered the world.\n");
-        }
-
-        //
-        // Frame
-        //
-        public override void Frame()
-        {
-            physicsState.cmd = Engine.common.GetUserCmdForClient(state.number);
-            physicsState.ps = state;
-
-            physics.Move(ref physicsState);
-
-            LinkEntity();
-        }
+	    // for fixed msec Pmove
+        public int pmove_fixed;
+        public int pmove_msec;
     }
 }

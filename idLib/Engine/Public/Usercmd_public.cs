@@ -123,12 +123,10 @@ namespace idLib.Engine.Public
         //
         // SetMouseDelta
         //
-        public void SetViewAngles(ref short dx, ref short dy)
+        public void SetViewAngles(short dx, short dy)
         {
-            mousedx = dx;
-            mousedy = dy;
-            dx = 0;
-            dy = 0;
+            mousedx += dx;
+            mousedy += dy;
         }
 
         //
@@ -208,7 +206,7 @@ namespace idLib.Engine.Public
         {
             get
             {
-                return mousedx;
+                return mousedy;
             }
         }
 

@@ -102,6 +102,8 @@
     <Compile Include="game_network.cs" />
     <Compile Include="game_spawner.cs" />
     <Compile Include="Entities\Info\player_start.cs" />
+    <Compile Include="Physics\physics_move.cs" />
+    <Compile Include="Physics\physics_playerstate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
