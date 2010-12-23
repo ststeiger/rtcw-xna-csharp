@@ -40,6 +40,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using idLib.Engine.Public;
 
+using rtcw.Renderer.Effects;
+
 namespace rtcw.Renderer.Backend
 {
     //
@@ -196,6 +198,16 @@ namespace rtcw.Renderer.Backend
         // SetAsActiveMatrix
         //
         public void SetAsActiveMatrix(ref BasicEffect effect)
+        {
+            effect.World = world;
+            effect.Projection = projection;
+            effect.View = view;
+        }
+
+        //
+        // SetAsActiveMatrix
+        //
+        public void SetAsActiveMatrix(ref idSkeletalEffect effect)
         {
             effect.World = world;
             effect.Projection = projection;

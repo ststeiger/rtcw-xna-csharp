@@ -47,6 +47,8 @@ namespace Game.Entities.Misc
         public override void Spawn()
         {
             state.modelindex = Level.net.ModelIndex(model);
+            state.modelindex2 = Level.net.SkinIndex(aiSkin);
+            Level.net.SkinIndex(aihSkin);
             state.eType = idLib.Game.entityType_t.ET_GENERAL;
         }
 

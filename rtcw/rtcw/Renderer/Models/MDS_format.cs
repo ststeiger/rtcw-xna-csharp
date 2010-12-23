@@ -79,7 +79,7 @@ namespace rtcw.Renderer.Models
             fixedParent = file.ReadInt();
             fixedDist = file.ReadInt();
 
-            weights = new mdsWeight_t[numWeights];
+            weights = new mdsWeight_t[4];
 
             for (int i = 0; i < numWeights; i++)
             {
@@ -173,11 +173,11 @@ namespace rtcw.Renderer.Models
     };
 
     // NOTE: this only used at run-time
-    class mdsBoneFrame_t
+    struct mdsBoneFrame_t
     {
         //float matrix[3][3];             // 3x3 rotation
-        public idMatrix matrix = new idMatrix();
-        public idVector3 translation = new idVector3();             // translation vector
+        public idMatrix matrix;
+        public idVector3 translation;            // translation vector
     };
 
     struct mdsFrame_t

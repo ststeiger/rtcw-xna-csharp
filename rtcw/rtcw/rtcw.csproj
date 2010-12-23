@@ -128,6 +128,7 @@
     <Compile Include="Renderer\Backend\Iterators\StageIterator_generic.cs" />
     <Compile Include="Renderer\Backend\Iterators\StageIterator_lightmap.cs" />
     <Compile Include="Renderer\Backend\Iterators\StageIterator_sky.cs" />
+    <Compile Include="Renderer\Effects\SkeletalEffect.cs" />
     <Compile Include="Renderer\ImageManager.cs" />
     <Compile Include="Renderer\Images\Image.cs" />
     <Compile Include="Renderer\Images\Noise.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Renderer\Models\MDC_format.cs" />
     <Compile Include="Renderer\Models\MDC_model.cs" />
     <Compile Include="Renderer\Models\MDS_format.cs" />
+    <Compile Include="Renderer\Models\MDS_math.cs" />
     <Compile Include="Renderer\Models\MDS_model.cs" />
     <Compile Include="Renderer\Models\ModelBase.cs" />
     <Compile Include="Renderer\Render_globals.cs" />

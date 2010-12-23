@@ -333,6 +333,20 @@ namespace rtcw.Renderer
 	    public idFog glFog;                  // fog parameters	//----(SA)	added
     };
 
+    //
+    // idDrawVertexSkin
+    //
+    public struct idDrawVertexSkin
+    {
+        public idVector3 offset1;
+        public idVector3 offset2;
+        public idVector3 offset3;
+        public idVector3 offset4;
+        public idVector2 st;
+        public idVector4 blendIndices;
+        public idVector4 weights;
+    };
+
     /*
     ** idRenderGlobals
     **
@@ -369,6 +383,22 @@ namespace rtcw.Renderer
             new VertexElement(28, VertexElementFormat.Vector3, VertexElementUsage.Tangent, 0),
             new VertexElement(40, VertexElementFormat.Vector3, VertexElementUsage.Binormal, 0),
             new VertexElement(52, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0)
+        );
+
+        public readonly static VertexDeclaration idDrawSkinnedVertexDeclaration = new VertexDeclaration
+        (
+            // Skinned weight offset
+            new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
+            new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.Position, 1),
+            new VertexElement(24, VertexElementFormat.Vector3, VertexElementUsage.Position, 2),
+            new VertexElement(36, VertexElementFormat.Vector3, VertexElementUsage.Position, 3),
+
+            // ST Coordinate.
+            new VertexElement(48, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0),
+
+            // Blend weights/Indicies
+            new VertexElement(56, VertexElementFormat.Vector4, VertexElementUsage.BlendIndices, 0),
+            new VertexElement(72, VertexElementFormat.Vector4, VertexElementUsage.BlendWeight, 0)
         );
 
         public int registeredFontCount = 0;

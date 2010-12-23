@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using idLib.Math;
 using idLib.Engine.Public;
 
+using rtcw.Renderer.Effects;
+
 namespace rtcw.Renderer.Backend
 {
     //
@@ -17,6 +19,7 @@ namespace rtcw.Renderer.Backend
     static class Shade
     {
         private static DualTextureEffect defaultEffect;
+        private static idSkeletalEffect skeletalEffect;
         private static idRenderMatrix orthoMatrix;
         private static Vector3 pushedColor;
         private static idRenderMatrix drawMatrix;
@@ -28,12 +31,15 @@ namespace rtcw.Renderer.Backend
         private static DynamicVertexBuffer dynVertexBuffer;
         private static DynamicIndexBuffer dynIndexBuffer;
 
+        private static bool useSkeletalEffect = false;
+
         //
         // Init
         //
         public static void Init()
         {
             defaultEffect = new DualTextureEffect(Globals.graphics3DDevice);
+            skeletalEffect = new idSkeletalEffect();
             //defaultEffect.TextureEnabled = true;
 
             //multiTextureEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
@@ -46,6 +52,15 @@ namespace rtcw.Renderer.Backend
 
             pushedColor = new Vector3(1, 1, 1);
             drawMatrix = new idRenderMatrix();
+        }
+
+        //
+        // SetBoneMatrix
+        //
+        public static void SetBoneMatrix(Matrix[] bones)
+        {
+            useSkeletalEffect = true;
+            skeletalEffect.SetBoneMatrixes(bones);
         }
 
         //
@@ -63,6 +78,7 @@ namespace rtcw.Renderer.Backend
         {
             drawMatrix.SetEntityMatrix(refdef);
             drawMatrix.SetAsActiveMatrix(ref defaultEffect);
+            drawMatrix.SetAsActiveMatrix(ref skeletalEffect);
         }
 
         //
@@ -70,6 +86,7 @@ namespace rtcw.Renderer.Backend
         //
         public static void BindVertexIndexBuffer(VertexBuffer vertexBuffer, IndexBuffer indexBuffer)
         {
+            useSkeletalEffect = false;
             Globals.graphics3DDevice.SetVertexBuffer(vertexBuffer);
             Globals.graphics3DDevice.Indices = indexBuffer;
         }
@@ -129,8 +146,23 @@ namespace rtcw.Renderer.Backend
         //
         // DrawElements
         //
+        public static void DrawSkinnedElements(int startVertex, int numVertexes, int startIndexes, int numIndexes, int offset)
+        {
+            skeletalEffect.Texture = defaultEffect.Texture;
+            skeletalEffect.Apply();
+            Globals.graphics3DDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, startVertex + offset, 0, numVertexes, startIndexes, numIndexes / 3);
+        }
+
+        //
+        // DrawElements
+        //
         public static void DrawElements(int startVertex, int numVertexes, int startIndexes, int numIndexes, int offset)
         {
+            if (useSkeletalEffect)
+            {
+                DrawSkinnedElements(startVertex, numVertexes, startIndexes, numIndexes, offset);
+                return;
+            }
             defaultEffect.DiffuseColor = pushedColor;
             defaultEffect.CurrentTechnique.Passes[0].Apply();
             Globals.graphics3DDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, startVertex + offset, 0, numVertexes, startIndexes, numIndexes / 3);

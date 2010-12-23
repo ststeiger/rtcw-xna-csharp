@@ -63,6 +63,10 @@ namespace cgame
             ent.oldframe = 0;
             ent.origin = entity.origin;
             ent.axis = entity.angles.ToAxis();
+            if (entity.modelindex2 >= 0)
+            {
+                ent.customSkin = Globals.skins[entity.modelindex2];
+            }
             ent.hModel = Globals.models[entity.modelindex];
         }
 

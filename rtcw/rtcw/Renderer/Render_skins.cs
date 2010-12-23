@@ -149,6 +149,7 @@ namespace rtcw.Renderer
                 idSkinSurface surf = new idSkinSurface();
                 surf.name = surfname;
                 surf.shader = Engine.materialManager.FindMaterial( token, -1 );
+                surfaces[numSurfaces] = surf;
                 numSurfaces++;
             }
 

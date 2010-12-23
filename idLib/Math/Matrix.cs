@@ -87,6 +87,130 @@ namespace idLib.Math
                     mat[0].Z * vec.X + mat[1].Z * vec.Y + mat[2].Z * vec.Z);
         }
 
+        public static idMatrix operator *(idMatrix a, idMatrix b)
+        {
+            Matrix dst;
+            dst.M11 = a[0][0] * b[0][0] + a[0][1] * b[1][0] + a[0][2] * b[2][0] + a[0][3] * b[3][0];
+            dst.M12 = a[0][0] * b[0][1] + a[0][1] * b[1][1] + a[0][2] * b[2][1] + a[0][3] * b[3][1];
+            dst.M13 = a[0][0] * b[0][2] + a[0][1] * b[1][2] + a[0][2] * b[2][2] + a[0][3] * b[3][2];
+            dst.M14 = a[0][0] * b[0][3] + a[0][1] * b[1][3] + a[0][2] * b[2][3] + a[0][3] * b[3][3];
+
+            dst.M21 = a[1][0] * b[0][0] + a[1][1] * b[1][0] + a[1][2] * b[2][0] + a[1][3] * b[3][0];
+            dst.M22 = a[1][0] * b[0][1] + a[1][1] * b[1][1] + a[1][2] * b[2][1] + a[1][3] * b[3][1];
+            dst.M23 = a[1][0] * b[0][2] + a[1][1] * b[1][2] + a[1][2] * b[2][2] + a[1][3] * b[3][2];
+            dst.M24 = a[1][0] * b[0][3] + a[1][1] * b[1][3] + a[1][2] * b[2][3] + a[1][3] * b[3][3];
+
+            dst.M31 = a[2][0] * b[0][0] + a[2][1] * b[1][0] + a[2][2] * b[2][0] + a[2][3] * b[3][0];
+            dst.M32 = a[2][0] * b[0][1] + a[2][1] * b[1][1] + a[2][2] * b[2][1] + a[2][3] * b[3][1];
+            dst.M33 = a[2][0] * b[0][2] + a[2][1] * b[1][2] + a[2][2] * b[2][2] + a[2][3] * b[3][2];
+            dst.M34 = a[2][0] * b[0][3] + a[2][1] * b[1][3] + a[2][2] * b[2][3] + a[2][3] * b[3][3];
+
+            dst.M41 = a[3][0] * b[0][0] + a[3][1] * b[1][0] + a[3][2] * b[2][0] + a[3][3] * b[3][0];
+            dst.M42 = a[3][0] * b[0][1] + a[3][1] * b[1][1] + a[3][2] * b[2][1] + a[3][3] * b[3][1];
+            dst.M43 = a[3][0] * b[0][2] + a[3][1] * b[1][2] + a[3][2] * b[2][2] + a[3][3] * b[3][2];
+            dst.M44 = a[3][0] * b[0][3] + a[3][1] * b[1][3] + a[3][2] * b[2][3] + a[3][3] * b[3][3];
+            return new idMatrix(dst);
+        }
+
+        public void ScaleMatrixAxis(float scale)
+        {
+            float m41 = m.M41;
+            float m42 = m.M42;
+            float m43 = m.M43;
+            float m44 = m.M44;
+
+            m = m * scale;
+            m.M33 += 1.0f - scale;
+
+            m.M41 = m41;
+            m.M42 = m42;
+            m.M43 = m43;
+            m.M44 = 1.0f;
+        }
+
+        public void SetFromTranslation(idVector3 vec)
+        {
+            m = Matrix.Identity;
+            m.M41 = vec.X;
+            m.M42 = vec.Y;
+            m.M43 = vec.Z;
+        }
+
+        public void SetFromAxisAndTranslation(idMatrix axis, idVector3 translation)
+        {
+            SetFromTranslation(translation);
+
+            m.M11 = axis.M11;
+            m.M12 = axis.M12;
+            m.M13 = axis.M13;
+            m.M14 = axis.M14;
+
+            m.M21 = axis.M21;
+            m.M22 = axis.M22;
+            m.M23 = axis.M23;
+            m.M24 = axis.M24;
+
+            m.M31 = axis.M31;
+            m.M32 = axis.M32;
+            m.M33 = axis.M33;
+            m.M34 = axis.M34;
+        }
+
+        public void SetFromScaledAxisAndTranslation(idMatrix axis, float scale, idVector3 vec)
+        {
+            SetFromAxisAndTranslation(axis, vec);
+            ScaleMatrixAxis(scale);
+        }
+
+        public void SetFromScale(float scale)
+        {
+            m = Matrix.Identity;
+            m.M41 = scale;
+            m.M42 = scale;
+            m.M43 = scale;
+        }
+
+        public void TransformVector(idVector3 src, ref idVector3 dst)
+        {
+            idMatrix m = this;
+            dst[0] = m[0][0] * src[0] + m[0][1] * src[1] + m[0][2] * src[2] + m[0][3];
+            dst[1] = m[1][0] * src[0] + m[1][1] * src[1] + m[1][2] * src[2] + m[1][3];
+            dst[2] = m[2][0] * src[0] + m[2][1] * src[1] + m[2][2] * src[2] + m[2][3];
+        }
+
+        //
+        // SetValFromIndex
+        //
+        private void SetValFromIndex(int index, int index2, float val)
+        {
+            switch (index)
+            {
+                case 0:
+
+                    break;
+
+                case 1:
+
+                    break;
+
+                case 2:
+
+                    break;
+
+                case 3:
+
+                    break;
+            }
+        }
+
+        public float this[int index, int index2]
+        {
+            set
+            {
+                SetValFromIndex(index, index2, value);
+            }
+        }
+
         public idVector3 this[int index]
         {
             get

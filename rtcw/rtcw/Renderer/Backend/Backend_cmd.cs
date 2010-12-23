@@ -35,6 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using idLib.Engine.Public;
 
@@ -50,6 +51,7 @@ namespace rtcw.Renderer.Backend
 	    RC_STRETCH_PIC_GRADIENT,    // (SA) added
         RC_SET_REFDEF,
         RC_SET_VERTEXINDEXBUFFER,
+        RC_SET_BONEMATRIX,
 	    RC_DRAW_SURFS,
 	    RC_DRAW_BUFFER,
         RC_SET_ENTITYMATRIX,
@@ -88,5 +90,8 @@ namespace rtcw.Renderer.Backend
         public int vertexOffset;
         public VertexBuffer vertexBuffer;
         public IndexBuffer indexBuffer;
+
+        // RC_SET_BONEMATRIX
+        public Matrix[] bones;
     }
 }

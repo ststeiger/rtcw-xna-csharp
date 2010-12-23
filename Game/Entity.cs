@@ -197,6 +197,11 @@ namespace Game
             {
                 SplitModelSkinString(aiSkin, ref model, ref aiSkin);
 
+                if(model == aiSkin)
+                    aiSkin = "default";
+
+                aihSkin = "models/players/" + model + "/head_" + aiSkin + ".skin";
+                aiSkin = "models/players/" + model + "/body_" + aiSkin + ".skin";
                 model = "models/players/" + model + "/body.mds";
             }
 
@@ -236,6 +241,7 @@ namespace Game
             scriptName = spawnArgs.FindKey("scriptName");
 
             state.number = spawnArgs.FindKeyInt("entitynum");
+            state.modelindex2 = -3;
         }
 
         //

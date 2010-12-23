@@ -377,6 +377,14 @@ namespace rtcw.Renderer.Backend
         }
 
         //
+        // Cmd_SetBoneMatrix
+        //
+        private void Cmd_SetBoneMatrix(idRenderCommand cmd)
+        {
+            Shade.SetBoneMatrix(cmd.bones);
+        }
+
+        //
         // GetRenderCommand
         //
         private idRenderCommand GetRenderCommand(int smpFrame, int index)
@@ -402,6 +410,9 @@ namespace rtcw.Renderer.Backend
                         {
                             case renderCommandType.RC_SET_COLOR:
                                 Cmd_SetColor(cmd);
+                                break;
+                            case renderCommandType.RC_SET_BONEMATRIX:
+                                Cmd_SetBoneMatrix(cmd);
                                 break;
                             case renderCommandType.RC_STRETCH_IMAGE:
                                 Cmd_DrawStrechImage(cmd);
@@ -474,6 +485,10 @@ namespace rtcw.Renderer.Backend
         //
         private void ResetFrame()
         {
+            for (int i = 0; i < backEndData[state.smpFrame].numRenderCommands; i++)
+            {
+                backEndData[state.smpFrame].commands[i].bones = null;
+            }
             backEndData[state.smpFrame].numRenderCommands = 0;
 
             r_firstSceneDrawSurf = 0;
