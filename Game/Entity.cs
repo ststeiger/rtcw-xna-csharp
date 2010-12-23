@@ -106,6 +106,40 @@ namespace Game
         public string scriptName;
 
         //
+        // SplitModelSkinString
+        //
+        private void SplitModelSkinString(string input, ref string model, ref string skin)
+        {
+            if (input.Contains("/") == false)
+            {
+                model = input;
+                skin = input;
+                return;
+            }
+
+            model = "";
+            skin = "";
+
+            for (int i = 0, pos = 0; i < input.Length; i++, pos++)
+            {
+                if (input[i] == '/')
+                {
+                    pos = 0;
+                    continue;
+                }
+
+                if (i > pos)
+                {
+                    skin += input[i];
+                }
+                else
+                {
+                    model += input[i];
+                }
+            }
+        }
+
+        //
         // ParseFieldsFromSpawnArgs
         //
         public void ParseFieldsFromSpawnArgs()
@@ -152,10 +186,19 @@ namespace Game
 
             aiAttirbutes = spawnArgs.FindKey("aiattributes");
             aiName = spawnArgs.FindKey("ainame");
+
             aiTeam = spawnArgs.FindKeyInt("aiteam");
 
             aiSkin = spawnArgs.FindKey("skin");
             aihSkin = spawnArgs.FindKey("head");
+
+            // jv - probably not the best way to do this.
+            if (aiSkin != null && aiSkin.Length > 0 && (model == null || model.Length <= 0))
+            {
+                SplitModelSkinString(aiSkin, ref model, ref aiSkin);
+
+                model = "models/players/" + model + "/body.mds";
+            }
 
             dl_color = spawnArgs.FindKeyidVector3( "_color" );	    
             if(dl_color.X == 0 && dl_color.Y == 0 && dl_color.Z == 0)

@@ -34,6 +34,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // game_network.cs (c) 2010 JV Software
 //
 
+using idLib;
 
 namespace Game
 {
@@ -46,6 +47,9 @@ namespace Game
         int numModels;
         int numSounds;
         int numSkins;
+        idDict skinCache = new idDict();
+        idDict modelCache = new idDict();
+        idDict soundCache = new idDict();
 
         public string ConfigStr
         {
@@ -74,9 +78,18 @@ namespace Game
             {
                 return -1;
             }
+
+            int prevKey = modelCache.FindKeyInt(modelpath);
+            if (prevKey > 0)
+            {
+                return prevKey - 1;
+            }
+
             configstr += "model ";
             configstr += modelpath;
             configstr += " ";
+
+            modelCache.AddKey(modelpath, numModels + 1);
 
             return numModels++;
         }
@@ -91,9 +104,17 @@ namespace Game
                 return -1;
             }
 
+            int prevKey = soundCache.FindKeyInt(soundpath);
+            if (prevKey > 0)
+            {
+                return prevKey - 1;
+            }
+
             configstr += "sound ";
             configstr += soundpath;
             configstr += " ";
+
+            soundCache.AddKey(soundpath, numSounds + 1);
 
             return numSounds++;
         }
@@ -107,11 +128,20 @@ namespace Game
             {
                 return -1;
             }
+
+            int prevKey = skinCache.FindKeyInt(skinpath);
+            if (prevKey > 0)
+            {
+                return prevKey - 1;
+            }
+
             configstr += "skin ";
             configstr += skinpath;
             configstr += " ";
 
-            return numSounds++;
+            skinCache.AddKey(skinpath, numSkins + 1);
+
+            return numSkins++;
         }
 
 
