@@ -190,5 +190,13 @@ namespace rtcw.Renderer.Models
         {
             return name;
         }
+
+        //
+        // TessModel
+        //
+        public override void TessModel(ref idRenderEntityLocal entity)
+        {
+            
+        }
     }
 }

@@ -273,9 +273,9 @@ namespace cgame
         //
         // HandleMouseEvent
         //
-        public override void HandleMouseEvent(int x, int y)
+        public override void HandleMouseEvent(float x, float y)
         {
-            
+
         }
 
         //
@@ -355,7 +355,7 @@ namespace cgame
             // Send the command to the server
             Engine.net.SendReliablePacketToAddress(idNetSource.NS_SERVER, Engine.net.GetLoopBackAddress(), ref msg);
 
-            // Dispose of the msg.
+            // Dispose of the msg
             msg.Dispose();
         }
 

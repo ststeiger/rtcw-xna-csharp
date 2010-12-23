@@ -47,7 +47,7 @@ namespace rtcw.Framework
         private idUsercmd[] cmdpool = new idUsercmd[MAX_STORED_CMDS];
         private int cmdnum = -1; // I set this to -1 so this will error out if Init isn't called.
 
-        private short[] mousedelta;
+        public float[] mousedelta;
         private int forwardmove;
         private int rightmove;
         private int upmove;
@@ -57,7 +57,7 @@ namespace rtcw.Framework
         //
         public override void Init()
         {
-            mousedelta = new short[2];
+            mousedelta = new float[2];
             InitNewCommand();
         }
 
@@ -76,8 +76,6 @@ namespace rtcw.Framework
             rightmove = 0;
             upmove = 0;
 
-            mousedelta[0] = 0;
-            mousedelta[1] = 0;
             cmdpool[cmdnum].InitCommand(Engine.Sys.Sys_Milliseconds());
         }
 
@@ -86,7 +84,7 @@ namespace rtcw.Framework
         //
         public override void MouseEvent(int x, int y)
         {
-            float speed = Engine.common.Frametime();
+            float speed = 0.05f * Engine.common.Frametime();
 
 
             if (x > 30 || y > 30 || x < -30 || y < -30)
@@ -95,8 +93,14 @@ namespace rtcw.Framework
             }
 
 
-            mousedelta[0] = (short)(x * speed);
-            mousedelta[1] = (short)(y * speed);
+            mousedelta[0] -= x * speed;
+            mousedelta[1] += y * speed;
+
+            if (mousedelta[1] > 90)
+                mousedelta[1] = 90;
+
+            if (mousedelta[1] < -90)
+                mousedelta[1] = -90;
 
             //Engine.common.DPrintf("" + mousedelta[0] + " " + mousedelta[1] + "\n");
         }
@@ -178,7 +182,7 @@ namespace rtcw.Framework
             int curcmd = cmdnum;
 
             cmdpool[curcmd].SetMove(forwardmove, rightmove, upmove);
-            cmdpool[curcmd].SetViewAngles(mousedelta[0], mousedelta[1]);
+            cmdpool[curcmd].SetViewAngles(mousedelta[0], mousedelta[1], 0);
 
             // Init the next command.
             InitNewCommand();

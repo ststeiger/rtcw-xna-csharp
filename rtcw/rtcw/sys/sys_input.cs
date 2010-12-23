@@ -121,7 +121,7 @@ namespace rtcw.sys
                 oldMouseState &= ~4;
             }
 
-            if (mx == 0 || my == 0)
+            if (mx == 0 && my == 0)
             {
                 return;
             }

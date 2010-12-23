@@ -94,13 +94,9 @@ namespace idLib.Engine.Public
 	    private byte wbuttons;
 	    private WeaponType weapon;
 	    private byte holdable;          //----(SA)	added
-        // jv - completely removed this, let the server update based on the dx/dy.
-        private short mousedx;
-        private short mousedy;
-        // jv end
-	    //int angles[3];
+	    private float[] angles;
 
-        public const int Size = (sizeof(byte) * 8) + (sizeof(short) * 3) + sizeof(int);
+        public const int Size = (sizeof(byte) * 8) + (sizeof(float) * 3) + sizeof(int);
 
 	    private sbyte forwardmove, rightmove, upmove;
         private byte wolfkick;       // RF, we should move this over to a wbutton, this is a huge waste of bandwidth
@@ -112,8 +108,7 @@ namespace idLib.Engine.Public
         //
         public void InitCommand(int time)
         {
-            mousedx = 0;
-            mousedy = 0;
+            angles = new float[3];
             serverTime = time;
             buttons = 0;
             wbuttons = 0;
@@ -123,10 +118,11 @@ namespace idLib.Engine.Public
         //
         // SetMouseDelta
         //
-        public void SetViewAngles(short dx, short dy)
+        public void SetViewAngles(float yaw, float pitch, float roll)
         {
-            mousedx += dx;
-            mousedy += dy;
+            angles[0] = pitch;
+            angles[1] = yaw;
+            angles[2] = roll;
         }
 
         //
@@ -189,24 +185,35 @@ namespace idLib.Engine.Public
         }
 
         //
-        // deltax
+        // pitch
         //
-        public short deltax
+        public float pitch
         {
             get
             {
-                return mousedx;
+                return angles[0];
             }
         }
 
         //
-        // deltay
+        // yaw
         //
-        public short deltay
+        public float yaw
         {
             get
             {
-                return mousedy;
+                return angles[1];
+            }
+        }
+
+        //
+        // roll
+        //
+        public float roll
+        {
+            get
+            {
+                return angles[2];
             }
         }
 
@@ -285,8 +292,9 @@ namespace idLib.Engine.Public
             weapon = (WeaponType)msg.ReadByte();
             holdable = msg.ReadByte();
 
-            mousedx = msg.ReadShort();
-            mousedy = msg.ReadShort();
+            angles[0] = msg.ReadFloat();
+            angles[1] = msg.ReadFloat();
+            angles[2] = msg.ReadFloat();
 
             forwardmove = msg.ReadSByte();
             rightmove = msg.ReadSByte();
@@ -303,8 +311,9 @@ namespace idLib.Engine.Public
             msg.WriteByte((byte)weapon);
             msg.WriteByte(holdable);
 
-            msg.WriteShort(mousedx);
-            msg.WriteShort(mousedy);
+            msg.WriteFloat(angles[0]);
+            msg.WriteFloat(angles[1]);
+            msg.WriteFloat(angles[2]);
 
             msg.WriteSbyte(forwardmove);
             msg.WriteSbyte(rightmove);

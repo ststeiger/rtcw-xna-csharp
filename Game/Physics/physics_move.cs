@@ -103,18 +103,8 @@ namespace Game.Physics
 	        short temp;
 	        int i;
 
-            ps.angles2[0] += (cmd.deltay * 0.1f);
-            ps.angles2[1] -= (cmd.deltax * 0.1f);
-
-            if (ps.angles2[2] > 180)
-            {
-                ps.angles2[2] = 180.0f;
-            }
-
-            if (ps.angles2[2] < -180)
-            {
-                ps.angles2[2] = -180.0f;
-            }
+            ps.angles2[0] = cmd.pitch;
+            ps.angles2[1] = cmd.yaw;
         }
 
         /*

@@ -51,7 +51,7 @@ namespace idLib.Game.Client
         public abstract void ParseConfigString(string cfgstr);
         public abstract void BeginGame(string mappath);
         public abstract void HandleUIMouseEvent(int x, int y);
-        public abstract void HandleMouseEvent(int x, int y);
+        public abstract void HandleMouseEvent(float x, float y);
         public abstract void HandleUIKeyEvent(int key, bool down);
         public abstract void HandleKeyEvent(int key, bool down);
         public abstract void NetworkRecieveSnapshot(ref entityState_t entity);

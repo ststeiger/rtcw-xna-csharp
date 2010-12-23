@@ -39,6 +39,7 @@ using idLib.Engine.Public.Net;
 using idLib.Engine.Public;
 using idLib.Game.Client;
 using idLib.Game;
+using rtcw.Framework;
 
 namespace rtcw.Client
 {

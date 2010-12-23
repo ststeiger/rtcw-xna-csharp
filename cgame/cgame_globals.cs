@@ -34,7 +34,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // cgame_globals.cs (c) 2010 JV Software
 //
 
-using idLib;
+using idLib.Math;
 using idLib.Engine.Public;
 using idLib.Game.Client;
 using idLib.Game.Server;

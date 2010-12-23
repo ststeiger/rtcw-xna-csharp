@@ -45,5 +45,10 @@ namespace rtcw.Server
     {
         public bool clientIsReady = false;
         public idUsercmd cmd;
+
+        public idServerClient()
+        {
+            cmd.InitCommand(0);
+        }
     }
 }
