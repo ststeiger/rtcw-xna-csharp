@@ -326,6 +326,14 @@ namespace idLib.Engine.Public
     };
 
     //
+    // idOrientation
+    //
+    public struct idOrientation {
+	    public idVector3 origin;
+	    public idMatrix axis;
+    };
+
+    //
     // idFont
     //
     public class idFont {
@@ -521,6 +529,7 @@ namespace idLib.Engine.Public
         public abstract string GetName();
         public abstract void GetModelBounds(out idVector3 mins, out idVector3 maxs);
         public abstract int GetNumFrames();
+        public abstract int GetTag(string name, int startframe, int endframe, int index, ref idOrientation orientation);
     }
 
     //

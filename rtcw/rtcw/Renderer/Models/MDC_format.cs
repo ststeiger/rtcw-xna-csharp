@@ -63,9 +63,14 @@ namespace rtcw.Renderer.Models
     //	unsigned short	ofsVec;
     };
 
-    class mdcTagName_t {
+    struct mdcTagName_t {
 	    //char name[MAX_QPATH];           // tag name
         public string name;
+
+        public void InitFromFile(ref idFile f)
+        {
+            name = f.ReadString(Engine.MAX_QPATH);
+        }
     };
 
     class mdcTag_t {

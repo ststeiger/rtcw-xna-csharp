@@ -81,6 +81,14 @@ namespace rtcw.Renderer.Models
         }
 
         //
+        // GetTag
+        //
+        public override int GetTag(string name, int startframe, int endframe, int index, ref idOrientation orientation)
+        {
+            return 0;
+        }
+
+        //
         // GetNumFrames
         //
         public override int GetNumFrames()

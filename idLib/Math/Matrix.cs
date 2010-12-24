@@ -72,6 +72,11 @@ namespace idLib.Math
             return new idMatrix(Matrix.Transpose(m));
         }
 
+        public void Set(Matrix m)
+        {
+            this.m = m;
+        }
+
         public static idVector3	operator*( idMatrix mat, idVector3 vec ) {
 	        return new idVector3(
 		            mat[ 0 ].X * vec.X + mat[ 1 ].X * vec.Y + mat[ 2 ].X * vec.Z,

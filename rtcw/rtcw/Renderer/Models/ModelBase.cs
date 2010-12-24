@@ -78,6 +78,11 @@ namespace rtcw.Renderer.Models
             throw new NotImplementedException();
         }
 
+        public override int GetTag(string name, int startframe, int endframe, int index, ref idOrientation orientation)
+        {
+            throw new NotImplementedException();
+        }
+
         //
         // ParseMD3Vertexes
         //

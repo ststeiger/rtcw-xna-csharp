@@ -231,6 +231,46 @@ namespace rtcw.Renderer.Models
         }
 
         //
+        // GetTag
+        //
+        public override int GetTag(string name, int startframe, int endframe, int index, ref idOrientation orientation)
+        {
+            int i;
+            int boneIndex = -1;
+
+	        if ( index > header.numTags ) {
+		        return -1;
+	        }
+
+	        // find the correct tag
+            
+
+
+	        for ( i = index; i < header.numTags; i++ ) {
+		        if ( tags[i].name == name ) {
+			        break;
+		        }
+	        }
+
+	        if ( i >= header.numTags ) {
+		        return -1;
+	        }
+
+	        // calc the bones
+
+	        CalcBones(startframe, startframe, 0, header.numBones );
+
+	        // now extract the orientation for the bone that represents our tag
+            boneIndex = tags[i].boneIndex;
+            orientation.axis.Set(bones[boneIndex]);
+            orientation.origin.X = bones[boneIndex].M41;
+            orientation.origin.Y = bones[boneIndex].M42;
+            orientation.origin.Z = bones[boneIndex].M43;
+
+            return i;
+        }
+
+        //
         // GetName
         //
         public override string GetName()
@@ -255,7 +295,7 @@ namespace rtcw.Renderer.Models
         //
         // CalcBone
         //
-        private void CalcBone(ref idRenderEntityLocal entity, idVector3 parentOffset, mdsBoneFrameCompressed_t[] cBoneList, mdsBoneFrameCompressed_t[] cBoneListTorso, int boneNum)
+        private void CalcBone(idVector3 parentOffset, mdsBoneFrameCompressed_t[] cBoneList, mdsBoneFrameCompressed_t[] cBoneListTorso, int boneNum)
         {
             mdsBoneInfo_t thisBoneInfo = boneInfo[boneNum];
             bool isTorso = false;
@@ -377,10 +417,10 @@ namespace rtcw.Renderer.Models
         //
         // CalcBones
         //
-        private void CalcBones(ref idRenderEntityLocal entity, int startBone, int numBones)
+        private void CalcBones(int frameNum, int torsoFrameNum, int startBone, int numBones)
         {
-            mdsFrame_t frame = frames[entity.frame];
-            mdsFrame_t torsoFrame = frames[entity.torsoFrame];
+            mdsFrame_t frame = frames[frameNum];
+            mdsFrame_t torsoFrame = frames[torsoFrameNum];
             idVector3 t;
             idMatrix m1, m2;
 
@@ -391,9 +431,9 @@ namespace rtcw.Renderer.Models
                 // find our parent, and make sure it has been calculated
                 if (boneInfo[boneRef].parent >= 0 )
                 {
-                    CalcBone(ref entity, frame.parentOffset, frame.bones, torsoFrame.bones, boneInfo[boneRef].parent);
+                    CalcBone(frame.parentOffset, frame.bones, torsoFrame.bones, boneInfo[boneRef].parent);
                 }
-                CalcBone(ref entity, frame.parentOffset, frame.bones, torsoFrame.bones, boneRef);
+                CalcBone(frame.parentOffset, frame.bones, torsoFrame.bones, boneRef);
             }
 
             // adjust for torso rotations
@@ -488,7 +528,7 @@ namespace rtcw.Renderer.Models
             // Calculate the bones for each surface.
             for (int i = 0; i < surfaces.Length; i++)
             {
-                CalcBones(ref entity, surfaces[i].startBoneRef, surfaces[i].numBoneReferences);
+                CalcBones(entity.frame, entity.torsoFrame, surfaces[i].startBoneRef, surfaces[i].numBoneReferences);
 
                 if (skin != null)
                 {

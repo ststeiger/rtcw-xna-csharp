@@ -59,6 +59,7 @@ namespace rtcw.Renderer.Models
         private mdcHeader_t header = new mdcHeader_t();
         private md3Frame_t[] frames;
         private mdcTag_t[] tags;
+        private mdcTagName_t[] tagnames;
         private mdcSurface_t[] surfaces;
         private int numVertsPerFrame = 0;
 
@@ -102,6 +103,15 @@ namespace rtcw.Renderer.Models
             {
                 ParseMD3Frame(ref f, out frames[i]);
             }
+
+            // Load in the names for the tags.
+            tagnames = new mdcTagName_t[header.numFrames * header.numTags];
+            f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsTagNames);
+            for (int i = 0; i < header.numFrames * header.numTags; i++)
+            {
+                tagnames[i].InitFromFile(ref f);
+            }
+
 
             // Load in all the tags.
             tags = new mdcTag_t[header.numFrames * header.numTags];
@@ -249,6 +259,84 @@ namespace rtcw.Renderer.Models
                     }
                 }
             }
+        }
+
+        //
+        // InternalGetTag
+        //
+        private int InternalGetTag(int frame, string name, int startTagIndex, out mdcTag_t tag)
+        {
+            int i;
+
+            if (frame >= GetNumFrames())
+            {
+                // it is possible to have a bad frame while changing models, so don't error
+                frame = GetNumFrames() - 1;
+            }
+
+            if (startTagIndex > tags.Length)
+            {
+                tag = null;
+                return -1;
+            }
+
+            for (i = 0; i < header.numTags; i++)
+            {
+                if ((i >= startTagIndex) && tagnames[i].name == name)
+                {
+                    break;  // found it
+                }
+            }
+
+            if (i >= header.numTags)
+            {
+                tag = null;
+                return -1;
+            }
+
+            tag = tags[frame * header.numTags + i];
+            return i;
+        }
+
+        //
+        // GetTag
+        //
+        public override int GetTag(string name, int startframe, int endframe, int index, ref idOrientation orientation)
+        {
+            // psuedo-compressed MDC tags
+		    mdcTag_t    cstart, cend;
+            md3Tag_t    start, end;
+            idVector3 sangles, eangles;
+            int retval;
+
+            // So the compiler will shut up.
+            start.origin = idVector3.vector_origin;
+            end.origin = idVector3.vector_origin;
+            sangles = idVector3.vector_origin;
+            eangles = idVector3.vector_origin;
+
+            retval = InternalGetTag( startframe, name, index, out cstart);
+            retval = InternalGetTag( endframe, name, index, out cend);
+
+		    // uncompress the MDC tags into MD3 style tags
+		    if ( cstart != null && cend != null ) {
+			    for ( int i = 0; i < 3; i++ ) {
+				    start.origin[i] = (float)cstart.xyz[i] * idModelMD3.MD3_XYZ_SCALE;
+                    end.origin[i] = (float)cend.xyz[i] * idModelMD3.MD3_XYZ_SCALE;
+                    sangles[i] = (float)cstart.angles[i] * MDC_TAG_ANGLE_SCALE;
+                    eangles[i] = (float)cend.angles[i] * MDC_TAG_ANGLE_SCALE;
+			    }
+
+                start.axis = sangles.ToAxis();
+                end.axis = eangles.ToAxis();
+		    } else {
+                return -1;
+		    }
+
+            orientation.origin = end.origin;
+            orientation.axis = end.axis;
+
+            return retval;
         }
 
         //

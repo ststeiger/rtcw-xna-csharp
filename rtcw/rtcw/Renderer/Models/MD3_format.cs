@@ -84,7 +84,7 @@ namespace rtcw.Renderer.Models
         public string name;
     };
 
-    class md3Tag_t {
+    struct md3Tag_t {
 	    //char name[MAX_QPATH];           // tag name
         public string name;
         public idVector3 origin;
