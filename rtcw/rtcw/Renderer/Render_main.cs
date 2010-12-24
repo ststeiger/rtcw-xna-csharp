@@ -298,6 +298,22 @@ namespace rtcw.Renderer
         //
         // SortSurfaces
         //
+        public static void SortSurface<T>(int vertexOffset, ref T surfaces) where T : idDrawSurface
+        {
+            idRenderCommand cmd = backEnd.GetCommandBuffer();
+
+            cmd.type = renderCommandType.RC_DRAW_SURFS;
+
+            cmd.firstDrawSurf = backEnd.NumSurfaces;
+            cmd.numDrawSurfs = 1;
+            cmd.vertexOffset = vertexOffset;
+
+            backEnd.AddDrawSurface((idDrawSurface)surfaces);
+        }
+
+        //
+        // SortSurfaces
+        //
         public static void SortSurfaces<T>(int vertexOffset, ref T[] surfaces) where T : idDrawSurface
         {
             idRenderCommand cmd = backEnd.GetCommandBuffer();

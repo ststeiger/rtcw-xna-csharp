@@ -389,14 +389,11 @@ namespace rtcw.Renderer.Models
                 int boneRef = boneRefs[startBone + i];
 
                 // find our parent, and make sure it has been calculated
-                if (boneInfo[boneRef].parent >= 0)
+                if (boneInfo[boneRef].parent >= 0 )
                 {
                     CalcBone(ref entity, frame.parentOffset, frame.bones, torsoFrame.bones, boneInfo[boneRef].parent);
                 }
-                else
-                {
-                    CalcBone(ref entity, frame.parentOffset, frame.bones, torsoFrame.bones, boneRef);
-                }
+                CalcBone(ref entity, frame.parentOffset, frame.bones, torsoFrame.bones, boneRef);
             }
 
             // adjust for torso rotations
