@@ -105,6 +105,8 @@ namespace Game
         public string track;
         public string scriptName;
 
+        public idModel hModel;
+
         //
         // SplitModelSkinString
         //

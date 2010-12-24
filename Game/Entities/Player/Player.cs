@@ -51,6 +51,15 @@ namespace Game.Entities.Player
         idPhysicsPlayerState physicsState = new idPhysicsPlayerState();
 
         string profilename;
+        bool clientSpawned = false;
+
+        public bool isActive
+        {
+            get
+            {
+                return clientSpawned;
+            }
+        }
 
         //
         // Spawn
@@ -76,6 +85,7 @@ namespace Game.Entities.Player
         public override void EnterWorld()
         {
             Engine.common.Printf(profilename + " has entered the world.\n");
+            clientSpawned = true;
         }
 
         //

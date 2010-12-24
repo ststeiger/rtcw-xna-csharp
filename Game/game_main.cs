@@ -40,6 +40,8 @@ using idLib.Engine.Public;
 using idLib.Engine.Public.Net;
 using idLib.Game.Server;
 
+using Game.Entities.Player;
+
 namespace Game
 {
     //
@@ -136,6 +138,12 @@ namespace Game
         //
         public override void Frame()
         {
+            // Don't run any frames unless we have one client thats in the world.
+            if (Level.entities[0] == null || ((idPlayer)Level.entities[0]).isActive == false)
+            {
+                return;
+            }
+
             // Run the clients.
             for (int i = 0; i < Level.num_clients; i++)
             {

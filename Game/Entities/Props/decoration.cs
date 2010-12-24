@@ -34,6 +34,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // decoration.cs (c) 2010 JV Software
 //
 
+using idLib.Engine.Public;
+
 namespace Game.Entities.Props
 {
     //
@@ -41,6 +43,9 @@ namespace Game.Entities.Props
     //
     public class idEntityPropDecoration : idEntity
     {
+        float framenum = 0;
+        int maxFrames = 0;
+
         //
         // Spawn
         //
@@ -53,6 +58,7 @@ namespace Game.Entities.Props
             else
             {
                 state.modelindex = Level.net.ModelIndex(model2);
+                model = model2;
             }
             state.eType = idLib.Game.entityType_t.ET_GENERAL;
         }
@@ -64,6 +70,22 @@ namespace Game.Entities.Props
         {
             if (state.modelindex < 0)
                 return;
+
+            if (hModel == null)
+            {
+                hModel = Engine.modelManager.LoadModel(model);
+                maxFrames = (int)(hModel.GetNumFrames() / 1.4f); // hack for curtains.
+            }
+            else
+            {
+                framenum += 0.5f;
+                if (framenum >= maxFrames)
+                {
+                    framenum = 0;
+                }
+
+                state.frame = (int)framenum;
+            }
 
             LinkEntity();
         }

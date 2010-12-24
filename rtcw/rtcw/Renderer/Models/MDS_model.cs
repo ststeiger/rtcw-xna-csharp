@@ -227,7 +227,7 @@ namespace rtcw.Renderer.Models
         //
         public override int GetNumFrames()
         {
-            return 0;
+            return header.numFrames;
         }
 
         //

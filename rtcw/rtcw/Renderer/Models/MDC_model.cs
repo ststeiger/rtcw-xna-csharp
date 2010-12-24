@@ -230,6 +230,8 @@ namespace rtcw.Renderer.Models
                         // Scale the model vertexes.
                         vert.xyz *= idModelMD3.MD3_XYZ_SCALE;
 
+                        numVertsPerFrame++;
+
                         // If the frame isn't compressed just continue.
                         if (compframe < 0)
                         {
@@ -244,7 +246,6 @@ namespace rtcw.Renderer.Models
                         vert.xyz += newOfsVec;
                         //drawVertexes[v + baseFrame] = vert;
                         renderVertexes.Add(vert);
-                        numVertsPerFrame++;
                     }
                 }
             }
