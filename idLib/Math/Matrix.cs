@@ -77,6 +77,35 @@ namespace idLib.Math
             this.m = m;
         }
 
+        /*
+        ================
+        MatrixMultiply
+         
+        jv - I promise this will go away i just needed something that wouldn't multiply the transform part of the 4x4 matrix.
+        ================
+        */
+        public void AxisMultiply( idMatrix in1, idMatrix in2 ) 
+        {
+	        m.M11 = in1[0][0] * in2[0][0] + in1[0][1] * in2[1][0] +
+				        in1[0][2] * in2[2][0];
+	        m.M12 = in1[0][0] * in2[0][1] + in1[0][1] * in2[1][1] +
+				        in1[0][2] * in2[2][1];
+	        m.M13 = in1[0][0] * in2[0][2] + in1[0][1] * in2[1][2] +
+				        in1[0][2] * in2[2][2];
+	        m.M21 = in1[1][0] * in2[0][0] + in1[1][1] * in2[1][0] +
+				        in1[1][2] * in2[2][0];
+	        m.M22 = in1[1][0] * in2[0][1] + in1[1][1] * in2[1][1] +
+				        in1[1][2] * in2[2][1];
+	        m.M23 = in1[1][0] * in2[0][2] + in1[1][1] * in2[1][2] +
+				        in1[1][2] * in2[2][2];
+	        m.M31 = in1[2][0] * in2[0][0] + in1[2][1] * in2[1][0] +
+				        in1[2][2] * in2[2][0];
+	        m.M32 = in1[2][0] * in2[0][1] + in1[2][1] * in2[1][1] +
+				        in1[2][2] * in2[2][1];
+            m.M33 = in1[2][0] * in2[0][2] + in1[2][1] * in2[1][2] +
+				        in1[2][2] * in2[2][2];
+        }
+
         public static idVector3	operator*( idMatrix mat, idVector3 vec ) {
 	        return new idVector3(
 		            mat[ 0 ].X * vec.X + mat[ 1 ].X * vec.Y + mat[ 2 ].X * vec.Z,

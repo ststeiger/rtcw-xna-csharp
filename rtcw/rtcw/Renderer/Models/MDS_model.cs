@@ -59,7 +59,8 @@ namespace rtcw.Renderer.Models
         mdsBoneInfo_t[] boneInfo;
 
         List<int> collapseMaps = new List<int>();
-        List<int> boneRefs = new List<int>();
+        List<int> boneRefsList = new List<int>();
+        int[] boneRefs;
 
         List<idDrawVertexSkin> vertexes = new List<idDrawVertexSkin>();
         List<short> indexes = new List<short>();
@@ -207,16 +208,20 @@ namespace rtcw.Renderer.Models
                 }
 
                 // Load in the surfaces bone references.
-                surf.startBoneRef = boneRefs.Count;
+                surf.startBoneRef = boneRefsList.Count;
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsBoneReferences);
                 for (int d = 0; d < surf.numBoneReferences; d++)
                 {
-                    boneRefs.Add(f.ReadInt());
+                    boneRefsList.Add(f.ReadInt());
                 }
 
                 surfaces[i] = surf;
                 surfpos += surf.ofsEnd;
             }
+
+            boneRefs = boneRefsList.ToArray();
+            boneRefsList.Clear();
+            boneRefsList = null;
 
             // Build our vertex and index buffers.
             BuildVertexIndexBuffer();
@@ -230,6 +235,25 @@ namespace rtcw.Renderer.Models
             return header.numFrames;
         }
 
+        /*
+        ===============
+        RecursiveBoneListAdd
+        ===============
+        */
+        private void RecursiveBoneListAdd(int bi, ref int[] boneList, ref int numBones)
+        {
+
+            if (boneInfo[bi].parent >= 0)
+            {
+
+                RecursiveBoneListAdd(boneInfo[bi].parent, ref boneList, ref numBones);
+
+            }
+
+            boneList[numBones++] = bi;
+
+        }
+
         //
         // GetTag
         //
@@ -237,6 +261,7 @@ namespace rtcw.Renderer.Models
         {
             int i;
             int boneIndex = -1;
+            int numBones = 0;
 
 	        if ( index > header.numTags ) {
 		        return -1;
@@ -256,9 +281,11 @@ namespace rtcw.Renderer.Models
 		        return -1;
 	        }
 
-	        // calc the bones
+            // now build the list of bones we need to calc to get this tag's bone information
+            RecursiveBoneListAdd(tags[i].boneIndex, ref boneRefsTags, ref numBones);
 
-	        CalcBones(startframe, startframe, 0, header.numBones );
+	        // calc the bones
+	        CalcBones(startframe, startframe, 0, numBones, boneRefsTags );
 
 	        // now extract the orientation for the bone that represents our tag
             boneIndex = tags[i].boneIndex;
@@ -281,6 +308,7 @@ namespace rtcw.Renderer.Models
         // What the hell?
         private Matrix[] bones = new Matrix[MDS_MAX_BONES];
         int lastTorsoBone = 0;
+        private int[] boneRefsTags = new int[MDS_MAX_BONES];
         private static mdsBoneFrame_t nullframe;
         private static mdsBoneInfo_t nullBoneInfo;
 
@@ -417,7 +445,7 @@ namespace rtcw.Renderer.Models
         //
         // CalcBones
         //
-        private void CalcBones(int frameNum, int torsoFrameNum, int startBone, int numBones)
+        private void CalcBones(int frameNum, int torsoFrameNum, int startBone, int numBones, int[] boneRefList)
         {
             mdsFrame_t frame = frames[frameNum];
             mdsFrame_t torsoFrame = frames[torsoFrameNum];
@@ -426,7 +454,7 @@ namespace rtcw.Renderer.Models
 
             for (int i = 0; i < numBones; i++)
             {
-                int boneRef = boneRefs[startBone + i];
+                int boneRef = boneRefList[startBone + i];
 
                 // find our parent, and make sure it has been calculated
                 if (boneInfo[boneRef].parent >= 0 )
@@ -528,7 +556,7 @@ namespace rtcw.Renderer.Models
             // Calculate the bones for each surface.
             for (int i = 0; i < surfaces.Length; i++)
             {
-                CalcBones(entity.frame, entity.torsoFrame, surfaces[i].startBoneRef, surfaces[i].numBoneReferences);
+                CalcBones(entity.frame, entity.torsoFrame, surfaces[i].startBoneRef, surfaces[i].numBoneReferences, boneRefs);
 
                 if (skin != null)
                 {

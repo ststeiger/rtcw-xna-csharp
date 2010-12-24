@@ -209,6 +209,11 @@ namespace idLib.Math
             return new idVector3( vec.X / a, vec.Y / a, vec.Z / a );
         }
 
+        public static idVector3 operator +(idVector3 vec, float a)
+        {
+            return new idVector3(vec.X + a, vec.Y + a, vec.Z + a);
+        }
+
         public static idVector3	operator+( idVector3 vec, idVector3 a )
         {
             return new idVector3( vec.X + a.X, vec.Y + a.Y, vec.Z + a.Z );

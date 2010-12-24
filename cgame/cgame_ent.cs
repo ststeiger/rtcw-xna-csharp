@@ -36,7 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using idLib;
 using idLib.Engine.Public;
-using idLib.Game.Client;
+using idLib.Math;
 using idLib.Game;
 using idLib.Engine.Public.Net;
 
@@ -47,6 +47,34 @@ namespace cgame
     //
     static class EntitySnapshot
     {
+        /*
+        ======================
+        CG_PositionRotatedEntityOnTag
+
+        Modifies the entities position and axis by the given
+        tag location
+        ======================
+        */
+        private static void PositionRotatedEntityOnTag( ref idRenderEntity entity, idRenderEntity parent, string tagName ) {
+	        int i;
+	        idOrientation lerped;
+	        idMatrix tempAxis = idMatrix.IdenityMatrix;
+
+	        // lerp the tag
+            lerped.origin = idVector3.vector_origin;
+            lerped.axis = idMatrix.IdenityMatrix;
+            parent.hModel.GetTag(tagName, parent.frame, parent.torsoFrame, 0, ref lerped);
+	        
+	        // FIXME: allow origin offsets along tag?
+            entity.origin = parent.origin;
+	        for ( i = 0 ; i < 3 ; i++ ) {
+                entity.origin = entity.origin + lerped.origin * parent.axis[i];
+	        }
+	        
+            tempAxis.AxisMultiply(entity.axis, lerped.axis);
+            entity.axis.AxisMultiply(tempAxis, parent.axis);
+        }
+
         //
         // GeneralEntity
         //
@@ -74,15 +102,19 @@ namespace cgame
         //
         // CreatePlayerTorso
         //
-        private static void CreatePlayerTorso(ref entityState_t entity)
+        private static void CreatePlayerTorso(ref entityState_t entity, out idRenderEntity ent)
         {
-            idRenderEntity ent;
-
             if (Globals.world == null)
+            {
+                ent = null;
                 return;
+            }
 
-            if (Globals.skins[entity.modelindex] == null)
+            if (Globals.skins[entity.modelSkin] == null)
+            {
+                ent = null;
                 return;
+            }
 
             ent = Globals.world.AllocRenderEntity(ref Globals.localview.refdef);
 
@@ -90,11 +122,33 @@ namespace cgame
             ent.oldframe = 0;
             ent.origin = entity.origin;
             ent.axis = entity.angles.ToAxis();
-            if (entity.modelSkin >= 0)
-            {
-                ent.customSkin = Globals.skins[entity.modelindex];
-            }
+            ent.customSkin = Globals.skins[entity.modelSkin];
             ent.hModel = Globals.models[entity.modelindex];
+        }
+
+        //
+        // CreatePlayerHead
+        //
+        private static void CreatePlayerHead(ref entityState_t entity, idRenderEntity torso)
+        {
+            idRenderEntity ent;
+
+            if (Globals.world == null)
+                return;
+
+            if (Globals.skins[entity.modelSkin2] == null)
+                return;
+
+            ent = Globals.world.AllocRenderEntity(ref Globals.localview.refdef);
+
+            ent.frame = 0;
+            ent.oldframe = 0;
+            ent.axis = idMatrix.IdenityMatrix;
+
+            PositionRotatedEntityOnTag(ref ent, torso, "tag_head");
+
+            ent.customSkin = Globals.skins[entity.modelSkin2];
+            ent.hModel = Globals.models[entity.modelindex2];
         }
 
         //
@@ -102,6 +156,8 @@ namespace cgame
         //
         public static void PlayerEntiy(ref entityState_t entity)
         {
+            idRenderEntity torso;
+
             if (entity.number == Globals.localViewEntity)
             {
                 Globals.localview.SetViewOrigin(entity.origin);
@@ -110,7 +166,11 @@ namespace cgame
                 return;
             }
 
-            CreatePlayerTorso(ref entity);
+            CreatePlayerTorso(ref entity, out torso);
+            if (torso != null)
+            {
+                CreatePlayerHead(ref entity, torso);
+            }
         }
     }
 }
