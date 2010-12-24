@@ -18,10 +18,12 @@ namespace rtcw.Renderer.Backend
     //
     static class Shade
     {
+        private static BasicEffect default2DEffect;
         private static DualTextureEffect defaultEffect;
         private static idSkeletalEffect skeletalEffect;
         private static idRenderMatrix orthoMatrix;
         private static Vector3 pushedColor;
+        private static float pushedAlpha;
         private static idRenderMatrix drawMatrix;
 
         private static BlendState blending = BlendState.AlphaBlend;
@@ -32,6 +34,7 @@ namespace rtcw.Renderer.Backend
         private static DynamicIndexBuffer dynIndexBuffer;
 
         private static bool useSkeletalEffect = false;
+        private static bool use2DEffect = false;
 
         //
         // Init
@@ -39,8 +42,10 @@ namespace rtcw.Renderer.Backend
         public static void Init()
         {
             defaultEffect = new DualTextureEffect(Globals.graphics3DDevice);
+            default2DEffect = new BasicEffect(Globals.graphics3DDevice);
             skeletalEffect = new idSkeletalEffect();
-            //defaultEffect.TextureEnabled = true;
+
+            default2DEffect.TextureEnabled = true;
 
             //multiTextureEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
 
@@ -60,6 +65,7 @@ namespace rtcw.Renderer.Backend
         public static void SetBoneMatrix(Matrix[] bones)
         {
             useSkeletalEffect = true;
+            use2DEffect = false;
             skeletalEffect.SetBoneMatrixes(bones);
         }
 
@@ -68,7 +74,8 @@ namespace rtcw.Renderer.Backend
         //
         public static void Set2DOrthoMode()
         {
-            orthoMatrix.SetAsActiveMatrix(ref defaultEffect);
+            use2DEffect = true;
+            orthoMatrix.SetAsActiveMatrix(ref default2DEffect);
         }
 
         //
@@ -76,6 +83,7 @@ namespace rtcw.Renderer.Backend
         //
         public static void CreateTranslateRotateMatrix(idRenderEntityLocal refdef)
         {
+            use2DEffect = false;
             drawMatrix.SetEntityMatrix(refdef);
             drawMatrix.SetAsActiveMatrix(ref defaultEffect);
             drawMatrix.SetAsActiveMatrix(ref skeletalEffect);
@@ -86,6 +94,7 @@ namespace rtcw.Renderer.Backend
         //
         public static void BindVertexIndexBuffer(VertexBuffer vertexBuffer, IndexBuffer indexBuffer)
         {
+            use2DEffect = false;
             useSkeletalEffect = false;
             Globals.graphics3DDevice.SetVertexBuffer(vertexBuffer);
             Globals.graphics3DDevice.Indices = indexBuffer;
@@ -116,8 +125,18 @@ namespace rtcw.Renderer.Backend
             DrawElements(0, numVerts, 0, numIndexes, 0);
 
 #else
-            defaultEffect.DiffuseColor = pushedColor;
-            defaultEffect.CurrentTechnique.Passes[0].Apply();
+            if (use2DEffect == true)
+            {
+                default2DEffect.DiffuseColor = pushedColor;
+                default2DEffect.Alpha = pushedAlpha;
+                default2DEffect.CurrentTechnique.Passes[0].Apply();
+            }
+            else
+            {
+                defaultEffect.DiffuseColor = pushedColor;
+                defaultEffect.Alpha = pushedAlpha;
+                defaultEffect.CurrentTechnique.Passes[0].Apply();
+            }
             Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, verts, 0, numVerts, indexes, 0, numIndexes / 3, idRenderGlobals.idDrawVertexDeclaration);
 #endif
         }
@@ -137,8 +156,18 @@ namespace rtcw.Renderer.Backend
 
             DrawElements(0, Globals.tess.numVertexes, 0, Globals.tess.numIndexes, 0);
 #else
-            defaultEffect.DiffuseColor = pushedColor;
-            defaultEffect.CurrentTechnique.Passes[0].Apply();
+            if (use2DEffect == true)
+            {
+                default2DEffect.DiffuseColor = pushedColor;
+                default2DEffect.Alpha = pushedAlpha;
+                default2DEffect.CurrentTechnique.Passes[0].Apply();
+            }
+            else
+            {
+                defaultEffect.DiffuseColor = pushedColor;
+                defaultEffect.Alpha = pushedAlpha;
+                defaultEffect.CurrentTechnique.Passes[0].Apply();
+            }
             Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, Globals.tess.drawVerts, 0, Globals.tess.numVertexes, Globals.tess.indexes, 0, Globals.tess.numIndexes / 3, idRenderGlobals.idDrawVertexDeclaration);
 #endif
         }
@@ -162,6 +191,7 @@ namespace rtcw.Renderer.Backend
                 DrawSkinnedElements(startVertex, numVertexes, startIndexes, numIndexes, offset);
                 return;
             }
+            defaultEffect.Alpha = pushedAlpha;
             defaultEffect.DiffuseColor = pushedColor;
             defaultEffect.CurrentTechnique.Passes[0].Apply();
             Globals.graphics3DDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, startVertex + offset, 0, numVertexes, startIndexes, numIndexes / 3);
@@ -193,6 +223,11 @@ namespace rtcw.Renderer.Backend
                 skeletalEffect.Texture = (Texture2D)image.GetDeviceHandle();
                 return;
             }
+            else if (use2DEffect)
+            {
+                default2DEffect.Texture = (Texture2D)image.GetDeviceHandle();
+                return;
+            }
             defaultEffect.Texture = (Texture2D)image.GetDeviceHandle();
             defaultEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
         }
@@ -222,6 +257,7 @@ namespace rtcw.Renderer.Backend
             pushedColor.X = r;
             pushedColor.Y = g;
             pushedColor.Z = b;
+            pushedAlpha = a;
         }
 
         //
