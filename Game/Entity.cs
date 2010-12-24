@@ -202,6 +202,12 @@ namespace Game
 
                 aihSkin = "models/players/" + model + "/head_" + aiSkin + ".skin";
                 aiSkin = "models/players/" + model + "/body_" + aiSkin + ".skin";
+
+                if (model2 == null || model2.Length <= 0)
+                {
+                    model2 = "models/players/" + model + "/head.mds";
+                }
+
                 model = "models/players/" + model + "/body.mds";
             }
 

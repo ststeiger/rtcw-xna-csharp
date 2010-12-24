@@ -63,9 +63,35 @@ namespace cgame
             ent.oldframe = 0;
             ent.origin = entity.origin;
             ent.axis = entity.angles.ToAxis();
-            if (entity.modelindex2 >= 0)
+            if (entity.modelSkin >= 0)
             {
                 ent.customSkin = Globals.skins[entity.modelindex2];
+            }
+            ent.hModel = Globals.models[entity.modelindex];
+        }
+
+        //
+        // CreatePlayerTorso
+        //
+        private static void CreatePlayerTorso(ref entityState_t entity)
+        {
+            idRenderEntity ent;
+
+            if (Globals.world == null)
+                return;
+
+            if (Globals.skins[entity.modelindex] == null)
+                return;
+
+            ent = Globals.world.AllocRenderEntity(ref Globals.localview.refdef);
+
+            ent.frame = 0;
+            ent.oldframe = 0;
+            ent.origin = entity.origin;
+            ent.axis = entity.angles.ToAxis();
+            if (entity.modelSkin >= 0)
+            {
+                ent.customSkin = Globals.skins[entity.modelindex];
             }
             ent.hModel = Globals.models[entity.modelindex];
         }
@@ -75,15 +101,15 @@ namespace cgame
         //
         public static void PlayerEntiy(ref entityState_t entity)
         {
-            if (entity.eType == entityType_t.ET_PLAYER)
+            if (entity.number == Globals.localViewEntity)
             {
-                if (entity.number == Globals.localViewEntity)
-                {
-                    Globals.localview.SetViewOrigin(entity.origin);
-                    Globals.localview.SetViewAngle(entity.angles2);
-                    Globals.viewPacketRecv = true;
-                }
+                Globals.localview.SetViewOrigin(entity.origin);
+                Globals.localview.SetViewAngle(entity.angles2);
+                Globals.viewPacketRecv = true;
+                return;
             }
+
+            CreatePlayerTorso(ref entity);
         }
     }
 }

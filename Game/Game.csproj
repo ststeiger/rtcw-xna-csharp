@@ -92,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\AI_main.cs" />
     <Compile Include="Entities\Func\Door.cs" />
     <Compile Include="Entities\Misc\gamemodel.cs" />
     <Compile Include="Entities\Player\Player.cs" />

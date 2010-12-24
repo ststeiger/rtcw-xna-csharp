@@ -77,6 +77,8 @@ namespace idLib.Game
 
             modelindex = msg.ReadInt();
             modelindex2 = msg.ReadInt();
+            modelSkin = msg.ReadInt();
+            modelSkin2 = msg.ReadInt();
             clientNum = msg.ReadInt();
             frame = msg.ReadInt();
 
@@ -136,6 +138,8 @@ namespace idLib.Game
 
 	        msg.WriteInt(modelindex);
 	        msg.WriteInt(modelindex2);
+            msg.WriteInt(modelSkin);
+            msg.WriteInt(modelSkin2);
 	        msg.WriteInt(clientNum); 
 	        msg.WriteInt(frame);
 
@@ -169,7 +173,7 @@ namespace idLib.Game
             msg.WriteInt(animMovetype);  
         }
 
-        public const int NET_SIZE = (sizeof(int) * 32) + 2 + (trajectory_t.NET_SIZE * 2) + (idVector3.Size * 4);
+        public const int NET_SIZE = (sizeof(int) * 34) + 2 + (trajectory_t.NET_SIZE * 2) + (idVector3.Size * 4);
 
 	    public int number;             // entity index
         public entityType_t eType;              // entityType_t
@@ -196,8 +200,10 @@ namespace idLib.Game
 	    public int dl_intensity;       // used for coronas
 	    public int loopSound;          // constantly loop this sound
 
-	    public int modelindex;
-	    public int modelindex2;
+	    public int modelindex = -1;
+        public int modelindex2 = -1;
+        public int modelSkin = -1;
+        public int modelSkin2 = -1;
 	    public int clientNum;          // 0 to (MAX_CLIENTS - 1), for players and corpses
 	    public int frame;
 

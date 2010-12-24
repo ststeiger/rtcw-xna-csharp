@@ -104,7 +104,7 @@ namespace rtcw.Renderer.Models
             }
 
             // Load in all the tags.
-            tags = new mdcTag_t[header.numTags];
+            tags = new mdcTag_t[header.numFrames * header.numTags];
             f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsTags);
 
             for (int i = 0; i < header.numFrames * header.numTags; i++)

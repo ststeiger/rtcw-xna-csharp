@@ -45,6 +45,7 @@ using Game.Entities.Player;
 using Game.Entities.Func;
 using Game.Entities.Misc;
 using Game.Entities.Props;
+using Game.AI;
 
 namespace Game
 {
@@ -79,7 +80,7 @@ namespace Game
             new idGameSpawnDefs( "misc_gamemodel", () => new idEntityGameModel() ),
             new idGameSpawnDefs( "props_decoration", () => new idEntityPropDecoration() ),
 
-            new idGameSpawnDefs( "ai_civilian", () => new idEntityGameModel() ), // This is just a hack so I can test MDS
+            new idGameSpawnDefs( "ai_civilian", () => new idEntityAI() ),
 
             // Ignored entities.
             new idGameSpawnDefs( "misc_model", () => null ), // misc models are ignored in rtcw.

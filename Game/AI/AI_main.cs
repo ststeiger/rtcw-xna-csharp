@@ -31,51 +31,26 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// Player.cs (c) 2010 JV Software
+// gamemodel.cs (c) 2010 JV Software
 //
 
-using idLib.Game;
-using idLib.Engine.Public;
-using idLib.Engine.Public.Net;
-
-using Game.Physics;
-
-namespace Game.Entities.Player
+namespace Game.AI
 {
     //
-    // idPlayer
+    // idEntityAI
     //
-    public class idPlayer : idEntity
+    public class idEntityAI : idEntity
     {
-        idPlayerPhysics physics;
-        idPhysicsPlayerState physicsState = new idPhysicsPlayerState();
-
-        string profilename;
-
         //
         // Spawn
         //
         public override void Spawn()
         {
-            //state.modelindex = Level.net.ModelIndex(model);
-            //state.modelindex2 = Level.net.ModelIndex(model2);
-
-            //state.modelSkin = Level.net.SkinIndex(aiSkin);
-            //state.modelSkin2 = Level.net.SkinIndex(aihSkin);
-
-            profilename = spawnArgs.FindKey("name");
-
-            state.eType = entityType_t.ET_PLAYER;
-
-            physics = new idPlayerPhysics();
-        }
-
-        //
-        // EnterWorld
-        //
-        public override void EnterWorld()
-        {
-            Engine.common.Printf(profilename + " has entered the world.\n");
+            state.modelindex = Level.net.ModelIndex(model);
+            state.modelindex2 = Level.net.ModelIndex(model2);
+            state.modelSkin = Level.net.SkinIndex(aiSkin);
+            state.modelSkin2 = Level.net.SkinIndex(aihSkin);
+            state.eType = idLib.Game.entityType_t.ET_PLAYER;
         }
 
         //
@@ -83,10 +58,8 @@ namespace Game.Entities.Player
         //
         public override void Frame()
         {
-            physicsState.cmd = Engine.common.GetUserCmdForClient(state.number);
-            physicsState.ps = state;
-
-            physics.Move(ref physicsState);
+            if (state.modelindex < 0)
+                return;
 
             LinkEntity();
         }
