@@ -148,10 +148,10 @@ namespace rtcw.Renderer.Models
             
             // Load in all the st coords, and when we are beyond numVerts, recursively set the ST's for following vertexes,
             // since ST's don't change between frames.
-            for (int j = startVertex, a = 0; j < startVertex + (numVerts * numFrames); j++, a++)
+            for (int j = startVertex, a = 0, d = 0; j < startVertex + (numVerts * numFrames); j++, a++, d++)
             {
                 idDrawVertex v = drawVertexes[j];
-                if (j < numVerts)
+                if (d < numVerts)
                 {
                     v.st[0] = f.ReadFloat();
                     v.st[1] = f.ReadFloat();
