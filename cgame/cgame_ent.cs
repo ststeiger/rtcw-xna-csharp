@@ -68,7 +68,7 @@ namespace cgame
 	        // FIXME: allow origin offsets along tag?
             entity.origin = parent.origin;
 	        for ( i = 0 ; i < 3 ; i++ ) {
-                entity.origin = entity.origin + lerped.origin * parent.axis[i];
+                entity.origin = entity.origin + lerped.origin[i] * parent.axis[i];
 	        }
 	        
             tempAxis.AxisMultiply(entity.axis, lerped.axis);
