@@ -112,6 +112,7 @@ namespace rtcw.Renderer.Effects
         {
             set
             {
+                Globals.graphics3DDevice.Textures[0] = value;
                 d3deffect.Parameters[textureparem].SetValue(value);
             }
         }

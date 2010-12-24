@@ -148,7 +148,6 @@ namespace rtcw.Renderer.Backend
         //
         public static void DrawSkinnedElements(int startVertex, int numVertexes, int startIndexes, int numIndexes, int offset)
         {
-            skeletalEffect.Texture = defaultEffect.Texture;
             skeletalEffect.Apply();
             Globals.graphics3DDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, startVertex + offset, 0, numVertexes, startIndexes, numIndexes / 3);
         }
@@ -189,6 +188,11 @@ namespace rtcw.Renderer.Backend
         //
         public static void BindImage(idImage image)
         {
+            if (useSkeletalEffect)
+            {
+                skeletalEffect.Texture = (Texture2D)image.GetDeviceHandle();
+                return;
+            }
             defaultEffect.Texture = (Texture2D)image.GetDeviceHandle();
             defaultEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
         }

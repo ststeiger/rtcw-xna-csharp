@@ -239,7 +239,7 @@ namespace rtcw.Renderer.Models
         }
 
         // What the hell?
-        private static Matrix[] bones = new Matrix[MDS_MAX_BONES];
+        private Matrix[] bones = new Matrix[MDS_MAX_BONES];
         int lastTorsoBone = 0;
         private static mdsBoneFrame_t nullframe;
         private static mdsBoneInfo_t nullBoneInfo;
@@ -298,7 +298,7 @@ namespace rtcw.Renderer.Models
 	        } else {
 		        SkeletalMath.ANGLES_SHORT_TO_FLOAT( ref angles, cBonePtr.angles );
 		        if ( isTorso ) {
-			        SkeletalMath.ANGLES_SHORT_TO_FLOAT( ref tangles, cBonePtr.angles );
+			        SkeletalMath.ANGLES_SHORT_TO_FLOAT( ref tangles, cTBonePtr.angles );
 
 			        // blend the angles together
 			        for ( int j = 0; j < 3; j++ ) {
@@ -363,12 +363,6 @@ namespace rtcw.Renderer.Models
                 bones[boneNum].M41 = parentOffset[0];
                 bones[boneNum].M42 = parentOffset[1];
                 bones[boneNum].M43 = parentOffset[2];
-            }
-
-            if (thisBoneInfo.parent >= 0)
-            {
-               // bones[thisBoneInfo.parent] = parentBone;
-                boneInfo[thisBoneInfo.parent] = parentBoneInfo;
             }
 
             if (boneNum == header.torsoParent)
