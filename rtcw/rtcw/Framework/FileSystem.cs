@@ -127,11 +127,12 @@ namespace rtcw.Framework
         //
         public override string GetDLLPath(string dllName)
         {
+#if WINDOWS
             if (!FileExists(dllName))
             {
                 return null;
             }
-
+#endif
             return Engine.BASEGAME + "\\" + dllName;
         }
 
@@ -354,7 +355,7 @@ namespace rtcw.Framework
         public override T ReadContent<T>(string qpath)
         {
             string path = RemoveExtensionFromPath(qpath);
-#if !XBOX_360
+#if WINDOWS
             if (FileExists(path + ".xnb") == false)
             {
                 Engine.common.Warning("FS_ReadContent: File not found " + qpath + "\n");
@@ -479,12 +480,13 @@ namespace rtcw.Framework
         //
         public override void RenameStorageFile(string from, string to)
         {
+#if WINDOWS
             if (FileExists(from) == false)
             {
                 Engine.common.Warning("Failed to rename %s to %s because the file can't be found\n", from, to);
                 return;
             }
-#if !XBOX360
+
             _storage.MoveFile(from, to);
 #endif
         }

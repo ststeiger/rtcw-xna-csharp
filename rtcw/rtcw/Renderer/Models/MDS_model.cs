@@ -34,16 +34,18 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // MDS_Model.cs (c) 2010 JV Software
 //
 
-using System;
+using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 using idLib.Engine.Public;
 using idLib.Math;
 
 using rtcw.Renderer.Backend;
+using rtcw.Framework.Files;
 
 namespace rtcw.Renderer.Models
 {
@@ -123,11 +125,18 @@ namespace rtcw.Renderer.Models
                 Engine.common.ErrorFatal("R_LoadMDS: has no frames\n");
             }
 
+            if (f.ReadString() != "DATA")
+            {
+                Engine.common.ErrorFatal("R_LoadMDS: Data string not present\n");
+            }
+
             // Alloc the frames.
             frames = new mdsFrame_t[header.numFrames];
 
+            frames[0].ReadBounds(ref f);
+
             // Load in the frames.
-            f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsFrames);
+            //f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsFrames);
             for (int i = 0; i < header.numFrames; i++)
             {
                 frames[i].InitFromFile(ref f, header.numBones);
@@ -137,7 +146,7 @@ namespace rtcw.Renderer.Models
             tags = new mdsTag_t[header.numTags];
 
             // Load in the tags.
-            f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsTags);
+           // f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsTags);
             for (int i = 0; i < header.numTags; i++)
             {
                 tags[i].InitFromFile(ref f);
@@ -150,7 +159,7 @@ namespace rtcw.Renderer.Models
 
             // Load in the bones, and alloc
             boneInfo = new mdsBoneInfo_t[header.numBones];
-            f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsBones);
+           // f.Seek(idFileSeekOrigin.FS_SEEK_SET, header.ofsBones);
             for (int i = 0; i < header.numBones; i++)
             {
                 boneInfo[i].InitFromFile(ref f);
@@ -160,13 +169,18 @@ namespace rtcw.Renderer.Models
             surfaces = new mdsSurface_t[header.numSurfaces];
 
             // Load in all the surfaces.
-            int surfpos = header.ofsSurfaces;
+           // int surfpos = header.ofsSurfaces;
             for (int i = 0; i < header.numSurfaces; i++)
             {
                 mdsSurface_t surf = new mdsSurface_t();
 
+                if (f.ReadString() != "SURF")
+                {
+                    Engine.common.ErrorFatal("R_LoadMDS: Surf string not present\n");
+                }
+
                 // Set the read position to the next surface, and parse the surface header.
-                f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos);
+               // f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos);
                 surf.InitFromFile(ref f);
 
                 // Load in the material for the surface.
@@ -178,15 +192,15 @@ namespace rtcw.Renderer.Models
 
                 // Load in the indexes.
                 surf.startIndex = indexes.Count;
-                f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsTriangles);
+             //   f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsTriangles);
                 for (int d = 0; d < surf.numIndexes; d++)
                 {
-                    indexes.Add((short)f.ReadInt());
+                    indexes.Add(f.ReadShort());
                 }
 
                 // Load in the vertexes.
                 surf.startVertex = vertexes.Count;
-                f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsVerts);
+             //   f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsVerts);
                 for (int d = 0; d < surf.numVertexes; d++)
                 {
                     idDrawVertexSkin vert = new idDrawVertexSkin();
@@ -199,6 +213,7 @@ namespace rtcw.Renderer.Models
                     vertexes.Add(vert);
                 }
 
+                /*
                 // Load in the surfaces collapse map.
                 surf.startCollapseMap = collapseMaps.Count;
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsCollapseMap);
@@ -206,17 +221,18 @@ namespace rtcw.Renderer.Models
                 {
                     collapseMaps.Add(f.ReadInt());
                 }
-
+                */
+                
                 // Load in the surfaces bone references.
                 surf.startBoneRef = boneRefsList.Count;
-                f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsBoneReferences);
+              //  f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsBoneReferences);
                 for (int d = 0; d < surf.numBoneReferences; d++)
                 {
-                    boneRefsList.Add(f.ReadInt());
+                    boneRefsList.Add(f.ReadByte());
                 }
 
                 surfaces[i] = surf;
-                surfpos += surf.ofsEnd;
+              //  surfpos += surf.ofsEnd;
             }
 
             boneRefs = boneRefsList.ToArray();

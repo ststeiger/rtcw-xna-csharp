@@ -102,20 +102,45 @@ namespace rtcw.Renderer
                 }
             }
 
-            // Try to open the model file.
-            _file = Engine.fileSystem.OpenFileRead(qpath, true);
-
-            // Fixme this should return the DEFAULT model!.
-            if (_file == null)
+            if (qpath.Contains(".mds"))
             {
-                // Strip the extension and try to load it as a MDC.
-                qpath = Engine.fileSystem.RemoveExtensionFromPath(qpath) + ".mdc";
-                _file = Engine.fileSystem.OpenFileRead(qpath, true);
+                // Try to open the model file.
+                _file = Engine.fileSystem.OpenFileRead(Engine.fileSystem.RemoveExtensionFromPath(qpath) + ".xnb", true);
 
                 if (_file == null)
                 {
-                    Engine.common.Warning("R_LoadModel: Failed to open model " + qpath + " defaulting...\n");
-                    return null;
+                    // Strip the extension and try to load it as a MDC.
+                    qpath = Engine.fileSystem.RemoveExtensionFromPath(qpath) + ".mdc";
+                    _file = Engine.fileSystem.OpenFileRead(qpath, true);
+
+                    if (_file == null)
+                    {
+                        Engine.common.Warning("R_LoadModel: Failed to open model " + qpath + " defaulting...\n");
+                        return null;
+                    }
+                }
+                else
+                {
+                    _file.Seek(idFileSeekOrigin.FS_SEEK_SET, 25);
+                }
+            }
+            else
+            {
+                // Try to open the model file.
+                _file = Engine.fileSystem.OpenFileRead(qpath, true);
+
+                // Fixme this should return the DEFAULT model!.
+                if (_file == null)
+                {
+                    // Strip the extension and try to load it as a MDC.
+                    qpath = Engine.fileSystem.RemoveExtensionFromPath(qpath) + ".mdc";
+                    _file = Engine.fileSystem.OpenFileRead(qpath, true);
+
+                    if (_file == null)
+                    {
+                        Engine.common.Warning("R_LoadModel: Failed to open model " + qpath + " defaulting...\n");
+                        return null;
+                    }
                 }
             }
 

@@ -52,7 +52,11 @@ namespace rtcw.Renderer.Models
 
         public void InitFromFile(ref idFile file)
         {
+#if MDS_ORIGINAL
             boneIndex = file.ReadInt();
+#else
+            boneIndex = file.ReadByte();
+#endif
             boneWeight = file.ReadFloat();
             offset = new idVector3();
             file.ReadVector3(ref offset);
@@ -70,6 +74,7 @@ namespace rtcw.Renderer.Models
 
         public void InitFromFile(ref idFile file)
         {
+#if MDS_ORIGINAL
             normal = new idVector3();
             texCoords = new idVector2();
 
@@ -85,6 +90,23 @@ namespace rtcw.Renderer.Models
             {
                 weights[i].InitFromFile(ref file);
             }
+#else
+            normal = new idVector3();
+            texCoords = new idVector2();
+
+            file.ReadVector3(ref normal);
+            file.ReadVector2(ref texCoords);
+            numWeights = file.ReadByte();
+            //fixedParent = file.ReadByte();
+            //fixedDist = file.ReadInt();
+
+            weights = new mdsWeight_t[4];
+
+            for (int i = 0; i < numWeights; i++)
+            {
+                weights[i].InitFromFile(ref file);
+            }
+#endif
         }
     };
 
@@ -130,6 +152,7 @@ namespace rtcw.Renderer.Models
         //
         public void InitFromFile(ref idFile file)
         {
+#if MDS_ORIGINAL
             ident = file.ReadInt();
             name = file.ReadString(Engine.MAX_QPATH);
             shader = file.ReadString(Engine.MAX_QPATH);
@@ -145,6 +168,16 @@ namespace rtcw.Renderer.Models
             numBoneReferences = file.ReadInt();
             ofsBoneReferences = file.ReadInt();
             ofsEnd = file.ReadInt();
+#else
+            name = file.ReadString();
+            shader = file.ReadString();
+            numVertexes = file.ReadShort();
+          //  ofsVerts = file.ReadInt();
+            numIndexes = file.ReadShort() * 3;
+            numBoneReferences = file.ReadShort();
+          //  ofsBoneReferences = file.ReadInt();
+           // ofsEnd = file.ReadShort();
+#endif
         }
     };
 
@@ -193,6 +226,7 @@ namespace rtcw.Renderer.Models
         // 
         public void InitFromFile(ref idFile file, int numBones)
         {
+#if MDS_ORIGINAL
             idVector3 mins = new idVector3();
             idVector3 maxs = new idVector3();
 
@@ -211,6 +245,36 @@ namespace rtcw.Renderer.Models
             {
                 bones[i].InitFromFile(ref file);
             }
+#else
+            file.ReadVector3(ref parentOffset);
+            bones = new mdsBoneFrameCompressed_t[numBones];
+            for (int i = 0; i < numBones; i++)
+            {
+                bones[i].InitFromFile(ref file);
+            }
+#endif
+        }
+
+        //
+        // ReadBounds
+        //
+        public void ReadBounds(ref idFile file)
+        {
+            idVector3 mins = new idVector3();
+            idVector3 maxs = new idVector3();
+
+            for (int i = 0; i < 3; i++)
+            {
+                mins[i] = file.ReadShort();
+            }
+
+            for (int i = 0; i < 3; i++)
+            {
+                maxs[i] = file.ReadShort();
+            }
+
+            bounds = new idBounds(mins, maxs);
+            radius = file.ReadFloat();
         }
     };
 
@@ -223,9 +287,15 @@ namespace rtcw.Renderer.Models
 
         public void InitFromFile(ref idFile file)
         {
+#if MDS_ORIGINAL
             name = file.ReadString(Engine.MAX_QPATH);
             torsoWeight = file.ReadFloat();
             boneIndex = file.ReadInt();
+#else
+            name = file.ReadString();
+            torsoWeight = file.ReadFloat();
+            boneIndex = file.ReadByte();
+#endif
         }
     };
 
@@ -240,11 +310,22 @@ namespace rtcw.Renderer.Models
 
         public void InitFromFile(ref idFile file)
         {
+#if MDS_ORIGINAL
             name = file.ReadString(Engine.MAX_QPATH);
             parent = file.ReadInt();
             torsoWeight = file.ReadFloat();
             parentDist = file.ReadFloat();
             flags = file.ReadInt();
+#else
+            name = file.ReadString();
+            parent = file.ReadByte();
+            if (parent == 255)
+                parent = -1;
+
+            torsoWeight = file.ReadFloat();
+            parentDist = file.ReadFloat();
+            flags = file.ReadByte();
+#endif
         }
     };
 
@@ -279,6 +360,8 @@ namespace rtcw.Renderer.Models
         //
         public void InitFromFile(ref idFile file)
         {
+
+#if MDS_ORIGINAL
             // Load the version first becuase the ident should already have been read.
             version = file.ReadInt();
             if (version != idModelMDS.MDS_VERSION)
@@ -304,6 +387,18 @@ namespace rtcw.Renderer.Models
             ofsTags = file.ReadInt();
 
             ofsEnd = file.ReadInt();
+#else
+            numFrames = file.ReadShort();
+            numBones = file.ReadByte();
+        //    ofsFrames = file.ReadInt();
+       //     ofsBones = file.ReadInt();
+            torsoParent = file.ReadByte();
+            numSurfaces = file.ReadShort();
+       //     ofsSurfaces = file.ReadInt();
+            numTags = file.ReadShort();
+       //     ofsTags = file.ReadInt();
+       //     ofsEnd = file.ReadInt();
+#endif
         }
     };
 }
