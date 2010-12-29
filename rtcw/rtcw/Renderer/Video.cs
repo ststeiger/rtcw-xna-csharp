@@ -34,13 +34,15 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // Video.cs (c) 2010 JV Software
 //
 
+//#define USE_ROQ_MOVIES // This works but doesn't work on the phone due to the file size.
+
 using System;
 using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using idLib.Engine.Public;
-
+using Microsoft.Xna.Framework.Media;
 using rtcw.Framework;
 
 namespace rtcw.Renderer
@@ -48,6 +50,7 @@ namespace rtcw.Renderer
     //
     // idVideoVQTable
     //
+#if USE_ROQ_MOVIES
     unsafe class idVideoVQTable
     {
         ushort[] membuffer;
@@ -1383,4 +1386,85 @@ namespace rtcw.Renderer
             return;
         }
     }
+#else
+    //
+    // idVideo
+    //
+    public class idVideoLocal : idVideo
+    {
+        Video videoHandle;
+        VideoPlayer videoplayer;
+        bool isInit = false;
+        idImageLocal blitImage;
+        int cin_x, cin_y, cin_w, cin_h;
+
+        public idVideoLocal(string filepath)
+        {
+            videoHandle = Engine.fileSystem.ReadContent<Video>(filepath);
+            videoplayer = new VideoPlayer();
+        }
+
+        public override void SetLooping(bool loop)
+        {
+
+        }
+
+        public override void SetExtents(int x, int y, int w, int h)
+        {
+            cin_x = x;
+            cin_y = y;
+            cin_w = w;
+            cin_h = h;
+        }
+
+        public override void DrawCinematic()
+        {
+            videoplayer.Play(videoHandle);
+
+            if (isInit == false)
+            {
+                blitImage = new idImageLocal();
+                isInit = true;
+            }
+
+            blitImage.BlitD3DHandle(videoplayer.GetTexture());
+            Engine.RenderSystem.DrawStrechPic(cin_x, cin_y, cin_w, cin_h, blitImage);
+        }
+
+        public override void Dispose()
+        {
+            if (videoplayer != null)
+            {
+                videoplayer.Dispose();
+                videoplayer = null;
+                videoHandle = null;
+            }
+        }
+        
+        public override void StopCinematic()
+        {
+            Dispose();
+        }
+
+        public override e_status GetStatus()
+        {
+            if (isInit == false)
+            {
+                // Advance one frame.
+                DrawCinematic();
+            }
+            if (videoplayer == null)
+            {
+                return e_status.FMV_EOF;
+            }
+
+            if (videoplayer.State == MediaState.Playing)
+            {
+                return e_status.FMV_PLAY;
+            }
+
+            return e_status.FMV_EOF;
+        }
+    }
+#endif
 }

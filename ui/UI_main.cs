@@ -157,12 +157,13 @@ namespace ui
         //
         private void UI_RegisterVideo(string name, out idVideo video)
         {
+#if false // disabled doesn't work on the phone
             if (AssetStringValid(name))
             {
                 video = Engine.RenderSystem.LoadVideo(name);
                 return;
             }
-
+#endif
             video = null;
         }
 

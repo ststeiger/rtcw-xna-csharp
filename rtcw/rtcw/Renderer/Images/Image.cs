@@ -72,6 +72,17 @@ namespace rtcw.Renderer
         }
 
         //
+        // BlitD3DHandle
+        //
+        public void BlitD3DHandle(Texture2D texture)
+        {
+            tex2d = texture;
+            imagewidth = tex2d.Width;
+            imageheight = tex2d.Height;
+            name = "in_memory_image";
+        }
+
+        //
         // GetDeviceHandle
         //
         public override object GetDeviceHandle()

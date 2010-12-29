@@ -621,8 +621,8 @@ namespace rtcw.Renderer
                 filename = "video/" + filename;
             }
 
-            idFile movieFile = Engine.fileSystem.OpenFileRead(filename + ".roq", true);
-            return new idVideoLocal( movieFile );
+            //idFile movieFile = Engine.fileSystem.OpenFileRead(filename + ".roq", true);
+            return new idVideoLocal(filename + ".roq");
         }
 
         //
