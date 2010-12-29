@@ -5,6 +5,10 @@ using System;
 using Microsoft.Xna.Framework.Input;
 using idLib.Engine.Public;
 
+#if WINDOWS_PHONE
+using Microsoft.Xna.Framework.Input.Touch;
+#endif
+
 namespace rtcw.sys
 {
     //
@@ -169,6 +173,39 @@ namespace rtcw.sys
         }
 #endif
 
+#if WINDOWS_PHONE
+        //
+        // GetPhoneTouchState
+        //
+        public void GetPhoneTouchState()
+        {
+            int mx, my;
+            TouchCollection touches = TouchPanel.GetState();
+            idSysLocal sys = (idSysLocal)Engine.Sys;
+
+            if (touches.Count == 0)
+                return;
+
+            if(touches[0].State == TouchLocationState.Pressed)
+            {
+                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 1, 0, null);
+            }
+            else if (touches[0].State == TouchLocationState.Released)
+            {
+                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 0, 0, null);
+            }
+            else if (touches[0].State == TouchLocationState.Moved)
+            {
+                mx = (int)touches[0].Position.X;
+                my = (int)touches[0].Position.Y;
+
+                sys.Sys_QueEvent(0, sysEventType_t.SE_MOUSE, mx, my, 0, null);
+            }
+
+            
+        }
+#endif
+
         //
         // Frame
         //
@@ -179,6 +216,8 @@ namespace rtcw.sys
             GetWindowMouseInput();
 #elif XBOX360
             Get360GamepadState();
+#elif WINDOWS_PHONE
+            GetPhoneTouchState();
 #endif
         }
     }

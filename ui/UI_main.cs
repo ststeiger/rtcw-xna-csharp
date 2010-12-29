@@ -1107,10 +1107,13 @@ namespace ui
                 childWindow.HandleMouseEvent(dx, dy);
                 return;
             }
-
+#if WINDOWS_PHONE
+            cursorPosX = dx;
+            cursorPosY = dy;
+#else
             cursorPosX += dx;
             cursorPosY += dy;
-
+#endif
             if (cursorPosX < 0)
             {
                 cursorPosX = 0;

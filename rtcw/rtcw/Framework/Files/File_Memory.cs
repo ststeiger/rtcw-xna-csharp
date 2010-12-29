@@ -332,6 +332,7 @@ namespace rtcw.Framework.Files
         public override string ReadString(int len)
         {
             byte[] buffer = ReadBytes(len);
+#if false
             string s = "";
 
             for( int i = 0; i < buffer.Length; i++ )
@@ -340,8 +341,12 @@ namespace rtcw.Framework.Files
                     break;
                 s += (char)buffer[i];
             }
+            return s; //
+#else
 
-            return s; //ASCIIEncoding.ASCII.GetString(buffer).Trim('\0');
+            return Encoding.UTF8.GetString(buffer, 0, len-1).Trim('\0'); // ASCIIEncoding.ASCII.GetString(buffer).Trim('\0');
+#endif
+
         }
 
         //
