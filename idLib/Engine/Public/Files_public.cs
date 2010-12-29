@@ -73,6 +73,9 @@ namespace idLib.Engine.Public
         // returns the full filename and path without the file extension.
         public abstract string GetFileNameAndPathWithoutExtension();
 
+        // Decompresses a compiled file and sets the new file buffer without the XNB header.
+        public abstract void DecompressCompiledFile();
+
         // Little edian supported read/write functions.
         public abstract int         ReadInt();
         public abstract uint        ReadUInt();

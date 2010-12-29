@@ -94,6 +94,23 @@
   <ItemGroup>
     <Compile Include="Bounds.cs" />
     <Compile Include="Dict.cs" />
+    <Compile Include="Engine\Compression\7zip\Common\CommandLineParser.cs" />
+    <Compile Include="Engine\Compression\7zip\Common\CRC.cs" />
+    <Compile Include="Engine\Compression\7zip\Common\InBuffer.cs" />
+    <Compile Include="Engine\Compression\7zip\Common\OutBuffer.cs" />
+    <Compile Include="Engine\Compression\7zip\Compress\LZMA\LzmaBase.cs" />
+    <Compile Include="Engine\Compression\7zip\Compress\LZMA\LzmaDecoder.cs" />
+    <Compile Include="Engine\Compression\7zip\Compress\LZMA\LzmaEncoder.cs" />
+    <Compile Include="Engine\Compression\7zip\Compress\LZMA\SevenZipHelper.cs" />
+    <Compile Include="Engine\Compression\7zip\Compress\LZ\IMatchFinder.cs" />
+    <Compile Include="Engine\Compression\7zip\Compress\LZ\LzBinTree.cs" />
+    <Compile Include="Engine\Compression\7zip\Compress\LZ\LzInWindow.cs" />
+    <Compile Include="Engine\Compression\7zip\Compress\LZ\LzOutWindow.cs" />
+    <Compile Include="Engine\Compression\7zip\Compress\RangeCoder\RangeCoder.cs" />
+    <Compile Include="Engine\Compression\7zip\Compress\RangeCoder\RangeCoderBit.cs" />
+    <Compile Include="Engine\Compression\7zip\Compress\RangeCoder\RangeCoderBitTree.cs" />
+    <Compile Include="Engine\Compression\7zip\ICoder.cs" />
+    <Compile Include="Engine\Compression\Huffman.cs" />
     <Compile Include="Engine\Content\FileList.cs" />
     <Compile Include="Engine\Content\MaterialTable.cs" />
     <Compile Include="Engine\Content\ui\Private\ui_assets.cs" />

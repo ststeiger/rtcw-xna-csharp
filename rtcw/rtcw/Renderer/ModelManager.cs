@@ -121,7 +121,7 @@ namespace rtcw.Renderer
                 }
                 else
                 {
-                    _file.Seek(idFileSeekOrigin.FS_SEEK_SET, 25);
+                    _file.DecompressCompiledFile();
                 }
             }
             else
