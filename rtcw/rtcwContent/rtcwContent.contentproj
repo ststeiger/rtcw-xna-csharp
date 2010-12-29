@@ -1265,11 +1265,6 @@
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
-    <Compile Include="effects\SkeletalEffect.fx">
-      <Name>SkeletalEffect</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-    </Compile>
     <None Include="fonts\fontImage_12.dat">
       <Name>fontImage_12</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -17572,6 +17567,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="effects\" />
     <Folder Include="models\mapobjects\piano\" />
   </ItemGroup>
   <ItemGroup>

@@ -34,6 +34,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // SkeletalEffect.cs (c) 2010 JV Software
 //
 
+// #define ID_GPU_SKELETON
+
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -64,6 +66,7 @@ namespace rtcw.Renderer.Effects
         //
         public idSkeletalEffect()
         {
+#if ID_GPU_SKELETON
             d3deffect = Engine.fileSystem.ReadContent<Effect>("effects/SkeletalEffect");
             world = Matrix.Identity;
             view = Matrix.Identity;
@@ -72,6 +75,7 @@ namespace rtcw.Renderer.Effects
             boneparem = FindParametor("Bones");
             textureparem = FindParametor("Texture");
             modelviewmatrixparem = FindParametor("ModelViewProjectionMatrix");
+#endif
         }
 
         public void Apply()

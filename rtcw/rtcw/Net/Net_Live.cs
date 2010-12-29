@@ -34,11 +34,22 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // Net_Live.cs (c) 2010 JV Software
 //
 
+//#define USE_XBOXLIVE // comment in for non-phone builds
+
 using System;
+#if USE_XBOXLIVE
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.GamerServices;
+#endif
 using idLib.Engine.Public;
 using idLib.Engine.Public.Net;
+
+#if !USE_XBOXLIVE
+using System.IO;
+
+using PacketReader = idLib.Engine.Public.Net.idMsgReader;
+using Gamer = idLib.Engine.Public.Net.idMsgWriter;
+#endif
 
 namespace rtcw.Net
 {
@@ -47,7 +58,12 @@ namespace rtcw.Net
     //
     class idNetLiveAddress : idNetAdress
     {
+#if USE_XBOXLIVE
         LocalNetworkGamer livegamer;
+#else
+        PacketReader[] netpackets = new PacketReader[256];
+        int numPacketsInQueue = 0;
+#endif
         idNetAddressType addrType;
 
         //
@@ -55,18 +71,56 @@ namespace rtcw.Net
         //
         public bool hasPendingData
         {
+#if USE_XBOXLIVE
             get
             {
                 return livegamer.IsDataAvailable;
             }
+#else
+            get
+            {
+                return (numPacketsInQueue != 0);
+            }
+#endif
         }
+
+#if !USE_XBOXLIVE
+        //
+        // ShiftNetworkPacketQueue
+        //
+        public void ShiftNetworkPacketQueue()
+        {
+            netpackets[0].Dispose();
+            for (int i = 1; i < 256; i++)
+            {
+                if (netpackets[i] == null)
+                    break;
+
+                netpackets[i - 1] = netpackets[i];
+                netpackets[i] = null;
+            }
+        }
+
+#endif
 
         //
         // GetNextIncommingPacket
         //
-        public int GetNextIncommingPacket(ref PacketReader buffer, out NetworkGamer sender)
+        public int GetNextIncommingPacket(ref PacketReader buffer)
         {
+#if USE_XBOXLIVE
             return livegamer.ReceiveData(buffer, out sender);
+#else
+            if (numPacketsInQueue <= 0)
+            {
+                return -1;
+            }
+
+            buffer = netpackets[0];
+            numPacketsInQueue--;
+
+            return buffer.Length;
+#endif
         }
 
         //
@@ -74,7 +128,9 @@ namespace rtcw.Net
         //
         public idNetLiveAddress(Gamer gamer, idNetAddressType addrType)
         {
+#if USE_XBOXLIVE
             livegamer = (LocalNetworkGamer)gamer;
+#endif
             this.addrType = addrType;
         }
 
@@ -83,7 +139,11 @@ namespace rtcw.Net
         //
         public void SendReliablePacketToAddress(idNetLiveAddress addr, ref idMsgWriter msg)
         {
+#if USE_XBOXLIVE
             livegamer.SendData(msg.Buffer, SendDataOptions.Reliable, addr.livegamer);
+#else
+            netpackets[numPacketsInQueue++] = new PacketReader(msg.Buffer);
+#endif
         }
 
         //
@@ -91,7 +151,11 @@ namespace rtcw.Net
         //
         public override string GetAddress()
         {
+#if USE_XBOXLIVE
             return livegamer.Gamertag;
+#else
+            return "idPlayer";
+#endif
         }
 
         //
@@ -109,9 +173,12 @@ namespace rtcw.Net
     class idNetProtocolLive 
     {
         idNetLiveAddress loopBackAddress;
+#if USE_XBOXLIVE
         NetworkSession liveNetworkSession;
+#endif
         //byte[] packet_buffer = new byte[4996];
-        PacketReader packet_buffer = new PacketReader();
+        PacketReader packet_buffer;
+
         string localProfileName;
 
         //
@@ -127,6 +194,7 @@ namespace rtcw.Net
         //
         public void CreateServer(int maxClients)
         {
+#if USE_XBOXLIVE
             Gamer localGamer;
 
             // Create the network session - default to loopback adapter for now.
@@ -141,6 +209,9 @@ namespace rtcw.Net
             }
 
             loopBackAddress = new idNetLiveAddress(localGamer, idNetAddressType.NA_LOOPBACK);
+#else
+            loopBackAddress = new idNetLiveAddress(null, idNetAddressType.NA_LOOPBACK);
+#endif
         }
 
         //
@@ -182,16 +253,16 @@ namespace rtcw.Net
         private idNetAdress lastPacketAddr;
         public idMsgReader GetNextPendingPacket(idNetSource src, out idNetAdress addr)
         {
-            NetworkGamer sender;
-            int packetLen;
+            int packetLen = 0;
 
             // Network session hasn't been created yet so there shouldn't be anything pending.
+#if USE_XBOXLIVE
             if (liveNetworkSession == null)
             {
                 addr = null;
                 return null;
             }
-
+#endif
             if (lastPacket != null && lastPacketSource == src)
             {
                 idMsgReader packet = lastPacket;
@@ -199,18 +270,18 @@ namespace rtcw.Net
                 addr = lastPacketAddr;
                 return packet;
             }
-
+#if USE_XBOXLIVE
             // Update the live network session.
             liveNetworkSession.Update();
-
-            if (loopBackAddress.hasPendingData == false)
+#endif
+            if (loopBackAddress == null || loopBackAddress.hasPendingData == false)
             {
                 addr = null;
                 return null;
             }
 
             // We shouldn't get blank packets.
-            packetLen = loopBackAddress.GetNextIncommingPacket(ref packet_buffer, out sender);
+            packetLen = loopBackAddress.GetNextIncommingPacket(ref packet_buffer);
             if (packetLen <= 0)
             {
                 Engine.common.Warning("Net_NextPacket: PacketLen <= 0\n");
@@ -221,6 +292,10 @@ namespace rtcw.Net
             if (lastPacket == null)
             {
                 lastPacket = new idMsgReader(packet_buffer.ReadBytes(packet_buffer.Length));
+
+#if !USE_XBOXLIVE
+                loopBackAddress.ShiftNetworkPacketQueue();
+#endif
 
                 idNetSource packetSrc = (idNetSource)lastPacket.ReadByte();
 
@@ -251,7 +326,11 @@ namespace rtcw.Net
         //
         private Gamer FindGamer(string gamerName)
         {
+#if USE_XBOXLIVE
             return liveNetworkSession.LocalGamers[0];
+#else
+            return null;
+#endif
         }
     }
 }

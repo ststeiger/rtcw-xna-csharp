@@ -36,8 +36,11 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.GamerServices;
 
+//#define USE_XBOXLIVE // comment in for non-phone builds
+#if USE_XBOXLIVE
+using Microsoft.Xna.Framework.GamerServices;
+#endif
 
 using idLib.Engine.Public;
 using rtcw.sys;
@@ -93,7 +96,9 @@ namespace rtcw.sys.app
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferMultiSampling = true;
+#if USE_XBOXLIVE
             Components.Add(new GamerServicesComponent(this));
+#endif
 #if WINDOWS
             //graphics.PreferredBackBufferHeight = 600;
             //graphics.PreferredBackBufferWidth = 800;

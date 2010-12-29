@@ -34,9 +34,13 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // Net_Main.cs (c) 2010 JV Software
 //
 
+//#define USE_XBOXLIVE // comment in for non-phone builds
+
 using System;
+#if USE_XBOXLIVE
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.GamerServices;
+#endif
 using idLib.Engine.Public;
 
 namespace rtcw.Net
@@ -58,6 +62,7 @@ namespace rtcw.Net
         //
         public override void Init()
         {
+#if USE_XBOXLIVE
             // Show the sign in screen, but don't force online only profiles.
             if (LiveGuideVisible() == false && (Gamer.SignedInGamers[0] == null/* || Gamer.SignedInGamers[0].Gamertag.Contains("Player") == true*/))
             {
@@ -71,7 +76,7 @@ namespace rtcw.Net
             {
                 return;
             }
-
+#endif
             // Wait for any of the live stuff to clear so it won't currupt our vertex/index buffers.
             // This is a ugly hack...
             System.Threading.Thread.Sleep(10); 
@@ -79,6 +84,7 @@ namespace rtcw.Net
             // Setup the various network cvars.
             showpackets = Engine.cvarManager.Cvar_Get("showpackets", "0", idCVar.CVAR_TEMP);
             showdrop = Engine.cvarManager.Cvar_Get("showdrop", "0", idCVar.CVAR_TEMP);
+#if USE_XBOXLIVE
             liveProfileName = Engine.cvarManager.Cvar_Get("net_liveprofile", Gamer.SignedInGamers[0].Gamertag, idCVar.CVAR_ROM);
 
             if (Guide.IsTrialMode == true)
@@ -93,7 +99,10 @@ namespace rtcw.Net
             }
 
             live = new idNetProtocolLive(liveProfileName.GetValue());
-
+#else
+            live = new idNetProtocolLive("idPlayer");
+            liveProfileName = Engine.cvarManager.Cvar_Get("net_liveprofile", "idPlayer", idCVar.CVAR_ROM);
+#endif
             Engine.common.Printf("Net_Init: Signed in with profile " + liveProfileName.GetValue() + "\n");
         }
 
@@ -102,7 +111,11 @@ namespace rtcw.Net
         //
         public override bool LiveGuideVisible()
         {
+#if USE_XBOXLIVE
             return Guide.IsVisible;
+#else
+            return false;
+#endif
         }
 
         //
