@@ -110,10 +110,13 @@ namespace rtcw.Renderer.Models
 	        outvec[ 2 ] += s * ( invec[ 0 ] * mat[ 2 ][ 0 ] + invec[ 1 ] * mat[ 2 ][ 1 ] + invec[ 2 ] * mat[ 2 ][ 2 ] ) + tr[ 2 ];
         }
 
-        public static void LocalAddScaledMatrixTransformVectorTranslate( idVector3 invec, float s, idMatrix mat, idVector3 tr, ref idVector3 outvec ) {
-	        outvec[ 0 ] += s * ( invec[ 0 ] * mat[ 0 ][ 0 ] + invec[ 1 ] * mat[ 0 ][ 1 ] + invec[ 2 ] * mat[ 0 ][ 2 ] + tr[ 0 ] );
-	        outvec[ 1 ] += s * ( invec[ 0 ] * mat[ 1 ][ 0 ] + invec[ 1 ] * mat[ 1 ][ 1 ] + invec[ 2 ] * mat[ 1 ][ 2 ] + tr[ 1 ] );
-	        outvec[ 2 ] += s * ( invec[ 0 ] * mat[ 2 ][ 0 ] + invec[ 1 ] * mat[ 2 ][ 1 ] + invec[ 2 ] * mat[ 2 ][ 2 ] + tr[ 2 ] );
+        private static idVector3 outvecTranslated = new idVector3();
+        public static idVector3 LocalAddScaledMatrixTransformVectorTranslate( idVector3 invec, float s, idMatrix mat ) {
+            outvecTranslated[0] = s * (invec[0] * mat[0][0] + invec[1] * mat[0][1] + invec[2] * mat[0][2] + mat.M41);
+            outvecTranslated[1] = s * (invec[0] * mat[1][0] + invec[1] * mat[1][1] + invec[2] * mat[1][2] + mat.M42);
+            outvecTranslated[2] = s * (invec[0] * mat[2][0] + invec[1] * mat[2][1] + invec[2] * mat[2][2] + mat.M43);
+
+            return outvecTranslated;
         }
 
         public static void LocalAddScaledMatrixTransformVector( idVector3 invec, float s, idMatrix mat, ref idVector3 outvec  ) {

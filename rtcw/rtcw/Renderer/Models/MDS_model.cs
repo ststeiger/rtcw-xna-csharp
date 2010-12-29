@@ -67,6 +67,8 @@ namespace rtcw.Renderer.Models
         List<idDrawVertexSkin> vertexes = new List<idDrawVertexSkin>();
         List<short> indexes = new List<short>();
 
+        idDrawVertex[] drawVertexes;
+
         public const int MDS_IDENT         =  ( ( 'W' << 24 ) + ( 'S' << 16 ) + ( 'D' << 8 ) + 'M' );
         public const int MDS_VERSION       =  4;
         public const int MDS_MAX_VERTS     =  6000;
@@ -239,8 +241,23 @@ namespace rtcw.Renderer.Models
             boneRefsList.Clear();
             boneRefsList = null;
 
+            drawVertexes = new idDrawVertex[vertexes.Count];
+
+            vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idRenderGlobals.idDrawVertexDeclaration, vertexes.Count, BufferUsage.WriteOnly);
+            indexBuffer = new IndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, indexes.Count, BufferUsage.WriteOnly);
+            indexBuffer.SetData<short>(indexes.ToArray());
+
+            for (int i = 0; i < vertexes.Count; i++)
+            {
+                drawVertexes[i] = new idDrawVertex();
+            }
+
             // Build our vertex and index buffers.
-            BuildVertexIndexBuffer();
+            //BuildVertexIndexBuffer();
+
+            // Hack - temp to get it to work on the phone.
+            GenerateBonesForFrame(0, 0);
+            GenerateSurfaces();
         }
 
         //
@@ -536,17 +553,8 @@ namespace rtcw.Renderer.Models
         //
         public override void BuildVertexIndexBuffer()
         {
-            vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idRenderGlobals.idDrawSkinnedVertexDeclaration, vertexes.Count, BufferUsage.WriteOnly);
-            vertexBuffer.SetData<idDrawVertexSkin>(vertexes.ToArray());
-
-            indexBuffer = new IndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, indexes.Count, BufferUsage.WriteOnly);
-            indexBuffer.SetData<short>(indexes.ToArray());
-
-            vertexes.Clear();
-            vertexes = null;
-
-            indexes.Clear();
-            indexes = null;
+            Globals.graphics3DDevice.SetVertexBuffer(null);
+            vertexBuffer.SetData<idDrawVertex>(drawVertexes);
         }
 
         //
@@ -563,25 +571,70 @@ namespace rtcw.Renderer.Models
         }
 
         //
+        // GenerateBonesForFrame
+        //
+        private void GenerateBonesForFrame(int frame, int torsoFrame)
+        {
+            for (int i = 0; i < surfaces.Length; i++)
+            {
+                CalcBones(frame, torsoFrame, surfaces[i].startBoneRef, surfaces[i].numBoneReferences, boneRefs);
+            }
+        }
+
+        //
+        // GenerateSurfaces
+        //
+        private void GenerateSurfaces()
+        {
+            idMatrix m = new idMatrix();
+
+            // This is only temporary to get the build on to the phone.
+            for (int i = 0; i < vertexes.Count; i++)
+            {
+                idDrawVertex vert = drawVertexes[i];
+                idDrawVertexSkin input = vertexes[i];
+
+                m.Set(bones[(int)input.blendIndices[0]]);
+                vert.xyz = SkeletalMath.LocalAddScaledMatrixTransformVectorTranslate(input.offset1, input.weights[0], m);
+
+                m.Set(bones[(int)input.blendIndices[1]]);
+                vert.xyz += SkeletalMath.LocalAddScaledMatrixTransformVectorTranslate(input.offset2, input.weights[1], m);
+
+                m.Set(bones[(int)input.blendIndices[2]]);
+                vert.xyz += SkeletalMath.LocalAddScaledMatrixTransformVectorTranslate(input.offset3, input.weights[2], m);
+
+                m.Set(bones[(int)input.blendIndices[3]]);
+                vert.xyz += SkeletalMath.LocalAddScaledMatrixTransformVectorTranslate(input.offset4, input.weights[3], m);
+
+                vert.st = input.st;
+
+                drawVertexes[i] = vert;
+            }
+
+            BuildVertexIndexBuffer();
+        }
+
+        //
         // TessModel
         //
         public override void TessModel(ref idRenderEntityLocal entity)
         {
             idSkinLocal skin = (idSkinLocal)entity.customSkin;
+            
 
             // Calculate the bones for each surface.
             for (int i = 0; i < surfaces.Length; i++)
             {
-                CalcBones(entity.frame, entity.torsoFrame, surfaces[i].startBoneRef, surfaces[i].numBoneReferences, boneRefs);
-
                 if (skin != null)
                 {
                     surfaces[i].materials[0] = skin.surfaces[i].shader;
                 }
             }
 
+            
+
             Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
-            SetBoneBuffer();
+            //SetBoneBuffer();
             Globals.SortSurfaces(0, ref surfaces);
         }
     }
