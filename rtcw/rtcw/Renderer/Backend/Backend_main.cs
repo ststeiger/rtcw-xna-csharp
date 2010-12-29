@@ -45,7 +45,7 @@ namespace rtcw.Renderer.Backend
     //
     // idRenderBackend
     //
-    public unsafe class idRenderBackend
+    public class idRenderBackend
     {
         backEndState_t state = new backEndState_t();
         backEndData_t[]  backEndData = new backEndData_t[idRenderGlobals.SMP_FRAMES];

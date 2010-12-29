@@ -315,6 +315,7 @@ namespace rtcw.Client
             }
 
             Engine.RenderSystem.BeginFrame();
+            Engine.RenderSystem.SetColor(1, 1, 1, 1);
             Engine.RenderSystem.DrawStrechPic(0, 0, Engine.RenderSystem.GetViewportWidth(), Engine.RenderSystem.GetViewportHeight(), cls.loadingbackground);
             Engine.RenderSystem.EndFrame();
         }

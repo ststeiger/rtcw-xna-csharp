@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 //#define USE_ROQ_MOVIES // This works but doesn't work on the phone due to the file size.
 
+#if !WINDOWS_PHONE
 using System;
 using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
@@ -44,7 +45,11 @@ using Microsoft.Xna.Framework.Graphics;
 using idLib.Engine.Public;
 using Microsoft.Xna.Framework.Media;
 using rtcw.Framework;
-
+#else
+using idLib.Engine.Public;
+using Microsoft.Phone.Tasks;
+using Microsoft.Xna.Framework.Media;
+#endif
 namespace rtcw.Renderer
 {
     //
@@ -1392,16 +1397,24 @@ namespace rtcw.Renderer
     //
     public class idVideoLocal : idVideo
     {
+#if !WINDOWS_PHONE
         Video videoHandle;
         VideoPlayer videoplayer;
+#else
+        string path;
+#endif
         bool isInit = false;
         idImageLocal blitImage;
         int cin_x, cin_y, cin_w, cin_h;
 
         public idVideoLocal(string filepath)
         {
+#if !WINDOWS_PHONE
             videoHandle = Engine.fileSystem.ReadContent<Video>(filepath);
             videoplayer = new VideoPlayer();
+#else
+            path = filepath;
+#endif
         }
 
         public override void SetLooping(bool loop)
@@ -1419,6 +1432,7 @@ namespace rtcw.Renderer
 
         public override void DrawCinematic()
         {
+#if !WINDOWS_PHONE
             videoplayer.Play(videoHandle);
 
             if (isInit == false)
@@ -1429,16 +1443,27 @@ namespace rtcw.Renderer
 
             blitImage.BlitD3DHandle(videoplayer.GetTexture());
             Engine.RenderSystem.DrawStrechPic(cin_x, cin_y, cin_w, cin_h, blitImage);
+#else
+            MediaPlayerLauncher player = new MediaPlayerLauncher();
+            player.Location = MediaLocationType.Install;
+            player.Media = new System.Uri("main/" + path, System.UriKind.Relative);
+            player.Show();
+            isInit = true;
+#endif
         }
 
         public override void Dispose()
         {
+#if !WINDOWS_PHONE
             if (videoplayer != null)
             {
                 videoplayer.Dispose();
                 videoplayer = null;
                 videoHandle = null;
             }
+#else
+            MediaPlayer.Stop();
+#endif
         }
         
         public override void StopCinematic()
@@ -1448,6 +1473,7 @@ namespace rtcw.Renderer
 
         public override e_status GetStatus()
         {
+#if !WINDOWS_PHONE
             if (isInit == false)
             {
                 // Advance one frame.
@@ -1462,7 +1488,18 @@ namespace rtcw.Renderer
             {
                 return e_status.FMV_PLAY;
             }
+#else
+            // Draw the cinematic in the player than return EOF.
+            if (isInit == false)
+            {
+                DrawCinematic();
+            }
 
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                return e_status.FMV_PLAY;
+            }
+#endif
             return e_status.FMV_EOF;
         }
     }

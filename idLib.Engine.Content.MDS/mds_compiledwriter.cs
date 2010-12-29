@@ -2,8 +2,6 @@
 using System.IO;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
-using idLib.Engine.Content;
-using idLib.Engine.Compression.Huffman;
 using SevenZip;
 
 namespace idLib.Engine.Content.MDS

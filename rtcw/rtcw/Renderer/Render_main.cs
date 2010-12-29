@@ -622,7 +622,11 @@ namespace rtcw.Renderer
             }
 
             //idFile movieFile = Engine.fileSystem.OpenFileRead(filename + ".roq", true);
+#if WINDOWS_PHONE
+            return new idVideoLocal(filename + ".wmv");
+#else
             return new idVideoLocal(filename + ".roq");
+#endif
         }
 
         //

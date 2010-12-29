@@ -609,6 +609,8 @@ namespace rtcw.Framework
             // Print the message to the VS debug screen.
 #if XBOX360
             Debug.WriteLine(formatedMessage);
+#elif WINDOWS_PHONE
+            Debug.WriteLine(formatedMessage);
 #else
             Debug.Write(formatedMessage);
 #endif

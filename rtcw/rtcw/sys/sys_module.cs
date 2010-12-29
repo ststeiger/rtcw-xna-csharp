@@ -55,7 +55,7 @@ namespace rtcw.sys
         //
         public idSysModuleLocal(string path)
         {
-            assembly = Assembly.LoadFrom(path);
+            assembly = Assembly.Load(path);
         }
 
         //

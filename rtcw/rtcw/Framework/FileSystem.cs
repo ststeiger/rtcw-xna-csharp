@@ -37,6 +37,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 using System;
 using System.IO;
 using System.IO.IsolatedStorage;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
 using rtcw.Framework.Files;
@@ -142,13 +143,17 @@ namespace rtcw.Framework
         // Opens a file from the app's content folder, it's assumed the mod folder,
         // is already included in qpath.
         //
-        private FileStream OpenContentReadFileStream(string qpath)
+        private Stream OpenContentReadFileStream(string qpath)
         {
-            FileStream _file;
+            Stream _file;
 
             try
             {
+#if WINDOWS_PHONE
+                _file = TitleContainer.OpenStream(_contentManager.RootDirectory + "/" + qpath);
+#else
                 _file = new FileStream(_contentManager.RootDirectory + "/" + qpath, FileMode.Open, FileAccess.Read);
+#endif
             }
             catch (FileNotFoundException)
             {
@@ -262,7 +267,7 @@ namespace rtcw.Framework
         //
         public override idFile OpenFileRead(string qpath, bool uniqueFILE)
         {
-            FileStream _fileStream;
+            Stream _fileStream;
             int fileHandle;
 
             // Check to see if the file is already opened.

@@ -86,6 +86,8 @@ namespace rtcw.sys
             string dllPath;
 #if XBOX360
             dllPath = Engine.fileSystem.GetDLLPath("dlls\\" + path + "xeon.dll");
+#elif WINDOWS_PHONE
+            dllPath = path + "wp7"; // winphone assemblies have to be in the app folder.
 #else
             dllPath = Engine.fileSystem.GetDLLPath("dlls\\" + path + ".dll");
 #endif
