@@ -161,6 +161,36 @@ namespace rtcw.Renderer.Map
         }
 
         /*
+        ==================
+        TestPointInPVS
+         
+        Checks to see if a point is in the points PVS.
+        ==================
+        */
+        public bool TestPointInPVS(idVector3 p1, idVector3 p2)
+        {
+            idRenderNode leaf;
+            int vis;
+
+            if (p1 == p2)
+            {
+                return true;
+            }
+
+            leaf = R_PointInLeaf(p1);
+            vis  = R_ClusterPVS(leaf.cluster);
+            leaf = R_PointInLeaf(p2);
+
+            byte vischeck = visibility[vis + (leaf.cluster >> 3)];
+            if ((vischeck & (1 << (leaf.cluster & 7))) == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /*
         ===============
         MarkLeavesInPVS
 

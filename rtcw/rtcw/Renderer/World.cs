@@ -133,6 +133,16 @@ namespace rtcw.Renderer
             {
                 idRenderEntityLocal entity = cmd.refdef.entities[i];
 
+                // Server side entities should already be excluded before sent down to the client,
+                // this is here for client effects so they arent drawn if they arent in the current view.
+                if (map != null)
+                {
+                    if (!map.vis.TestPointInPVS(refdef.vieworg, entity.origin))
+                    {
+                        continue;
+                    }
+                }
+
                 SetWorldMatrix(entity);
 
                 switch (entity.reType)
