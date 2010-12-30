@@ -55,7 +55,11 @@ namespace rtcw.sys
         //
         public idSysModuleLocal(string path)
         {
+#if WINDOWS_PHONE
             assembly = Assembly.Load(path);
+#else
+            assembly = Assembly.LoadFrom(path);
+#endif
         }
 
         //

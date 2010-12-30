@@ -629,6 +629,8 @@ namespace rtcw.Renderer.Models
                 {
                     surfaces[i].materials[0] = skin.surfaces[i].shader;
                 }
+
+                surfaces[i].visCount = -1;
             }
 
             

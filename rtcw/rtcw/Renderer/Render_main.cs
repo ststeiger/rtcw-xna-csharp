@@ -226,6 +226,8 @@ namespace rtcw.Renderer
         public static idCVar r_maxpolyverts;
         public static int max_polyverts;
 
+        public static int visCount = 0;
+
         public const int GLS_SRCBLEND_ZERO = 0x00000001;
         public const int GLS_SRCBLEND_ONE                  =      0x00000002;
         public const int GLS_SRCBLEND_DST_COLOR            =      0x00000003;
@@ -300,7 +302,12 @@ namespace rtcw.Renderer
         //
         public static void SortSurface<T>(int vertexOffset, ref T surfaces) where T : idDrawSurface
         {
-            idRenderCommand cmd = backEnd.GetCommandBuffer();
+            idRenderCommand cmd;
+            if (surfaces.visCount != Globals.visCount && surfaces.visCount != -1)
+            {
+                return;
+            }
+            cmd = backEnd.GetCommandBuffer();
 
             cmd.type = renderCommandType.RC_DRAW_SURFS;
 
@@ -326,6 +333,9 @@ namespace rtcw.Renderer
 
             for (int i = 0; i < cmd.numDrawSurfs; i++)
             {
+                if (surfaces[i].visCount != Globals.visCount && surfaces[i].visCount != -1)
+                    continue;
+
                 backEnd.AddDrawSurface( (idDrawSurface)surfaces[i] );
             }
         }
@@ -634,6 +644,7 @@ namespace rtcw.Renderer
         //
         public override void BeginFrame()
         {
+
         }
 
         //

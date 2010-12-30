@@ -135,6 +135,7 @@
     <Compile Include="Renderer\Map\Map.cs" />
     <Compile Include="Renderer\Map\MapFormat.cs" />
     <Compile Include="Renderer\Map\MapCurve.cs" />
+    <Compile Include="Renderer\Map\MapVis.cs" />
     <Compile Include="Renderer\MaterialManager.cs" />
     <Compile Include="Renderer\Materials.cs" />
     <Compile Include="Renderer\ModelManager.cs" />

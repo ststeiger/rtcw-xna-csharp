@@ -49,7 +49,6 @@ namespace rtcw.Renderer.Backend
     {
         backEndState_t state = new backEndState_t();
         backEndData_t[]  backEndData = new backEndData_t[idRenderGlobals.SMP_FRAMES];
-        
 
         private int r_firstSceneDrawSurf = 0;
 
@@ -73,8 +72,6 @@ namespace rtcw.Renderer.Backend
         
         private idDrawVertex[] quadVertexes = new idDrawVertex[4];
         private short[] quadIndexes = new short[] { 0, 1, 2, 0, 2, 3 };
-
-        
 
         //
         // idRenderBackend
@@ -356,6 +353,10 @@ namespace rtcw.Renderer.Backend
             for (int i = cmd.firstDrawSurf; i < cmd.firstDrawSurf + cmd.numDrawSurfs; i++)
             {
                 idDrawSurface surf = backEndData[smpFrame].drawSurfs[i];
+
+                if (surf == null)
+                    continue;
+
                 BeginSurface(surf.materials[0], 0);
 
                 Globals.tess.vertexBufferStart = surf.startVertex;;
@@ -399,9 +400,10 @@ namespace rtcw.Renderer.Backend
         {
             while (true)
             {
-                if (SmpThreadHasWork( smpFrame ) || Globals.r_smp.GetValueInteger() == 0)
+                bool smpIsActive = (Globals.r_smp.GetValueInteger() != 0);
+
+                if (SmpThreadHasWork(smpFrame) || smpIsActive == false)
                 {
-                    
                     for (int i = 0; i < GetNumOfSmpCommands( smpFrame ); i++)
                     {
 

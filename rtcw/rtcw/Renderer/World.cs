@@ -113,16 +113,6 @@ namespace rtcw.Renderer
         }
 
         //
-        // RenderWorld
-        //
-        private void RenderWorld()
-        {
-            Globals.SetVertexIndexBuffers(map.vertexBuffer, map.indexBuffer);
-
-            Globals.SortSurfaces(0, ref map.drawSurfs);
-        }
-
-        //
         // RenderScene
         //
         public override void RenderScene(idRefdef refdef)
@@ -135,7 +125,7 @@ namespace rtcw.Renderer
             // Render the bsp if its present.
             if (map != null)
             {
-                RenderWorld();
+                map.RenderMap(refdef.vieworg);
             }
 
             // Render the entities.

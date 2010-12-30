@@ -105,6 +105,8 @@ namespace rtcw.Renderer
         public int startIndex;
         public int numIndexes;
 
+        public int visCount;
+
         public int fogIndex;
     }
 

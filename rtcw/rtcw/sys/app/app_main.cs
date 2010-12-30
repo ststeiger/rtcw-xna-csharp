@@ -69,6 +69,11 @@ namespace rtcw.sys.app
             // Init any components that need to be attached to the application
             InitAppAttachedObjects();
             app = this;
+
+#if WINDOWS_PHONE
+            // Frame rate is 30 fps by default for Windows Phone.
+            TargetElapsedTime = TimeSpan.FromTicks(333333);
+#endif
         }
 
         //
@@ -95,7 +100,7 @@ namespace rtcw.sys.app
         private void InitAppAttachedObjects()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferMultiSampling = true;
+            //graphics.PreferMultiSampling = true;
 #if USE_XBOXLIVE
             Components.Add(new GamerServicesComponent(this));
 #endif

@@ -69,9 +69,11 @@ namespace rtcw.Renderer.Map
         public idRenderNode[] nodes;
         public int numDecisionNodes;
 
+        private int[] markSurfaces;
+
         public int clusterBytes;
         public int numClusters;
-        public byte[] vis;
+        public idMapVis vis;
 
         public string entityString;
 
@@ -569,6 +571,24 @@ namespace rtcw.Renderer.Map
             }
         }
 
+        //
+        // LoadMarksurfaces
+        //
+        private void LoadMarksurfaces(ref idFile bspFile, idMapFormat.lump_t lump)
+        {
+            int count = 0;
+
+            SetLumpPosition(lump, ref bspFile);
+            count = LumpCount(lump, sizeof(int));
+
+            markSurfaces = new int[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                markSurfaces[i] = bspFile.ReadInt();
+            }
+        }
+
         /*
         =================
         LoadVisibility
@@ -588,7 +608,7 @@ namespace rtcw.Renderer.Map
             numClusters = bspFile.ReadInt();
             clusterBytes = bspFile.ReadInt();
 
-            vis = bspFile.ReadBytes(lump.filelen - 8);
+            vis = new idMapVis(bspFile.ReadBytes(lump.filelen - 8), nodes, clusterBytes, numClusters, markSurfaces);
         }
 
         /*
@@ -1259,6 +1279,17 @@ namespace rtcw.Renderer.Map
         }
 
         //
+        // RenderMap
+        //
+        public void RenderMap(idVector3 pvsorigin)
+        {
+            vis.SetSurfacesVisibility(pvsorigin, ref drawSurfs);
+
+            Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
+            Globals.SortSurfaces(0, ref drawSurfs);
+        }
+
+        //
         // LoadMap
         //
         public void LoadMap(string mappath)
@@ -1294,7 +1325,7 @@ namespace rtcw.Renderer.Map
             LoadFogs(ref bspFile, header.lumps[idMapFormat.LUMP_FOGS], header.lumps[idMapFormat.LUMP_BRUSHES], header.lumps[idMapFormat.LUMP_BRUSHSIDES]);
             LoadSurfaces(ref bspFile, header.lumps[idMapFormat.LUMP_SURFACES], header.lumps[idMapFormat.LUMP_DRAWVERTS], header.lumps[idMapFormat.LUMP_DRAWINDEXES]);
            // 
-           // LoadMarksurfaces(ref bspFile, header.lumps[idMapFormat.LUMP_LEAFSURFACES]);
+            LoadMarksurfaces(ref bspFile, header.lumps[idMapFormat.LUMP_LEAFSURFACES]);
             LoadNodesAndLeafs(ref bspFile, header.lumps[idMapFormat.LUMP_NODES], header.lumps[idMapFormat.LUMP_LEAFS]);
             LoadSubmodels(ref bspFile, header.lumps[idMapFormat.LUMP_MODELS]);
             LoadVisibility(ref bspFile, header.lumps[idMapFormat.LUMP_VISIBILITY]);
