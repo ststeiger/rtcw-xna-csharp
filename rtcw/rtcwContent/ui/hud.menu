@@ -34,7 +34,84 @@
 	}
 
 
+	menuDef {
+		name "phone_controls"
+    	fullScreen MENU_FALSE
+    	visible MENU_TRUE
+		style WINDOW_STYLE_EMPTY
+		border 1
+		bordersize 1
+		bordercolor .34 .35 .24 1
+    	rect 0 0 640 480
 
+		itemDef {
+			name phoneMoveUp
+			type 1
+			style 0	
+			textstyle 6
+			background "ui/assets/phone/uparrow"
+			rect 100 326 64 64
+			textalign 0
+			textscale .233		
+			textalignx 2
+			textaligny 14
+			forecolor .9 .9 .9 1
+			visible 1
+			textfont UI_FONT_NORMAL
+			action { UIScript playerMoveUp ; }
+		}
+
+		itemDef {
+			name phoneTurnRight
+			type 1
+			style 0	
+			textstyle 6
+			background "ui/assets/phone/rightarrow"
+			rect 144 369 64 64
+			textalign 0
+			textscale .233		
+			textalignx 2
+			textaligny 14
+			forecolor .9 .9 .9 1
+			visible 1
+			textfont UI_FONT_NORMAL
+			action { UIScript playerTurnRight ; }
+		}
+
+		itemDef {
+			name phoneMoveBack
+			type 1
+			style 0	
+			textstyle 6
+			background "ui/assets/phone/downarrow"
+			rect 100 413 64 64
+			textalign 0
+			textscale .233		
+			textalignx 2
+			textaligny 14
+			forecolor .9 .9 .9 1
+			visible 1
+			textfont UI_FONT_NORMAL
+			action { UIScript playerMoveBack ; }
+		}
+
+		itemDef {
+			name phoneTurnLeft
+			type 1
+			style 0	
+			textstyle 6
+			background "ui/assets/phone/leftarrow"
+			rect 56 369 64 64
+			textalign 0
+			textscale .233		
+			textalignx 2
+			textaligny 14
+			forecolor .9 .9 .9 1
+			visible 1
+			textfont UI_FONT_NORMAL
+			action { UIScript playerTurnLeft ; }
+		}
+	}
 
 
 

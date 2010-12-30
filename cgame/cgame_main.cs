@@ -50,8 +50,9 @@ namespace cgame
         idUserInterface mainMenu;
         idUserInterface connectUI;
         idUserInterface briefingUI;
-
-        
+#if WINDOWS_PHONE
+        idUserInterface hud_phonecontrols;
+#endif
 
         //
         // idClientGame
@@ -88,6 +89,15 @@ namespace cgame
                 Engine.common.ErrorFatal("Failed to load the briefing menu.\n");
                 return;
             }
+
+#if WINDOWS_PHONE
+            hud_phonecontrols = Engine.ui.FindUserInterface("phone_controls");
+            if (hud_phonecontrols == null)
+            {
+                Engine.common.ErrorFatal("Failed to load the phone hud controls.\n");
+                return;
+            }
+#endif
         }
 
         //
@@ -275,7 +285,9 @@ namespace cgame
         //
         public override void HandleMouseEvent(float x, float y)
         {
-
+#if WINDOWS_PHONE
+            hud_phonecontrols.HandleMouseEvent((int)x, (int)y);
+#endif
         }
 
         //
@@ -294,11 +306,17 @@ namespace cgame
             if (Globals.waitingToEnterWorld == true)
             {
                 ClientReady();
-                
+
                 // Reset the keycatcher so user cmds can get generated.
                 Engine.common.SetKeyCatcher(0);
 
                 Globals.waitingToEnterWorld = false;
+            }
+            else
+            {
+#if WINDOWS_PHONE
+            hud_phonecontrols.HandleKeyEvent((keyNum)key, down);
+#endif
             }
         }
 
@@ -377,6 +395,9 @@ namespace cgame
 
             // Draw the world through the current view.
             Globals.localview.DrawView();
+#if WINDOWS_PHONE
+            hud_phonecontrols.Draw();
+#endif
         }
     }
 }

@@ -285,7 +285,11 @@ namespace rtcw.Client
             }
             else
             {
+#if WINDOWS_PHONE
+                cls.cgame.HandleMouseEvent(dx, dy);
+#else
                 Engine.usercmd.MouseEvent(dx, dy);
+#endif
             }
         }
 
@@ -550,7 +554,11 @@ namespace rtcw.Client
             }
             else
             {
+#if WINDOWS_PHONE
+                cls.cgame.HandleKeyEvent(key, down);
+#else
                 Engine.usercmd.KeyEvent((byte)key, down);
+#endif
             }
         }
 

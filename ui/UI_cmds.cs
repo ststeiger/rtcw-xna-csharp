@@ -492,6 +492,24 @@ namespace ui
            {
                Engine.common.Quit();
            }
+#if WINDOWS_PHONE
+           else if (cmdToken == "playermoveup")
+           {
+               Engine.cmdSystem.Cbuf_ExecuteText(cbufExec_t.EXEC_NOW, "playerMoveUp");
+           }
+           else if (cmdToken == "playermoveback")
+           {
+               Engine.cmdSystem.Cbuf_ExecuteText(cbufExec_t.EXEC_NOW, "playerMoveDown");
+           }
+           else if (cmdToken == "playerturnright")
+           {
+               Engine.cmdSystem.Cbuf_ExecuteText(cbufExec_t.EXEC_NOW, "playerTurnRight");
+           }
+           else if (cmdToken == "playerturnleft")
+           {
+               Engine.cmdSystem.Cbuf_ExecuteText(cbufExec_t.EXEC_NOW, "playerTurnLeft");
+           }
+#endif
            else
            {
                Engine.common.Warning("Unknown UIScript Command " + cmdToken + "\n");

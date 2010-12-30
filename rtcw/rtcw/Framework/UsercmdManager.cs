@@ -86,12 +86,10 @@ namespace rtcw.Framework
         {
             float speed = 0.05f * Engine.common.Frametime();
 
-
             if (x > 30 || y > 30 || x < -30 || y < -30)
             {
                 return;
             }
-
 
             mousedelta[0] -= x * speed;
             mousedelta[1] += y * speed;
@@ -165,8 +163,11 @@ namespace rtcw.Framework
         //
         public override void KeyEvent(byte key, bool down)
         {
+#if WINDOWS_PHONE
+            int movespeed = 15;
+#else
             int movespeed = 5;
-
+#endif
             forwardmove += movespeed * ForwardButtonDown(key);
             forwardmove -= movespeed * BackButtonDown(key);
 

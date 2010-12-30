@@ -29,7 +29,12 @@ namespace rtcw.sys
         //
         public void Init()
         {
-
+#if WINDOWS_PHONE
+            Engine.cmdSystem.Cmd_AddCommand("playerMoveUp", InputPlayerMoveUp);
+            Engine.cmdSystem.Cmd_AddCommand("playerMoveDown", InputPlayerMoveDown);
+            Engine.cmdSystem.Cmd_AddCommand("playerTurnRight", InputPlayerTurnRight);
+            Engine.cmdSystem.Cmd_AddCommand("playerTurnLeft", InputPlayerTurnLeft);
+#endif
         }
 
 #if WINDOWS
@@ -174,9 +179,31 @@ namespace rtcw.sys
 #endif
 
 #if WINDOWS_PHONE
+        public void InputPlayerMoveUp()
+        {
+            Engine.usercmd.KeyEvent((byte)'W', true);
+        }
+
+        public void InputPlayerMoveDown()
+        {
+            Engine.usercmd.KeyEvent((byte)'S', true);
+        }
+
+        public void InputPlayerTurnRight()
+        {
+            Engine.usercmd.MouseEvent(4, 0);
+        }
+
+        public void InputPlayerTurnLeft()
+        {
+            Engine.usercmd.MouseEvent(-4, 0);
+        }
+
         //
         // GetPhoneTouchState
         //
+
+        bool isTouchDown = false;
         public void GetPhoneTouchState()
         {
             int mx, my;
@@ -189,10 +216,12 @@ namespace rtcw.sys
             if(touches[0].State == TouchLocationState.Pressed)
             {
                 sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 1, 0, null);
+                isTouchDown = true;
             }
             else if (touches[0].State == TouchLocationState.Released)
             {
                 sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 0, 0, null);
+                isTouchDown = false;
             }
             else if (touches[0].State == TouchLocationState.Moved)
             {
@@ -200,9 +229,12 @@ namespace rtcw.sys
                 my = (int)touches[0].Position.Y;
 
                 sys.Sys_QueEvent(0, sysEventType_t.SE_MOUSE, mx, my, 0, null);
-            }
 
-            
+                if (isTouchDown)
+                {
+                    sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 1, 0, null);
+                }
+            }
         }
 #endif
 
