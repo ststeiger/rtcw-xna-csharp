@@ -670,8 +670,10 @@ namespace rtcw.Renderer
         //
         private void AdjustFrom640(ref float x, ref float y, ref float w, ref float h)
         {
-            float yscale = GetViewportHeight() * (1.0f / 480.0f);
-            float xscale = GetViewportWidth() * (1.0f / 640.0f);
+            float vidwidth = GetViewportWidth();
+            float vidheight = GetViewportHeight();
+            float yscale = vidheight * (1.0f / 480.0f);
+            float xscale = vidwidth * (1.0f / 640.0f);
 
             //*x = *x * DC->scale + DC->bias;
             x *= xscale;
