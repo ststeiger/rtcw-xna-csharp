@@ -84,8 +84,8 @@ namespace rtcw.Framework
         private sysEvent_t[] com_pushedEvents = new sysEvent_t[MAX_PUSHED_EVENTS];
 
         private int com_eventprintedWarning = 0;
-        private idServerManager sv = new idServerManager();
-        private idClientManager cl = new idClientManager();
+        public static idServerManager sv = new idServerManager();
+        public static idClientManager cl = new idClientManager();
 
         private int com_frameTime = 0;
         private bool com_fullyInitialized = false;
@@ -722,7 +722,7 @@ namespace rtcw.Framework
             // without a frame of latency
             //
             HandlePendingEvents();
-            cl.Frame();
+            cl.Frame(frameTime);
         }
     }
 }

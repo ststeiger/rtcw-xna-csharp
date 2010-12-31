@@ -42,6 +42,9 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.GamerServices;
 #endif
 using idLib.Engine.Public;
+#if WINDOWS_PHONE
+using rtcw.Framework;
+#endif
 
 namespace rtcw.Net
 {

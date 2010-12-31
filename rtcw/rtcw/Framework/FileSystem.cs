@@ -309,7 +309,7 @@ namespace rtcw.Framework
                 }
             }
 
-            filepool[fileHandle] = new idFile_Memory(qpath, _fileStream);
+            filepool[fileHandle] = new idFile_Memory(qpath.Replace('\\', '/'), _fileStream);
             fs_loadStack += filepool[fileHandle].Length();
 
             return filepool[fileHandle];
@@ -475,7 +475,7 @@ namespace rtcw.Framework
                 }
             }
 
-            filepool[fileHandle] = new idFile_Memory(qpath, _file);
+            filepool[fileHandle] = new idFile_Memory(qpath.Replace('\\', '/'), _file);
 
             return filepool[fileHandle];
         }

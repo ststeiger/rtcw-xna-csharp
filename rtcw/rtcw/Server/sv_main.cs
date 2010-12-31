@@ -521,19 +521,32 @@ namespace rtcw.Server
             }
 
             // Loop through the linked entities and only send down the ones that are in each players view.
+#if !WINDOWS_PHONE
             idMsgWriter msg = new idMsgWriter(Globals.numLinkedEntities * entityState_t.NET_SIZE + idNetwork.netcmd_snapshot.Length + 4 + 4);
             msg.WriteString(idNetwork.netcmd_snapshot);
             msg.WriteInt(Globals.numLinkedEntities);
+#else
+            if (idCommonLocal.cl.cls.state == connstate_t.CA_LOADING)
+            {
+                idCommonLocal.cl.cls.state = connstate_t.CA_ACTIVE;
+            }
+
+            Globals.clients[0].cmd = Engine.usercmd.GetCurrentCommand();
+#endif
             for (int i = 0; i < Globals.numLinkedEntities; i++)
             {
                 entityState_t ent = Globals.gentities[Globals.linkedEntities[i]].state;
-
+#if !WINDOWS_PHONE
                 ent.WritePacket(ref msg);
+#else
+                idCommonLocal.cl.cls.cgame.NetworkRecieveSnapshot( ref ent );
+#endif
             }
-
+#if !WINDOWS_PHONE
             Engine.net.SendReliablePacketToAddress(idNetSource.NS_CLIENT, Engine.net.GetLoopBackAddress(), ref msg);
 
             msg.Dispose();
+#endif
         }
     }
 }

@@ -148,7 +148,7 @@ namespace rtcw.Client
     //
     public class idClientManager
     {
-        private clientStatic_t cls = new clientStatic_t();
+        public clientStatic_t cls = new clientStatic_t();
 
         /*
         ==============
@@ -649,10 +649,10 @@ namespace rtcw.Client
             else if (cmd == idNetwork.netcmd_sendconfigmsg)
             {
                 cls.cgame.ParseConfigString(buf.ReadString());
-                cls.state = connstate_t.CA_ACTIVE;
             }
             else if (cmd == idNetwork.netcmd_snapshot)
             {
+                cls.state = connstate_t.CA_ACTIVE;
                 ProcessSnapshot(ref buf);
             }
             else
@@ -664,7 +664,7 @@ namespace rtcw.Client
         //
         // Frame
         //
-        public void Frame()
+        public void Frame( int frameTime )
         {
             Engine.RenderSystem.BeginFrame();
 
@@ -701,6 +701,13 @@ namespace rtcw.Client
             }
             else if (cls.state == connstate_t.CA_ACTIVE)
             {
+#if DEBUG
+                if (frameTime > 300)
+                {
+                   Engine.common.Warning("FPS too low...\n");
+          //          throw new Exception("FPS Too low");
+                }
+#endif
                 cls.cgame.Frame();
             }
 

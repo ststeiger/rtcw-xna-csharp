@@ -391,8 +391,9 @@ namespace cgame
             }
 
             // Get the current user cmd and send it to the server.
+#if !WINDOWS_PHONE
             UpdateUsercmd();
-
+#endif
             // Draw the world through the current view.
             Globals.localview.DrawView();
 #if WINDOWS_PHONE

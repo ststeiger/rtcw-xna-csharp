@@ -660,7 +660,7 @@ namespace rtcw.Renderer.Backend
             {
                 entities[numEntities] = new idRefdefLocal();
             }
-            /*
+           
             entities[numEntities].areamaskModified = false;
             entities[numEntities].floatTime = 0;
             entities[numEntities].fov_x = 0;
@@ -672,7 +672,7 @@ namespace rtcw.Renderer.Backend
             entities[numEntities].width = 0;
             entities[numEntities].x = 0;
             entities[numEntities].y = 0;
-            */
+            
             return entities[numEntities++];
         }
 
@@ -682,10 +682,6 @@ namespace rtcw.Renderer.Backend
         public void Pause()
         {
             executingFrameBuffer = false;
-            for (int i = 0; i < numEntities; i++)
-            {
-                entities[i].num_entities = 0;
-            }
             numEntities = 0;
             numDrawSurfs = 0;
         }

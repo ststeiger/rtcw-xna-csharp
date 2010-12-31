@@ -341,10 +341,17 @@ namespace rtcw.Framework
         //
         public override void Cmd_TokenizeString(string text_in)
         {
-            idParser parser = new idParser(text_in);
+            idParser parser;
 
-	        // clear previous args
-	        cmd_argc = 0;
+            // clear previous args
+            cmd_argc = 0;
+
+            if (text_in.Contains(" ") == false && text_in.Length > 0)
+            {
+                cmd_argv[cmd_argc++] = text_in;
+                return;
+            }
+            parser = new idParser(text_in);
 
             // Parse the entire buffer.
             while (parser.ReachedEndOfBuffer == false)
