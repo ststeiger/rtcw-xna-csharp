@@ -23,8 +23,6 @@ namespace ui
         private idUserInterfaceCommandHandler cmd = new idUserInterfaceCommandHandler();
         private int cursorPosX = 0;
         private int cursorPosY = 0;
-        private int cursorDrawPosX = 0;
-        private int cursorDrawPosY = 0;
         private idUserInterfaceLocal parentWindow;
         private idUserInterfaceLocal childWindow;
 
@@ -459,12 +457,30 @@ namespace ui
         }
 
         //
+        // AdjustFromOver640
+        //
+        private static void AdjustFromOver640(ref int x, ref int y)
+        {
+            float vidwidth = Engine.RenderSystem.GetViewportWidth();
+            float vidheight = Engine.RenderSystem.GetViewportHeight();
+            float xscale = 640 / vidwidth;
+            float yscale = 480 / vidheight;
+            float dx = x * xscale;
+            float dy = y * yscale;
+
+            x = (int)dx;
+            y = (int)dy;
+        }
+
+        //
         // AdjustFrom640
         //
         public static void AdjustFrom640(ref float x, ref float y, ref float w, ref float h)
         {
-            float yscale = Engine.RenderSystem.GetViewportHeight() * (1.0f / 480.0f);
-            float xscale = Engine.RenderSystem.GetViewportWidth() * (1.0f / 640.0f);
+            float vidwidth = Engine.RenderSystem.GetViewportWidth();
+            float vidheight = Engine.RenderSystem.GetViewportHeight();
+            float yscale = vidheight * (1.0f / 480.0f);
+            float xscale = vidwidth * (1.0f / 640.0f);
 
             //*x = *x * DC->scale + DC->bias;
             x *= xscale;
@@ -1113,21 +1129,15 @@ namespace ui
                 childWindow.HandleMouseEvent(dx, dy);
                 return;
             }
-#if WINDOWS_PHONE
-            float w = 0, h = 0;
-            float px = dx;
-            float py = dy;
-            AdjustFrom640( ref px, ref py, ref w, ref h );
-            cursorPosX = (int)px;
-            cursorPosY = (int)py;
 
-            cursorDrawPosX = dx;
-            cursorDrawPosY = dy;
+#if WINDOWS_PHONE
+            cursorPosX = dx;
+            cursorPosY = dy;
+
+            AdjustFromOver640( ref cursorPosX, ref cursorPosY );
 #else
             cursorPosX += dx;
             cursorPosY += dy;
-            cursorDrawPosX += dx;
-            cursorDrawPosY += dy;
 #endif
             if (cursorPosX < 0)
             {
@@ -1471,7 +1481,9 @@ namespace ui
             }
 
             // Draw the cursor over everything else.
-            UI_DrawHandlePic(cursorDrawPosX, cursorDrawPosY, 32, 32, assets.handles.cursor);
+#if !WINDOWS_PHONE
+            UI_DrawHandlePic(cursorPosX - 16, cursorPosY - 16, 32, 32, assets.handles.cursor);
+#endif
         }
     }
 }
