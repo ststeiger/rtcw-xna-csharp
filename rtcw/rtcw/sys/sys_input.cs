@@ -191,12 +191,12 @@ namespace rtcw.sys
 
         public void InputPlayerTurnRight()
         {
-            Engine.usercmd.MouseEvent(4, 0);
+            Engine.usercmd.MouseEvent(1, 0);
         }
 
         public void InputPlayerTurnLeft()
         {
-            Engine.usercmd.MouseEvent(-4, 0);
+            Engine.usercmd.MouseEvent(-1, 0);
         }
 
         //
@@ -213,6 +213,11 @@ namespace rtcw.sys
             if (touches.Count == 0)
                 return;
 
+            mx = (int)touches[0].Position.X;
+            my = (int)touches[0].Position.Y;
+
+            sys.Sys_QueEvent(0, sysEventType_t.SE_MOUSE, mx, my, 0, null);
+
             if(touches[0].State == TouchLocationState.Pressed)
             {
                 sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1, 1, 0, null);
@@ -225,10 +230,7 @@ namespace rtcw.sys
             }
             else if (touches[0].State == TouchLocationState.Moved)
             {
-                mx = (int)touches[0].Position.X;
-                my = (int)touches[0].Position.Y;
-
-                sys.Sys_QueEvent(0, sysEventType_t.SE_MOUSE, mx, my, 0, null);
+                
 
                 if (isTouchDown)
                 {
