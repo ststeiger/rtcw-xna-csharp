@@ -84,8 +84,12 @@ namespace rtcw.Framework
         //
         public override void MouseEvent(int x, int y)
         {
+#if WINDOWS_PHONE
+            float frameTime = Engine.common.Frametime();
+            float speed = 0.1f * frameTime;
+#else
             float speed = 0.05f * Engine.common.Frametime();
-
+#endif
             if (x > 30 || y > 30 || x < -30 || y < -30)
             {
                 return;
