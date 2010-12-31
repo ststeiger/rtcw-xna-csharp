@@ -157,9 +157,11 @@ namespace Game.Physics
 
             total = (float)System.Math.Abs(cmd.ForwardMove * cmd.ForwardMove
                           + cmd.RightMove * cmd.RightMove + cmd.UpMove * cmd.UpMove);
-
+#if WINDOWS_PHONE
+            scale = (float)(/*pm.speed*/ 680 * max / (127.0 * total));
+#else
             scale = (float)(/*pm.speed*/ 340 * max / (127.0 * total));
-
+#endif
         //    if ((pm.cmd.buttons & usercmd_t.BUTTON_SPRINT) != 0 && pm.sprintTime > 50)
         //    {
          //       scale *= 1.2f;
