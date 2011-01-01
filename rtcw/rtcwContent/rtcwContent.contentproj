@@ -42,6 +42,636 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cameras\boss1b25_01.camera">
+      <Name>boss1b25_01</Name>
+    </Compile>
+    <Compile Include="cameras\boss1b25_02.camera">
+      <Name>boss1b25_02</Name>
+    </Compile>
+    <Compile Include="cameras\boss1b25_03.camera">
+      <Name>boss1b25_03</Name>
+    </Compile>
+    <Compile Include="cameras\boss1b25_04.camera">
+      <Name>boss1b25_04</Name>
+    </Compile>
+    <Compile Include="cameras\boss1end.camera">
+      <Name>boss1end</Name>
+    </Compile>
+    <Compile Include="cameras\c15_05.camera">
+      <Name>c15_05</Name>
+    </Compile>
+    <Compile Include="cameras\ceiling.camera">
+      <Name>ceiling</Name>
+    </Compile>
+    <Compile Include="cameras\ceiling2.camera">
+      <Name>ceiling2</Name>
+    </Compile>
+    <Compile Include="cameras\crypt01.camera">
+      <Name>crypt01</Name>
+    </Compile>
+    <Compile Include="cameras\crypt02.camera">
+      <Name>crypt02</Name>
+    </Compile>
+    <Compile Include="cameras\crypt03.camera">
+      <Name>crypt03</Name>
+    </Compile>
+    <Compile Include="cameras\crypt04.camera">
+      <Name>crypt04</Name>
+    </Compile>
+    <Compile Include="cameras\crypt05.camera">
+      <Name>crypt05</Name>
+    </Compile>
+    <Compile Include="cameras\crypt06.camera">
+      <Name>crypt06</Name>
+    </Compile>
+    <Compile Include="cameras\crypt07.camera">
+      <Name>crypt07</Name>
+    </Compile>
+    <Compile Include="cameras\crypt08.camera">
+      <Name>crypt08</Name>
+    </Compile>
+    <Compile Include="cameras\crypt09.camera">
+      <Name>crypt09</Name>
+    </Compile>
+    <Compile Include="cameras\crypt10.camera">
+      <Name>crypt10</Name>
+    </Compile>
+    <Compile Include="cameras\crypt2a.camera">
+      <Name>crypt2a</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_01.camera">
+      <Name>cs01a_01</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_01a.camera">
+      <Name>cs01a_01a</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_01b.camera">
+      <Name>cs01a_01b</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_02.camera">
+      <Name>cs01a_02</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_03.camera">
+      <Name>cs01a_03</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_04.camera">
+      <Name>cs01a_04</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_05.camera">
+      <Name>cs01a_05</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_06.camera">
+      <Name>cs01a_06</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_07.camera">
+      <Name>cs01a_07</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_08.camera">
+      <Name>cs01a_08</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_08a.camera">
+      <Name>cs01a_08a</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_08b.camera">
+      <Name>cs01a_08b</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_08c.camera">
+      <Name>cs01a_08c</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_08_good.camera">
+      <Name>cs01a_08_good</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_08_old.camera">
+      <Name>cs01a_08_old</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_09.camera">
+      <Name>cs01a_09</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_10.camera">
+      <Name>cs01a_10</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_11.camera">
+      <Name>cs01a_11</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_11d.camera">
+      <Name>cs01a_11d</Name>
+    </Compile>
+    <Compile Include="cameras\cs01a_12.camera">
+      <Name>cs01a_12</Name>
+    </Compile>
+    <Compile Include="cameras\cs02_01.camera">
+      <Name>cs02_01</Name>
+    </Compile>
+    <Compile Include="cameras\cs02_02.camera">
+      <Name>cs02_02</Name>
+    </Compile>
+    <Compile Include="cameras\cs02_03.camera">
+      <Name>cs02_03</Name>
+    </Compile>
+    <Compile Include="cameras\cs02_04.camera">
+      <Name>cs02_04</Name>
+    </Compile>
+    <Compile Include="cameras\cs02_05.camera">
+      <Name>cs02_05</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_01.camera">
+      <Name>cs04_01</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_01b.camera">
+      <Name>cs04_01b</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_02.camera">
+      <Name>cs04_02</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_02_old.camera">
+      <Name>cs04_02_old</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_03.camera">
+      <Name>cs04_03</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_03d.camera">
+      <Name>cs04_03d</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_04.camera">
+      <Name>cs04_04</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_05.camera">
+      <Name>cs04_05</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_05a.camera">
+      <Name>cs04_05a</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_06.camera">
+      <Name>cs04_06</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_07a.camera">
+      <Name>cs04_07a</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_08.camera">
+      <Name>cs04_08</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_09.camera">
+      <Name>cs04_09</Name>
+    </Compile>
+    <Compile Include="cameras\cs04_10.camera">
+      <Name>cs04_10</Name>
+    </Compile>
+    <Compile Include="cameras\cs05_01.camera">
+      <Name>cs05_01</Name>
+    </Compile>
+    <Compile Include="cameras\cs05_02.camera">
+      <Name>cs05_02</Name>
+    </Compile>
+    <Compile Include="cameras\cs05_02a.camera">
+      <Name>cs05_02a</Name>
+    </Compile>
+    <Compile Include="cameras\cs05_02b.camera">
+      <Name>cs05_02b</Name>
+    </Compile>
+    <Compile Include="cameras\cs05_03.camera">
+      <Name>cs05_03</Name>
+    </Compile>
+    <Compile Include="cameras\cs05_03d.camera">
+      <Name>cs05_03d</Name>
+    </Compile>
+    <Compile Include="cameras\cs05_04.camera">
+      <Name>cs05_04</Name>
+    </Compile>
+    <Compile Include="cameras\cs05_05.camera">
+      <Name>cs05_05</Name>
+    </Compile>
+    <Compile Include="cameras\cs05_06.camera">
+      <Name>cs05_06</Name>
+    </Compile>
+    <Compile Include="cameras\cs05_07.camera">
+      <Name>cs05_07</Name>
+    </Compile>
+    <Compile Include="cameras\cs05_08.camera">
+      <Name>cs05_08</Name>
+    </Compile>
+    <Compile Include="cameras\cs08_01.camera">
+      <Name>cs08_01</Name>
+    </Compile>
+    <Compile Include="cameras\cs08_02.camera">
+      <Name>cs08_02</Name>
+    </Compile>
+    <Compile Include="cameras\cs10_01.camera">
+      <Name>cs10_01</Name>
+    </Compile>
+    <Compile Include="cameras\cs10_02.camera">
+      <Name>cs10_02</Name>
+    </Compile>
+    <Compile Include="cameras\cs10_03.camera">
+      <Name>cs10_03</Name>
+    </Compile>
+    <Compile Include="cameras\cs10_03d.camera">
+      <Name>cs10_03d</Name>
+    </Compile>
+    <Compile Include="cameras\cs10_04.camera">
+      <Name>cs10_04</Name>
+    </Compile>
+    <Compile Include="cameras\cs15_01.camera">
+      <Name>cs15_01</Name>
+    </Compile>
+    <Compile Include="cameras\cs15_02.camera">
+      <Name>cs15_02</Name>
+    </Compile>
+    <Compile Include="cameras\cs15_03.camera">
+      <Name>cs15_03</Name>
+    </Compile>
+    <Compile Include="cameras\cs15_04.camera">
+      <Name>cs15_04</Name>
+    </Compile>
+    <Compile Include="cameras\cs15_05.camera">
+      <Name>cs15_05</Name>
+    </Compile>
+    <Compile Include="cameras\cs15_06.camera">
+      <Name>cs15_06</Name>
+    </Compile>
+    <Compile Include="cameras\cs15_06d.camera">
+      <Name>cs15_06d</Name>
+    </Compile>
+    <Compile Include="cameras\cs16-01.camera">
+      <Name>cs16-01</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_01.camera">
+      <Name>cs16_01</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_02.camera">
+      <Name>cs16_02</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_03.camera">
+      <Name>cs16_03</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_03d.camera">
+      <Name>cs16_03d</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_04.camera">
+      <Name>cs16_04</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_05.camera">
+      <Name>cs16_05</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_06.camera">
+      <Name>cs16_06</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_07.camera">
+      <Name>cs16_07</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_08.camera">
+      <Name>cs16_08</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_09.camera">
+      <Name>cs16_09</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_10.camera">
+      <Name>cs16_10</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_10d.camera">
+      <Name>cs16_10d</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_11.camera">
+      <Name>cs16_11</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_12.camera">
+      <Name>cs16_12</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_13.camera">
+      <Name>cs16_13</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_14.camera">
+      <Name>cs16_14</Name>
+    </Compile>
+    <Compile Include="cameras\cs16_15.camera">
+      <Name>cs16_15</Name>
+    </Compile>
+    <Compile Include="cameras\cs18_03.camera">
+      <Name>cs18_03</Name>
+    </Compile>
+    <Compile Include="cameras\cs18_04.camera">
+      <Name>cs18_04</Name>
+    </Compile>
+    <Compile Include="cameras\cs19_01.camera">
+      <Name>cs19_01</Name>
+    </Compile>
+    <Compile Include="cameras\cs19_02.camera">
+      <Name>cs19_02</Name>
+    </Compile>
+    <Compile Include="cameras\cs19_02_old.camera">
+      <Name>cs19_02_old</Name>
+    </Compile>
+    <Compile Include="cameras\cs19_05.camera">
+      <Name>cs19_05</Name>
+    </Compile>
+    <Compile Include="cameras\cs1a01.camera">
+      <Name>cs1a01</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_01.camera">
+      <Name>cs1_01</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_02.camera">
+      <Name>cs1_02</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_03.camera">
+      <Name>cs1_03</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_04.camera">
+      <Name>cs1_04</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_04a.camera">
+      <Name>cs1_04a</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_05.camera">
+      <Name>cs1_05</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_06.camera">
+      <Name>cs1_06</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_07.camera">
+      <Name>cs1_07</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_08.camera">
+      <Name>cs1_08</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_09.camera">
+      <Name>cs1_09</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_09d.camera">
+      <Name>cs1_09d</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_10.camera">
+      <Name>cs1_10</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_11.camera">
+      <Name>cs1_11</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_12.camera">
+      <Name>cs1_12</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_13.camera">
+      <Name>cs1_13</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_14.camera">
+      <Name>cs1_14</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_15.camera">
+      <Name>cs1_15</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_16.camera">
+      <Name>cs1_16</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_17.camera">
+      <Name>cs1_17</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_17d.camera">
+      <Name>cs1_17d</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_18.camera">
+      <Name>cs1_18</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_19.camera">
+      <Name>cs1_19</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_20.camera">
+      <Name>cs1_20</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_21.camera">
+      <Name>cs1_21</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_22.camera">
+      <Name>cs1_22</Name>
+    </Compile>
+    <Compile Include="cameras\cs1_24.camera">
+      <Name>cs1_24</Name>
+    </Compile>
+    <Compile Include="cameras\cs2_03.camera">
+      <Name>cs2_03</Name>
+    </Compile>
+    <Compile Include="cameras\cs_01.camera">
+      <Name>cs_01</Name>
+    </Compile>
+    <Compile Include="cameras\cs_02.camera">
+      <Name>cs_02</Name>
+    </Compile>
+    <Compile Include="cameras\cs_03.camera">
+      <Name>cs_03</Name>
+    </Compile>
+    <Compile Include="cameras\cs_04.camera">
+      <Name>cs_04</Name>
+    </Compile>
+    <Compile Include="cameras\cs_05.camera">
+      <Name>cs_05</Name>
+    </Compile>
+    <Compile Include="cameras\cs_06.camera">
+      <Name>cs_06</Name>
+    </Compile>
+    <Compile Include="cameras\cs_06d.camera">
+      <Name>cs_06d</Name>
+    </Compile>
+    <Compile Include="cameras\cs_07.camera">
+      <Name>cs_07</Name>
+    </Compile>
+    <Compile Include="cameras\cs_07d.camera">
+      <Name>cs_07d</Name>
+    </Compile>
+    <Compile Include="cameras\cs_08.camera">
+      <Name>cs_08</Name>
+    </Compile>
+    <Compile Include="cameras\cs_09.camera">
+      <Name>cs_09</Name>
+    </Compile>
+    <Compile Include="cameras\cs_10.camera">
+      <Name>cs_10</Name>
+    </Compile>
+    <Compile Include="cameras\cs_11.camera">
+      <Name>cs_11</Name>
+    </Compile>
+    <Compile Include="cameras\cs_12.camera">
+      <Name>cs_12</Name>
+    </Compile>
+    <Compile Include="cameras\cs_13.camera">
+      <Name>cs_13</Name>
+    </Compile>
+    <Compile Include="cameras\cs_14.camera">
+      <Name>cs_14</Name>
+    </Compile>
+    <Compile Include="cameras\cs_15.camera">
+      <Name>cs_15</Name>
+    </Compile>
+    <Compile Include="cameras\cs_16.camera">
+      <Name>cs_16</Name>
+    </Compile>
+    <Compile Include="cameras\cs_17.camera">
+      <Name>cs_17</Name>
+    </Compile>
+    <Compile Include="cameras\cs_18.camera">
+      <Name>cs_18</Name>
+    </Compile>
+    <Compile Include="cameras\cs_19.camera">
+      <Name>cs_19</Name>
+    </Compile>
+    <Compile Include="cameras\cs_20.camera">
+      <Name>cs_20</Name>
+    </Compile>
+    <Compile Include="cameras\cs_21.camera">
+      <Name>cs_21</Name>
+    </Compile>
+    <Compile Include="cameras\cs_22.camera">
+      <Name>cs_22</Name>
+    </Compile>
+    <Compile Include="cameras\cs_22d.camera">
+      <Name>cs_22d</Name>
+    </Compile>
+    <Compile Include="cameras\cs_23.camera">
+      <Name>cs_23</Name>
+    </Compile>
+    <Compile Include="cameras\cs_24.camera">
+      <Name>cs_24</Name>
+    </Compile>
+    <Compile Include="cameras\cs_25.camera">
+      <Name>cs_25</Name>
+    </Compile>
+    <Compile Include="cameras\cs_26.camera">
+      <Name>cs_26</Name>
+    </Compile>
+    <Compile Include="cameras\dam01.camera">
+      <Name>dam01</Name>
+    </Compile>
+    <Compile Include="cameras\damb25_01.camera">
+      <Name>damb25_01</Name>
+    </Compile>
+    <Compile Include="cameras\damb25_02.camera">
+      <Name>damb25_02</Name>
+    </Compile>
+    <Compile Include="cameras\damb25_03_test.camera">
+      <Name>damb25_03_test</Name>
+    </Compile>
+    <Compile Include="cameras\damspot1.camera">
+      <Name>damspot1</Name>
+    </Compile>
+    <Compile Include="cameras\damspot2.camera">
+      <Name>damspot2</Name>
+    </Compile>
+    <Compile Include="cameras\dam_01.camera">
+      <Name>dam_01</Name>
+    </Compile>
+    <Compile Include="cameras\dam_02.camera">
+      <Name>dam_02</Name>
+    </Compile>
+    <Compile Include="cameras\dam_03.camera">
+      <Name>dam_03</Name>
+    </Compile>
+    <Compile Include="cameras\dam_03d.camera">
+      <Name>dam_03d</Name>
+    </Compile>
+    <Compile Include="cameras\dam_04.camera">
+      <Name>dam_04</Name>
+    </Compile>
+    <Compile Include="cameras\dam_05.camera">
+      <Name>dam_05</Name>
+    </Compile>
+    <Compile Include="cameras\dam_06.camera">
+      <Name>dam_06</Name>
+    </Compile>
+    <Compile Include="cameras\dam_07.camera">
+      <Name>dam_07</Name>
+    </Compile>
+    <Compile Include="cameras\dam_07d.camera">
+      <Name>dam_07d</Name>
+    </Compile>
+    <Compile Include="cameras\dam_08.camera">
+      <Name>dam_08</Name>
+    </Compile>
+    <Compile Include="cameras\dam_09.camera">
+      <Name>dam_09</Name>
+    </Compile>
+    <Compile Include="cameras\dam_10.camera">
+      <Name>dam_10</Name>
+    </Compile>
+    <Compile Include="cameras\dam_11.camera">
+      <Name>dam_11</Name>
+    </Compile>
+    <Compile Include="cameras\darktemp.camera">
+      <Name>darktemp</Name>
+    </Compile>
+    <Compile Include="cameras\foo_damspot1.camera">
+      <Name>foo_damspot1</Name>
+    </Compile>
+    <Compile Include="cameras\forest02.camera">
+      <Name>forest02</Name>
+    </Compile>
+    <Compile Include="cameras\forest03.camera">
+      <Name>forest03</Name>
+    </Compile>
+    <Compile Include="cameras\gibbit.camera">
+      <Name>gibbit</Name>
+    </Compile>
+    <Compile Include="cameras\spot1.camera">
+      <Name>spot1</Name>
+    </Compile>
+    <Compile Include="cameras\swfend.camera">
+      <Name>swfend</Name>
+    </Compile>
+    <Compile Include="cameras\swfend1.camera">
+      <Name>swfend1</Name>
+    </Compile>
+    <Compile Include="cameras\swfend2.camera">
+      <Name>swfend2</Name>
+    </Compile>
+    <Compile Include="cameras\swfend2d.camera">
+      <Name>swfend2d</Name>
+    </Compile>
+    <Compile Include="cameras\vil11_01.camera">
+      <Name>vil11_01</Name>
+    </Compile>
+    <Compile Include="cameras\vil1_01.camera">
+      <Name>vil1_01</Name>
+    </Compile>
+    <Compile Include="cameras\vill1_00.camera">
+      <Name>vill1_00</Name>
+    </Compile>
+    <Compile Include="cameras\vill1_01.camera">
+      <Name>vill1_01</Name>
+    </Compile>
+    <Compile Include="cameras\vill1_01d.camera">
+      <Name>vill1_01d</Name>
+    </Compile>
+    <Compile Include="cameras\xlabs01.camera">
+      <Name>xlabs01</Name>
+    </Compile>
+    <Compile Include="cameras\xlabs04.camera">
+      <Name>xlabs04</Name>
+    </Compile>
+    <Compile Include="cameras\xlabs05.camera">
+      <Name>xlabs05</Name>
+    </Compile>
+    <Compile Include="cameras\xlabs07.camera">
+      <Name>xlabs07</Name>
+    </Compile>
+    <Compile Include="cameras\xlabs12.camera">
+      <Name>xlabs12</Name>
+    </Compile>
+    <Compile Include="cameras\xlabs_10.camera">
+      <Name>xlabs_10</Name>
+    </Compile>
+    <Compile Include="cameras\xss01.camera">
+      <Name>xss01</Name>
+    </Compile>
+    <Compile Include="cameras\xss02.camera">
+      <Name>xss02</Name>
+    </Compile>
+    <Compile Include="cameras\xss03.camera">
+      <Name>xss03</Name>
+    </Compile>
+    <Compile Include="cameras\xss04.camera">
+      <Name>xss04</Name>
+    </Compile>
+    <Compile Include="cameras\xss05.camera">
+      <Name>xss05</Name>
+    </Compile>
+    <Compile Include="cameras\xss06.camera">
+      <Name>xss06</Name>
+    </Compile>
     <None Include="default.cfg">
       <Name>default</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

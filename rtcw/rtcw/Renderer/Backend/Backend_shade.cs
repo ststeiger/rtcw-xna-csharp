@@ -202,7 +202,11 @@ namespace rtcw.Renderer.Backend
         //
         public static void PushDrawMatrix(idRefdefLocal refdef)
         {
+#if WINDOWS_PHONE
+            drawMatrix.SetupProjection(refdef, 500, 1);
+#else
             drawMatrix.SetupProjection(refdef, 1000, 1);
+#endif
             drawMatrix.CreateViewMatrix(refdef);
 
             // If there isn't a world model don't set as the active matrix.
