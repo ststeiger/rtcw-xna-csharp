@@ -179,10 +179,15 @@ namespace rtcw.Renderer
 	        new infoParm_t("monsterslickwest", 0, surfaceFlags.SURF_MONSLICK_W,0)
 
         };
-        private idMaterialBase shader;
+        public idMaterialBase shader;
         private string name;
 
         public static idMaterialBase GetMaterialBase( ref idMaterial mtr )
+        {
+            return ((idMaterialLocal)mtr).shader;
+        }
+
+        public static idMaterialBase GetMaterialBase(idMaterial mtr)
         {
             return ((idMaterialLocal)mtr).shader;
         }
@@ -2016,6 +2021,8 @@ namespace rtcw.Renderer
                 return null;
             }
 
+            mtr.shader.hashValue = GenerateHashValue(name);
+
             mtrpool.Add(mtr);
 
             return mtrpool[mtrpool.Count - 1];
@@ -2054,14 +2061,42 @@ namespace rtcw.Renderer
         }
 
         //
+        // HashValue
+        //
+        private int GenerateHashValue(string name)
+        {
+            int hashValue = 0;
+            int strnum = 1;
+            name = name.ToLower();
+            for (int i = 0; i < name.Length; i++)
+            {
+                if (name[i] == '.')
+                {
+                    break;
+                }
+
+                if (name[i] == '\\' || name[i] == '/')
+                {
+                    continue;
+                }
+
+                hashValue += name[i] * strnum;
+                strnum++;
+            }
+
+            return hashValue;
+        }
+
+        //
         // FindMaterial
         //
         public override idMaterial FindMaterial(string name, int lightmapIndex)
         {
+            int hashValue = GenerateHashValue(name);
             // Check to see if the material is already loaded.
             for (int i = 0; i < mtrpool.Count; i++)
             {
-                if (mtrpool[i].GetName() == name)
+                if (idMaterialLocal.GetMaterialBase(mtrpool[i]).hashValue == hashValue)
                 {
                     return mtrpool[i];
                 }

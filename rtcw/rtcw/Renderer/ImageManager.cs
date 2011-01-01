@@ -54,13 +54,42 @@ namespace rtcw.Renderer
         private char[] s_gammatable = new char[256];
 
         //
+        // HashValue
+        //
+        private int GenerateHashValue(string name)
+        {
+            int hashValue = 0;
+            int strnum = 1;
+            name = name.ToLower();
+            for (int i = 0; i < name.Length; i++)
+            {
+                if (name[i] == '.')
+                {
+                    break;
+                }
+
+                if (name[i] == '\\' || name[i] == '/')
+                {
+                    continue;
+                }
+
+                hashValue += name[i] * strnum;
+                strnum++;
+            }
+
+            return hashValue;
+        }
+
+        //
         // AllocImage
         //
         private idImageLocal AllocImage(string name, ref bool uniqueImage)
         {
+            int hashValue = GenerateHashValue(name);
+
             for (int i = 0; i < hashTable.Count; i++)
             {
-                if (hashTable[i].Name() == name && name.Contains("*") == false)
+                if (hashTable[i].hashcode == hashValue && name.Contains("*") == false)
                 {
                     uniqueImage = false;
                     return hashTable[i];
@@ -70,6 +99,7 @@ namespace rtcw.Renderer
             uniqueImage = true;
 
             idImageLocal image = new idImageLocal();
+            image.hashcode = hashValue;
             hashTable.Add(image);
             return hashTable[hashTable.Count - 1];
         }

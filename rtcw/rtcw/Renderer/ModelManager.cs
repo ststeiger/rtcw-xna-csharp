@@ -52,6 +52,33 @@ namespace rtcw.Renderer
         List<idModel> modelpool = new List<idModel>();
 
         //
+        // HashValue
+        //
+        private int GenerateHashValue(string name)
+        {
+            int hashValue = 0;
+            int strnum = 1;
+            name = name.ToLower();
+            for (int i = 0; i < name.Length; i++)
+            {
+                if (name[i] == '.')
+                {
+                    break;
+                }
+
+                if (name[i] == '\\' || name[i] == '/')
+                {
+                    continue;
+                }
+
+                hashValue += name[i] * strnum;
+                strnum++;
+            }
+
+            return hashValue;
+        }
+
+        //
         // Init
         //
         public override void Init()
@@ -93,10 +120,12 @@ namespace rtcw.Renderer
             idFile _file;
             int iden = -1;
 
+            int hashValue = GenerateHashValue(qpath);
+
             // Check to see if the model has already been loaded.
             for (int i = 0; i < modelpool.Count; i++)
             {
-                if (modelpool[i].GetName() == qpath)
+                if (((idModelLocal)modelpool[i]).hashValue == hashValue)
                 {
                     return modelpool[i];
                 }
@@ -165,6 +194,8 @@ namespace rtcw.Renderer
                     return null;
 
             }
+
+            ((idModelLocal)model).hashValue = hashValue;
 
             Engine.fileSystem.CloseFile(ref _file);
 

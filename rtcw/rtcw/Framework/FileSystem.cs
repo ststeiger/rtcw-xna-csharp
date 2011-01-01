@@ -295,7 +295,7 @@ namespace rtcw.Framework
             }
 
             // Replace \\ with /
-            qpath = qpath.Replace('/', '\\');
+            qpath = qpath.Replace('\\', '/');
 
             // Try to open the file from the users content folder.
             _fileStream = OpenContentReadFileStream(qpath);
@@ -309,7 +309,7 @@ namespace rtcw.Framework
                 }
             }
 
-            filepool[fileHandle] = new idFile_Memory(qpath, _fileStream);
+            filepool[fileHandle] = new idFile_Memory(qpath.Replace('\\', '/'), _fileStream);
             fs_loadStack += filepool[fileHandle].Length();
 
             return filepool[fileHandle];
@@ -347,6 +347,10 @@ namespace rtcw.Framework
         //
         public override string RemoveExtensionFromPath( string _filename )
         {
+            if (_filename.Contains("\\"))
+            {
+                return Path.GetDirectoryName(_filename) + "\\" + Path.GetFileNameWithoutExtension(_filename);
+            }
             return Path.GetDirectoryName(_filename) + "/" + Path.GetFileNameWithoutExtension(_filename);
         }
 
@@ -471,7 +475,7 @@ namespace rtcw.Framework
                 }
             }
 
-            filepool[fileHandle] = new idFile_Memory(qpath, _file);
+            filepool[fileHandle] = new idFile_Memory(qpath.Replace('\\', '/'), _file);
 
             return filepool[fileHandle];
         }

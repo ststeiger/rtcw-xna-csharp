@@ -346,6 +346,7 @@ namespace idLib.Engine.Public
 	    public glyphInfo_t[] glyphs = new glyphInfo_t [GLYPHS_PER_FONT];
 	    public float glyphScale;
         public string name;
+        public int hashValue;
     };
 
     public class idRefdef

@@ -78,7 +78,11 @@ namespace Game.Entities.Props
             }
             else
             {
+#if WINDOWS_PHONE
                 framenum += 0.5f;
+#else
+                framenum++;
+#endif
                 if (framenum >= maxFrames)
                 {
                     framenum = 0;

@@ -283,6 +283,7 @@ namespace rtcw.Renderer
 
 	    public int index;                          // this shader == tr.shaders[index]
 	    public int sortedIndex;                    // this shader == tr.sortedShaders[sortedIndex]
+        public int hashValue;
 
         public int lightmapStage = -1;
         public int diffuseStage = -1;

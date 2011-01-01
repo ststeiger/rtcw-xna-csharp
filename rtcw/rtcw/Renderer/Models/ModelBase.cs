@@ -50,6 +50,7 @@ namespace rtcw.Renderer.Models
     public class idModelLocal : idModel
     {
         public string name;
+        public int hashValue;
 
         public List<idDrawVertex> drawVertexes = new List<idDrawVertex>();
         public List<short> drawIndexes = new List<short>();

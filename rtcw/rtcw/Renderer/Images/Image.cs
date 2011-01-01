@@ -49,6 +49,7 @@ namespace rtcw.Renderer
         public string name;
         public int imagewidth;
         public int imageheight;
+        public int hashcode;
 
         private Texture2D tex2d;
         private SamplerState WrapClampMode = SamplerState.LinearWrap;

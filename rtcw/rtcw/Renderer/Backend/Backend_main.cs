@@ -228,7 +228,7 @@ namespace rtcw.Renderer.Backend
             }
 
             // Setup culling for this shader.
-            Shade.SetCullMode(cullType_t.CT_TWO_SIDED);
+            Shade.SetCullMode(Globals.tess.shader.cullType);
 
             //
             // call off to shader specific tess end function
