@@ -75,8 +75,6 @@ namespace Game
         public int health;
         public int light;
         public int damage;
-        public idVector3 angle;
-        public idVector3 angles;
         public int dmg;
 
         public float duration;
@@ -174,15 +172,14 @@ namespace Game
             health = spawnArgs.FindKeyInt("health");
             light = spawnArgs.FindKeyInt("light");
             dmg = spawnArgs.FindKeyInt("count");
-            angles = spawnArgs.FindKeyidVector3("angles");
-            angle = new idVector3();
-            angle.Y = spawnArgs.FindKeyFloat("angle");
+            state.angles = spawnArgs.FindKeyidVector3("angles");
+            state.angles.Y = spawnArgs.FindKeyFloat("angle");
 
             duration = spawnArgs.FindKeyFloat("duration");
             rotate = spawnArgs.FindKeyidVector3("rotate");
-            if(angle.Y == 0)
+            if (state.angles.Y == 0)
             {
-                angle.Y = spawnArgs.FindKeyFloat("degrees");
+                state.angles.Y = spawnArgs.FindKeyFloat("degrees");
             }
             speed = spawnArgs.FindKeyFloat("time");
 
