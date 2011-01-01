@@ -208,6 +208,7 @@ namespace rtcw.Renderer
 	    // node specific
 	    public idPlane    plane;
         public idRenderNode[] children = new idRenderNode[2];
+        public int[] childrenhandles = new int[2];
 
 	    // leaf specific
 	    public int cluster;

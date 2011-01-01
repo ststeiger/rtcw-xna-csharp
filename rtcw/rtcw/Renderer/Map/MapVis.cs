@@ -85,7 +85,7 @@ namespace rtcw.Renderer.Map
                     break;
                 }
                 plane = node.plane;
-                d = (p * plane.Normal) - plane.Dist;
+                d = ((p.X * plane.Normal.X) + (p.Y * plane.Normal.Y) + (p.Z * plane.Normal.Z)) - plane.Dist;
                 if (d > 0)
                 {
                     node = node.children[0];
@@ -162,6 +162,36 @@ namespace rtcw.Renderer.Map
 
         /*
         ==================
+        PointLeafnum_r
+        ==================
+        */
+        private idRenderNode PointLeafnum_r( idVector3 p, int num ) {
+	        float d;
+            idRenderNode node;
+            idPlane plane;
+
+	        while ( num >= 0 )
+	        {
+                node = nodes[num];
+		        plane = node.plane;
+
+		        if ( plane.Type < 3 ) {
+                    d = p[plane.Type] - plane.Dist;
+		        } else {
+                    d = ((p.X * plane.Normal.X) + (p.Y * plane.Normal.Y) + (p.Z * plane.Normal.Z)) - plane.Dist;
+		        }
+		        if ( d < 0 ) {
+                    num = node.childrenhandles[1];
+		        } else {
+                    num = node.childrenhandles[0];
+		        }
+	        }
+
+	        return nodes[-1 - num];
+        }
+
+        /*
+        ==================
         TestPointInPVS
          
         Checks to see if a point is in the points PVS.
@@ -177,12 +207,11 @@ namespace rtcw.Renderer.Map
                 return true;
             }
 
-            leaf = R_PointInLeaf(p1);
+            leaf = PointLeafnum_r(p1, 0);
             vis  = R_ClusterPVS(leaf.cluster);
-            leaf = R_PointInLeaf(p2);
+            leaf = PointLeafnum_r(p2, 0);
 
-            byte vischeck = visibility[vis + (leaf.cluster >> 3)];
-            if ((vischeck & (1 << (leaf.cluster & 7))) == 0)
+            if ( ( visibility[vis + (leaf.cluster >> 3)] & ( 1 << ( leaf.cluster & 7 ) ) ) == 0) 
             {
                 return false;
             }

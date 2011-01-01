@@ -149,12 +149,19 @@ namespace idLib.Math
 
         float InvSqrt(float x)
         {
+#if ID_SQRT
             float xhalf = 0.5f * x;
             int i = BitConverter.ToInt32(BitConverter.GetBytes(x), 0);
             i = 0x5f3759df - (i >> 1);
             x = BitConverter.ToSingle(BitConverter.GetBytes(i), 0);
             x = x * (1.5f - xhalf * x * x);
             return x;
+#else
+            if (x == 0)
+                return 0;
+            float sqrt = (float)System.Math.Sqrt( x );
+            return (1.0f / sqrt);
+#endif
         }
 
         public float Normalize()

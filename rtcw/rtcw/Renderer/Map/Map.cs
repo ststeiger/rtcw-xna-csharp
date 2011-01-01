@@ -765,6 +765,7 @@ namespace rtcw.Renderer.Map
 			        } else {
 				        nodeOut.children[j] = nodes[numNodes + ( -1 - p )];
 			        }
+                    nodeOut.childrenhandles[j] = p;
 		        }
 
                 nodes[i] = nodeOut;
