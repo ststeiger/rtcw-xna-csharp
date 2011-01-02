@@ -148,6 +148,7 @@
     <Compile Include="Game\entityshared.cs" />
     <Compile Include="Game\entitystate.cs" />
     <Compile Include="Game\entitytype.cs" />
+    <Compile Include="Game\scriptparser.cs" />
     <Compile Include="Game\Server\GameSkill.cs" />
     <Compile Include="Game\Server\GameType.cs" />
     <Compile Include="Game\Server\Interface.cs" />

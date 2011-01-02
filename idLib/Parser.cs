@@ -214,7 +214,7 @@ namespace idLib
         {
             if (NextToken != s)
             {
-                throw new Exception("Expected token " + s);
+                throw new Exception("Expected token " + s + " at " + Position);
             }
         }
 
@@ -302,8 +302,6 @@ namespace idLib
                 return false;
             }
 
-            lineBreakFound = false;
-
             c = GetNextUncheckedChar();
 
             if (inQuotedString == false)
@@ -385,12 +383,61 @@ namespace idLib
             }
         }
 
+        public int Position
+        {
+            get
+            {
+                return parsePosition;
+            }
+        }
+
+        public bool LineHasMoreTokens
+        {
+            get
+            {
+                int lastPosition = parsePosition;
+
+                if (lineBreakFound)
+                {
+                    return false;
+                }
+
+                // Look for a comment, if found we don't have any more tokens for this line.
+                char c = GetNextUncheckedChar();
+
+                while (c == ' ' || c == '\t')
+                {
+                    if (ReachedEndOfBuffer == true)
+                    {
+                        break;
+                    }
+                    c = GetNextUncheckedChar();
+                }
+
+                if (ReachedEndOfBuffer == false)
+                {
+                    if (c == '/')
+                    {
+                        if (GetNextUncheckedChar() == '/')
+                        {
+                            ParseRestOfLine();
+                            return false;
+                        }
+                    }
+                }
+
+                parsePosition = lastPosition;
+
+                return true;
+            }
+        }
+
         //
         // GetNextTokenFromLine
         //
         public string GetNextTokenFromLine()
         {
-            if (lineBreakFound == true)
+            if (LineHasMoreTokens == false)
             {
                 return null;
             }
@@ -403,7 +450,7 @@ namespace idLib
         //
         public string GetNextTokenFromLineChecked()
         {
-            if (lineBreakFound == true)
+            if (LineHasMoreTokens == false)
             {
                 throw new Exception("Expected token on line");
             }
@@ -420,6 +467,7 @@ namespace idLib
 
             token = "";
             lastStrInQuote = false;
+            lineBreakFound = false;
 
             // If were passed the length of the buffer, this means we have reached the end of the stream.
             if (parsePosition >= buffer.Length)
