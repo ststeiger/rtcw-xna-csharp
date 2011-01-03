@@ -146,6 +146,8 @@ namespace Game
                 return;
             }
 
+            Level.time += Engine.Sys.Sys_Milliseconds();
+
             // Run the clients.
             for (int i = 0; i < Level.num_clients; i++)
             {

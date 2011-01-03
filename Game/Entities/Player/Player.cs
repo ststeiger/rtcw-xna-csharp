@@ -34,6 +34,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // Player.cs (c) 2010 JV Software
 //
 
+using idLib;
 using idLib.Game;
 using idLib.Engine.Public;
 using idLib.Engine.Public.Net;
@@ -52,6 +53,8 @@ namespace Game.Entities.Player
 
         string profilename;
         bool clientSpawned = false;
+
+        int cameraframe = 0;
 
         public bool isActive
         {
@@ -86,6 +89,14 @@ namespace Game.Entities.Player
         {
             Engine.common.Printf(profilename + " has entered the world.\n");
             clientSpawned = true;
+
+            // Run a script for this player if there is one.
+            idScriptAction playerStartScript = Level.aiscript.FindAction("player", "playerstart", true);
+
+            if (playerStartScript != null)
+            {
+                Level.aiscript.Execute(this, playerStartScript);
+            }
         }
 
         //
@@ -93,10 +104,18 @@ namespace Game.Entities.Player
         //
         public override void Frame()
         {
+            float fov = 0;
             physicsState.cmd = Engine.common.GetUserCmdForClient(state.number);
             physicsState.ps = state;
 
-            physics.Move(ref physicsState);
+            if (Level.cameranum != -1)
+            {
+                idCameraManager.getCameraInfo(Level.cameranum, cameraframe++, ref state.origin, ref state.angles, ref fov);
+            }
+            else
+            {
+                physics.Move(ref physicsState);
+            }
 
             LinkEntity();
         }

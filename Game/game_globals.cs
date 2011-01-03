@@ -57,6 +57,11 @@ namespace Game
 
         public static string mapname;
 
+        public static int time;
+        public static int cameranum = -1;
+
         public static idGameNetwork net = new idGameNetwork();
+
+        
     }
 }

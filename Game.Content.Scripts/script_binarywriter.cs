@@ -19,9 +19,7 @@ namespace idLib.Engine.Content.FileList
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
-            // TODO: change this to the name of your ContentTypeReader
-            // class which will be used to load this data.
-            return "Game.idScriptReader";
+            return "idLib.Game.idScriptReader, idLib";
         }
     }
 }

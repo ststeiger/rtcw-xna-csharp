@@ -12,6 +12,43 @@ using idLib.Engine.Public;
 namespace idLib.Game
 {
     //
+    // idScriptReader
+    //
+    public class idScriptReader : ContentTypeReader<idBinaryScript>
+    {
+        //
+        // idScriptReader
+        //
+        protected override idBinaryScript Read(ContentReader input, idBinaryScript existingInstance)
+        {
+            idBinaryScript newScript = new idBinaryScript(input);
+
+            return newScript;
+        }
+    }
+
+    //
+    // idBinaryScript
+    //
+    public class idBinaryScript
+    {
+        public idScriptEvent[] events;
+
+        public idBinaryScript(ContentReader input)
+        {
+            int numEvents = input.ReadInt16();
+
+            events = new idScriptEvent[numEvents];
+
+            for (int i = 0; i < numEvents; i++)
+            {
+                events[i] = new idScriptEvent();
+                events[i].ReadFromFile(ref input);
+            }
+        }
+    }
+
+    //
     // idScriptEvent
     //
     public class idScriptEvent
@@ -30,6 +67,7 @@ namespace idLib.Game
 
             for (int i = 0; i < actionsraw.Length; i++)
             {
+                actionsraw[i] = new idScriptAction();
                 actionsraw[i].ReadFromFile(ref file);
             }
         }
@@ -105,6 +143,8 @@ namespace idLib.Game
 
             type = file.ReadString();
             name = file.ReadString();
+            
+            funcsraw = new idScriptFuncBinary[file.ReadInt16()];
 
             numAttributes = file.ReadInt16();
             for (int i = 0; i < numAttributes; i++)
@@ -114,11 +154,10 @@ namespace idLib.Game
 
                 attributes.AddKey(key, val);
             }
-            
-            funcsraw = new idScriptFuncBinary[file.ReadInt16()];
 
             for (int i = 0; i < funcsraw.Length; i++)
             {
+                funcsraw[i] = new idScriptFuncBinary();
                 funcsraw[i].ReadFromFile(ref file);
             }
         }
@@ -132,7 +171,7 @@ namespace idLib.Game
             writer.Write(name);
             writer.Write((short)funcsraw.Length);
 
-            writer.Write(attributes.NumKeys);
+            writer.Write((short)attributes.NumKeys);
             for (int i = 0; i < attributes.NumKeys; i++)
             {
                 if (attributes[i].name == null)
@@ -231,6 +270,8 @@ namespace idLib.Game
                         {
                             idScriptFuncBinary func = new idScriptFuncBinary();
 
+                            func.opCode = (short)ScriptReaderShared.gScriptActions[i].opCode;
+
                             if (parser.LineHasMoreTokens)
                             {
                                 while (true)
@@ -314,7 +355,7 @@ namespace idLib.Game
     //
     // ScriptReaderShared
     //
-    static class ScriptReaderShared
+    public static class ScriptReaderShared
     {
         //
         // gameScriptOpcode
@@ -448,7 +489,9 @@ namespace idLib.Game
 	        ai_lockplayer, 
 	        ai_anim_condition, 
 	        ai_pushaway, 
-	        ai_catchfire 
+	        ai_catchfire,
+
+            max_script_opcodes
         }
 
         public struct idScriptActionStorage

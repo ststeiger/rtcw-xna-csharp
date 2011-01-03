@@ -35,6 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using idLib;
+using idLib.Engine.Public;
 
 namespace Game
 {
@@ -144,6 +145,21 @@ namespace Game
             return numSkins++;
         }
 
+        //
+        // PlayBackgroundTrackForPlayer
+        //
+        public void PlayBackgroundTrackForPlayer(idEntity entity, string path)
+        {
+            // This is the wrong wya to do this but I'm testing on the phone atm.
+            Engine.soundManager.LoadBackgroundTrack(path).Play();
+        }
 
+        //
+        // StopBackgroundTrackForPlayer
+        //
+        public void StopBackgroundTrackForPlayer(idEntity entity)
+        {
+            Engine.soundManager.StopBackgroundTrack();
+        }
     }
 }

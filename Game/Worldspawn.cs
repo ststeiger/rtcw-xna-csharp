@@ -16,8 +16,8 @@ namespace Game
         //
         public override void Spawn()
         {
-            Level.script = Engine.fileSystem.ReadContent<idScript>( "maps/scripts/" + Level.mapname );
-            Level.aiscript = Engine.fileSystem.ReadContent<idScript>("maps/aiscripts/" + Level.mapname);
+            Level.script = new idScript("maps/scripts/" + Level.mapname);
+            Level.aiscript = new idScript("maps/aiscripts/" + Level.mapname);
         }
 
         //

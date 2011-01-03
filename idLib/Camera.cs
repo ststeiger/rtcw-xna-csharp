@@ -338,9 +338,9 @@ namespace idLib
         protected idVector3 lastDirection;
         protected bool cameraRunning;
         protected idCameraPosition cameraPosition;
-        protected List<idCameraPosition> targetPositions;
-        protected List<idCameraEvent> events;
-        protected idCameraFOV fov;
+        protected List<idCameraPosition> targetPositions = new List<idCameraPosition>();
+        protected List<idCameraEvent> events = new List<idCameraEvent>();
+        protected idCameraFOV fov = new idCameraFOV();
         protected int activeTarget;
         protected float totalTime;
         protected float baseTime;
@@ -721,7 +721,7 @@ namespace idLib
                 if(parser.ReachedEndOfBuffer == true)
                     break;
 
-		        token = parser.NextToken;
+		        token = parser.NextToken.ToLower();
 
 		        if ( token == null || token.Length <= 0 ) {
 			        break;
@@ -732,30 +732,40 @@ namespace idLib
 
 		        if ( token == "time" ) {
 			        baseTime = parser.NextFloat;
-		        } else if ( token == "camera_fixed" )        {
+		        } 
+                if ( token == "camera_fixed" )        
+                {
 			        cameraPosition = new idFixedPosition();
 			        cameraPosition.parse( ref parser );
-		        } else if (  token == "camera_interpolated"  )        {
+		        } 
+                if (  token == "camera_interpolated"  )        
+                {
 			        cameraPosition = new idInterpolatedPosition();
 			        cameraPosition.parse( ref parser );
-		        } else if (  token == "camera_spline" )        {
+		        } 
+                if (  token == "camera_spline" )        {
 			        cameraPosition = new idSplinePosition();
 			        cameraPosition.parse( ref parser );
-		        } else if (  token == "target_fixed" )        {
+		        } 
+                if (  token == "target_fixed" )        {
 			        idFixedPosition pos = new idFixedPosition();
 			        pos.parse( ref parser );
 			        targetPositions.Add( pos );
-		        } else if (  token == "target_interpolated"  )        {
+		        } 
+                if (  token == "target_interpolated"  )        {
 			        idInterpolatedPosition pos = new idInterpolatedPosition();
 			        pos.parse( ref parser );
 			        targetPositions.Add( pos );
-		        } else if (  token == "target_spline"  )        {
+		        } 
+                if (  token == "target_spline"  )        {
 			        idSplinePosition pos = new idSplinePosition();
 			        pos.parse( ref parser );
 			        targetPositions.Add( pos );
-		        } else if (  token == "fov"  )        {
+		        } 
+                if (  token == "fov"  )        {
 			        fov.parse( ref parser );
-		        } else if (  token == "event" )        {
+		        } 
+                if (  token == "event" )        {
 			        idCameraEvent evt = new idCameraEvent();
 			        evt.Parse( ref parser );
 			        addEvent( evt );

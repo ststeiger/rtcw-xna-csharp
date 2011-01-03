@@ -603,6 +603,8 @@ namespace rtcw.Client
         {
             cls.state = connstate_t.CA_LOADING;
 
+            Engine.soundManager.StopBackgroundTrack();
+
             // Draw the loading screen so its visible.
             cls.cgame.DrawLoadingScreen(true);
 
