@@ -21,7 +21,7 @@ namespace idLib.Engine.Content.FileList
         {
             // TODO: change this to the name of your ContentTypeReader
             // class which will be used to load this data.
-            return "Game.ScriptReader";
+            return "Game.idScriptReader";
         }
     }
 }

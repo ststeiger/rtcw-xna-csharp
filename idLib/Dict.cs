@@ -44,7 +44,7 @@ namespace idLib
     //
     // idKey
     //
-    struct idKey
+    public struct idKey
     {
         public string name;
         public string val;
@@ -58,6 +58,28 @@ namespace idLib
         List<idKey> keys = new List<idKey>();
 
         //
+        // Index
+        //
+        public idKey this[int index]
+        {
+            get
+            {
+                return keys[index];
+            }
+        }
+
+        //
+        // NumKeys
+        //
+        public int NumKeys
+        {
+            get
+            {
+                return keys.Count;
+            }
+        }
+
+        //
         // AddKey
         //
         public void AddKey(string keyname, string val)
@@ -66,6 +88,9 @@ namespace idLib
 
             key.name = keyname.ToLower();
             key.val = val;
+
+            if (val == null)
+                throw new Exception(keyname + " has a null value");
 
             keys.Add(key);
         }

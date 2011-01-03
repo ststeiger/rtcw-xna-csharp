@@ -68,6 +68,8 @@ namespace Game
             // Reset the game network manager.
             Level.net.Reset();
 
+            Level.mapname = mapname;
+
             // Allocate the spawn, and spawn the 
             Level.spawner = new idGameSpawner();
             Level.spawner.SpawnEntitiesFromBsp(mapname);

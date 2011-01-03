@@ -82,6 +82,8 @@ namespace Game
 
             new idGameSpawnDefs( "ai_civilian", () => new idEntityAI() ),
 
+            new idGameSpawnDefs( "worldspawn", () => new idWorldspawn() ),
+
             // Ignored entities.
             new idGameSpawnDefs( "misc_model", () => null ), // misc models are ignored in rtcw.
             new idGameSpawnDefs( "light", () => null ), // lights are ignored in rtcw

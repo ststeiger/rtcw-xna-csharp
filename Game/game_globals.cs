@@ -52,6 +52,11 @@ namespace Game
         public static int num_entities = 0;
         public static int num_clients = 0;
 
+        public static idScript script;
+        public static idScript aiscript;
+
+        public static string mapname;
+
         public static idGameNetwork net = new idGameNetwork();
     }
 }

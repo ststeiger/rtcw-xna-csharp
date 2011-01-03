@@ -2137,9 +2137,11 @@
       <Name>hunkusage</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="maps\assault.ai">
+    <Compile Include="maps\aiscripts\assault.ai">
       <Name>assault</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\assault.bsp">
       <Name>assault</Name>
     </None>
@@ -2160,9 +2162,11 @@
     <None Include="maps\assault_b1.rcd">
       <Name>assault_b1</Name>
     </None>
-    <None Include="maps\baseout.ai">
+    <Compile Include="maps\aiscripts\baseout.ai">
       <Name>baseout</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\baseout.bsp">
       <Name>baseout</Name>
     </None>
@@ -2183,9 +2187,11 @@
     <None Include="maps\baseout_b1.rcd">
       <Name>baseout_b1</Name>
     </None>
-    <None Include="maps\boss1.ai">
+    <Compile Include="maps\aiscripts\boss1.ai">
       <Name>boss1</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\boss1.bsp">
       <Name>boss1</Name>
     </None>
@@ -2206,9 +2212,11 @@
     <None Include="maps\boss1_b1.rcd">
       <Name>boss1_b1</Name>
     </None>
-    <None Include="maps\boss2.ai">
+    <Compile Include="maps\aiscripts\boss2.ai">
       <Name>boss2</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\boss2.bsp">
       <Name>boss2</Name>
     </None>
@@ -2229,9 +2237,11 @@
     <None Include="maps\boss2_b1.rcd">
       <Name>boss2_b1</Name>
     </None>
-    <None Include="maps\castle.ai">
+    <Compile Include="maps\aiscripts\castle.ai">
       <Name>castle</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\castle.bsp">
       <Name>castle</Name>
     </None>
@@ -2252,9 +2262,11 @@
     <None Include="maps\castle_b1.rcd">
       <Name>castle_b1</Name>
     </None>
-    <None Include="maps\chateau.ai">
+    <Compile Include="maps\aiscripts\chateau.ai">
       <Name>chateau</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\chateau.bsp">
       <Name>chateau</Name>
     </None>
@@ -2275,9 +2287,11 @@
     <None Include="maps\chateau_b1.rcd">
       <Name>chateau_b1</Name>
     </None>
-    <None Include="maps\church.ai">
+    <Compile Include="maps\aiscripts\church.ai">
       <Name>church</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\church.bsp">
       <Name>church</Name>
     </None>
@@ -2298,9 +2312,11 @@
     <None Include="maps\church_b1.rcd">
       <Name>church_b1</Name>
     </None>
-    <None Include="maps\crypt1.ai">
+    <Compile Include="maps\aiscripts\crypt1.ai">
       <Name>crypt1</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\crypt1.bsp">
       <Name>crypt1</Name>
     </None>
@@ -2321,9 +2337,11 @@
     <None Include="maps\crypt1_b1.rcd">
       <Name>crypt1_b1</Name>
     </None>
-    <None Include="maps\crypt2.ai">
+    <Compile Include="maps\aiscripts\crypt2.ai">
       <Name>crypt2</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\crypt2.bsp">
       <Name>crypt2</Name>
     </None>
@@ -2344,10 +2362,12 @@
     <None Include="maps\crypt2_b1.rcd">
       <Name>crypt2_b1</Name>
     </None>
-    <None Include="maps\cutscene1.ai">
+    <Compile Include="maps\aiscripts\cutscene1.ai">
       <Name>cutscene1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\cutscene1.bsp">
       <Name>cutscene1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -2357,9 +2377,11 @@
       <Importer>idGameScriptImporter</Importer>
       <Processor>idScriptProcessor</Processor>
     </Compile>
-    <None Include="maps\cutscene11.ai">
+    <Compile Include="maps\aiscripts\cutscene11.ai">
       <Name>cutscene11</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\cutscene11.bsp">
       <Name>cutscene11</Name>
     </None>
@@ -2380,9 +2402,11 @@
     <None Include="maps\cutscene11_b1.rcd">
       <Name>cutscene11_b1</Name>
     </None>
-    <None Include="maps\cutscene14.ai">
+    <Compile Include="maps\aiscripts\cutscene14.ai">
       <Name>cutscene14</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\cutscene14.bsp">
       <Name>cutscene14</Name>
     </None>
@@ -2403,9 +2427,11 @@
     <None Include="maps\cutscene14_b1.rcd">
       <Name>cutscene14_b1</Name>
     </None>
-    <None Include="maps\cutscene19.ai">
+    <Compile Include="maps\aiscripts\cutscene19.ai">
       <Name>cutscene19</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\cutscene19.bsp">
       <Name>cutscene19</Name>
     </None>
@@ -2442,9 +2468,11 @@
       <Name>cutscene1_b1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="maps\cutscene6.ai">
+    <Compile Include="maps\aiscripts\cutscene6.ai">
       <Name>cutscene6</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\cutscene6.bsp">
       <Name>cutscene6</Name>
     </None>
@@ -2465,9 +2493,11 @@
     <None Include="maps\cutscene6_b1.rcd">
       <Name>cutscene6_b1</Name>
     </None>
-    <None Include="maps\cutscene9.ai">
+    <Compile Include="maps\aiscripts\cutscene9.ai">
       <Name>cutscene9</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\cutscene9.bsp">
       <Name>cutscene9</Name>
     </None>
@@ -2488,9 +2518,11 @@
     <None Include="maps\cutscene9_b1.rcd">
       <Name>cutscene9_b1</Name>
     </None>
-    <None Include="maps\dam.ai">
+    <Compile Include="maps\aiscripts\dam.ai">
       <Name>dam</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\dam.bsp">
       <Name>dam</Name>
     </None>
@@ -2511,9 +2543,11 @@
     <None Include="maps\dam_b1.rcd">
       <Name>dam_b1</Name>
     </None>
-    <None Include="maps\dark.ai">
+    <Compile Include="maps\aiscripts\dark.ai">
       <Name>dark</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\dark.bsp">
       <Name>dark</Name>
     </None>
@@ -2534,9 +2568,11 @@
     <None Include="maps\dark_b1.rcd">
       <Name>dark_b1</Name>
     </None>
-    <None Include="maps\dig.ai">
+    <Compile Include="maps\aiscripts\dig.ai">
       <Name>dig</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\dig.bsp">
       <Name>dig</Name>
     </None>
@@ -2557,9 +2593,11 @@
     <None Include="maps\dig_b1.rcd">
       <Name>dig_b1</Name>
     </None>
-    <None Include="maps\end.ai">
+    <Compile Include="maps\aiscripts\end.ai">
       <Name>end</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\end.bsp">
       <Name>end</Name>
     </None>
@@ -2580,9 +2618,11 @@
     <None Include="maps\end_b1.rcd">
       <Name>end_b1</Name>
     </None>
-    <None Include="maps\escape1.ai">
+    <Compile Include="maps\aiscripts\escape1.ai">
       <Name>escape1</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\escape1.bsp">
       <Name>escape1</Name>
     </None>
@@ -2603,9 +2643,11 @@
     <None Include="maps\escape1_b1.rcd">
       <Name>escape1_b1</Name>
     </None>
-    <None Include="maps\escape2.ai">
+    <Compile Include="maps\aiscripts\escape2.ai">
       <Name>escape2</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\escape2.bsp">
       <Name>escape2</Name>
     </None>
@@ -2624,9 +2666,11 @@
     <None Include="maps\escape2_b1.rcd">
       <Name>escape2_b1</Name>
     </None>
-    <None Include="maps\factory.ai">
+    <Compile Include="maps\aiscripts\factory.ai">
       <Name>factory</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\factory.bsp">
       <Name>factory</Name>
     </None>
@@ -2647,9 +2691,11 @@
     <None Include="maps\factory_b1.rcd">
       <Name>factory_b1</Name>
     </None>
-    <None Include="maps\forest.ai">
+    <Compile Include="maps\aiscripts\forest.ai">
       <Name>forest</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\forest.bsp">
       <Name>forest</Name>
     </None>
@@ -2670,9 +2716,11 @@
     <None Include="maps\forest_b1.rcd">
       <Name>forest_b1</Name>
     </None>
-    <None Include="maps\norway.ai">
+    <Compile Include="maps\aiscripts\norway.ai">
       <Name>norway</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\norway.bsp">
       <Name>norway</Name>
     </None>
@@ -2693,9 +2741,11 @@
     <None Include="maps\norway_b1.rcd">
       <Name>norway_b1</Name>
     </None>
-    <None Include="maps\rocket.ai">
+    <Compile Include="maps\aiscripts\rocket.ai">
       <Name>rocket</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\rocket.bsp">
       <Name>rocket</Name>
     </None>
@@ -2716,9 +2766,11 @@
     <None Include="maps\rocket_b1.rcd">
       <Name>rocket_b1</Name>
     </None>
-    <None Include="maps\sfm.ai">
+    <Compile Include="maps\aiscripts\sfm.ai">
       <Name>sfm</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\sfm.bsp">
       <Name>sfm</Name>
     </None>
@@ -2739,9 +2791,11 @@
     <None Include="maps\sfm_b1.rcd">
       <Name>sfm_b1</Name>
     </None>
-    <None Include="maps\swf.ai">
+    <Compile Include="maps\aiscripts\swf.ai">
       <Name>swf</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\swf.bsp">
       <Name>swf</Name>
     </None>
@@ -2762,9 +2816,11 @@
     <None Include="maps\swf_b1.rcd">
       <Name>swf_b1</Name>
     </None>
-    <None Include="maps\trainyard.ai">
+    <Compile Include="maps\aiscripts\trainyard.ai">
       <Name>trainyard</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\trainyard.bsp">
       <Name>trainyard</Name>
     </None>
@@ -2783,9 +2839,11 @@
     <None Include="maps\trainyard_b1.rcd">
       <Name>trainyard_b1</Name>
     </None>
-    <None Include="maps\tram.ai">
+    <Compile Include="maps\aiscripts\tram.ai">
       <Name>tram</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\tram.bsp">
       <Name>tram</Name>
     </None>
@@ -2806,9 +2864,11 @@
     <None Include="maps\tram_b1.rcd">
       <Name>tram_b1</Name>
     </None>
-    <None Include="maps\village1.ai">
+    <Compile Include="maps\aiscripts\village1.ai">
       <Name>village1</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\village1.bsp">
       <Name>village1</Name>
     </None>
@@ -2829,9 +2889,11 @@
     <None Include="maps\village1_b1.rcd">
       <Name>village1_b1</Name>
     </None>
-    <None Include="maps\village2.ai">
+    <Compile Include="maps\aiscripts\village2.ai">
       <Name>village2</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\village2.bsp">
       <Name>village2</Name>
     </None>
@@ -2852,9 +2914,11 @@
     <None Include="maps\village2_b1.rcd">
       <Name>village2_b1</Name>
     </None>
-    <None Include="maps\xlabs.ai">
+    <Compile Include="maps\aiscripts\xlabs.ai">
       <Name>xlabs</Name>
-    </None>
+      <Importer>idGameScriptImporter</Importer>
+      <Processor>idScriptProcessor</Processor>
+    </Compile>
     <None Include="maps\xlabs.bsp">
       <Name>xlabs</Name>
     </None>
