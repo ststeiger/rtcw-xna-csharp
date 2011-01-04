@@ -219,8 +219,8 @@ namespace Game
             {
              //   while (triggerthread.isRunning() == true)
              //       System.Threading.Thread.Sleep(1);
-                triggerthread.Stop();
-                triggerthread = null;
+              //  triggerthread.Stop();
+             //   triggerthread = null;
             }
             if (_action == null)
             {
