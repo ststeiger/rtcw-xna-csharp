@@ -64,6 +64,8 @@ namespace rtcw.Renderer
 
 	    public int dlightBits;         // or together of all vertexDlightBits
 
+        public int startIndex = 0;
+        public int startVertex = 0;
 	    public int numIndexes = 0;
 	    public int numVertexes = 0;
 

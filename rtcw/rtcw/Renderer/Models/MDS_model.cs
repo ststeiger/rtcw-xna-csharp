@@ -34,6 +34,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // MDS_Model.cs (c) 2010 JV Software
 //
 
+using System;
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -255,9 +256,7 @@ namespace rtcw.Renderer.Models
             // Build our vertex and index buffers.
             //BuildVertexIndexBuffer();
 
-            // Hack - temp to get it to work on the phone.
-            GenerateBonesForFrame(0, 0);
-            GenerateSurfaces();
+
         }
 
         //
@@ -615,6 +614,23 @@ namespace rtcw.Renderer.Models
         }
 
         //
+        // idDrawSurface
+        //
+        public override idDrawSurface[] BackendTessModel()
+        {
+            GenerateBonesForFrame(0, 0);
+            GenerateSurfaces();
+
+            Array.Copy(drawVertexes, Globals.tess.drawVerts, drawVertexes.Length);
+            Array.Copy(indexes.ToArray(), Globals.tess.indexes, indexes.Count);
+
+            Globals.tess.numVertexes = drawVertexes.Length;
+            Globals.tess.numIndexes = indexes.Count;
+
+            return surfaces;
+        }
+
+        //
         // TessModel
         //
         public override void TessModel(ref idRenderEntityLocal entity)
@@ -633,11 +649,13 @@ namespace rtcw.Renderer.Models
                 surfaces[i].visCount = -1;
             }
 
-            
+            idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
+            cmd.type = renderCommandType.RC_DRAW_TESSBUFFER;
+            cmd.model = this;
 
-            Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
+         //   Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
             //SetBoneBuffer();
-            Globals.SortSurfaces(0, ref surfaces);
+            //Globals.SortSurfaces(0, ref surfaces);
         }
     }
 }

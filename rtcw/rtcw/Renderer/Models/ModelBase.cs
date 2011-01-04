@@ -42,6 +42,8 @@ using Microsoft.Xna.Framework.Graphics;
 using idLib.Engine.Public;
 using idLib.Math;
 
+using rtcw.Renderer;
+
 namespace rtcw.Renderer.Models
 {
     //
@@ -178,6 +180,14 @@ namespace rtcw.Renderer.Models
         public virtual void TessModel(ref idRenderEntityLocal entity)
         {
 
+        }
+
+        //
+        // BackendTessModel
+        //
+        public virtual idDrawSurface[] BackendTessModel()
+        {
+            return null;
         }
 
         //

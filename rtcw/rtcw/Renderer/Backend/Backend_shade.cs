@@ -168,7 +168,7 @@ namespace rtcw.Renderer.Backend
                 defaultEffect.Alpha = pushedAlpha;
                 defaultEffect.CurrentTechnique.Passes[0].Apply();
             }
-            Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, Globals.tess.drawVerts, 0, Globals.tess.numVertexes, Globals.tess.indexes, 0, Globals.tess.numIndexes / 3, idRenderGlobals.idDrawVertexDeclaration);
+            Globals.graphics3DDevice.DrawUserIndexedPrimitives<idDrawVertex>(PrimitiveType.TriangleList, Globals.tess.drawVerts, Globals.tess.startVertex, Globals.tess.numVertexes, Globals.tess.indexes, Globals.tess.startIndex, Globals.tess.numIndexes / 3, idRenderGlobals.idDrawVertexDeclaration);
 #endif
         }
 

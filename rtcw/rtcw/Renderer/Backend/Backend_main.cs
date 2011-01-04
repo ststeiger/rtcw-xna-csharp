@@ -240,6 +240,10 @@ namespace rtcw.Renderer.Backend
             Globals.tess.numIndexes = 0;
             Globals.tess.indexBufferSize = 0;
             Globals.tess.frame = 0;
+            Globals.tess.startVertex = 0;
+            Globals.tess.startIndex = 0;
+            Globals.tess.vertexBufferStart = 0;
+            Globals.tess.vertexBufferSize = 0;
         }
 
 
@@ -345,6 +349,33 @@ namespace rtcw.Renderer.Backend
         }
 
         //
+        // Cmd_DrawTessSurfs
+        //
+        private void Cmd_DrawTessSurfs(int smpFrame, idRenderCommand cmd)
+        {
+            idDrawSurface[] surflist = cmd.model.BackendTessModel();
+
+            // Draw all the surfaces.
+            for (int i = 0; i < surflist.Length; i++ )
+            {
+                idDrawSurface surf = surflist[i];
+
+                if (surf == null)
+                    continue;
+
+                BeginSurface(surf.materials[0], 0);
+
+                Globals.tess.startVertex = surf.startVertex; ;
+                Globals.tess.startIndex = surf.startIndex;
+                Globals.tess.numIndexes = surf.numIndexes;
+                Globals.tess.numVertexes = surf.numVertexes;
+                Globals.tess.frame = cmd.vertexOffset;
+
+                EndSurface();
+            }
+        }
+
+        //
         // Cmd_DrawSurfs
         //
         private void Cmd_DrawSurfs(int smpFrame, idRenderCommand cmd)
@@ -421,6 +452,9 @@ namespace rtcw.Renderer.Backend
                                 break;
                             case renderCommandType.RC_SWAP_BUFFERS:
                                 Cmd_SwapBuffers(cmd);
+                                break;
+                            case renderCommandType.RC_DRAW_TESSBUFFER:
+                                Cmd_DrawTessSurfs(smpFrame, cmd);
                                 break;
                             case renderCommandType.RC_DRAW_SURFS:
                                 Cmd_DrawSurfs(smpFrame, cmd);

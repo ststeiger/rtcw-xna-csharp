@@ -38,6 +38,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using idLib.Engine.Public;
+using rtcw.Renderer.Models;
 
 namespace rtcw.Renderer.Backend
 {
@@ -54,6 +55,7 @@ namespace rtcw.Renderer.Backend
         RC_SET_BONEMATRIX,
 	    RC_DRAW_SURFS,
 	    RC_DRAW_BUFFER,
+        RC_DRAW_TESSBUFFER,
         RC_SET_ENTITYMATRIX,
 	    RC_SWAP_BUFFERS
     };
@@ -90,6 +92,8 @@ namespace rtcw.Renderer.Backend
         public int vertexOffset;
         public VertexBuffer vertexBuffer;
         public IndexBuffer indexBuffer;
+
+        public idModelLocal model;
 
         // RC_SET_BONEMATRIX
         public Matrix[] bones;
