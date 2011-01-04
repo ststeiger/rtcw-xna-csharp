@@ -17,8 +17,7 @@ namespace idLib.Engine.Content.Materials
         //
         private int GenerateHashValue(string name)
         {
-            int hashValue = 0;
-            int strnum = 1;
+            string hashValue = "";
             name = name.ToLower();
             for (int i = 0; i < name.Length; i++)
             {
@@ -32,11 +31,10 @@ namespace idLib.Engine.Content.Materials
                     continue;
                 }
 
-                hashValue += name[i] * strnum;
-                strnum++;
+                hashValue += name[i];
             }
 
-            return hashValue;
+            return hashValue.GetHashCode();
         }
         public override idMaterialLookupTable Process(idMaterialSource input, ContentProcessorContext context)
         {

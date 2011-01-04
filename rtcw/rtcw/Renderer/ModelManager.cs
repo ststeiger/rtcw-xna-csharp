@@ -54,10 +54,12 @@ namespace rtcw.Renderer
         //
         // HashValue
         //
+        //
+        // HashValue
+        //
         private int GenerateHashValue(string name)
         {
-            int hashValue = 0;
-            int strnum = 1;
+            string hashValue = "";
             name = name.ToLower();
             for (int i = 0; i < name.Length; i++)
             {
@@ -71,11 +73,10 @@ namespace rtcw.Renderer
                     continue;
                 }
 
-                hashValue += name[i] * strnum;
-                strnum++;
+                hashValue += name[i];
             }
 
-            return hashValue;
+            return hashValue.GetHashCode();
         }
 
         //

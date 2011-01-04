@@ -58,26 +58,7 @@ namespace rtcw.Renderer
         //
         private int GenerateHashValue(string name)
         {
-            int hashValue = 0;
-            int strnum = 1;
-            name = name.ToLower();
-            for (int i = 0; i < name.Length; i++)
-            {
-                if (name[i] == '.')
-                {
-                    break;
-                }
-
-                if (name[i] == '\\' || name[i] == '/')
-                {
-                    continue;
-                }
-
-                hashValue += name[i] * strnum;
-                strnum++;
-            }
-
-            return hashValue;
+            return name.GetHashCode();
         }
 
         //

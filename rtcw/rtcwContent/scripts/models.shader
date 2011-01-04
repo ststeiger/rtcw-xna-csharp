@@ -6739,6 +6739,38 @@ models/multiplayer/uboat/nerve_sub5s
 	}
 }
 
+// jv
+models\mapobjects\flag\american.tga
+{
+	cull twosided
+	{
+		map models/mapobjects/flag/american.tga
+		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
+		rgbGen identity
+	}
+}
+
+models\mapobjects\flag\flag1a.tga
+{
+	cull twosided
+	{
+		map models/mapobjects/flag/flag1a.tga
+		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
+		rgbGen identity
+	}
+}
+
+models\mapobjects\flag\flag1b.tga
+{
+	cull twosided
+	{
+		map models/mapobjects/flag/flag1b.tga
+		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
+		rgbGen identity
+	}
+}
+
+// done
 
 models\mapobjects\flag\flag_ui_american
 

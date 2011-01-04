@@ -272,7 +272,7 @@ namespace rtcw.Renderer.Backend
 	        if ( faceCulling == cullType ) {
 		        return;
 	        }
-
+            
 	        faceCulling = cullType;
 
             if (cullType == cullType_t.CT_TWO_SIDED)
