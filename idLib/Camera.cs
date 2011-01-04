@@ -56,7 +56,6 @@ namespace idLib
             if (camera[camNum] == null)
                 camera[camNum] = new idCameraDef();
 
-	        camera[camNum].clear();
 	        return camera[camNum].load( name );
         }
 

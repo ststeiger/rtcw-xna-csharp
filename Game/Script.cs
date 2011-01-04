@@ -210,6 +210,27 @@ namespace Game
         }
 
         //
+        // RunAction
+        //
+        idThread triggerthread;
+        private void ExecuteTrigger(idEntity entity, idScriptAction _action)
+        {
+            if (triggerthread != null)
+            {
+                while (triggerthread.isRunning() == true)
+                    System.Threading.Thread.Sleep(1);
+            }
+            if (_action == null)
+            {
+                Engine.common.ErrorFatal("Script_Execute action is null\n");
+            }
+
+            idThread thread = Engine.Sys.CreateThread(_action.name, () => ScriptThreadWorker(entity, _action));
+            triggerthread = thread;
+            thread.Start(null);
+        }
+
+        //
         // FindAction
         //
         public idScriptAction FindAction(string _namespace, string _eventname, bool showWarning)
@@ -264,12 +285,12 @@ namespace Game
                 }
                 else
                 {
-                    Level.aiscript.Execute(ent, action);
+                    Level.aiscript.ExecuteTrigger(ent, action);
                     return true;
                 }
             }
 
-            Level.script.Execute(ent, action);
+            Level.script.ExecuteTrigger(ent, action);
             return true;
         }
 
@@ -306,8 +327,8 @@ namespace Game
         //
 
         private static bool AICast_ScriptAction_StartCam(idEntity ent, idScriptFuncBinary func) {
-            idCameraManager.loadCamera(0, "cameras/" + func.parms[0] + ".camera");
-            Level.cameranum = 0;
+            idCameraManager.loadCamera(Level.cameranum + 1, "cameras/" + func.parms[0] + ".camera");
+            Level.cameranum++;
             return true;
         }
 
@@ -317,8 +338,8 @@ namespace Game
         }  //----(SA)	added
 
         private static bool AICast_ScriptAction_StartCamBlack(idEntity ent, idScriptFuncBinary func) {
-            idCameraManager.loadCamera(0, "cameras/" + func.parms[0] + ".camera");
-            Level.cameranum = 0;
+            idCameraManager.loadCamera(Level.cameranum + 1, "cameras/" + func.parms[0] + ".camera");
+            Level.cameranum++;
             return true;
         }
 
@@ -369,12 +390,12 @@ namespace Game
                 }
                 else
                 {
-                    Level.aiscript.Execute(ent, action);
+                    Level.aiscript.ExecuteTrigger(ent, action);
                     return true;
                 }
             }
 
-            Level.script.Execute(ent, action);
+            Level.script.ExecuteTrigger(ent, action);
             return true;
         }
         //----(SA)	end

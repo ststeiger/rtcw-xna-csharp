@@ -375,8 +375,8 @@ namespace idLib
 				        break;
 			        }
 
-			        parser.UngetToken();
-			        string key = parser.GetNextTokenFromLine();
+			      //  parser.UngetToken();
+                    string key = token; //parser.GetNextTokenFromLine();
 
 			        if ( key == "startPos") {
                         parser.NextVector3(ref startPos);
