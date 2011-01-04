@@ -34,6 +34,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // gamemodel.cs (c) 2010 JV Software
 //
 
+using Game.Anim;
+
 namespace Game.AI
 {
     //
@@ -41,6 +43,8 @@ namespace Game.AI
     //
     public class idEntityAI : idEntity
     {
+        idAnim defaultAnim;
+
         //
         // Spawn
         //
@@ -51,6 +55,9 @@ namespace Game.AI
             state.modelSkin = Level.net.SkinIndex(aiSkin);
             state.modelSkin2 = Level.net.SkinIndex(aihSkin);
             state.eType = idLib.Game.entityType_t.ET_PLAYER;
+
+            InitAnim();
+            defaultAnim = anim[0];
         }
 
         //
@@ -60,6 +67,11 @@ namespace Game.AI
         {
             if (state.modelindex < 0)
                 return;
+
+            state.frame++;
+
+            if (state.frame >= defaultAnim._numFrames)
+                state.frame = defaultAnim._firstFrame;
 
             LinkEntity();
         }

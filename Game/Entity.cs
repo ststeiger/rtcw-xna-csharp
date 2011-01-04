@@ -34,10 +34,14 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // Entity.cs (c) 2010 JV Software
 //
 
+using System.IO;
+
 using idLib;
 using idLib.Math;
 using idLib.Game;
 using idLib.Engine.Public;
+
+using Game.Anim;
 
 namespace Game
 {
@@ -48,6 +52,8 @@ namespace Game
     {
         public entityState_t state;   // communicated by server to clients
         public entityShared_t shared; // shared by both the server system and game
+
+        public idAnimCfg anim;
         
         public idDict spawnArgs;
         public string classname;
@@ -247,6 +253,14 @@ namespace Game
 
             state.number = spawnArgs.FindKeyInt("entitynum");
             state.modelindex2 = -3;
+        }
+
+        //
+        // InitAnim
+        //
+        public void InitAnim()
+        {
+            anim = new idAnimCfg(Path.GetDirectoryName(model) + "/wolfanim.cfg");
         }
 
         //

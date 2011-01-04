@@ -80,6 +80,8 @@ namespace Game.Entities.Player
             state.eType = entityType_t.ET_PLAYER;
 
             physics = new idPlayerPhysics();
+
+            InitAnim();
         }
 
         //

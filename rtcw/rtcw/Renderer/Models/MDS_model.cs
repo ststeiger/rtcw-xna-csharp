@@ -649,7 +649,7 @@ namespace rtcw.Renderer.Models
                 surfaces[i].visCount = -1;
             }
 
-            GenerateBonesForFrame(0, 0);
+            GenerateBonesForFrame(entity.frame, entity.torsoFrame);
             GenerateSurfaces();
 
             idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();

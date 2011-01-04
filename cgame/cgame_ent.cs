@@ -118,7 +118,8 @@ namespace cgame
 
             ent = Globals.world.AllocRenderEntity(ref Globals.localview.refdef);
 
-            ent.frame = 0;
+            ent.frame = entity.frame;
+            ent.torsoFrame = entity.frame;
             ent.oldframe = 0;
             ent.origin = entity.origin;
             ent.axis = entity.angles.ToAxis();
