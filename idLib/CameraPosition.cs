@@ -247,9 +247,9 @@ namespace idLib
 				        break;
 			        }
 
-                    parser.UngetToken();
-			        
-			        string key = parser.GetNextTokenFromLine();
+                    //parser.UngetToken();
+
+                    string key = token; // parser.GetNextTokenFromLine();
 
 			        if ( key == "pos" ) {
 				        parser.NextVector3( ref pos );

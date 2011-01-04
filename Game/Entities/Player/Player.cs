@@ -110,6 +110,12 @@ namespace Game.Entities.Player
 
             if (Level.cameranum != -1)
             {
+                if (Level.camerapath.Length > 0)
+                {
+                    idCameraManager.loadCamera(0, Level.camerapath);
+                    Level.camerapath = "";
+                    cameraframe = 0;
+                }
                 idCameraManager.getCameraInfo(Level.cameranum, cameraframe++, ref state.origin, ref state.angles2, ref fov);
                 state.angles2.X = -state.angles2.X;
             }

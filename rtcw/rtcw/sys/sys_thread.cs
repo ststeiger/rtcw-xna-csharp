@@ -106,7 +106,7 @@ namespace rtcw.sys
         //
         public override void Stop()
         {
-            throw new NotImplementedException();
+            thread.Abort();
         }
 
         //

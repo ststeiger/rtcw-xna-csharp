@@ -217,8 +217,10 @@ namespace Game
         {
             if (triggerthread != null)
             {
-                while (triggerthread.isRunning() == true)
-                    System.Threading.Thread.Sleep(1);
+             //   while (triggerthread.isRunning() == true)
+             //       System.Threading.Thread.Sleep(1);
+                triggerthread.Stop();
+                triggerthread = null;
             }
             if (_action == null)
             {
@@ -327,8 +329,8 @@ namespace Game
         //
 
         private static bool AICast_ScriptAction_StartCam(idEntity ent, idScriptFuncBinary func) {
-            idCameraManager.loadCamera(Level.cameranum + 1, "cameras/" + func.parms[0] + ".camera");
-            Level.cameranum++;
+            Level.camerapath = "cameras/" + func.parms[0] + ".camera";
+            Level.cameranum = 0;
             return true;
         }
 
@@ -338,8 +340,8 @@ namespace Game
         }  //----(SA)	added
 
         private static bool AICast_ScriptAction_StartCamBlack(idEntity ent, idScriptFuncBinary func) {
-            idCameraManager.loadCamera(Level.cameranum + 1, "cameras/" + func.parms[0] + ".camera");
-            Level.cameranum++;
+            Level.camerapath = "cameras/" + func.parms[0] + ".camera";
+            Level.cameranum = 0;
             return true;
         }
 

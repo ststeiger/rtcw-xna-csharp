@@ -59,6 +59,7 @@ namespace Game
 
         public static int time;
         public static int cameranum = -1;
+        public static string camerapath = "";
 
         public static idGameNetwork net = new idGameNetwork();
 
