@@ -539,6 +539,9 @@ namespace rtcw.Framework
             // Init the usercmdgen manager.
             Engine.usercmd.Init();
 
+            // Init the sound manager.
+            Engine.soundManager.Init();
+
             sv.Init();
 
             cl.Init();

@@ -324,6 +324,12 @@ namespace Game
             return true;
         }
 
+        private static bool G_ScriptAction_PlaySound(idEntity ent, idScriptFuncBinary func) {
+            idSound sound = Engine.soundManager.LoadSound(func.parms[0]);
+            sound.Play();
+            return true; 
+        }
+
         //
         // AI SCRIPT FUNCTIONS
         //
@@ -400,11 +406,18 @@ namespace Game
             Level.script.ExecuteTrigger(ent, action);
             return true;
         }
+
+        private static bool AICast_ScriptAction_PlaySound(idEntity ent, idScriptFuncBinary func)
+        {
+            idSound sound = Engine.soundManager.LoadSound(func.parms[0]);
+            sound.Play();
+            return true;
+        }
         //----(SA)	end
 
         #region ScriptStubs_ImplementMe
         private static bool G_ScriptAction_GotoMarker(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_PlaySound(idEntity ent, idScriptFuncBinary func) { return false; }
+        
         private static bool G_ScriptAction_PlayAnim(idEntity ent, idScriptFuncBinary func) { return false; }
         private static bool G_ScriptAction_AlertEntity(idEntity ent, idScriptFuncBinary func) { return false; }
         private static bool G_ScriptAction_Accum(idEntity ent, idScriptFuncBinary func) { return false; }
@@ -445,7 +458,6 @@ namespace Game
         private static bool AICast_ScriptAction_CrouchToCast(idEntity ent, idScriptFuncBinary func) { return false; }
         private static bool AICast_ScriptAction_AbortIfLoadgame(idEntity ent, idScriptFuncBinary func) { return false; } //----(SA)	added
         private static bool AICast_ScriptAction_FollowCast(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_PlaySound(idEntity ent, idScriptFuncBinary func) { return false; }
         private static bool AICast_ScriptAction_NoAttack(idEntity ent, idScriptFuncBinary func) { return false; }
         private static bool AICast_ScriptAction_Attack(idEntity ent, idScriptFuncBinary func) { return false; }
         private static bool AICast_ScriptAction_PlayAnim(idEntity ent, idScriptFuncBinary func) { return false; }

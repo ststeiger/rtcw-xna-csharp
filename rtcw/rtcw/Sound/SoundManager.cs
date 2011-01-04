@@ -39,6 +39,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+
+using idLib;
 using idLib.Engine.Public;
 using rtcw.Framework.Files;
 
@@ -241,6 +243,7 @@ namespace rtcw.Sound
     public class idSoundManagerLocal : idSoundManager
     {
         List<idSound> soundpool = new List<idSound>();
+        List<idSoundShader> shaders = new List<idSoundShader>();
 
         idSoundMusic backgroundTrack = null;
 
@@ -249,7 +252,68 @@ namespace rtcw.Sound
         //
         public override void Init()
         {
-            
+            idFile file;
+            idParser parser;
+                
+            // The sound shaders are originally listed in the sound/scripts folder, it might be wise to change this later on,
+            // but for now i'm going to stick with the original implementation.
+            file = Engine.fileSystem.OpenFileRead("sound/scripts/filelist.txt", true);
+            if (file == null)
+            {
+                Engine.common.ErrorFatal("S_Init: Failed to open sound shader list.\n");
+            }
+
+            parser = new idParser(file);
+
+            while (true)
+            {
+                string soundfile = parser.NextToken;
+
+                if (soundfile == null || soundfile.Length <= 0)
+                {
+                    break;
+                }
+
+                ParseSoundShader(soundfile);
+            }
+
+            parser.Dispose();
+            Engine.fileSystem.CloseFile(ref file);
+        }
+
+        //
+        // ParseSoundShader
+        //
+        private void ParseSoundShader(string name)
+        {
+            idFile file;
+            idParser parser;
+            string shadername;
+
+            // Open the sound shader for parsing.
+            file = Engine.fileSystem.OpenFileRead("sound/scripts/" + name, true);
+            if (file == null)
+            {
+                Engine.common.ErrorFatal("S_ParseSoundShader: Failed to open sound shader " + name + "\n");
+            }
+
+            parser = new idParser(file);
+
+            while (true)
+            {
+                idSoundShader shader;
+                shadername = parser.NextToken;
+
+                if (shadername == null || shadername.Length <= 0)
+                {
+                    break;
+                }
+
+                shader = new idSoundShader(shadername, ref parser);
+                shaders.Add(shader);
+            }
+
+            Engine.fileSystem.CloseFile(ref file);
         }
 
         //
@@ -318,6 +382,16 @@ namespace rtcw.Sound
                 if (soundpool[i].GetName() == fileName)
                 {
                     return soundpool[i];
+                }
+            }
+
+            // Check to see if the sound is a shader.
+            for (int i = 0; i < shaders.Count; i++)
+            {
+                if (shaders[i].Name == fileName)
+                {
+                    fileName = shaders[i].SoundPath;
+                    break;
                 }
             }
 
