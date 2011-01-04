@@ -778,7 +778,20 @@ namespace rtcw.Renderer
         //
         public override idWorld LoadWorld(string mappath)
         {
-            idWorldLocal world = new idWorldLocal(mappath);
+            idWorldLocal world;
+
+            for (int i = 0; i < Globals.tr.worlds.Count; i++)
+            {
+                if (Globals.tr.worlds[i].MapName.Length > 0)
+                {
+                    if (Globals.tr.worlds[i].MapName == mappath)
+                    {
+                        return Globals.tr.worlds[i];
+                    }
+                }
+            }
+                
+            world = new idWorldLocal(mappath);
 
             Globals.tr.worlds.Add(world);
 

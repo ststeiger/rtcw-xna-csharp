@@ -93,6 +93,9 @@ namespace rtcw.Renderer.Backend
         public VertexBuffer vertexBuffer;
         public IndexBuffer indexBuffer;
 
+        public int frame;
+        public int torsoFrame;
+
         public idModelLocal model;
 
         // RC_SET_BONEMATRIX

@@ -48,6 +48,7 @@ namespace rtcw.Renderer
     //
     class idWorldLocal : idWorld
     {
+        string mapname = "";
         idMap map = null;
 
         //
@@ -58,6 +59,14 @@ namespace rtcw.Renderer
 
         }
 
+        public string MapName
+        {
+            get
+            {
+                return mapname;
+            }
+        }
+
         //
         // idWorldLocal
         //
@@ -65,6 +74,8 @@ namespace rtcw.Renderer
         {
             map = new idMap();
             map.LoadMap(mappath);
+
+            mapname = mappath;
         }
 
         //
@@ -113,6 +124,14 @@ namespace rtcw.Renderer
         }
 
         //
+        // isPointInPVS
+        // 
+        public override bool isPointInPVS(idLib.Math.idVector3 pvsorigin, idLib.Math.idVector3 point)
+        {
+            return map.vis.TestPointInPVS(pvsorigin, point);
+        }
+
+        //
         // RenderScene
         //
         public override void RenderScene(idRefdef refdef)
@@ -137,7 +156,7 @@ namespace rtcw.Renderer
                 // this is here for client effects so they arent drawn if they arent in the current view.
                 if (map != null)
                 {
-                    if (!map.vis.TestPointInPVS(refdef.vieworg, entity.origin))
+                    if (!isPointInPVS(refdef.vieworg, entity.origin))
                     {
                         continue;
                     }

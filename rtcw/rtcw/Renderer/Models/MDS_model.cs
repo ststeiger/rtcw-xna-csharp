@@ -616,8 +616,11 @@ namespace rtcw.Renderer.Models
         //
         // idDrawSurface
         //
-        public override idDrawSurface[] BackendTessModel()
+        public override idDrawSurface[] BackendTessModel(int frame, int torsoFrame)
         {
+            GenerateBonesForFrame(frame, torsoFrame);
+            GenerateSurfaces();
+
             Array.Copy(drawVertexes, Globals.tess.drawVerts, drawVertexes.Length);
             Array.Copy(indexes.ToArray(), Globals.tess.indexes, indexes.Count);
 
@@ -649,11 +652,10 @@ namespace rtcw.Renderer.Models
                 surfaces[i].visCount = -1;
             }
 
-            GenerateBonesForFrame(entity.frame, entity.torsoFrame);
-            GenerateSurfaces();
-
             idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
             cmd.type = renderCommandType.RC_DRAW_TESSBUFFER;
+            cmd.frame = entity.frame;
+            cmd.torsoFrame = entity.torsoFrame;
             cmd.model = this;
 
          //   Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);

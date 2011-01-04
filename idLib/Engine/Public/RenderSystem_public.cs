@@ -390,6 +390,9 @@ namespace idLib.Engine.Public
 
         // LoadBrushModel
         public abstract idModel LoadBrushModel(string name);
+
+        // Tests to see if a point is visible from a certain location.
+        public abstract bool isPointInPVS(idVector3 pvsorigin, idVector3 point);
     }
 
     //

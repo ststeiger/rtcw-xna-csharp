@@ -461,7 +461,7 @@ namespace rtcw.Renderer
         public orientationr_t or;                 // for current entity
 
         public idRefdefLocal refdef = new idRefdefLocal();
-        public List<idWorld> worlds = new List<idWorld>();
+        public List<idWorldLocal> worlds = new List<idWorldLocal>();
 
 	    public int viewCluster;
 

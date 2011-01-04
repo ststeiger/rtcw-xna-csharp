@@ -154,6 +154,21 @@ namespace rtcw.Renderer
         {
             bool isUniqueImage = false;
 
+            // .NET throws a exception if the directory isn't present, so we have to catch it.
+            try
+            {
+                if (Engine.fileSystem.FileExists(Engine.fileSystem.RemoveExtensionFromPath(qpath) + ".xnb") == false)
+                {
+                    Engine.common.Warning("R_FindImageFile: Failed to find image %s \n", qpath);
+                    return FindImage("*white");
+                }
+            }
+            catch (Exception e)
+            {
+                Engine.common.Warning("R_FindImageFile: Failed to find image %s \n", qpath);
+                return FindImage("*white");
+            }
+
             idImageLocal image = AllocImage(qpath, ref isUniqueImage);
             if (isUniqueImage == false)
             {

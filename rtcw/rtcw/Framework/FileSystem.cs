@@ -367,24 +367,24 @@ namespace rtcw.Framework
                 return default(T);
             }
 #endif
-            try
-            {
+         //   try
+         //   {
                 T content = _contentManager.Load<T>(path);
 
-                if(content.GetType() == typeof(Microsoft.Xna.Framework.Graphics.Texture2D))
+                if(content != null && content.GetType() == typeof(Microsoft.Xna.Framework.Graphics.Texture2D))
                 {
                     object temp = content;
                     fs_loadStack += (((Microsoft.Xna.Framework.Graphics.Texture2D)temp).Width * ((Microsoft.Xna.Framework.Graphics.Texture2D)temp).Height * 4);
                 }
 
                 return content;
+          //  }
+          //  catch (Exception e)
+         //  {
+        //        Engine.common.Warning("FS_ReadContent: " + e.ToString() + "\n");
+        //        return default(T);
             }
-            catch (Exception e)
-            {
-                Engine.common.Warning("FS_ReadContent: " + e.ToString() + "\n");
-                return default(T);
-            }
-        }
+       // }
 
         //
         // isInitialized

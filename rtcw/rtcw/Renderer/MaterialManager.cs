@@ -63,7 +63,7 @@ namespace rtcw.Renderer
             for (int i = 0; i < numMaterials; i++)
             {
                 idMaterialCached mtrCached = new idMaterialCached();
-                mtrCached.mtrname = input.ReadString();
+                mtrCached.hashValue = input.ReadInt32();
                 mtrCached.buffer = input.ReadString();
                 list.AddMaterialToCache(mtrCached);
             }
@@ -552,6 +552,7 @@ namespace rtcw.Renderer
 				        Engine.common.Warning( "missing parameter for 'animMmap' keyword in shader '%s'\n", shader.name );
 				        return false;
 			        }
+                    stage.bundle[0] = new textureBundle_t();
 			        stage.bundle[0].imageAnimationSpeed = float.Parse( token );
 
 			        // parse up to MAX_IMAGE_ANIMATIONS animations
@@ -2103,12 +2104,14 @@ namespace rtcw.Renderer
             }
 
             // Try to find the material in the table and load it in.
-            string mtrbuffer = mtrLookupTable.FindMaterialInTable(name);
+            string mtrbuffer = mtrLookupTable.FindMaterialInTable(hashValue);
 
             // Try the shader name with out the extension if its present.
             if (mtrbuffer == null)
             {
-                mtrbuffer = mtrLookupTable.FindMaterialInTable(Engine.fileSystem.RemoveExtensionFromPath(name));
+                string name2 = Engine.fileSystem.RemoveExtensionFromPath(name);
+                int newHashVal = GenerateHashValue(name2);
+                mtrbuffer = mtrLookupTable.FindMaterialInTable(newHashVal);
             }
 
             if (mtrbuffer != null)

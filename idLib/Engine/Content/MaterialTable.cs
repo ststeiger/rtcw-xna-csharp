@@ -44,7 +44,7 @@ namespace idLib.Engine.Content
     //
     public class idMaterialCached
     {
-        public string mtrname;
+        public int hashValue;
         public string buffer;
     }
 
@@ -63,11 +63,11 @@ namespace idLib.Engine.Content
             }
         }
 
-        public string FindMaterialInTable(string name)
+        public string FindMaterialInTable(int hashValue)
         {
             for (int i = 0; i < mtrcache.Count; i++)
             {
-                if (mtrcache[i].mtrname == name)
+                if (mtrcache[i].hashValue == hashValue)
                 {
                     return mtrcache[i].buffer;
                 }

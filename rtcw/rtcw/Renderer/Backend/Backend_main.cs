@@ -353,7 +353,7 @@ namespace rtcw.Renderer.Backend
         //
         private void Cmd_DrawTessSurfs(int smpFrame, idRenderCommand cmd)
         {
-            idDrawSurface[] surflist = cmd.model.BackendTessModel();
+            idDrawSurface[] surflist = cmd.model.BackendTessModel(cmd.frame, cmd.torsoFrame);
 
             // Draw all the surfaces.
             for (int i = 0; i < surflist.Length; i++ )

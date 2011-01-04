@@ -20,7 +20,7 @@ namespace idLib.Engine.Content.Materials
             
             for (int i = 0; i < value.Count; i++)
             {
-                output.Write(value.GetMaterial(i).mtrname);
+                output.Write(value.GetMaterial(i).hashValue);
                 output.Write(value.GetMaterial(i).buffer);
             }
         }

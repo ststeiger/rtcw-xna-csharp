@@ -99,6 +99,7 @@ namespace rtcw.Server
         public static idServerManager sv;
         public static idSysModule gvm;
         public static idGamePublic game;
+        public static idWorld world;
 
         public static int numSnapshotEntities = 0;
         public const int MAX_CONFIGSTRINGS = 2048;
@@ -482,6 +483,12 @@ namespace rtcw.Server
             {
                 Globals.clients[0].clientIsReady = true;
                 Globals.game.ClientBegin(0);
+
+                // The client should have the level loaded by now so just get a copy for ourselves.
+                if (Globals.world == null)
+                {
+                    Globals.world = Engine.RenderSystem.LoadWorld(CVars.sv_mapname.GetValue());
+                }
             }
             else if (cmd == idNetwork.netcmd_usercmd)
             {
@@ -536,6 +543,13 @@ namespace rtcw.Server
             for (int i = 0; i < Globals.numLinkedEntities; i++)
             {
                 entityState_t ent = Globals.gentities[Globals.linkedEntities[i]].state;
+
+                // This should be the bounding box test :/.
+                if (!Globals.world.isPointInPVS(Globals.gentities[0].state.origin, ent.origin) && i > 0)
+                {
+                    continue;
+                }
+
 #if !WINDOWS_PHONE
                 ent.WritePacket(ref msg);
 #else
