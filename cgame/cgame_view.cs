@@ -86,7 +86,7 @@ namespace cgame
             refdef.width = Engine.RenderSystem.GetViewportWidth();
             refdef.height = Engine.RenderSystem.GetViewportHeight();
 
-            refdef.rdflags = 0;
+            refdef.rdflags = idRenderType.RDF_DRAWSKYBOX;
 
             Globals.world.RenderScene(refdef);
 

@@ -227,8 +227,6 @@ namespace rtcw.Renderer.Backend
                 return;
             }
 
-            
-
             // Setup culling for this shader.
             Shade.SetCullMode(Globals.tess.shader.cullType);
 
@@ -240,7 +238,14 @@ namespace rtcw.Renderer.Backend
             //
             // call off to shader specific tess end function
             //
-            Globals.tess.currentStageIteratorFunc();
+            if (Globals.tess.shader.fogParms != null)
+            {
+                Shade.EnableFog(Globals.tess.shader.fogParms);
+            }
+            else
+            {
+                Globals.tess.currentStageIteratorFunc();
+            }
 
             if (Globals.tess.shader.polygonOffset)
             {
@@ -300,6 +305,8 @@ namespace rtcw.Renderer.Backend
                 EndSurface();
             }
 
+            Shade.DisableFog();
+
             Globals.graphics3DDevice.Present();
         }
 
@@ -332,10 +339,12 @@ namespace rtcw.Renderer.Backend
         //
         private void Cmd_SetRefDef(idRenderCommand cmd)
         {
+            state.refdef = cmd.refdef;
+
             RB_BeginDrawingView();
 
             Shade.PushDrawMatrix(cmd.refdef);
-            state.refdef = cmd.refdef;
+            
         }
 
         //
@@ -357,7 +366,15 @@ namespace rtcw.Renderer.Backend
         private void RB_BeginDrawingView()
         {
             SetViewportAndScissor(state.refdef);
-            Globals.graphics3DDevice.Clear(ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+
+            if ((state.refdef.rdflags & idRenderType.RDF_DRAWSKYBOX) != 0)
+            {
+                Globals.graphics3DDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.LightBlue, 1.0f, 0);
+            }
+            else
+            {
+                Globals.graphics3DDevice.Clear(ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+            }
         }
 
         //

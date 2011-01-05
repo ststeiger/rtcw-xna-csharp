@@ -161,6 +161,7 @@
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Splines.cs" />
+    <Compile Include="String.cs" />
     <Compile Include="Velocity.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -38,6 +38,8 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
+using idLib;
 using idLib.Engine.Public;
 
 namespace rtcw.Renderer
@@ -54,19 +56,11 @@ namespace rtcw.Renderer
         private char[] s_gammatable = new char[256];
 
         //
-        // HashValue
-        //
-        private int GenerateHashValue(string name)
-        {
-            return name.GetHashCode();
-        }
-
-        //
         // AllocImage
         //
         private idImageLocal AllocImage(string name, ref bool uniqueImage)
         {
-            int hashValue = GenerateHashValue(name);
+            int hashValue = idString.GenerateHashValue(name);
 
             for (int i = 0; i < hashTable.Count; i++)
             {

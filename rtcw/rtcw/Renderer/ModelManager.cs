@@ -37,6 +37,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 using System;
 using System.Collections.Generic;
 
+using idLib;
 using idLib.Engine.Public;
 
 using rtcw.Renderer.Map;
@@ -51,33 +52,7 @@ namespace rtcw.Renderer
     {
         List<idModel> modelpool = new List<idModel>();
 
-        //
-        // HashValue
-        //
-        //
-        // HashValue
-        //
-        private int GenerateHashValue(string name)
-        {
-            string hashValue = "";
-            name = name.ToLower();
-            for (int i = 0; i < name.Length; i++)
-            {
-                if (name[i] == '.')
-                {
-                    break;
-                }
-
-                if (name[i] == '\\' || name[i] == '/')
-                {
-                    continue;
-                }
-
-                hashValue += name[i];
-            }
-
-            return hashValue.GetHashCode();
-        }
+        
 
         //
         // Init
@@ -121,7 +96,7 @@ namespace rtcw.Renderer
             idFile _file;
             int iden = -1;
 
-            int hashValue = GenerateHashValue(qpath);
+            int hashValue = idString.GenerateHashValue(qpath);
 
             // Check to see if the model has already been loaded.
             for (int i = 0; i < modelpool.Count; i++)

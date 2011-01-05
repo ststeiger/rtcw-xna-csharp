@@ -12,30 +12,7 @@ namespace idLib.Engine.Content.Materials
     [ContentProcessor(DisplayName = "RTCW Material Processor")]
     public class idMaterialProcessor : ContentProcessor<idMaterialSource, idMaterialLookupTable>
     {
-        //
-        // HashValue
-        //
-        private int GenerateHashValue(string name)
-        {
-            string hashValue = "";
-            name = name.ToLower();
-            for (int i = 0; i < name.Length; i++)
-            {
-                if (name[i] == '.')
-                {
-                    break;
-                }
-
-                if (name[i] == '\\' || name[i] == '/')
-                {
-                    continue;
-                }
-
-                hashValue += name[i];
-            }
-
-            return hashValue.GetHashCode();
-        }
+       
         public override idMaterialLookupTable Process(idMaterialSource input, ContentProcessorContext context)
         {
             idMaterialLookupTable table = new idMaterialLookupTable();
@@ -53,7 +30,7 @@ namespace idLib.Engine.Content.Materials
                 }
 
 
-                mtrcache.hashValue = GenerateHashValue(token);
+                mtrcache.hashValue = idString.GenerateHashValue(token);
                 mtrcache.buffer = parser.NextBracketSection;
 
                 table.AddMaterialToCache(mtrcache);

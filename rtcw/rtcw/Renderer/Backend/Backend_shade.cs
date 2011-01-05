@@ -57,6 +57,8 @@ namespace rtcw.Renderer.Backend
 
             pushedColor = new Vector3(1, 1, 1);
             drawMatrix = new idRenderMatrix();
+
+        //    EnableFog(null);
         }
 
         //
@@ -215,6 +217,26 @@ namespace rtcw.Renderer.Backend
                 drawMatrix.world = Matrix.Identity;
                 drawMatrix.SetAsActiveMatrix(ref defaultEffect);
             }
+        }
+
+        //
+        // EnableFog
+        //
+        public static void EnableFog(fogParms_t parms )
+        {
+
+            defaultEffect.FogStart = -1900.0f;
+            defaultEffect.FogEnd = 2500.0f;
+            defaultEffect.FogColor = new Vector3(0.2f, 0.2f, 0.2f);
+            defaultEffect.FogEnabled = true;
+        }
+
+        //
+        // DisableFog
+        //
+        public static void DisableFog()
+        {
+            defaultEffect.FogEnabled = false;
         }
 
         //

@@ -106,6 +106,14 @@ namespace rtcw.Framework.Files
         //
         public override string GetFileNameAndPathWithoutExtension()
         {
+            string dir;
+
+            dir = Path.GetDirectoryName(_filename);
+
+            if (dir.Length <= 0)
+            {
+                return Path.GetFileNameWithoutExtension(_filename);
+            }
             return Path.GetDirectoryName(_filename) + "/" + Path.GetFileNameWithoutExtension(_filename);
         }
 

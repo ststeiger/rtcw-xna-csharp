@@ -2022,7 +2022,7 @@ namespace rtcw.Renderer
                 return null;
             }
 
-            mtr.shader.hashValue = GenerateHashValue(name);
+            mtr.shader.hashValue = idString.GenerateHashValue(name);
 
             mtrpool.Add(mtr);
 
@@ -2062,36 +2062,11 @@ namespace rtcw.Renderer
         }
 
         //
-        // HashValue
-        //
-        private int GenerateHashValue(string name)
-        {
-            string hashValue = "";
-            name = name.ToLower();
-            for (int i = 0; i < name.Length; i++)
-            {
-                if (name[i] == '.')
-                {
-                    break;
-                }
-
-                if (name[i] == '\\' || name[i] == '/')
-                {
-                    continue;
-                }
-
-                hashValue += name[i];
-            }
-
-            return hashValue.GetHashCode();
-        }
-
-        //
         // FindMaterial
         //
         public override idMaterial FindMaterial(string name, int lightmapIndex)
         {
-            int hashValue = GenerateHashValue(name);
+            int hashValue = idString.GenerateHashValue(name);
             // Check to see if the material is already loaded.
             for (int i = 0; i < mtrpool.Count; i++)
             {
@@ -2108,7 +2083,7 @@ namespace rtcw.Renderer
             if (mtrbuffer == null)
             {
                 string name2 = Engine.fileSystem.RemoveExtensionFromPath(name);
-                int newHashVal = GenerateHashValue(name2);
+                int newHashVal = idString.GenerateHashValue(name2);
                 mtrbuffer = mtrLookupTable.FindMaterialInTable(newHashVal);
             }
 
