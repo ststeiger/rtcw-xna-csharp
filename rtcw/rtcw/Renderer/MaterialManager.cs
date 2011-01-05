@@ -1078,7 +1078,7 @@ namespace rtcw.Renderer
 
 	        // fogonly shaders don't have any normal passes
 	        if ( stage == 0 ) {
-                shader.sort = (float)shaderSort_t.SS_FOG;
+             //   shader.sort = (float)shaderSort_t.SS_FOG;
 	        }
 
 	        // determine which stage iterator function is appropriate

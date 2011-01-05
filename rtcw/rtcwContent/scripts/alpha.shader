@@ -1,6 +1,7 @@
 
 textures/alpha/bel_orn_m01
 {
+// invalid JPW FIXME SP merge	cull front
 	{
 		map textures/alpha/bel_orn_m01.tga
 		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
@@ -10,20 +11,8 @@ textures/alpha/bel_orn_m01
 	}
 }
 
+
 textures/snow/alpha_ice2
-{
-	qer_editorimage textures/snow/alpha_ice2s.tga
-	surfaceparm alphashadow
-	cull none
-	{
-		map textures/snow/alpha_ice2s.tga
-		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-		rgbGen vertex
-	}
-
-}
-
-textures/snow/alpha_ice2s
 {		
 	surfaceparm alphashadow
 	cull none
@@ -34,7 +23,6 @@ textures/snow/alpha_ice2s
 	}
 
 }
-
 textures/alpha/cweb_m01drk
 {
     qer_trans 0.8
@@ -49,7 +37,6 @@ textures/alpha/cweb_m01drk
         rgbGen vertex
     }
 }
-
 textures/alpha/cweb_m02drk
 {
     qer_trans 0.8
@@ -120,8 +107,6 @@ textures/alpha/fence_m01
 textures/alpha/fence_m01b
 {
     surfaceparm metalsteps
-    surfaceparm nomarks
-    surfaceparm alphashadow
     nomipmaps
     nopicmip
     cull disable
@@ -136,7 +121,6 @@ textures/alpha/fence_m01b
 textures/alpha/fence_m01b_snow
 {
     surfaceparm metalsteps
-    surfaceparm nomarks
     nomipmaps
     nopicmip
     cull disable
@@ -151,7 +135,6 @@ textures/alpha/fence_m01b_snow
 textures/alpha/fence_m02
 {
     surfaceparm metalsteps
-    surfaceparm nomarks
     nomipmaps
     nopicmip
     cull disable
@@ -205,7 +188,6 @@ textures/alpha/fence_c02
 textures/alpha/truss_m06
 {
     surfaceparm alphashadow
-    surfaceparm roofsteps
 //  nomipmaps
 //  nopicmip
     cull disable
@@ -290,7 +272,6 @@ textures/alpha/fence_c06
 textures/alpha/fence_c10
 {
     surfaceparm metalsteps
-    surfaceparm nomarks
     nomipmaps
     nopicmip
     cull disable
@@ -301,22 +282,6 @@ textures/alpha/fence_c10
         rgbGen vertex
     }
 }
-
-textures/nxlab/xlab_m02
-{
-    surfaceparm metalsteps
-    surfaceparm nomarks
-    nomipmaps
-    nopicmip
-    cull disable
-    {
-        map textures/nxlab/xlab_m02.tga
-        alphaFunc GE128
-        depthWrite
-        rgbGen vertex
-    }
-}
-
 textures/alpha/fence_c10b
 {
     surfaceparm metalsteps
@@ -331,26 +296,10 @@ textures/alpha/fence_c10b
     }
 }
 
-textures/awf_props/tool_m07
-{
-    surfaceparm metalsteps
-    nomipmaps
-    nopicmip
-    cull disable
-    {
-        map textures/awf_props/tool_m07.tga
-        alphaFunc GE128
-        depthWrite
-        rgbGen vertex
-    }
-}
-
-
 
 textures/alpha/fence_c10a
 {
     surfaceparm metalsteps
-    surfaceparm nomarks
     nomipmaps
     nopicmip
     cull disable
@@ -362,26 +311,9 @@ textures/alpha/fence_c10a
     }
 }
 
-textures/alpha/fence_c10_light
-{
-    surfaceparm roofsteps
-    surfaceparm nomarks
-//  qer_editorimage textures/alpha/fence_c10a.tga
-    nomipmaps
-    nopicmip
-    cull disable
-    {
-        map textures/alpha/fence_c10_light.tga
-        alphaFunc GE128
-        depthWrite
-        rgbGen vertex
-    }
-}
-
 textures/alpha/fence_c11
 {
     surfaceparm metalsteps
-    surfaceparm nomarks
     nomipmaps
     nopicmip
     cull disable
@@ -451,7 +383,6 @@ textures/alpha/fence_c13
 
 textures/alpha/fence_c14
 {
-    surfaceparm nomarks
     surfaceparm alphashadow
     surfaceparm metalsteps
     nomipmaps
@@ -619,13 +550,13 @@ textures/alpha/mesh_c01
 
 textures/alpha/mesh_c02
 {
-    surfaceparm nomarks
     surfaceparm metalsteps
     nomipmaps
     nopicmip
     cull disable
     {
         map textures/alpha/mesh_c02.tga
+	//   blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
         alphaFunc GE128
         depthWrite
         rgbGen vertex
@@ -634,8 +565,9 @@ textures/alpha/mesh_c02
 
 textures/alpha/mesh_c03
 {
-    surfaceparm grasssteps
+ //   surfaceparm metalsteps
     nomipmaps
+    nopicmip
     cull twosided
     surfaceparm alphashadow
     {
@@ -711,7 +643,6 @@ textures/alpha/bars_m01
 
 textures/alpha/ladder
 {
-    surfaceparm nomarks
     surfaceparm alphashadow
     surfaceparm metalsteps
     cull disable
@@ -749,18 +680,6 @@ textures/alpha/ladder2 //CHAD ADDED THIS!!!
     }
 }
 
-textures/alpha/ladder_dark
-{
-    surfaceparm alphashadow
-    surfaceparm metalsteps
-    cull disable
-    {
-        map textures/alpha/ladder_dark.tga
-        alphaFunc GE128
-        depthWrite
-        rgbGen vertex
-    }
-}
 
 textures/alpha/truss_m01
 {
@@ -793,7 +712,6 @@ textures/alpha/truss_m02
 textures/alpha/truss_m03
 {
     surfaceparm alphashadow
-    surfaceparm nomarks
     nomipmaps
     nopicmip
     cull disable
@@ -879,7 +797,6 @@ textures/alpha/truss_m06r
 textures/alpha/truss_m06a
 {
     surfaceparm alphashadow
-    surfaceparm roofsteps
     nomipmaps
     nopicmip
     cull disable
@@ -945,7 +862,6 @@ textures/snow/s_fence_c08
 
 textures/snow/s_bars_m01
 {
-    surfaceparm nomarks
     surfaceparm metalsteps
     cull disable
     {
@@ -960,10 +876,10 @@ textures/snow/s_bars_m01
 
 textures/assault_rock/hazz2
 {
-	qer_editorimage textures/assault_rock/hazz.tga
 	nocompress
 	sort 16
 	{
+	//	map textures/assault_rock/haze_vil_night.tga
 		map textures/assault_rock/hazz.tga
 		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
 		rgbGen identity
@@ -983,25 +899,15 @@ textures/assault_rock/haze_vil_night
 
 }
 
-textures/assault_rock/haze3
-{
-	nocompress
-	sort 16
-	{
-		map textures/assault_rock/haze3.tga
-		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-	//	rgbGen identity
-		rgbGen wave inverseSawtooth 1 .6 0 3
-	}
-
-}
 textures/assault_rock/hazz
 {
-	qer_editorimage textures/assault_rock/haze_vil_night.tga
-	nocompress	
+	nocompress
+	surfaceparm metalsteps		
+
 	sort 16
 	{
 		map textures/assault_rock/haze_vil_night.tga
+	//	map textures/assault_rock/hazz4.tga
 		blendFunc GL_SRC_ALPHA  GL_ONE
 		rgbGen identity
 	}
@@ -1012,6 +918,7 @@ textures/assault_rock/haze2
 {
 	nocompress
 	surfaceparm metalsteps		
+//	cull front // invalid command JPW FIXME SP merge
 
 	{
 		map textures/assault_rock/haze2.tga
@@ -1020,10 +927,10 @@ textures/assault_rock/haze2
 	}
 
 }
-
 textures/rock/haze
 {
 	surfaceparm metalsteps		
+// invalid JPW FIXME SP merge	cull front
 	nofog
 
 	{
@@ -1038,6 +945,7 @@ textures/assault_rock/haze_horiz
 {
 	nocompress
 	surfaceparm metalsteps		
+// invalid JPW FIXME SP merge	cull front
 	nofog
 
 	{
@@ -1047,6 +955,7 @@ textures/assault_rock/haze_horiz
 	}
 
 }
+
 
 textures/rubble/debri_m02
 {
@@ -1060,6 +969,10 @@ textures/rubble/debri_m02
 	}
 }
 
+
+
+
+
 textures/rubble/debri_m03
 {
 	surfaceparm alphashadow		
@@ -1072,9 +985,12 @@ textures/rubble/debri_m03
 	}
 }
 
+
 textures/rubble/brk_window4a
 {
-	surfaceparm alphashadow			
+	surfaceparm alphashadow		
+// invalid JPW FIXME SP merge	cull front
+	
 	{
 		map textures/rubble/brk_window4a.tga
 	//	blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
@@ -1086,7 +1002,9 @@ textures/rubble/brk_window4a
 
 textures/rubble/brk_window4aa
 {
-	surfaceparm alphashadow			
+	surfaceparm alphashadow		
+// invalid JPW FIXME SP merge	cull front
+	
 	{
 		map textures/rubble/brk_window4aa.tga
 	//	blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
@@ -1120,6 +1038,7 @@ textures/rubble/brk_window4a_sa
 		depthWrite
 	}
 }
+
 
 textures/rubble/roof_m01
 {
@@ -1351,8 +1270,7 @@ textures/b-25/wire1
 	cull none
 	{
 		map textures/b-25/wire1.tga
-	//	blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-		alphaFunc GE128
+		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
 		depthWrite
 		rgbGen vertex
 	}
@@ -1361,6 +1279,7 @@ textures/b-25/wire1
 textures/b-25/plane_int4
 {
 	surfaceparm metalsteps		
+// invalid JPW FIXME SP merge	cull front
 	{
 		map textures/b-25/plane_int4.tga
 		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
@@ -1372,10 +1291,10 @@ textures/b-25/plane_int4
 textures/b-25/rib2
 {
 	surfaceparm metalsteps		
+// invalid JPW FIXME SP merge	cull front
 	{
 		map textures/b-25/rib2.tga
-	//	blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-		alphaFunc GE128	
+		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
 		depthWrite
 		rgbGen vertex
 	}
@@ -1383,9 +1302,8 @@ textures/b-25/rib2
 }
 textures/b-25/glass3
 {
-	
-	surfaceparm metalsteps	
-	sort nearest	
+	surfaceparm metalsteps		
+// invalid JPW FIXME SP merge	cull front
 	{
 		map textures/b-25/glass3.tga
 		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
@@ -1543,6 +1461,7 @@ textures/tree/tree_m06
 textures/tree/tree_m07
 {
 	//sort 10		
+// invalid JPW FIXME SP merge	cull front
 	surfaceparm alphashadow
 	{
 		map textures/tree/tree_m07.tga
@@ -1920,6 +1839,7 @@ textures/tree/tree_m08snow
 textures/miltary_wall/window_m03
 {
 	surfaceparm alphashadow		
+// invalid JPW FIXME SP merge	cull front
 	
 	{
 		map textures/miltary_wall/window_m03.tga
@@ -1961,16 +1881,16 @@ textures/tree/pine_m01
 }
 textures/alpha/dish2
 {
-    surfaceparm metalsteps
+//    surfaceparm metalsteps
     nomipmaps
     nopicmip
     cull disable
     {
         map textures/alpha/dish2.tga
- //       alphaFunc GE128
-	blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
+	alphaFunc GE128
+//	blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
         depthWrite
-        rgbGen vertex
+        rgbGen lightingdiffuse
     }
 }
 
@@ -2268,7 +2188,6 @@ textures/alpha/chateau_c06
 }
 textures/alpha/chateau_c06a
 {
-    surfaceparm nomarks
     surfaceparm alphashadow
     surfaceparm metalsteps
     nomipmaps
@@ -2284,7 +2203,6 @@ textures/alpha/chateau_c06a
 
 textures/alpha/chateau_c07
 {
-    surfaceparm nomarks
     surfaceparm alphashadow
     surfaceparm metalsteps
     nomipmaps
@@ -2299,7 +2217,6 @@ textures/alpha/chateau_c07
 }
 textures/alpha/chateau_c08
 {
-    surfaceparm nomarks
     surfaceparm alphashadow
     surfaceparm metalsteps
     nomipmaps
@@ -2307,10 +2224,10 @@ textures/alpha/chateau_c08
     cull disable
     {
         map textures/alpha/chateau_c08.tga
-        blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
-        alphaFunc GE128
+//		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
+//        alphaFunc GE128
         depthWrite
-	  rgbGen vertex
+        rgbGen vertex
     }
 }
 textures/alpha/chateau_c09
@@ -2343,7 +2260,6 @@ textures/alpha/chateau_c10
 }
 textures/alpha/chateau_c11
 {
-    surfaceparm nomarks
     surfaceparm alphashadow
     surfaceparm metalsteps
     nomipmaps
@@ -2358,7 +2274,6 @@ textures/alpha/chateau_c11
 }
 textures/alpha/chateau_c12
 {
-    surfaceparm nomarks
     surfaceparm alphashadow
     surfaceparm metalsteps
     nomipmaps
@@ -2388,7 +2303,6 @@ textures/alpha/chateau_c13
 }
 textures/alpha/chateau_c14
 {
-    surfaceparm nomarks
     surfaceparm alphashadow
     surfaceparm metalsteps
     nomipmaps
@@ -2433,7 +2347,8 @@ textures/alpha/chateaudoor_c02
 
 textures/training/trees_m01
 {
-    surfaceparm alphashadow
+
+ // invalid JPW FIXME SP merge   cull front
     {  
         map textures/training/trees_m01.tga
 	  blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
@@ -2447,6 +2362,7 @@ textures/training/trees_m01
 textures/alpha/flor_glow
 {
 
+// invalid JPW FIXME SP merge    cull front
     {  
         map textures/alpha/flor_glow.tga
 	blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
@@ -2854,65 +2770,9 @@ textures/training/window_m02_alpha
 
 
 
-textures/nxlab/xlab_m04
-{
-    surfaceparm metalsteps
-    surfaceparm nomarks
-    nomipmaps
-    nopicmip
-    cull disable
-    {
-        map textures/nxlab/xlab_m04.tga
-        alphaFunc GE128
-        depthWrite
-        rgbGen vertex
-    }
-}
 
-textures/nxlab/xlab_m05
-{
-    surfaceparm metalsteps
-    surfaceparm nomarks
-    nomipmaps
-    nopicmip
-    cull disable
-    {
-        map textures/nxlab/xlab_m05.tga
-        alphaFunc GE128
-        depthWrite
-        rgbGen vertex
-    }
-}
 
-textures/alpha/lightning
-{
-		
-	cull twosided
-	deformVertexes autoSprite2
-	qer_editorimage textures/alpha/lightning1.tga	
 
-	{
-		animMap 10 textures/alpha/lightning1.tga textures/alpha/lightning1.tga textures/alpha/lightning2.tga textures/alpha/lightning2.tga textures/alpha/lightning3.tga textures/alpha/lightning3.tga 
-		
-		blendFunc GL_SRC_ALPHA GL_ONE
-	//	rgbGen wave inverseSawtooth 0 1 0 10
-		rgbGen identity
-	}
-
-}
-
-textures/alpha/wreckskyline
-{
-	qer_editorimage textures/alpha/wreckskyline.tga
-
-    {
-		animMap 10 textures/alpha/wreckskyline.tga textures/alpha/wreckskyline1.tga textures/alpha/wreckskyline.tga textures/alpha/wreckskyline.tga textures/alpha/wreckskyline1.tga textures/alpha/wreckskyline1.tga 
-       alphaFunc GE128
-	// blendFunc GL_SRC_ALPHA GL_ONE
-	rgbGen wave inverseSawtooth 1 .5 0 2
-      //  rgbGen identity
-    }
-}
 
 
 

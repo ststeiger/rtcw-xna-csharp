@@ -288,7 +288,7 @@ namespace rtcw.Renderer
         public int lightmapStage = -1;
         public int diffuseStage = -1;
 
-	    public float sort;                         // lower numbered shaders draw before higher numbered
+	    public float sort = 0;                         // lower numbered shaders draw before higher numbered
 
 	    public bool defaultShader;             // we want to return index 0 if the shader failed to
 										    // load for some reason, but R_FindShader should

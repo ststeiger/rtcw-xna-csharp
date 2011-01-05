@@ -331,12 +331,18 @@ namespace rtcw.Renderer
             cmd.numDrawSurfs = surfaces.Length;
             cmd.vertexOffset = vertexOffset;
 
-            for (int i = 0; i < cmd.numDrawSurfs; i++)
+            for (shaderSort_t sort = shaderSort_t.SS_BAD + 1; sort < shaderSort_t.SS_NEAREST; sort++)
             {
-                if (surfaces[i].visCount != Globals.visCount && surfaces[i].visCount != -1)
-                    continue;
+                for (int i = 0; i < cmd.numDrawSurfs; i++)
+                {
+                    if (idMaterialLocal.GetMaterialBase(surfaces[i].materials[0]).sort != (float)sort) 
+                        continue;
 
-                backEnd.AddDrawSurface( (idDrawSurface)surfaces[i] );
+                    if (surfaces[i].visCount != Globals.visCount && surfaces[i].visCount != -1)
+                        continue;
+
+                    backEnd.AddDrawSurface((idDrawSurface)surfaces[i]);
+                }
             }
         }
     }

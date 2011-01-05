@@ -227,13 +227,25 @@ namespace rtcw.Renderer.Backend
                 return;
             }
 
+            
+
             // Setup culling for this shader.
             Shade.SetCullMode(Globals.tess.shader.cullType);
+
+            if (Globals.tess.shader.polygonOffset)
+            {
+                Globals.graphics3DDevice.DepthStencilState = DepthStencilState.None;
+            }
 
             //
             // call off to shader specific tess end function
             //
             Globals.tess.currentStageIteratorFunc();
+
+            if (Globals.tess.shader.polygonOffset)
+            {
+                Globals.graphics3DDevice.DepthStencilState = DepthStencilState.Default;
+            }
 
             // Reset numverts and num indexes.
             Globals.tess.numVertexes = 0;

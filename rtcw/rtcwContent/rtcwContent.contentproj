@@ -7406,276 +7406,323 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\bars_m01.tga">
       <Name>bars_m01</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\bel_orn_m01.tga">
       <Name>bel_orn_m01</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\chateau_c06a.tga">
       <Name>chateau_c06a</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\chateau_c07.tga">
       <Name>chateau_c07</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\chateau_c08.tga">
       <Name>chateau_c08</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\chateau_c09.tga">
       <Name>chateau_c09</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\chateau_c11.tga">
       <Name>chateau_c11</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\chateau_c12.tga">
       <Name>chateau_c12</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\chateau_c14.tga">
       <Name>chateau_c14</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\cweb_m01a.tga">
       <Name>cweb_m01a</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\cweb_m01drk.tga">
       <Name>cweb_m01drk</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\dish2.tga">
       <Name>dish2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_c06.tga">
       <Name>fence_c06</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_c10.tga">
       <Name>fence_c10</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_c10b.tga">
       <Name>fence_c10b</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_c10_light.tga">
       <Name>fence_c10_light</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_c11.tga">
       <Name>fence_c11</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_c11b.tga">
       <Name>fence_c11b</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_c14.tga">
       <Name>fence_c14</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_m01b.tga">
       <Name>fence_m01b</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_m01b_snow.tga">
       <Name>fence_m01b_snow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_m02.tga">
       <Name>fence_m02</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_m03.tga">
       <Name>fence_m03</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_m04.tga">
       <Name>fence_m04</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_m06.tga">
       <Name>fence_m06</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\fence_m06b.tga">
       <Name>fence_m06b</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\ivy_c01.tga">
       <Name>ivy_c01</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\ladder.tga">
       <Name>ladder</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\ladder_dark.tga">
       <Name>ladder_dark</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\ladder_snow.tga">
       <Name>ladder_snow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\latace.tga">
       <Name>latace</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\lightning1.tga">
       <Name>lightning1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\lightning2.tga">
       <Name>lightning2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\lightning3.tga">
       <Name>lightning3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\mesh_c02.tga">
       <Name>mesh_c02</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\mesh_c03.tga">
       <Name>mesh_c03</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\truss_m03.tga">
       <Name>truss_m03</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\truss_m05.tga">
       <Name>truss_m05</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\truss_m05_snow.tga">
       <Name>truss_m05_snow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\truss_m06.tga">
       <Name>truss_m06</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\truss_m06a.tga">
       <Name>truss_m06a</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\truss_m06r.tga">
       <Name>truss_m06r</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\truss_m06rbbb.tga">
       <Name>truss_m06rbbb</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\wreckskyline.tga">
       <Name>wreckskyline</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\alpha\wreckskyline1.tga">
       <Name>wreckskyline1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\assault\atruss_m06a.tga">
       <Name>atruss_m06a</Name>
@@ -8362,96 +8409,128 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\c_flame2.tga">
       <Name>c_flame2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\c_flame3.tga">
       <Name>c_flame3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\c_flame4.tga">
       <Name>c_flame4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\c_flame5.tga">
       <Name>c_flame5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\c_flame6.tga">
       <Name>c_flame6</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\fan.tga">
       <Name>fan</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\flame1.tga">
       <Name>flame1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\flame2.tga">
       <Name>flame2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\flame3.tga">
       <Name>flame3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\flame4.tga">
       <Name>flame4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\flame5.tga">
       <Name>flame5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\flame6.tga">
       <Name>flame6</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\flame7.tga">
       <Name>flame7</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\flame8.tga">
       <Name>flame8</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\flameball.tga">
       <Name>flameball</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\skies2\clouds2.tga">
       <Name>clouds2</Name>
@@ -8500,6 +8579,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <Compile Include="textures\training\trees_m01.tga">
       <Name>trees_m01</Name>
@@ -9577,6 +9657,7 @@
       <Name>WOLFLOGO4a</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
     </Compile>
     <None Include="wolfconfig.cfg">
       <Name>wolfconfig</Name>
@@ -16178,18 +16259,24 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\screen02.jpg">
       <Name>screen02</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\sfx\white_grad.jpg">
       <Name>white_grad</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
+      <ProcessorParameters_PremultiplyAlpha>False</ProcessorParameters_PremultiplyAlpha>
+      <ProcessorParameters_ColorKeyEnabled>False</ProcessorParameters_ColorKeyEnabled>
     </Compile>
     <Compile Include="textures\skies\dimclouds2.jpg">
       <Name>dimclouds2</Name>

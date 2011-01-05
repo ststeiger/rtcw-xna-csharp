@@ -35,6 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace rtcw.Renderer.Backend.Iterators
 {    
