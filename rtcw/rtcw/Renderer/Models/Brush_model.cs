@@ -115,9 +115,10 @@ namespace rtcw.Renderer.Models
         //
         public override void TessModel(ref idRenderEntityLocal entity)
         {
+            Globals.SetVertexIndexBuffers(parent.vertexBuffer, parent.indexBuffer);
             for (int i = firstSurface; i < firstSurface + numSurfaces; i++)
             {
-                parent.drawSurfs[i].visCount = -1;
+                parent.drawSurfs[i].visCount = Globals.visCount;
                 Globals.SortSurface<idDrawSurface>(0, ref parent.drawSurfs[i]);
             }
         }
