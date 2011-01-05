@@ -52,6 +52,7 @@
     <Compile Include="Entities\func\door.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Entities\func\Func_Static.cs" />
     <Compile Include="Entities\Player\Player.cs" />
     <Compile Include="Entities\Props\decoration.cs" />
     <Compile Include="Entities\Target\Target_Relay.cs" />

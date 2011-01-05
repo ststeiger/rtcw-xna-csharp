@@ -56,6 +56,7 @@
     <Compile Include="AI\AI_main.cs" />
     <Compile Include="Anim\Anim_cfg.cs" />
     <Compile Include="Entities\Func\Door.cs" />
+    <Compile Include="Entities\Func\Func_Static.cs" />
     <Compile Include="Entities\Misc\gamemodel.cs" />
     <Compile Include="Entities\Player\Player.cs" />
     <Compile Include="Entities\Props\decoration.cs" />

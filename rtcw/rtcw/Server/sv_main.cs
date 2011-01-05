@@ -528,7 +528,7 @@ namespace rtcw.Server
             }
 
             // Loop through the linked entities and only send down the ones that are in each players view.
-#if !WINDOWS_PHONE
+#if false
             idMsgWriter msg = new idMsgWriter(Globals.numLinkedEntities * entityState_t.NET_SIZE + idNetwork.netcmd_snapshot.Length + 4 + 4);
             msg.WriteString(idNetwork.netcmd_snapshot);
             msg.WriteInt(Globals.numLinkedEntities);
@@ -550,13 +550,13 @@ namespace rtcw.Server
                     continue;
                 }
 
-#if !WINDOWS_PHONE
+#if false
                 ent.WritePacket(ref msg);
 #else
                 idCommonLocal.cl.cls.cgame.NetworkRecieveSnapshot( ref ent );
 #endif
             }
-#if !WINDOWS_PHONE
+#if false
             Engine.net.SendReliablePacketToAddress(idNetSource.NS_CLIENT, Engine.net.GetLoopBackAddress(), ref msg);
 
             msg.Dispose();

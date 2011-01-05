@@ -76,6 +76,8 @@ namespace Game
             new idGameSpawnDefs( "info_player_start", () => new idEntityPlayerStart() ),
             new idGameSpawnDefs( "player", () => new idPlayer() ),
 
+            
+            new idGameSpawnDefs( "func_static", () => new idEntityFuncStatic() ),
             new idGameSpawnDefs( "func_door_rotating", () => new idEntityFuncDoor() ),
 
             new idGameSpawnDefs( "misc_gamemodel", () => new idEntityGameModel() ),
@@ -87,6 +89,8 @@ namespace Game
 
             new idGameSpawnDefs( "target_relay", () => new idEntityTargetRelay() ),
             new idGameSpawnDefs( "target_speaker", () => new idEntityTargetSpeaker() ),
+
+            new idGameSpawnDefs( "trigger_aidoor", () => new idEntityFuncStatic() ),
 
             // Ignored entities.
             new idGameSpawnDefs( "misc_model", () => null ), // misc models are ignored in rtcw.
@@ -192,6 +196,8 @@ namespace Game
                     return spawnDefs[i].func();
                 }
             }
+
+            Engine.common.Warning("SpawnEntity: Failed to spawn entity " + classname + "\n");
             return null;
         }
 
@@ -213,7 +219,6 @@ namespace Game
             entity = AllocEntityByClassname(classname);
             if (entity == null)
             {
-                Engine.common.Warning("SpawnEntity: Failed to spawn entity " + classname + "\n");
                 return null;
             }
 

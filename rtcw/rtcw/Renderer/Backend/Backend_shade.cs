@@ -225,9 +225,9 @@ namespace rtcw.Renderer.Backend
         public static void EnableFog(fogParms_t parms )
         {
 
-            defaultEffect.FogStart = -1900.0f;
+            defaultEffect.FogStart = -2500.0f;
             defaultEffect.FogEnd = 2500.0f;
-            defaultEffect.FogColor = new Vector3(0.2f, 0.2f, 0.2f);
+            defaultEffect.FogColor = new Vector3(0.6f, 0.6f, 0.6f);
             defaultEffect.FogEnabled = true;
         }
 
