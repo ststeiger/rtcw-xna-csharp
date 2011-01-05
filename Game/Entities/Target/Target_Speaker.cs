@@ -31,59 +31,40 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// game_globals.cs (c) 2010 JV Software
+// target_relay.cs (c) 2010 JV Software
 //
 
-using idLib.Game.Server;
 using idLib.Engine.Public;
 
-namespace Game
+namespace Game.Entities.Target
 {
     //
-    // Level
+    // idEntityTargetSpeaker
     //
-    static class Level
+    public class idEntityTargetSpeaker : idEntity
     {
-        public const string GAME = "RTCW";
-        public const string GAMEVERSION = GAME + " " + Engine.CPUSTRING + "\n";
-
-        public static idGameSpawner spawner;
-        public static idEntity[] entities = new idEntity[idGamePublic.MAX_GENTITIES];
-        public static int num_entities = 0;
-        public static int num_clients = 0;
-
-        public static idScript script;
-        public static idScript aiscript;
-
-        public static string mapname;
-
-        public static int time;
-        public static int cameranum = -1;
-        public static string camerapath = "";
-
-        public static idGameNetwork net = new idGameNetwork();
-
         //
-        // TriggerEntity
+        // Spawn
         //
-        public static void TriggerEntity(idEntity other, string targetname)
+        public override void Spawn()
         {
-            if (targetname == null || targetname.Length <= 0)
-                return;
+            Level.net.SoundIndex(noise);
+        }
 
-            foreach (idEntity target in entities)
-            {
-                if (target == null)
-                    continue;
+        //
+        // Use
+        //
+        public override void Use(idEntity other)
+        {
+            Level.net.PlaysoundForPlayer(this, noise);
+        }
 
-                if (target.targetname == targetname)
-                {
-                    target.Use(other);
-                    return;
-                }
-            }
-
-            Engine.common.Warning("G_TriggerEntity: Failed to trigger entity " + targetname + "\n");
+        //
+        // Frame
+        //
+        public override void Frame()
+        {
+           
         }
     }
 }

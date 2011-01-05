@@ -117,7 +117,8 @@ namespace rtcw.Renderer.Models
         {
             for (int i = firstSurface; i < firstSurface + numSurfaces; i++)
             {
-                Globals.backEnd.AddDrawSurface(parent.drawSurfs[i]);
+                parent.drawSurfs[i].visCount = -1;
+                Globals.SortSurface<idDrawSurface>(0, ref parent.drawSurfs[i]);
             }
         }
 

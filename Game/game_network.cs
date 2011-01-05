@@ -146,6 +146,15 @@ namespace Game
         }
 
         //
+        // PlaysoundForPlayer
+        //
+        public void PlaysoundForPlayer(idEntity entity, string path)
+        {
+            idSound snd = Engine.soundManager.LoadSound(path);
+            snd.Play();
+        }
+
+        //
         // PlayBackgroundTrackForPlayer
         //
         public void PlayBackgroundTrackForPlayer(idEntity entity, string path)

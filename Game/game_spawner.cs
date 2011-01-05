@@ -40,6 +40,7 @@ using idLib.Math;
 using idLib.Engine.Public;
 using idLib.Game.Server;
 
+using Game.Entities.Target;
 using Game.Entities.Info;
 using Game.Entities.Player;
 using Game.Entities.Func;
@@ -83,6 +84,9 @@ namespace Game
             new idGameSpawnDefs( "ai_civilian", () => new idEntityAI() ),
 
             new idGameSpawnDefs( "worldspawn", () => new idWorldspawn() ),
+
+            new idGameSpawnDefs( "target_relay", () => new idEntityTargetRelay() ),
+            new idGameSpawnDefs( "target_speaker", () => new idEntityTargetSpeaker() ),
 
             // Ignored entities.
             new idGameSpawnDefs( "misc_model", () => null ), // misc models are ignored in rtcw.

@@ -98,6 +98,8 @@
     <Compile Include="Entities\Misc\gamemodel.cs" />
     <Compile Include="Entities\Player\Player.cs" />
     <Compile Include="Entities\Props\decoration.cs" />
+    <Compile Include="Entities\Target\Target_Relay.cs" />
+    <Compile Include="Entities\Target\Target_Speaker.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="game_globals.cs" />
     <Compile Include="game_main.cs" />

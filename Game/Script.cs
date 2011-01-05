@@ -330,6 +330,11 @@ namespace Game
             return true; 
         }
 
+        private static bool G_ScriptAction_AlertEntity(idEntity ent, idScriptFuncBinary func) {
+            Level.TriggerEntity(ent, func.parms[0]);
+            return true;
+        }
+
         //
         // AI SCRIPT FUNCTIONS
         //
@@ -419,7 +424,6 @@ namespace Game
         private static bool G_ScriptAction_GotoMarker(idEntity ent, idScriptFuncBinary func) { return false; }
         
         private static bool G_ScriptAction_PlayAnim(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_AlertEntity(idEntity ent, idScriptFuncBinary func) { return false; }
         private static bool G_ScriptAction_Accum(idEntity ent, idScriptFuncBinary func) { return false; }
         private static bool G_ScriptAction_MissionFailed(idEntity ent, idScriptFuncBinary func) { return false; }
         private static bool G_ScriptAction_MissionSuccess(idEntity ent, idScriptFuncBinary func) { return false; }

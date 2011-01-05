@@ -108,6 +108,7 @@ namespace Game
         public string spawnitem;
         public string track;
         public string scriptName;
+        public string noise;
 
         public idModel hModel;
 
@@ -197,6 +198,8 @@ namespace Game
             aiSkin = spawnArgs.FindKey("skin");
             aihSkin = spawnArgs.FindKey("head");
 
+            noise = spawnArgs.FindKey("noise");
+
             // jv - probably not the best way to do this.
             if (aiSkin != null && aiSkin.Length > 0 && (model == null || model.Length <= 0))
             {
@@ -261,6 +264,14 @@ namespace Game
         public void InitAnim()
         {
             anim = new idAnimCfg(Path.GetDirectoryName(model) + "/wolfanim.cfg");
+        }
+
+        //
+        // Use
+        //
+        public virtual void Use( idEntity other )
+        {
+
         }
 
         //

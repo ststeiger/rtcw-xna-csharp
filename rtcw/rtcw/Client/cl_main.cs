@@ -706,7 +706,7 @@ namespace rtcw.Client
 #if DEBUG
                 if (frameTime > 300)
                 {
-                   Engine.common.Warning("FPS too low...\n");
+          //         Engine.common.Warning("FPS too low...\n");
           //          throw new Exception("FPS Too low");
                 }
 #endif

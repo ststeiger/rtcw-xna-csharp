@@ -31,59 +31,52 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// game_globals.cs (c) 2010 JV Software
+// target_relay.cs (c) 2010 JV Software
 //
 
-using idLib.Game.Server;
 using idLib.Engine.Public;
 
-namespace Game
+namespace Game.Entities.Target
 {
     //
-    // Level
+    // idEntityTargetRelay
     //
-    static class Level
+    public class idEntityTargetRelay : idEntity
     {
-        public const string GAME = "RTCW";
-        public const string GAMEVERSION = GAME + " " + Engine.CPUSTRING + "\n";
-
-        public static idGameSpawner spawner;
-        public static idEntity[] entities = new idEntity[idGamePublic.MAX_GENTITIES];
-        public static int num_entities = 0;
-        public static int num_clients = 0;
-
-        public static idScript script;
-        public static idScript aiscript;
-
-        public static string mapname;
-
-        public static int time;
-        public static int cameranum = -1;
-        public static string camerapath = "";
-
-        public static idGameNetwork net = new idGameNetwork();
-
         //
-        // TriggerEntity
+        // Spawn
         //
-        public static void TriggerEntity(idEntity other, string targetname)
+        public override void Spawn()
         {
-            if (targetname == null || targetname.Length <= 0)
-                return;
-
-            foreach (idEntity target in entities)
+            if (model != null)
             {
-                if (target == null)
-                    continue;
-
-                if (target.targetname == targetname)
-                {
-                    target.Use(other);
-                    return;
-                }
+                state.modelindex = Level.net.ModelIndex(model);
             }
+            else if (model2 != null) 
+            {
+                state.modelindex = Level.net.ModelIndex(model2);
+                model = model2;
+            }
+            state.eType = idLib.Game.entityType_t.ET_GENERAL;
+        }
 
-            Engine.common.Warning("G_TriggerEntity: Failed to trigger entity " + targetname + "\n");
+        //
+        // Use
+        //
+        public override void Use(idEntity other)
+        {
+            Level.TriggerEntity(this, target);
+        }
+
+        //
+        // Frame
+        //
+        public override void Frame()
+        {
+            if (state.modelindex < 0)
+                return;
+     
+            LinkEntity();
         }
     }
 }
