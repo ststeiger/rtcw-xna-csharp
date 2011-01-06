@@ -88,7 +88,7 @@ namespace rtcw.Framework
             float frameTime = Engine.common.Frametime();
             float speed = 0.1f * frameTime;
 #else
-            float speed = 0.05f * Engine.common.Frametime();
+            float speed = 1.5f;
 #endif
             if (x > 30 || y > 30 || x < -30 || y < -30)
             {
@@ -170,7 +170,7 @@ namespace rtcw.Framework
 #if WINDOWS_PHONE
             int movespeed = 15;
 #else
-            int movespeed = 5;
+            int movespeed = 3;
 #endif
             forwardmove += movespeed * ForwardButtonDown(key);
             forwardmove -= movespeed * BackButtonDown(key);
