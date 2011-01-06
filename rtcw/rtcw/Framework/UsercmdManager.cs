@@ -88,7 +88,7 @@ namespace rtcw.Framework
             float frameTime = Engine.common.Frametime();
             float speed = 0.1f * frameTime;
 #else
-            float speed = 1.5f;
+            float speed = 1.1f;
 #endif
             if (x > 30 || y > 30 || x < -30 || y < -30)
             {
