@@ -43,6 +43,15 @@ using rtcw.Renderer.Map;
 
 namespace rtcw.CM
 {
+    // Used for oriented capsule collision detection
+    public struct idTraceSphere
+    {
+	    public bool use;
+	    public float radius;
+	    public float halfheight;
+	    public idVector3 offset;
+    };
+
     //
     // idCollisionTraceWork
     //
@@ -58,16 +67,22 @@ namespace rtcw.CM
 	    public int contents;           // ored contents of the model tracing through
 	    public bool isPoint;       // optimized case
 	    public idTrace trace;          // returned from trace call
+        public idTraceSphere sphere;
 
         public void Init()
         {
             size = new idVector3[2];
             offsets = new idVector3[8];
             bounds = new idVector3[2];
+            sphere = new idTraceSphere();
         }
 
         public void Reset()
         {
+            sphere.use = false;
+            sphere.radius = 0.0f;
+            sphere.offset = idVector3.vector_origin;
+            sphere.halfheight = 0.0f;
             start = idVector3.vector_origin;
             end = idVector3.vector_origin;
             trace = idTrace.defaultTrace;
@@ -105,6 +120,14 @@ namespace rtcw.CM
         // keep 1/8 unit away to keep the position valid before network snapping
         // and to avoid various numeric issues
         private const float SURFACE_CLIP_EPSILON = (0.125f);
+
+        //
+        // AllocInternals
+        //
+        public static void AllocInternals()
+        {
+            tw.Init();
+        }
 
         //
         // LoadFromFile
@@ -150,88 +173,33 @@ namespace rtcw.CM
 	        startout = false;
 
 	        leadside = null;
-#if false
-	        if ( tw->sphere.use ) {
-		        //
-		        // compare the trace against all planes of the brush
-		        // find the latest time the trace crosses a plane towards the interior
-		        // and the earliest time the trace crosses a plane towards the exterior
-		        //
-		        for ( i = 0; i < brush->numsides; i++ ) {
-			        side = brush->sides + i;
-			        plane = side->plane;
 
-			        // adjust the plane distance apropriately for radius
-			        dist = plane->dist + tw->sphere.radius;
-
-			        // find the closest point on the capsule to the plane
-			        t = DotProduct( plane->normal, tw->sphere.offset );
-			        if ( t > 0 ) {
-				        VectorSubtract( tw->start, tw->sphere.offset, startp );
-				        VectorSubtract( tw->end, tw->sphere.offset, endp );
-			        } else
-			        {
-				        VectorAdd( tw->start, tw->sphere.offset, startp );
-				        VectorAdd( tw->end, tw->sphere.offset, endp );
-			        }
-
-			        d1 = DotProduct( startp, plane->normal ) - dist;
-			        d2 = DotProduct( endp, plane->normal ) - dist;
-
-			        if ( d2 > 0 ) {
-				        getout = qtrue; // endpoint is not in solid
-			        }
-			        if ( d1 > 0 ) {
-				        startout = qtrue;
-			        }
-
-			        // if completely in front of face, no intersection with the entire brush
-			        if ( d1 > 0 && ( d2 >= SURFACE_CLIP_EPSILON || d2 >= d1 )  ) {
-				        return;
-			        }
-
-			        // if it doesn't cross the plane, the plane isn't relevent
-			        if ( d1 <= 0 && d2 <= 0 ) {
-				        continue;
-			        }
-
-			        // crosses face
-			        if ( d1 > d2 ) {  // enter
-				        f = ( d1 - SURFACE_CLIP_EPSILON ) / ( d1 - d2 );
-				        if ( f < 0 ) {
-					        f = 0;
-				        }
-				        if ( f > enterFrac ) {
-					        enterFrac = f;
-					        clipplane = plane;
-					        leadside = side;
-				        }
-			        } else {    // leave
-				        f = ( d1 + SURFACE_CLIP_EPSILON ) / ( d1 - d2 );
-				        if ( f > 1 ) {
-					        f = 1;
-				        }
-				        if ( f < leaveFrac ) {
-					        leaveFrac = f;
-				        }
-			        }
-		        }
-	        } else {
-#endif
+	        if ( tw.sphere.use ) {
 		        //
 		        // compare the trace against all planes of the brush
 		        // find the latest time the trace crosses a plane towards the interior
 		        // and the earliest time the trace crosses a plane towards the exterior
 		        //
 		        for ( i = 0; i < brush.numSides; i++ ) {
-			        side = world.brushsides[brush.firstSide + i];
-			        plane = world.planes[side.planeNum];
+                    side = world.brushsides[brush.firstSide + i];
+                    plane = world.planes[side.planeNum];
 
-			        // adjust the plane distance apropriately for mins/maxs
-                    dist = plane.Dist - ((tw.offsets[ plane.SignBits ][0] * plane.Normal[0]) + (tw.offsets[ plane.SignBits ][1] * plane.Normal[1]) + (tw.offsets[ plane.SignBits ][2] * plane.Normal[2]));
+			        // adjust the plane distance apropriately for radius
+			        dist = plane.Dist + tw.sphere.radius;
 
-			        d1 = ((tw.start[0] * plane.Normal[0]) + (tw.start[1] * plane.Normal[1]) + (tw.start[2] * plane.Normal[2])) - dist;
-			        d2 = ((tw.end[0] * plane.Normal[0]) + (tw.end[1] * plane.Normal[1]) + (tw.end[2] * plane.Normal[2])) - dist;
+			        // find the closest point on the capsule to the plane
+			        t = idMath.DotProduct( plane.Normal, tw.sphere.offset );
+			        if ( t > 0 ) {
+                        startp = tw.start - tw.sphere.offset;
+                        endp = tw.end - tw.sphere.offset;
+			        } else
+			        {
+                        startp = tw.start + tw.sphere.offset;
+                        endp = tw.end + tw.sphere.offset;
+			        }
+
+                    d1 = idMath.DotProduct(startp, plane.Normal) - dist;
+                    d2 = idMath.DotProduct(endp, plane.Normal) - dist;
 
 			        if ( d2 > 0 ) {
 				        getout = true; // endpoint is not in solid
@@ -271,11 +239,63 @@ namespace rtcw.CM
 				        }
 			        }
 		        }
-#if false
-	        }
-#endif
+	        } else {
+		        //
+		        // compare the trace against all planes of the brush
+		        // find the latest time the trace crosses a plane towards the interior
+		        // and the earliest time the trace crosses a plane towards the exterior
+		        //
+		        for ( i = 0; i < brush.numSides; i++ ) {
+			        side = world.brushsides[brush.firstSide + i];
+			        plane = world.planes[side.planeNum];
 
-	        //
+			        // adjust the plane distance apropriately for mins/maxs
+                    dist = plane.Dist - idMath.DotProduct(tw.offsets[plane.SignBits], plane.Normal);
+
+                    d1 = idMath.DotProduct(tw.start, plane.Normal) - dist;
+                    d2 = idMath.DotProduct(tw.end, plane.Normal) - dist;
+
+			        if ( d2 > 0 ) {
+				        getout = true; // endpoint is not in solid
+			        }
+			        if ( d1 > 0 ) {
+				        startout = true;
+			        }
+
+			        // if completely in front of face, no intersection with the entire brush
+			        if ( d1 > 0 && ( d2 >= SURFACE_CLIP_EPSILON || d2 >= d1 )  ) {
+				        return;
+			        }
+
+			        // if it doesn't cross the plane, the plane isn't relevent
+			        if ( d1 <= 0 && d2 <= 0 ) {
+				        continue;
+			        }
+
+			        // crosses face
+			        if ( d1 > d2 ) {  // enter
+				        f = ( d1 - SURFACE_CLIP_EPSILON ) / ( d1 - d2 );
+				        if ( f < 0 ) {
+					        f = 0;
+				        }
+				        if ( f > enterFrac ) {
+					        enterFrac = f;
+					        clipplane = plane;
+					        leadside = side;
+				        }
+			        } else {    // leave
+				        f = ( d1 + SURFACE_CLIP_EPSILON ) / ( d1 - d2 );
+				        if ( f > 1 ) {
+					        f = 1;
+				        }
+				        if ( f < leaveFrac ) {
+					        leaveFrac = f;
+				        }
+			        }
+		        }
+	        }
+
+        //
 	        // all planes have been checked, and the trace was not
 	        // completely outside the brush
 	        //
@@ -372,7 +392,7 @@ namespace rtcw.CM
         a smaller intercept fraction.
         ==================
         */
-        private void CM_TraceThroughTree(idRenderNode node, float p1f, float p2f, idVector3 p1, idVector3 p2)
+        private void CM_TraceThroughTree(int num, float p1f, float p2f, idVector3 p1, idVector3 p2)
         {
             idPlane plane;
             float t1, t2, offset;
@@ -381,16 +401,17 @@ namespace rtcw.CM
             idVector3 mid = idVector3.vector_origin;
             int side;
             float midf;
+            idRenderNode node;
 
             if (tw.trace.fraction <= p1f)
             {
                 return;     // already hit something nearer
             }
 
-            // if != 0, we are in a leaf node
-            if (node.contents != 0)
+            // if != -1, we are in a leaf node
+            if (num < 0)
             {
-                CM_TraceThroughLeaf(node);
+                CM_TraceThroughLeaf(world.nodes[world.numNodes + (-1 - num)]);
                 return;
             }
 
@@ -398,6 +419,7 @@ namespace rtcw.CM
             // find the point distances to the seperating plane
             // and the offset for the size of the box
             //
+            node = world.nodes[num];
             plane = node.plane;
 
             // adjust the plane distance apropriately for mins/maxs
@@ -409,8 +431,8 @@ namespace rtcw.CM
             }
             else
             {
-                t1 = ((plane.Normal.X * p1.X) + (plane.Normal.Y * p1.Y) + (plane.Normal.Z * p1.Z)) - plane.Dist;
-                t2 = ((plane.Normal.X * p2.X) + (plane.Normal.Y * p2.Y) + (plane.Normal.Z * p2.Z)) - plane.Dist;
+                t1 = idMath.DotProduct(plane.Normal, p1) - plane.Dist;
+                t2 = idMath.DotProduct(plane.Normal, p2) - plane.Dist;
                 if (tw.isPoint)
                 {
                     offset = 0;
@@ -436,12 +458,12 @@ namespace rtcw.CM
             // see which sides we need to consider
             if (t1 >= offset + 1 && t2 >= offset + 1)
             {
-                CM_TraceThroughTree(node.children[0], p1f, p2f, p1, p2);
+                CM_TraceThroughTree(node.childrenhandles[0], p1f, p2f, p1, p2);
                 return;
             }
             if (t1 < -offset - 1 && t2 < -offset - 1)
             {
-                CM_TraceThroughTree(node.children[1], p1f, p2f, p1, p2);
+                CM_TraceThroughTree(node.childrenhandles[1], p1f, p2f, p1, p2);
                 return;
             }
 
@@ -483,7 +505,7 @@ namespace rtcw.CM
             mid[1] = p1[1] + frac * (p2[1] - p1[1]);
             mid[2] = p1[2] + frac * (p2[2] - p1[2]);
 
-            CM_TraceThroughTree(node.children[side], p1f, midf, p1, mid);
+            CM_TraceThroughTree(node.childrenhandles[side], p1f, midf, p1, mid);
 
 
             // go past the node
@@ -502,13 +524,13 @@ namespace rtcw.CM
             mid[1] = p1[1] + frac2 * (p2[1] - p1[1]);
             mid[2] = p1[2] + frac2 * (p2[2] - p1[2]);
 
-            CM_TraceThroughTree(node.children[side ^ 1], midf, p2f, mid, p2);
+            CM_TraceThroughTree(node.childrenhandles[side ^ 1], midf, p2f, mid, p2);
         }
 
         //
-        // BoxTrace
+        // Trace
         //
-        public override void BoxTrace(out idTrace results, idLib.Math.idVector3 start, idLib.Math.idVector3 end, idLib.idBounds bounds, int passEntityNum, int contentmask)
+        private void Trace(out idTrace results, idVector3 start, idVector3 end, idLib.idBounds bounds, int passEntityNum, int contentmask, bool useCapsole)
         {
             idVector3 offset;
 
@@ -518,6 +540,8 @@ namespace rtcw.CM
 
             // Reset the trace worker for the new trace.
             tw.Reset();
+
+            tw.sphere.use = useCapsole;
 
             // set basic parms
             tw.contents = contentmask;
@@ -572,48 +596,44 @@ namespace rtcw.CM
             //
             // calculate bounds
             //
-#if false
             if (tw.sphere.use)
             {
-                for (i = 0; i < 3; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     if (tw.start[i] < tw.end[i])
                     {
-                        tw.bounds[0][i] = tw.start[i] - fabs(tw.sphere.offset[i]) - tw.sphere.radius;
-                        tw.bounds[1][i] = tw.end[i] + fabs(tw.sphere.offset[i]) + tw.sphere.radius;
+                        tw.bounds[0][i] = tw.start[i] - (float)System.Math.Abs(tw.sphere.offset[i]) - tw.sphere.radius;
+                        tw.bounds[1][i] = tw.end[i] + (float)System.Math.Abs(tw.sphere.offset[i]) + tw.sphere.radius;
                     }
                     else
                     {
-                        tw.bounds[0][i] = tw.end[i] - fabs(tw.sphere.offset[i]) - tw.sphere.radius;
-                        tw.bounds[1][i] = tw.start[i] + fabs(tw.sphere.offset[i]) + tw.sphere.radius;
+                        tw.bounds[0][i] = tw.end[i] - (float)System.Math.Abs(tw.sphere.offset[i]) - tw.sphere.radius;
+                        tw.bounds[1][i] = tw.start[i] + (float)System.Math.Abs(tw.sphere.offset[i]) + tw.sphere.radius;
                     }
                 }
             }
             else
             {
-#endif
-            for (int i = 0; i < 3; i++)
-            {
-                if (tw.start[i] < tw.end[i])
+                for (int i = 0; i < 3; i++)
                 {
-                    tw.bounds[0][i] = tw.start[i] + tw.size[0][i];
-                    tw.bounds[1][i] = tw.end[i] + tw.size[1][i];
-                }
-                else
-                {
-                    tw.bounds[0][i] = tw.end[i] + tw.size[0][i];
-                    tw.bounds[1][i] = tw.start[i] + tw.size[1][i];
+                    if (tw.start[i] < tw.end[i])
+                    {
+                        tw.bounds[0][i] = tw.start[i] + tw.size[0][i];
+                        tw.bounds[1][i] = tw.end[i] + tw.size[1][i];
+                    }
+                    else
+                    {
+                        tw.bounds[0][i] = tw.end[i] + tw.size[0][i];
+                        tw.bounds[1][i] = tw.start[i] + tw.size[1][i];
+                    }
                 }
             }
-#if false
-            }
-#endif
             //
-	        // check for position test special case
-	        //
+            // check for position test special case
+            //
             if (start[0] == end[0] && start[1] == end[1] && start[2] == end[2])
             {
-                throw new System.NotImplementedException();
+                //throw new System.NotImplementedException();
             }
             else
             {
@@ -632,9 +652,9 @@ namespace rtcw.CM
                     tw.extents[1] = tw.size[1][1];
                     tw.extents[2] = tw.size[1][2];
                 }
-            }
 
-            CM_TraceThroughTree(world.nodes[0], 0, 1, tw.start, tw.end);
+                CM_TraceThroughTree(0, 0, 1, tw.start, tw.end);
+            }
 
             // generate endpos from the original, unmodified start/end
             if (tw.trace.fraction == 1)
@@ -651,6 +671,14 @@ namespace rtcw.CM
 
             // Return the results.
             results = tw.trace;
+        }
+
+        //
+        // BoxTrace
+        //
+        public override void BoxTrace(out idTrace results, idVector3 start, idVector3 end, idLib.idBounds bounds, int passEntityNum, int contentmask)
+        {
+            Trace(out results, start, end, bounds, passEntityNum, contentmask, false);
         }
 
         //

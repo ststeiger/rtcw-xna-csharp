@@ -78,6 +78,7 @@ namespace Game
         public static string camerapath = "";
 
         public static idGameNetwork net = new idGameNetwork();
+        public static idWorld world;
 
         //
         // TriggerEntity

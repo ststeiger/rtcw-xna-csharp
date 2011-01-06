@@ -34,6 +34,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // physics_playerstate.cs (c) 2010 JV Software
 //
 
+using idLib;
 using idLib.Math;
 using idLib.Game;
 using idLib.Engine.Public;
@@ -59,7 +60,7 @@ namespace Game.Physics
 	    public int numtouch;
 	    public int[] touchents; //[MAXTOUCH];
 
-	    public idVector3 mins, maxs;              // bounding box size
+        public idBounds bounds;             // bounding box size
 
 	    public int watertype;
         public int waterlevel;

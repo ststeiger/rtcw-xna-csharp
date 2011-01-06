@@ -81,7 +81,22 @@ namespace idLib.Math
 
         public void SetPlaneType()
         {
-            Type = (Normal[0] == 1.0 ? PLANE_X : (Normal[1] == 1.0 ? PLANE_Y : (Normal[2] == 1.0 ? PLANE_Z : PLANE_NON_AXIAL)));
+            if (Normal.X == 1.0f)
+            {
+                Type = PLANE_X;
+            }
+            else if (Normal.Y == 1.0f)
+            {
+                Type = PLANE_Y;
+            }
+            else if (Normal.Z == 1.0f)
+            {
+                Type = PLANE_Z;
+            }
+            else
+            {
+                Type = PLANE_NON_AXIAL;
+            }
         }
     }
 }

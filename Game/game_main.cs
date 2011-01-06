@@ -83,6 +83,10 @@ namespace Game
         //
         public override void ClientBegin(int clientNum)
         {
+            if (Level.world == null)
+            {
+                Level.world = Engine.RenderSystem.LoadWorld(Level.mapname);
+            }
             Level.entities[clientNum].EnterWorld();
         }
 

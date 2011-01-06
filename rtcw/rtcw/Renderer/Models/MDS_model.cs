@@ -634,6 +634,15 @@ namespace rtcw.Renderer.Models
         }
 
         //
+        // GetModelBounds
+        //
+        public override void GetModelBounds(out idVector3 mins, out idVector3 maxs)
+        {
+            mins = frames[0].bounds.Mins;
+            maxs = frames[0].bounds.Maxs;
+        }
+
+        //
         // TessModel
         //
         public override void TessModel(ref idRenderEntityLocal entity)

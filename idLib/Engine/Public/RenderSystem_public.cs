@@ -41,6 +41,24 @@ using idLib.Math;
 
 namespace idLib.Engine.Public
 {
+    //
+    // idContentMask
+    //
+    public static class idContentMask
+    {
+        // content masks
+        public const int MASK_ALL           = ( -1 );
+        public const int MASK_SOLID         = (surfaceFlags.CONTENTS_SOLID);
+        public const int MASK_PLAYERSOLID   = (surfaceFlags.CONTENTS_SOLID | surfaceFlags.CONTENTS_PLAYERCLIP | surfaceFlags.CONTENTS_BODY);
+        public const int MASK_DEADSOLID     = (surfaceFlags.CONTENTS_SOLID | surfaceFlags.CONTENTS_PLAYERCLIP);
+        public const int MASK_WATER         = (surfaceFlags.CONTENTS_WATER | surfaceFlags.CONTENTS_LAVA | surfaceFlags.CONTENTS_SLIME);
+        //public const int	MASK_OPAQUE	   =	  (CONTENTS_SOLID|CONTENTS_SLIME|CONTENTS_LAVA)
+        public const int MASK_OPAQUE        = (surfaceFlags.CONTENTS_SOLID | surfaceFlags.CONTENTS_LAVA);      //----(SA)	modified since slime is no longer deadly
+        public const int MASK_SHOT          = (surfaceFlags.CONTENTS_SOLID | surfaceFlags.CONTENTS_BODY | surfaceFlags.CONTENTS_CORPSE | surfaceFlags.CONTENTS_CLIPSHOT);
+        public const int MASK_MISSILESHOT   = (MASK_SHOT | surfaceFlags.CONTENTS_MISSILECLIP);
+        public const int MASK_AISIGHT       = (surfaceFlags.CONTENTS_SOLID | surfaceFlags.CONTENTS_AI_NOSIGHT);
+    }
+
     //                                                                  //
     // WARNING:: synch FOG_SERVER in sv_ccmds.c if you change anything	//
     //                                                                  //

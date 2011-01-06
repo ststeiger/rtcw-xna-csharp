@@ -45,6 +45,14 @@ namespace rtcw.CM
     public class idCollisionModelManagerLocal : idCollisionModelManager
     {
         List<idCollisionModelLocal> cm_pool = new List<idCollisionModelLocal>();
+
+        //
+        // idCollisionModelManagerLocal
+        //
+        public idCollisionModelManagerLocal()
+        {
+            idCollisionModelLocal.AllocInternals();
+        }
         
         //
         // FindCollisionModel

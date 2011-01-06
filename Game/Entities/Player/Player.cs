@@ -35,6 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using idLib;
+using idLib.Math;
 using idLib.Game;
 using idLib.Engine.Public;
 using idLib.Engine.Public.Net;
@@ -56,6 +57,9 @@ namespace Game.Entities.Player
 
         int cameraframe = 0;
 
+        public const string default_player_model = "bj2";
+        public const string default_player_skin = "default";
+
         public bool isActive
         {
             get
@@ -69,11 +73,13 @@ namespace Game.Entities.Player
         //
         public override void Spawn()
         {
-            //state.modelindex = Level.net.ModelIndex(model);
-            //state.modelindex2 = Level.net.ModelIndex(model2);
+            model = "models/players/" + default_player_model + "/body.mds";
+            model2 = "models/players/" + default_player_model + "/head.mdc";
+            state.modelindex = Level.net.ModelIndex(model);
+            state.modelindex2 = Level.net.ModelIndex(model2);
 
-            //state.modelSkin = Level.net.SkinIndex(aiSkin);
-            //state.modelSkin2 = Level.net.SkinIndex(aihSkin);
+            state.modelSkin = Level.net.SkinIndex("models/players/" + default_player_model + "/head_" + default_player_skin + ".skin");
+            state.modelSkin2 = Level.net.SkinIndex("models/players/" + default_player_model + "/body_" + default_player_skin + ".skin");
 
             profilename = spawnArgs.FindKey("name");
 
@@ -109,6 +115,17 @@ namespace Game.Entities.Player
             float fov = 0;
             physicsState.cmd = Engine.common.GetUserCmdForClient(state.number);
             physicsState.ps = state;
+            
+            if (hModel == null)
+            {
+                idVector3 mins, maxs;
+
+                hModel = Engine.modelManager.LoadModel(model);
+                hModel.GetModelBounds( out mins, out maxs );
+                physicsState.bounds = new idBounds(mins, maxs);
+            }
+
+            
 
             if (Level.cameranum != -1)
             {

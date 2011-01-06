@@ -47,6 +47,11 @@ namespace idLib.Math
             return f * M_DEG2RAD;
         }
 
+        public static float DotProduct(idVector3 v1, idVector3 v2)
+        {
+            return ((v1[0] * v2[0]) + (v1[1] * v2[1]) + (v1[2] * v2[2]));
+        }
+
         public static void SinCos( float a, ref float s, ref float c ) {
 	        s = (float)System.Math.Sin( a );
             c = (float)System.Math.Cos(a);

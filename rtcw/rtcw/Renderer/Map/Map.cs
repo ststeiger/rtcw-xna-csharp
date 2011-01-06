@@ -87,6 +87,8 @@ namespace rtcw.Renderer.Map
 
         public idMapFormat.idMapShader[] shaders;
 
+        public int numNodes;
+
         // ---------- Temporary BSP Storage -----------
         List<idDrawVertex> drawVerts;
         List<short> drawIndexes;
@@ -740,7 +742,7 @@ namespace rtcw.Renderer.Map
             idMapFormat.idMapNode[] inNodes;
             idMapFormat.idMapLeaf[] inLeafs;
             
-	        int numNodes, numLeafs;
+	        int numLeafs;
 
             SetLumpPosition( lump, ref bspFile );
             numNodes = LumpCount( lump, idMapFormat.idMapNode.LUMP_SIZE );
@@ -779,9 +781,7 @@ namespace rtcw.Renderer.Map
 		        }
 
 		        p = nodeIn.planeNum;
-                nodeOut.plane = new idPlane();
-		        nodeOut.plane.Normal = planes[p].Normal;
-                nodeOut.plane.Dist = planes[p].Dist;
+                nodeOut.plane = planes[p];
 
 		        nodeOut.contents = idRenderNode.CONTENTS_NODE;  // differentiate from leafs
 
@@ -1241,8 +1241,8 @@ namespace rtcw.Renderer.Map
             drawVerts = null;
             drawIndexes = null;
             shaders = null;
-            brushes = null;
-            brushsides = null;
+         //   brushes = null;
+         //   brushsides = null;
 
             // Force the GC to reclaim the unneeded memory.
             Engine.common.ForceGCCollect();

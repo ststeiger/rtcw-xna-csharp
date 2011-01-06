@@ -177,21 +177,28 @@ namespace Game.Physics
         //
         // PM_Move
         //
-        private void PM_Move(ref entityState_t ps, bool gravity)
+        private void PM_Move(ref idPhysicsPlayerState pmove, bool gravity)
         {
-            ps.origin = ps.origin + velocity;
+            idVector3 endpos;
+            idTrace trace;
+
+            endpos = pmove.ps.origin + velocity;
+
+            Level.world.cm().BoxTrace(out trace, pmove.ps.origin, endpos, pmove.bounds, 0, idContentMask.MASK_ALL);
+
+            pmove.ps.origin = trace.endpos;
         }
 
         //
         // WalkPhysics
         //
-        private void WalkPhysics(ref entityState_t ps, idUsercmd cmd)
+        private void WalkPhysics(ref idPhysicsPlayerState pmove, idUsercmd cmd)
         {
             idMatrix movematrix;
             idVector3 wishvel = new idVector3();
             float scale;
 
-            movematrix = ps.angles2.ToAxis();
+            movematrix = pmove.ps.angles2.ToAxis();
 
             // Apply friction.
             Physics_Friction();
@@ -208,7 +215,7 @@ namespace Game.Physics
 
             //PM_Accelerate(ref pm, wishvel, wishspeed, pm_accelerate);
 
-            PM_Move(ref ps, false);
+            PM_Move(ref pmove, false);
         }
 
         //
@@ -223,7 +230,7 @@ namespace Game.Physics
             // Update the players view angles.
             UpdateViewAngles(ref pmove.ps, pmove.cmd);
 
-            WalkPhysics(ref pmove.ps, pmove.cmd);
+            WalkPhysics(ref pmove, pmove.cmd);
         }
     }
 }

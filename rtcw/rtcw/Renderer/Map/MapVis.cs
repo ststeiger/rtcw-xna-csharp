@@ -187,6 +187,9 @@ namespace rtcw.Renderer.Map
                 return true;
             }
 
+            if (vis <= 0)
+                return false;
+
             if ( ( visibility[vis + (leaf.cluster >> 3)] & ( 1 << ( leaf.cluster & 7 ) ) ) == 0) 
             {
                 return false;
@@ -250,7 +253,7 @@ namespace rtcw.Renderer.Map
 		        }
 
 		        // check general pvs
-		        if ( ( visibility[vis + (cluster >> 3)] & ( 1 << ( cluster & 7 ) ) ) == 0) {
+		        if ( vis < 0 || ( visibility[vis + (cluster >> 3)] & ( 1 << ( cluster & 7 ) ) ) == 0) {
 			        continue;
 		        }
 
