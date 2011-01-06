@@ -446,6 +446,7 @@ namespace rtcw.Renderer.Map
         public struct idMapBrushSide {
 	        public int planeNum;                   // positive plane side faces out of the leaf
 	        public int shaderNum;
+            public int surfaceFlags;
 
             public const int LUMP_SIZE = sizeof(int) * 2;
 
@@ -463,6 +464,10 @@ namespace rtcw.Renderer.Map
 	        public int firstSide;
 	        public int numSides;
 	        public int shaderNum;              // the shader that determines the contents flags
+
+            // Used internally.
+            public int contents;
+            public int checkcount;
 
             public const int LUMP_SIZE = sizeof(int) * 3;
 

@@ -216,6 +216,10 @@ namespace rtcw.Renderer
 
         public int firstmarksurface;
         public int nummarksurfaces;
+
+        // Used by the collision model manager.
+        public int firstBrushSurface;
+        public int numBrushSurfaces;
     };
 
     //

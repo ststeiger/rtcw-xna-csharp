@@ -71,6 +71,8 @@ namespace rtcw.Renderer.Map
 
         private int[] markSurfaces;
 
+        public int[] leafbrushes;
+
         public int clusterBytes;
         public int numClusters;
         public idMapVis vis;
@@ -80,15 +82,18 @@ namespace rtcw.Renderer.Map
         public idModelBrush[] bmodels;
         public idPlane[] planes;
 
+        public idMapFormat.idMapBrush[] brushes;
+        public idMapFormat.idMapBrushSide[] brushsides;
+
+        public idMapFormat.idMapShader[] shaders;
+
         // ---------- Temporary BSP Storage -----------
         List<idDrawVertex> drawVerts;
         List<short> drawIndexes;
 
-        idMapFormat.idMapHeader header;
-        idMapFormat.idMapShader[] shaders;
+        idMapFormat.idMapHeader header;        
         //idMapFormat.idMapFog[] fogs;
-        idMapFormat.idMapBrush[] brushes;
-        idMapFormat.idMapBrushSide[] brushsides;
+        
         //idMapFormat.idMapModel[] bmodels;
 
         public idCollisionModel collisionmodel;
@@ -138,6 +143,9 @@ namespace rtcw.Renderer.Map
             for (int i = 0; i < brushesCount; i++)
             {
                 brushes[i].InitFromFile(ref bspFile);
+
+                brushes[i].contents = shaders[brushes[i].shaderNum].contentFlags;
+                brushes[i].checkcount = 0;
             }
 
             // Load in the brush sides.
@@ -147,6 +155,7 @@ namespace rtcw.Renderer.Map
             for (int i = 0; i < sidesCount; i++)
             {
                 brushsides[i].InitFromFile(ref bspFile);
+                brushsides[i].surfaceFlags = shaders[brushsides[i].shaderNum].contentFlags;
             }
 
             SetLumpPosition(lump, ref bspFile);
@@ -590,6 +599,24 @@ namespace rtcw.Renderer.Map
             }
         }
 
+        //
+        // LoadLeafBrushes
+        //
+        private void LoadLeafBrushes(ref idFile bspFile, idMapFormat.lump_t lump)
+        {
+            int count = 0;
+
+            SetLumpPosition(lump, ref bspFile);
+            count = LumpCount(lump, sizeof(int));
+
+            leafbrushes = new int[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                leafbrushes[i] = bspFile.ReadInt();
+            }
+        }
+
         /*
         =================
         LoadVisibility
@@ -794,6 +821,9 @@ namespace rtcw.Renderer.Map
 		        nodeOut.firstmarksurface = inLeaf.firstLeafSurface;
                 nodeOut.nummarksurfaces = inLeaf.numLeafSurfaces;
 
+                nodeOut.firstBrushSurface = inLeaf.firstLeafBrush;
+                nodeOut.numBrushSurfaces = inLeaf.numLeafBrushes;
+               
                 nodes[i] = nodeOut;
 	        }
 
@@ -1333,6 +1363,9 @@ namespace rtcw.Renderer.Map
             LoadVisibility(ref bspFile, header.lumps[idMapFormat.LUMP_VISIBILITY]);
             LoadEntities(ref bspFile, header.lumps[idMapFormat.LUMP_ENTITIES]);
             LoadLightGrid(ref bspFile, header.lumps[idMapFormat.LUMP_LIGHTGRID]);
+
+            // Load CM lumps.
+            LoadLeafBrushes(ref bspFile, header.lumps[idMapFormat.LUMP_LEAFBRUSHES]);
 
             // Close the bsp file.
             Engine.fileSystem.CloseFile(ref bspFile);
