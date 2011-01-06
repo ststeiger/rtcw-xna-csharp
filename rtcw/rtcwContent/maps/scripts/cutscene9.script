@@ -1,0 +1,128 @@
+//
+//Brush Scripting
+//Map: Directory cutscene 9
+//Last edited by: Jeremy 92001
+//
+
+counter1
+{
+	spawn
+	{
+	}
+
+	trigger cinematic1
+	{
+		wait 2500
+		alertentity knock
+		wait 2250
+		trigger director talk1 // Come in
+		wait 500
+		trigger jack go
+		wait 5000
+		trigger player cine9_cam3
+		wait 1000
+		trigger director talk2	// What's happening jack
+		wait 500
+		trigger jack anim_loop1
+		wait 1
+		trigger jack talk1 // Blaskowitz touched down with the kobrain malta about six hours ago
+		wait 3500
+		trigger player cine9_cam5
+		wait 100
+		trigger director talk3	// In one piece I presume
+		wait 2150
+		trigger player cine9_cam24
+		wait 100
+		trigger jack talk2	// Yes sir. Advance Aeronautics is en route to malta
+		wait 550
+//		trigger player cine9_cam5
+		wait 3000
+		trigger counter1 cinematic1a			
+	}
+
+	trigger cinematic1a
+	{
+		trigger director talk4	// Excellent, Now, I've read your report
+		wait 1150
+		trigger player cine9_cam5
+		wait 6000
+		trigger player cine9_cam24
+		wait 100
+		trigger jack talk3	// Well sir, this is the second time
+		wait 10850
+		trigger player cine9_cam5
+		wait 200
+		trigger director talk5  // Anything else
+		wait 1200
+		trigger jack talk4 	// I'm afraid not sir
+		wait 3000
+		trigger director talk6  // What would you suggest
+		wait 1400
+		trigger player cine9_cam7
+		wait 100
+		trigger jack talk5		// We go to the source
+		wait 4000
+		trigger player cine9_cam5
+		wait 3200
+		trigger director talk7	// I take it your reffering to the secret weapons facility
+		wait 4750
+		trigger jack talk6  // Exactly
+		wait 1100
+		trigger director talk8	// Hmm an interesting propositon.  You know, for months we've been trying..
+		wait 2700
+		trigger player cine9_cam3
+		wait 5100
+		wait 200
+		trigger jack talk7	// I'm aware of that sir.
+		wait 1300
+		trigger player cine9_cam5
+		wait 300
+		trigger director talk9  // Are you also aware,
+		wait 7300
+		trigger counter1 cinematic1b
+	}
+
+	trigger cinematic1b
+	{
+		trigger player cine9_cam24
+		wait 100
+		trigger jack anim_loop1
+		wait 5
+		trigger jack talk8	// yes sir in fact
+		wait 5000
+		trigger player cine9_cam5
+		wait 350
+		trigger director talk10 // What you dont know scientest...
+		wait 16600
+//		trigger jack anim_loop5
+//		wait 5
+		trigger player cine9_cam7
+		wait 100
+		trigger jack talk9	// Indeed
+		wait 1400
+		trigger player cine9_cam5	// Over the shoulder
+		wait 100
+		trigger director anim_loop2
+		wait 5
+		trigger director talk11	// All right directors ending...
+		wait 17200
+		trigger player cine9_cam6
+		wait 100
+		trigger jack talk10	// and then 
+		wait 1500
+		trigger director talk12	// We have him play the bloodhound, follow the scent
+		wait 4200
+		trigger player endmap		
+	}
+}
+
+counter2
+{
+	spawn
+	{
+	}
+
+	trigger
+	{
+	}
+}

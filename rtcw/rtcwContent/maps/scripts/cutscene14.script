@@ -1,0 +1,166 @@
+//
+//Brush Scripting
+//Map: Directory cutscene 14
+//Last edited by: Jeremy 92101
+//
+
+counter1
+{
+	spawn
+	{
+	}
+
+	trigger cinematic1
+	{
+		wait 2700
+		trigger director talk1 //  How is Bj
+		wait 2000
+		trigger player cine14_cam24
+		wait 100
+		trigger jack talk1 // A little beat up
+		wait 4700
+		trigger player cine14_cam5
+		wait 300
+		trigger director talk2	// WEll he came through
+		wait 4500
+		trigger player cine14_cam24
+		wait 100
+		trigger director talk3	// Advance weapons and the occult
+		wait 6600
+		trigger player cine14_cam5
+		wait 3600
+		trigger player cine14_cam7d
+		wait 100
+		trigger jack talk2	// I was thinking along the saem lines sir
+		wait 2600
+		trigger director talk4  // Jack call ameeting
+		wait 1400
+		trigger jack anim_loop1
+		wait 5
+		trigger jack talk3 	// yes sir
+		wait 500
+		trigger jack go2
+		wait 1700
+//		trigger player cine14_cam8
+		trigger counter1 cinematic2		
+	}
+
+	trigger cinematic2
+	{
+		alertentity slide9
+		trigger player cine14_cam8
+		wait 3000
+		trigger director2 talk5	// What have you got there
+		wait 1700
+		trigger jack2 talk4	// Two decoded messages
+		wait 2900
+		trigger player cine14_cam16
+		wait 6200
+		trigger higgs talk1	// whistle
+		wait 1300
+		trigger jack2 talk5	// Wait till you see the next one private communica
+		wait 1900
+		alertentity slide_light
+		alertentity slide_sound
+		alertentity slide9
+		alertentity slide10
+		wait 1000
+		alertentity slide_light
+		trigger player cine14_cam10
+		wait 6800
+		trigger player cine14_cam9
+		wait 1000
+		trigger player cine14_cam22
+		wait 100		
+		trigger director2 talk6 // PLease
+		wait 950
+		trigger jack2 anim_loop4
+		wait 5
+		trigger player cine14_cam17
+		trigger jack2 talk6		// My dear furer.. lifes wokr is a bitter memory.. ss ober furer
+		wait 13700
+		trigger player cine14_cam9
+		wait 8100
+		trigger player cine14_cam15
+		wait 5900
+		trigger player cine14_cam9
+		wait 11550
+		trigger player cine14_cam22	// Director
+		wait 1000
+		trigger director2 talk7		// comments gentlemen
+		wait 1300
+		trigger player cine14_cam23
+		wait 100
+		trigger murphy talk1	// May I speak freely
+		wait 2300
+		trigger player cine14_cam22
+		wait 100
+		trigger counter1 cinematic2b
+	}
+
+	trigger cinematic2b
+	{
+		trigger director2 talk8 // Go ahead
+		wait 1000
+		trigger player cine14_cam21
+		wait 100
+		trigger murphy talk2 // Are we suppose to believe this
+		wait 9400
+		trigger player cine14_cam19
+		wait 6900
+		trigger player cine14_cam9
+		wait 100
+		trigger jack2 talk7	// Now wait just a minute
+		wait 1700
+		trigger player cine14_cam21
+		wait 100
+		trigger murphy talk3	// Collectively blown a head gasket
+		wait 11600
+		trigger player cine14_cam23
+		wait 100
+		trigger higgs talk2	// Sir it just appeared that we may be looking at this the wrong way...
+		wait 2300
+		trigger player cine14_cam9
+		wait 2300
+		trigger player cine14_cam23
+		wait 10200
+		trigger player cine14_cam22
+		wait 100
+		trigger director2 talk9 // Go on
+		wait 750
+		trigger player cine14_cam11
+		wait 100
+		trigger higgs talk3	// What I mean to say is if there dead sit to sabotaging thier own war effort...
+		wait 3500
+		trigger player cine14_cam14
+		wait 4100
+		trigger director2 talk10	// Jack i'm sure you have something to add...
+		wait 2600
+		trigger player cine14_cam9
+		wait 100
+		trigger jack2 anim_loop2
+		wait 5
+		trigger jack2 talk8		// Legeons and demons from hell... I'm saying we can't afford to miss it...
+		wait 12700
+		trigger player cine14_cam23
+		wait 6000 
+		trigger player cine14_cam9
+		wait 14700
+		trigger player cine14_cam22
+		wait 200
+		trigger director2 talk11	// It's settled then blcakowtz returns to castle wolfenstien...
+		wait 4100
+		trigger player endmap 		
+	}
+}
+
+counter2
+{
+	spawn
+	{
+	}
+
+	trigger
+	{
+	}
+}

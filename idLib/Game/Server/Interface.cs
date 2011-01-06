@@ -65,6 +65,6 @@ namespace idLib.Game.Server
         public abstract void ClientConnect(int clientNum, string clientname, bool firstTime, bool isBot);
         public abstract void ClientBegin(int clientNum);
         public abstract string GetConfigString();
-        public abstract void Frame();
+        public abstract void Frame(int frameTime);
     }
 }

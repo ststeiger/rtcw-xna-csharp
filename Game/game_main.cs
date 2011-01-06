@@ -145,7 +145,7 @@ namespace Game
         //
         // Frame
         //
-        public override void Frame()
+        public override void Frame(int frameTime)
         {
             // Don't run any frames unless we have one client thats in the world.
             if (Level.entities[0] == null || ((idPlayer)Level.entities[0]).isActive == false)
@@ -153,7 +153,18 @@ namespace Game
                 return;
             }
 
-            Level.time += Engine.Sys.Sys_Milliseconds();
+            Level.time += frameTime;
+
+            // Run any scripts that are running.
+            if (Level.script != null)
+            {
+                Level.script.Think();
+            }
+
+            if (Level.aiscript != null)
+            {
+                Level.aiscript.Think();
+            }
 
             // Run the clients.
             for (int i = 0; i < Level.num_clients; i++)

@@ -718,7 +718,7 @@ namespace rtcw.Framework
         {
             this.frameTime = frameTime;
             HandlePendingEvents();
-            sv.Frame();
+            sv.Frame(frameTime);
 
             //
             // run event loop a second time to get server to client packets

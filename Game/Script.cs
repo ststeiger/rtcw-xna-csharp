@@ -10,6 +10,17 @@ using idLib.Engine.Public;
 namespace Game
 {
     //
+    // idScriptPendingAction
+    //
+    struct idScriptPendingAction
+    {
+        public int nextActionRunTime;
+        public int pendingFunctionNum;
+        public idScriptAction pendingaction;
+        public idEntity actionEntity;
+    }
+
+    //
     // idScript
     //
     public class idScript
@@ -21,7 +32,7 @@ namespace Game
         //
         private struct idScriptFunctionDesc
         {
-            public delegate bool idScriptFunc_t(idEntity ent, idScriptFuncBinary func);
+            public delegate bool idScriptFunc_t(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent);
 
             public ScriptReaderShared.gameScriptOpcode opCode;
             public idScriptFunc_t function;
@@ -175,6 +186,8 @@ namespace Game
 	        new idScriptFunctionDesc(ScriptReaderShared.gameScriptOpcode.ai_catchfire,        AICast_ScriptAction_CatchFire)
         };
 
+        private idScriptPendingAction[] actionqueue = new idScriptPendingAction[2];
+
         //
         // Script_GetTime
         //
@@ -184,52 +197,87 @@ namespace Game
         }
 
         //
-        // ScriptThreadWorker
-        //
-        private void ScriptThreadWorker(idEntity entity, idScriptAction _action)
-        {
-            // Run every function in the action.
-            for (int i = 0; i < _action.funcsraw.Length; i++)
-            {
-                scriptFuncTable[_action.funcsraw[i].opCode].function(entity, _action.funcsraw[i]);
-            }
-        }
-
-        //
         // RunAction
         //
-        public void Execute(idEntity entity, idScriptAction _action)
+        public bool Execute(idEntity entity, idScriptAction _action)
         {
             if (_action == null)
             {
                 Engine.common.ErrorFatal("Script_Execute action is null\n");
             }
 
-            idThread thread = Engine.Sys.CreateThread(_action.name, () => ScriptThreadWorker(entity, _action));
-            thread.Start(null);
+            if (actionqueue[0].pendingaction != null)
+            {
+                Engine.common.Warning("Too many actions running in script, execute failed.\n");
+                return false;
+            }
+
+            actionqueue[0].pendingaction = _action;
+            actionqueue[0].actionEntity = entity;
+            actionqueue[0].pendingFunctionNum = 0;
+
+            return true;
+        }
+
+        //
+        // RunActionFromQueue
+        //
+        private void RunActionFromQueue(ref idScriptPendingAction action)
+        {
+            if (action.nextActionRunTime > Level.time || action.pendingaction == null)
+            {
+                return;
+            }
+
+            // Run until we run out of functions to execute or hit a blocking function.
+            while (true)
+            {
+                if (action.pendingFunctionNum < action.pendingaction.funcsraw.Length)
+                {
+                    // Function will return false if its blocking.
+                    if (scriptFuncTable[action.pendingaction.funcsraw[action.pendingFunctionNum].opCode].function(ref action, action.pendingaction.funcsraw[action.pendingFunctionNum], this))
+                    {
+                        action.pendingFunctionNum++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    action.pendingaction = null;
+                    break;
+                }
+            }
+        }
+
+        //
+        // Think
+        //
+        public void Think()
+        {
+            for (int i = 0; i < actionqueue.Length; i++)
+            {
+                RunActionFromQueue(ref actionqueue[i]);
+            }
         }
 
         //
         // RunAction
         //
-        idThread triggerthread;
-        private void ExecuteTrigger(idEntity entity, idScriptAction _action)
+        private bool ExecuteTrigger(idEntity entity, idScriptAction _action)
         {
-            if (triggerthread != null)
+            if (actionqueue[1].pendingaction != null)
             {
-             //   while (triggerthread.isRunning() == true)
-             //       System.Threading.Thread.Sleep(1);
-              //  triggerthread.Stop();
-             //   triggerthread = null;
-            }
-            if (_action == null)
-            {
-                Engine.common.ErrorFatal("Script_Execute action is null\n");
+                return false;
             }
 
-            idThread thread = Engine.Sys.CreateThread(_action.name, () => ScriptThreadWorker(entity, _action));
-            triggerthread = thread;
-            thread.Start(null);
+            actionqueue[1].pendingaction = _action;
+            actionqueue[1].actionEntity = entity;
+            actionqueue[1].pendingFunctionNum = 0;
+
+            return true;
         }
 
         //
@@ -274,64 +322,65 @@ namespace Game
         // GAME SCRIPT FUNCTIONS
         //
 
-        private static bool G_ScriptAction_Trigger(idEntity ent, idScriptFuncBinary func) {
-            idScriptAction action;
+        private static bool G_ScriptAction_Trigger(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
+            idScriptAction action2;
+            idScript script = Level.script;
 
-            action = Level.script.FindAction(func.parms[0], func.parms[1], false);
-            if (action == null)
+            action2 = script.FindAction(func.parms[0], func.parms[1], false);
+            if (action2 == null)
             {
-                action = Level.aiscript.FindAction(func.parms[0], func.parms[1], true);
-                if (action == null)
+                script = Level.aiscript;
+                action2 = script.FindAction(func.parms[0], func.parms[1], true);
+                if (action2 == null)
                 {
                     return false;
                 }
-                else
-                {
-                    Level.aiscript.ExecuteTrigger(ent, action);
-                    return true;
-                }
             }
 
-            Level.script.ExecuteTrigger(ent, action);
+            if (!script.ExecuteTrigger(action.actionEntity, action2))
+            {
+                return false;
+            }
             return true;
         }
 
         //----(SA)	added
-        private static bool G_ScriptAction_MusicStart(idEntity ent, idScriptFuncBinary func) {
-            Level.net.PlayBackgroundTrackForPlayer(ent, func.parms[0]);
+        private static bool G_ScriptAction_MusicStart(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
+            Level.net.PlayBackgroundTrackForPlayer(action.actionEntity, func.parms[0]);
             return true; 
         }
-        private static bool G_ScriptAction_MusicPlay(idEntity ent, idScriptFuncBinary func) {
-            Level.net.PlayBackgroundTrackForPlayer(ent, func.parms[0]);
+        private static bool G_ScriptAction_MusicPlay(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
+            Level.net.PlayBackgroundTrackForPlayer(action.actionEntity, func.parms[0]);
             return true; 
         }
-        private static bool G_ScriptAction_MusicStop(idEntity ent, idScriptFuncBinary func) {
-            Level.net.StopBackgroundTrackForPlayer(ent);
+        private static bool G_ScriptAction_MusicStop(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
+            Level.net.StopBackgroundTrackForPlayer(action.actionEntity);
             return true;
         }
-        private static bool G_ScriptAction_MusicFade(idEntity ent, idScriptFuncBinary func) {
-            Level.net.StopBackgroundTrackForPlayer(ent);
+        private static bool G_ScriptAction_MusicFade(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
+            Level.net.StopBackgroundTrackForPlayer(action.actionEntity);
             return true;
         }
-        private static bool G_ScriptAction_MusicQueue(idEntity ent, idScriptFuncBinary func) {
-            Level.net.StopBackgroundTrackForPlayer(ent);
-            Level.net.PlayBackgroundTrackForPlayer(ent, func.parms[0]);
+        private static bool G_ScriptAction_MusicQueue(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
+            Level.net.StopBackgroundTrackForPlayer(action.actionEntity);
+            Level.net.PlayBackgroundTrackForPlayer(action.actionEntity, func.parms[0]);
             return true; 
         }
 
-        private static bool G_ScriptAction_Wait(idEntity ent, idScriptFuncBinary func) {
-            System.Threading.Thread.Sleep(int.Parse(func.parms[0]));
-            return true;
+        private static bool G_ScriptAction_Wait(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
+            action.nextActionRunTime = Level.time + int.Parse(func.parms[0]);
+            action.pendingFunctionNum++;
+            return false;
         }
 
-        private static bool G_ScriptAction_PlaySound(idEntity ent, idScriptFuncBinary func) {
+        private static bool G_ScriptAction_PlaySound(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
             idSound sound = Engine.soundManager.LoadSound(func.parms[0]);
             sound.Play();
             return true; 
         }
 
-        private static bool G_ScriptAction_AlertEntity(idEntity ent, idScriptFuncBinary func) {
-            Level.TriggerEntity(ent, func.parms[0]);
+        private static bool G_ScriptAction_AlertEntity(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
+            Level.TriggerEntity(action.actionEntity, func.parms[0]);
             return true;
         }
 
@@ -339,80 +388,81 @@ namespace Game
         // AI SCRIPT FUNCTIONS
         //
 
-        private static bool AICast_ScriptAction_StartCam(idEntity ent, idScriptFuncBinary func) {
+        private static bool AICast_ScriptAction_StartCam(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
             Level.camerapath = "cameras/" + func.parms[0] + ".camera";
             Level.cameranum = 0;
             return true;
         }
 
-        private static bool AICast_ScriptAction_StopCam(idEntity ent, idScriptFuncBinary func) {
+        private static bool AICast_ScriptAction_StopCam(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
             Level.cameranum = -1;
             return true;
         }  //----(SA)	added
 
-        private static bool AICast_ScriptAction_StartCamBlack(idEntity ent, idScriptFuncBinary func) {
+        private static bool AICast_ScriptAction_StartCamBlack(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
             Level.camerapath = "cameras/" + func.parms[0] + ".camera";
             Level.cameranum = 0;
             return true;
         }
 
-        private static bool AICast_ScriptAction_MusicStart(idEntity ent, idScriptFuncBinary func)
+        private static bool AICast_ScriptAction_MusicStart(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent)
         {
-            Level.net.PlayBackgroundTrackForPlayer(ent, func.parms[0]);
+            Level.net.PlayBackgroundTrackForPlayer(action.actionEntity, func.parms[0]);
             return true;
         }
-        private static bool AICast_ScriptAction_MusicPlay(idEntity ent, idScriptFuncBinary func)
+        private static bool AICast_ScriptAction_MusicPlay(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent)
         {
-            Level.net.PlayBackgroundTrackForPlayer(ent, func.parms[0]);
+            Level.net.PlayBackgroundTrackForPlayer(action.actionEntity, func.parms[0]);
             return true;
         }
-        private static bool AICast_ScriptAction_MusicStop(idEntity ent, idScriptFuncBinary func)
+        private static bool AICast_ScriptAction_MusicStop(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent)
         {
-            Level.net.StopBackgroundTrackForPlayer(ent);
+            Level.net.StopBackgroundTrackForPlayer(action.actionEntity);
             return true;
         }
-        private static bool AICast_ScriptAction_MusicFade(idEntity ent, idScriptFuncBinary func)
+        private static bool AICast_ScriptAction_MusicFade(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent)
         {
-            Level.net.StopBackgroundTrackForPlayer(ent);
+            Level.net.StopBackgroundTrackForPlayer(action.actionEntity);
             return true;
         }
-        private static bool AICast_ScriptAction_MusicQueue(idEntity ent, idScriptFuncBinary func)
+        private static bool AICast_ScriptAction_MusicQueue(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent)
         {
-            Level.net.StopBackgroundTrackForPlayer(ent);
-            Level.net.PlayBackgroundTrackForPlayer(ent, func.parms[0]);
-            return true;
-        }
-
-        private static bool AICast_ScriptAction_Wait(idEntity ent, idScriptFuncBinary func)
-        {
-            System.Threading.Thread.Sleep(int.Parse(func.parms[0]));
+            Level.net.StopBackgroundTrackForPlayer(action.actionEntity);
+            Level.net.PlayBackgroundTrackForPlayer(action.actionEntity, func.parms[0]);
             return true;
         }
 
-        private static bool AICast_ScriptAction_Trigger(idEntity ent, idScriptFuncBinary func)
+        private static bool AICast_ScriptAction_Wait(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent)
         {
-            idScriptAction action;
+            action.nextActionRunTime = Level.time + int.Parse(func.parms[0]);
+            action.pendingFunctionNum++;
+            return false;
+        }
 
-            action = Level.script.FindAction(func.parms[0], func.parms[1], false);
-            if (action == null)
+        private static bool AICast_ScriptAction_Trigger(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent)
+        {
+            idScriptAction action2;
+            idScript script = Level.script;
+
+            action2 = script.FindAction(func.parms[0], func.parms[1], false);
+            if (action2 == null)
             {
-                action = Level.aiscript.FindAction(func.parms[0], func.parms[1], true);
-                if (action == null)
+                script = Level.aiscript;
+                action2 = script.FindAction(func.parms[0], func.parms[1], true);
+                if (action2 == null)
                 {
                     return false;
                 }
-                else
-                {
-                    Level.aiscript.ExecuteTrigger(ent, action);
-                    return true;
-                }
             }
 
-            Level.script.ExecuteTrigger(ent, action);
+            if (!script.ExecuteTrigger(action.actionEntity, action2))
+            {
+                return false;
+            }
             return true;
         }
 
-        private static bool AICast_ScriptAction_PlaySound(idEntity ent, idScriptFuncBinary func)
+        private static bool AICast_ScriptAction_PlaySound(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent)
         {
             idSound sound = Engine.soundManager.LoadSound(func.parms[0]);
             sound.Play();
@@ -421,107 +471,107 @@ namespace Game
         //----(SA)	end
 
         #region ScriptStubs_ImplementMe
-        private static bool G_ScriptAction_GotoMarker(idEntity ent, idScriptFuncBinary func) { return false; }
+        private static bool G_ScriptAction_GotoMarker(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
         
-        private static bool G_ScriptAction_PlayAnim(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_Accum(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_MissionFailed(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_MissionSuccess(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_Print(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_FaceAngles(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_ResetScript(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_TagConnect(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_Halt(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_StopSound(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_StartCam(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_EntityScriptName(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_AIScriptName(idEntity ent, idScriptFuncBinary func) { return false; }
+        private static bool G_ScriptAction_PlayAnim(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_Accum(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_MissionFailed(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_MissionSuccess(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_Print(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_FaceAngles(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_ResetScript(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_TagConnect(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_Halt(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_StopSound(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_StartCam(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_EntityScriptName(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_AIScriptName(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
         // DHM - Nerve :: Multiplayer scripting commands
-        private static bool G_ScriptAction_MapDescription(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_AxisRespawntime(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_AlliedRespawntime(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_NumberofObjectives(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_ObjectiveAxisDesc(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_ObjectiveAlliedDesc(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_SetWinner(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_SetObjectiveStatus(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_Announce(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_EndRound(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_SetRoundTimelimit(idEntity ent, idScriptFuncBinary func) { return false; }
+        private static bool G_ScriptAction_MapDescription(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_AxisRespawntime(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_AlliedRespawntime(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_NumberofObjectives(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_ObjectiveAxisDesc(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_ObjectiveAlliedDesc(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_SetWinner(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_SetObjectiveStatus(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_Announce(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_EndRound(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_SetRoundTimelimit(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
         // dhm
-        private static bool G_ScriptAction_BackupScript(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_RestoreScript(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool G_ScriptAction_SetHealth(idEntity ent, idScriptFuncBinary func) { return false; }
+        private static bool G_ScriptAction_BackupScript(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_RestoreScript(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool G_ScriptAction_SetHealth(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
 
         // AI scripting functions
-        private static bool AICast_ScriptAction_GotoMarker(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_WalkToMarker(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_CrouchToMarker(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_GotoCast(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_WalkToCast(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_CrouchToCast(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_AbortIfLoadgame(idEntity ent, idScriptFuncBinary func) { return false; } //----(SA)	added
-        private static bool AICast_ScriptAction_FollowCast(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_NoAttack(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Attack(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_PlayAnim(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_ClearAnim(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_SetAmmo(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_SetClip(idEntity ent, idScriptFuncBinary func) { return false; }         //----(SA)	added
-        private static bool AICast_ScriptAction_SelectWeapon(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_GiveArmor(idEntity ent, idScriptFuncBinary func) { return false; }       //----(SA)	added
-        private static bool AICast_ScriptAction_SetArmor(idEntity ent, idScriptFuncBinary func) { return false; }        //----(SA)	added
-        private static bool AICast_ScriptAction_SuggestWeapon(idEntity ent, idScriptFuncBinary func) { return false; }   //----(SA)	added
-        private static bool AICast_ScriptAction_GiveWeapon(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_GiveInventory(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_TakeWeapon(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Movetype(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_AlertEntity(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_SaveGame(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_FireAtTarget(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_GodMode(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Accum(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_SpawnCast(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_MissionFailed(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_ObjectiveMet(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_ObjectivesNeeded(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_NoAIDamage(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Print(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_FaceTargetAngles(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_ResetScript(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Mount(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Unmount(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_SavePersistant(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_ChangeLevel(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_EndGame(idEntity ent, idScriptFuncBinary func) { return false; } //----(SA)	added
-        private static bool AICast_ScriptAction_Teleport(idEntity ent, idScriptFuncBinary func) { return false; }    //----(SA)	added
-        private static bool AICast_ScriptAction_FoundSecret(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_NoSight(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Sight(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_NoAvoid(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Avoid(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Attrib(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_DenyAction(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_LightningDamage(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Headlook(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_BackupScript(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_RestoreScript(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_StateType(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_KnockBack(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Zoom(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Parachute(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Cigarette(idEntity ent, idScriptFuncBinary func) { return false; }    //----(SA)	added
-        private static bool AICast_ScriptAction_EntityScriptName(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_AIScriptName(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_SetHealth(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_NoTarget(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_Cvar(idEntity ent, idScriptFuncBinary func) { return false; }
+        private static bool AICast_ScriptAction_GotoMarker(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_WalkToMarker(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_CrouchToMarker(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_GotoCast(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_WalkToCast(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_CrouchToCast(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_AbortIfLoadgame(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; } //----(SA)	added
+        private static bool AICast_ScriptAction_FollowCast(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_NoAttack(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Attack(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_PlayAnim(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_ClearAnim(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_SetAmmo(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_SetClip(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }         //----(SA)	added
+        private static bool AICast_ScriptAction_SelectWeapon(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_GiveArmor(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }       //----(SA)	added
+        private static bool AICast_ScriptAction_SetArmor(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }        //----(SA)	added
+        private static bool AICast_ScriptAction_SuggestWeapon(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }   //----(SA)	added
+        private static bool AICast_ScriptAction_GiveWeapon(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_GiveInventory(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_TakeWeapon(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Movetype(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_AlertEntity(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_SaveGame(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_FireAtTarget(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_GodMode(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Accum(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_SpawnCast(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_MissionFailed(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_ObjectiveMet(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_ObjectivesNeeded(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_NoAIDamage(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Print(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_FaceTargetAngles(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_ResetScript(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Mount(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Unmount(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_SavePersistant(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_ChangeLevel(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_EndGame(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; } //----(SA)	added
+        private static bool AICast_ScriptAction_Teleport(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }    //----(SA)	added
+        private static bool AICast_ScriptAction_FoundSecret(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_NoSight(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Sight(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_NoAvoid(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Avoid(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Attrib(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_DenyAction(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_LightningDamage(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Headlook(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_BackupScript(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_RestoreScript(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_StateType(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_KnockBack(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Zoom(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Parachute(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Cigarette(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }    //----(SA)	added
+        private static bool AICast_ScriptAction_EntityScriptName(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_AIScriptName(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_SetHealth(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_NoTarget(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_Cvar(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
 
-        private static bool AICast_ScriptAction_ExplicitRouting(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_LockPlayer(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_AnimCondition(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_PushAway(idEntity ent, idScriptFuncBinary func) { return false; }
-        private static bool AICast_ScriptAction_CatchFire(idEntity ent, idScriptFuncBinary func) { return false; }
+        private static bool AICast_ScriptAction_ExplicitRouting(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_LockPlayer(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_AnimCondition(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_PushAway(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        private static bool AICast_ScriptAction_CatchFire(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
         #endregion
     }
 }

@@ -1,0 +1,89 @@
+//
+//Brush Scripting
+//Map: Directory cutscene 11
+//Last edited by: Jeremy 92001
+//
+
+counter1
+{
+	spawn
+	{
+	}
+
+	trigger cinematic1
+	{
+		wait 2250
+		trigger director talk1 // Well Jack, 
+		wait 5600		
+		trigger jack talk1 // No sir
+		wait 1000
+//		trigger director anim_loop2
+//		wait 5
+		trigger director talk2	// Of course, I always new he was resourcefull, but I never imagined he had such... expert interrogation skills
+		wait 3000
+		trigger player cine11_cam24
+		wait 3250
+		trigger jack talk_clearthroat	// Clearthroat
+		wait 1700
+		trigger director talk3	// Well from the inerrogation we know the location of the X labss in norway
+		wait 3000
+		trigger player cine11_cam5
+		wait 7050
+		trigger player cine11_cam24
+		wait 3800
+//		trigger jack anim_loop1
+//		wait 1
+		trigger jack talk2	// well unfortunatley not as much, uber soldat..
+		wait 8000
+		trigger player cine11_cam5
+		wait 3000
+		trigger director talk4  // Super soldier
+		wait 1100
+//		trigger player cine11_cam24
+		wait 300
+		trigger player cine11_cam3
+		trigger jack talk3 	// Yes from what I could piece together
+		wait 6600
+		wait 100
+		trigger director talk5  // For what purpose
+		wait 1500
+		trigger player cine11_cam7 
+		trigger jack anim_loop1
+		wait 1
+		trigger jack talk4		// Apperently to creat the ultimate killing machine
+		wait 4200
+		trigger player cine11_cam5
+		wait 100
+		trigger director talk6	// Goodlord
+		wait 900
+		wait 100
+		trigger jack talk5  // According to Deaths head ...baby
+		wait 4000
+		trigger player cine11_cam24
+		wait 6000
+		trigger player cine11_cam5
+		wait 100
+		trigger director talk7	// that explians pro blueprint
+		wait 9300
+		trigger player cine11_cam7
+		wait 100
+		trigger jack talk6	// No it doesn't
+		wait 4700
+		trigger player cine11_cam6
+		wait 100
+		trigger director talk8  // Yes, that'a why agent Blaskowits is on his way to norway as we speak	
+		wait 4000
+		trigger player endmap		
+	}
+}
+
+counter2
+{
+	spawn
+	{
+	}
+
+	trigger
+	{
+	}
+}

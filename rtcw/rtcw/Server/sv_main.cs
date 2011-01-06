@@ -501,7 +501,7 @@ namespace rtcw.Server
         //
         // Frame
         //
-        public void Frame()
+        public void Frame(int frameTime)
         {
             if (Globals.game == null)
             {
@@ -511,7 +511,7 @@ namespace rtcw.Server
             Globals.numLinkedEntities = 0;
 
             // Run the game frame.
-            Globals.game.Frame();
+            Globals.game.Frame(frameTime);
 
             if (Globals.numLinkedEntities <= 0)
             {

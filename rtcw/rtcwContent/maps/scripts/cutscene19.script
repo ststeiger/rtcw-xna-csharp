@@ -1,0 +1,141 @@
+//
+//brush scripting
+//cutscene 19 end bj
+//09/27/01
+//last edited by jeremy
+//
+
+counter1
+{
+	spawn
+	{
+		accum 0 bitreset 0
+		accum 1 set 0
+		accum 2 set 0
+		accum 3 set 0
+		accum 4 set 0
+	}
+
+	trigger cinematic1
+	{
+		trigger text_debrief display1
+		wait 6000
+		trigger player cine19_cam6
+		wait 700
+//		wait 3500
+		alertentity knock
+		wait 2250
+		trigger director talk1 //  Come in
+		wait 1300
+		trigger jack go
+		wait 4350
+		trigger player cine19_cam3  // 
+		wait 2000
+		trigger jack talk1 // You wanted to see me sir
+		wait 1900
+		trigger player cine19_cam5
+		trigger director talk2	// I just finished reading through the reports
+		wait 8200
+		trigger director talk3	// 
+		wait 1000
+		trigger player cine19_cam25
+		wait 3000
+		trigger player cine19_cam24
+		wait 1800
+//		trigger jack anim_loop1
+//		wait 5
+		trigger jack talk2	// Yes sir
+		wait 1000
+		trigger player cine19_cam5
+		wait 100
+		trigger director talk4  // seeing how this mission
+		wait 8400
+		trigger player cine19_cam7
+		wait 2100
+		trigger jack talk3 	// I'm sure he understands/....
+		wait 2400
+		trigger player cine19_cam5
+		wait 200
+		trigger director talk5  // well I hope a least
+		wait 3800
+		trigger player cine19_cam7
+		wait 300
+		trigger jack talk4 	// O yes on a littel r and r
+		wait 3500
+		trigger player cine19_cam5
+		wait 300
+		trigger director talk6  // Ahh yes anything special..
+		wait 2200
+		trigger player cine19_cam25
+		wait 750			// og 4600
+		mu_fade 0 2000
+		mu_queue sound/music/l_finale		// new end music right before bJ comes out of wall
+		wait 1850
+//		trigger player cine19_cam6d
+//		wait 2000
+		alertentity nazi1
+		wait 5
+		alertentity nazi2
+//		mu_fade 0 100
+//		mu_queue sound/music/l_finale		// new end music right before bJ comes out of wall
+		trigger player cine19_bjcam1
+		trigger bj go1			
+	}
+
+	trigger cinematic2
+	{
+	}
+
+	trigger end_scene1
+	{
+		trigger checker1 bj_anim_and_sound
+//		wait 5
+//		trigger checker1 strraight_end
+	}
+
+	trigger bj_anim_and_sound
+	{
+		resetscript
+		trigger player cine19_bjcam2
+//		mu_fade 0 100
+		trigger bj fire_anim
+		wait 5
+		trigger bj fire2
+		wait 4500
+		alertentity kill_bj1a		// newly added 10 29 2001
+		wait 1200			// og 2250
+		trigger player endmap
+	}
+
+	trigger straight_end
+	{
+		accum 1 abort_if_less_than 1
+		trigger player endmap
+	}
+}
+
+counter2
+{
+	spawn
+	{
+	}
+
+	trigger 
+	{
+	}
+}
+
+text_debrief
+{
+	spawn
+	{
+//		faceangles 0 0 45 1000 
+//		trigger text_debrief display1		
+	}
+
+	trigger display1
+	{
+//		wait 2000
+//		playanim 0 46 100
+	}
+}
