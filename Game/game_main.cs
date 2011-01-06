@@ -55,6 +55,9 @@ namespace Game
         public idGameLocal(int version)
         {
             Engine.common.Printf("Game module loaded...\n");
+
+            // Register the cvars.
+            Cvars.RegisterCvars();
         }
 
         //

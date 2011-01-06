@@ -34,13 +34,30 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // CollisionModelPublic.cs (c) 2010 JV Software
 //
 
+using idLib.Math;
+
 namespace idLib.Engine.Public
 {
+    // a trace is returned when a box is swept through the world
+    public struct idTrace {
+	    public bool allsolid;      // if true, plane is not valid
+        public bool startsolid;    // if true, the initial point was in a solid area
+	    public float fraction;         // time completed, 1.0 = didn't hit anything
+	    public idVector3 endpos;          // final position
+	    public idPlane plane;         // surface normal at impact, transformed to world space
+	    public int surfaceFlags;           // surface hit
+        public int contents;           // contents on other side of surface hit
+        public int entityNum;          // entity the contacted sirface is a part of
+
+        public static idTrace defaultTrace = new idTrace();
+    };
+
     //
     // idCollisionModel
     //
     public abstract class idCollisionModel
     {
+        public abstract void BoxTrace(out idTrace results, idVector3 start, idVector3 end, idBounds bounds, int passEntityNum, int contentmask);
         public abstract string GetName();
     }
 
@@ -49,6 +66,6 @@ namespace idLib.Engine.Public
     //
     public abstract class idCollisionModelManager
     {
-        public abstract idCollisionModel LoadCollisonModelFromBsp(string mappath);
+        public abstract idCollisionModel LoadCollisonModelFromBsp(string mappath, object world);
     }
 }

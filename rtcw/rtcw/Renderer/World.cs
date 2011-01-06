@@ -132,6 +132,14 @@ namespace rtcw.Renderer
         }
 
         //
+        // cm
+        //
+        public override idCollisionModel cm()
+        {
+            return map.collisionmodel;
+        }
+
+        //
         // RenderScene
         //
         public override void RenderScene(idRefdef refdef)

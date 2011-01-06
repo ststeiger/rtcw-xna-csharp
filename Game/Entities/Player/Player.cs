@@ -95,7 +95,7 @@ namespace Game.Entities.Player
             // Run a script for this player if there is one.
             idScriptAction playerStartScript = Level.aiscript.FindAction("player", "playerstart", true);
 
-            if (playerStartScript != null)
+            if (playerStartScript != null && Cvars.g_skipLevelScript.GetValueInteger() == 0)
             {
                 Level.aiscript.Execute(this, playerStartScript);
             }

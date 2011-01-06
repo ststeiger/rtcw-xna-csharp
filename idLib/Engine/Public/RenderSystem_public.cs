@@ -393,6 +393,9 @@ namespace idLib.Engine.Public
 
         // Tests to see if a point is visible from a certain location.
         public abstract bool isPointInPVS(idVector3 pvsorigin, idVector3 point);
+
+        // Returns the loaded cm handle.
+        public abstract idCollisionModel cm();
     }
 
     //

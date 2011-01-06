@@ -114,8 +114,6 @@ namespace rtcw.Server
         public static idSharedEntity[] gentities;
         public static int[] linkedEntities = new int[idGamePublic.MAX_GENTITIES];
         public static int numLinkedEntities = 0;
-
-        public static idCollisionModel cm;
     }
 
     //
@@ -388,8 +386,6 @@ namespace rtcw.Server
             // by the game startup or another console command
             Engine.cvarManager.Cvar_Set("nextmap", "map_restart 0", true);
             //	Cvar_Set( "nextmap", va("map %s", server) );
-
-            Globals.cm = Engine.collisionModelManager.LoadCollisonModelFromBsp("maps/" + mapname + ".bsp");
 
             SetExpectedHunkUsage("maps/" + mapname + ".bsp");
 

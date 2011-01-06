@@ -40,6 +40,22 @@ using idLib.Engine.Public;
 namespace Game
 {
     //
+    // CVars
+    //
+    static class Cvars
+    {
+        public static idCVar g_skipLevelScript;
+
+        //
+        // RegisterCvars
+        //
+        public static void RegisterCvars()
+        {
+            g_skipLevelScript = Engine.cvarManager.Cvar_Get("g_skipLevelScript", "0", idCVar.CVAR_ROM);
+        }
+    }
+
+    //
     // Level
     //
     static class Level

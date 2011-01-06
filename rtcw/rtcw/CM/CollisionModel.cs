@@ -35,6 +35,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using idLib.Engine.Public;
+using rtcw.Renderer.Map;
+
 
 namespace rtcw.CM
 {
@@ -43,14 +45,26 @@ namespace rtcw.CM
     //
     public class idCollisionModelLocal : idCollisionModel
     {
-        string name;
+        private string name;
+        private idMap world;
 
         //
         // LoadFromFile
         //
-        public void LoadFromFile(string mappath)
+        public void LoadFromFile(string mappath, object world)
         {
             name = mappath;
+
+            Engine.common.Printf("Loading Collision Model...\n");
+            this.world = (idMap)world;
+        }
+
+        //
+        // BoxTrace
+        //
+        public override void BoxTrace(out idTrace results, idLib.Math.idVector3 start, idLib.Math.idVector3 end, idLib.idBounds bounds, int passEntityNum, int contentmask)
+        {
+            results = idTrace.defaultTrace;
         }
 
         //

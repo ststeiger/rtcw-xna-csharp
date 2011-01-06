@@ -91,6 +91,7 @@ namespace rtcw.Renderer.Map
         idMapFormat.idMapBrushSide[] brushsides;
         //idMapFormat.idMapModel[] bmodels;
 
+        public idCollisionModel collisionmodel;
 
         private string name;
         private string baseName;
@@ -1344,6 +1345,10 @@ namespace rtcw.Renderer.Map
 
             // Destroy anything we don't need to keep, and free up non-needed memory.
             DisposeOfNonPersistantMemory();
+
+            // Init the collision model, I'm coupling the collision with the map to avoid having to parse the map file twice.
+            // Since were not supporting dedicated servers this won't be a problem.
+            collisionmodel = Engine.collisionModelManager.LoadCollisonModelFromBsp(mappath, this);
 
             Engine.common.Printf("Map Loaded Successfully...\n");
         }

@@ -65,7 +65,7 @@ namespace rtcw.CM
         //
         // LoadCollisonModelFromBsp
         //
-        public override idCollisionModel LoadCollisonModelFromBsp(string mappath)
+        public override idCollisionModel LoadCollisonModelFromBsp(string mappath, object world)
         {
             idCollisionModelLocal cm;
 
@@ -78,7 +78,7 @@ namespace rtcw.CM
 
             // Allocate a new collision model and attach a map to it.
             cm = new idCollisionModelLocal();
-            cm.LoadFromFile(mappath);
+            cm.LoadFromFile(mappath, world);
 
             cm_pool.Add(cm);
             return cm_pool[cm_pool.Count - 1];
