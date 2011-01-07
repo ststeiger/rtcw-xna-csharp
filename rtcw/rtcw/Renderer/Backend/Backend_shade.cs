@@ -237,10 +237,10 @@ namespace rtcw.Renderer.Backend
         public static void EnableFog(fogParms_t parms )
         {
 
-            singleEffect.FogStart = defaultEffect.FogStart = -2500.0f;
-            singleEffect.FogEnd = defaultEffect.FogEnd = 2500.0f;
-            singleEffect.FogColor = defaultEffect.FogColor = new Vector3(0.6f, 0.6f, 0.6f);
-            singleEffect.FogEnabled = defaultEffect.FogEnabled = true;
+       //     singleEffect.FogStart = defaultEffect.FogStart = -2500.0f;
+       //     singleEffect.FogEnd = defaultEffect.FogEnd = 2500.0f;
+       //     singleEffect.FogColor = defaultEffect.FogColor = new Vector3(0.6f, 0.6f, 0.6f);
+      //     singleEffect.FogEnabled = defaultEffect.FogEnabled = true;
         }
 
         //
@@ -248,8 +248,8 @@ namespace rtcw.Renderer.Backend
         //
         public static void DisableFog()
         {
-            defaultEffect.FogEnabled = false;
-            singleEffect.FogEnabled = false;
+          //  defaultEffect.FogEnabled = false;
+        //   singleEffect.FogEnabled = false;
         }
 
         //
@@ -341,7 +341,7 @@ namespace rtcw.Renderer.Backend
             {
                 if (depthBufferEnabled == true)
                 {
-                    Globals.graphics3DDevice.DepthStencilState = DepthStencilState.Default;
+                 //   Globals.graphics3DDevice.DepthStencilState = DepthStencilState.Default;
                     depthBufferEnabled = false;
                 }
             }
@@ -349,7 +349,7 @@ namespace rtcw.Renderer.Backend
             {
                 if (depthBufferEnabled == false)
                 {
-                    Globals.graphics3DDevice.DepthStencilState = DepthStencilState.None;
+                 //   Globals.graphics3DDevice.DepthStencilState = DepthStencilState.None;
                     depthBufferEnabled = true;
                 }
             }
