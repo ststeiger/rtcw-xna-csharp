@@ -168,7 +168,7 @@ namespace Game.Physics
           //  }
            // else
            // {
-                scale *= 1.8f;
+                scale *= 0.8f;
            // }
 
             return scale;
@@ -180,13 +180,24 @@ namespace Game.Physics
         private void PM_Move(ref idPhysicsPlayerState pmove, bool gravity)
         {
             idVector3 endpos;
-            idTrace trace;
+
+            if (gravity)
+            {
+                velocity[2] = pmove.bounds.Maxs.Z;
+            }
 
             endpos = pmove.ps.origin + velocity;
 
-            Level.world.cm().BoxTrace(out trace, pmove.ps.origin, endpos, pmove.bounds, 0, idContentMask.MASK_ALL);
+            Level.world.cm().BoxTrace(out pmove.groundtrace, pmove.ps.origin, endpos, pmove.bounds, 0, idContentMask.MASK_ALL);
+            if (gravity)
+            {
+                pmove.ps.origin = pmove.groundtrace.endpos;
+                endpos.Z -= Cvars.g_gravity.GetValueInteger();
 
-            pmove.ps.origin = trace.endpos;
+                Level.world.cm().BoxTrace(out pmove.groundtrace, pmove.ps.origin, endpos, pmove.bounds, 0, idContentMask.MASK_ALL);
+            }
+
+            pmove.ps.origin = pmove.groundtrace.endpos;
         }
 
         //
@@ -198,7 +209,10 @@ namespace Game.Physics
             idVector3 wishvel = new idVector3();
             float scale;
 
-            movematrix = pmove.ps.angles2.ToAxis();
+            idVector3 viewangle = pmove.ps.angles2;
+            viewangle.X = 0;
+
+            movematrix = viewangle.ToAxis();
 
             // Apply friction.
             Physics_Friction();
@@ -210,12 +224,12 @@ namespace Game.Physics
                 wishvel[i] = movematrix[0][i] * cmd.ForwardMove + movematrix[1][i] * cmd.RightMove;
             }
 
-            wishvel.Normalize();
+          //  wishvel.Normalize();
             velocity = wishvel * scale;
 
             //PM_Accelerate(ref pm, wishvel, wishspeed, pm_accelerate);
 
-            PM_Move(ref pmove, false);
+            PM_Move(ref pmove, true);
         }
 
         //

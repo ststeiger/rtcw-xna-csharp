@@ -160,10 +160,12 @@ namespace Game.Entities.Player
                 }
                 idCameraManager.getCameraInfo(Level.cameranum, cameraframe++, ref state.origin, ref state.angles2, ref fov);
                 state.angles2.X = -state.angles2.X;
+                state.eventParm = 1;
             }
             else
             {
                 physics.Move(ref physicsState);
+                state.eventParm = 0;
             }
         }
 

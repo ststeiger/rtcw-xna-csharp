@@ -80,7 +80,10 @@ namespace cgame
 
             refdef.viewaxis = viewangle;
             refdef.vieworg = viewxyz;
-          //  refdef.vieworg.Z += 35.0f;
+            if (Globals.inCinematic == false)
+            {
+                refdef.vieworg.Z += 35.0f;
+            }
             refdef.x = 0;
             refdef.y = 0;
             refdef.width = Engine.RenderSystem.GetViewportWidth();

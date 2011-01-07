@@ -62,6 +62,7 @@ namespace cgame
         public static float waitArrowFrame = 0;
 
         public static int localViewEntity = -1;
+        public static bool inCinematic = false;
 
         public static idView localview = new idView();
     }

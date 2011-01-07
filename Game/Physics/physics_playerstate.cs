@@ -70,5 +70,7 @@ namespace Game.Physics
 	    // for fixed msec Pmove
         public int pmove_fixed;
         public int pmove_msec;
+
+        public idTrace groundtrace;
     }
 }

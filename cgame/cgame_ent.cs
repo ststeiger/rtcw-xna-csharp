@@ -164,6 +164,7 @@ namespace cgame
                 Globals.localview.SetViewOrigin(entity.origin);
                 Globals.localview.SetViewAngle(entity.angles2);
                 Globals.viewPacketRecv = true;
+                Globals.inCinematic = (entity.eventParm == 1);
                 return;
             }
 

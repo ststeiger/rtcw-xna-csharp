@@ -34,6 +34,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // UsercmdManager.cs (c) 2010 JV Software
 //
 
+using idLib.Math;
 using idLib.Engine.Public;
 
 namespace rtcw.Framework
@@ -48,6 +49,7 @@ namespace rtcw.Framework
         private int cmdnum = -1; // I set this to -1 so this will error out if Init isn't called.
 
         public float[] mousedelta;
+        public idVector3 viewangles = idVector3.vector_origin;
         private int forwardmove;
         private int rightmove;
         private int upmove;
@@ -84,25 +86,17 @@ namespace rtcw.Framework
         //
         public override void MouseEvent(int x, int y)
         {
-#if WINDOWS_PHONE
-            float frameTime = Engine.common.Frametime();
-            float speed = 0.1f * frameTime;
-#else
-            float speed = 1.1f;
-#endif
-            if (x > 30 || y > 30 || x < -30 || y < -30)
-            {
+            if (x > 30 || x < -30)
+                x = 0;
+
+            if (y > 30 || y < -30)
+                y = 0;
+
+            if (y == 0 && x == 0)
                 return;
-            }
 
-            mousedelta[0] -= x * speed;
-            mousedelta[1] += y * speed;
-
-            if (mousedelta[1] > 90)
-                mousedelta[1] = 90;
-
-            if (mousedelta[1] < -90)
-                mousedelta[1] = -90;
+            mousedelta[0] += x;
+            mousedelta[1] += y;
 
             //Engine.common.DPrintf("" + mousedelta[0] + " " + mousedelta[1] + "\n");
         }
@@ -180,6 +174,34 @@ namespace rtcw.Framework
         }
 
         //
+        // SetCmdViewAngles
+        //
+        private void SetCmdViewAngles(ref idUsercmd cmd)
+        {
+            float mx = mousedelta[0];
+            float my = mousedelta[1];
+
+            float rate, accelSensitivity;
+
+            rate = (float)System.Math.Sqrt(mx * mx + my * my) / (float)Engine.common.Frametime();
+            accelSensitivity = 1; // +rate * 1;
+
+            viewangles[0] -= mx * accelSensitivity;
+            viewangles[1] += my * accelSensitivity;
+
+            if (viewangles[1] > 90)
+                viewangles[1] = 90;
+
+            if (viewangles[1] < -90)
+                viewangles[1] = -90;
+
+            cmd.SetViewAngles(viewangles[0], viewangles[1], 0);
+
+            mousedelta[0] = 0;
+            mousedelta[1] = 0;
+        }
+
+        //
         // GetCurrentCommand
         //
         public override idUsercmd GetCurrentCommand()
@@ -187,7 +209,7 @@ namespace rtcw.Framework
             int curcmd = cmdnum;
 
             cmdpool[curcmd].SetMove(forwardmove, rightmove, upmove);
-            cmdpool[curcmd].SetViewAngles(mousedelta[0], mousedelta[1], 0);
+            SetCmdViewAngles(ref cmdpool[curcmd]);
 
             // Init the next command.
             InitNewCommand();
