@@ -7265,6 +7265,241 @@
       <Importer>MaterialImporter</Importer>
       <Processor>idMaterialProcessor</Processor>
     </Compile>
+    <Compile Include="scripts\assault.shader">
+      <Name>assault</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\awf_props.shader">
+      <Name>awf_props</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\b-25.shader">
+      <Name>b-25</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\blimp.shader">
+      <Name>blimp</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\castle_door.shader">
+      <Name>castle_door</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\castle_floor.shader">
+      <Name>castle_floor</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\castle_props.shader">
+      <Name>castle_props</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\castle_window.shader">
+      <Name>castle_window</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\castle_wood.shader">
+      <Name>castle_wood</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\cathedrale_wall.shader">
+      <Name>cathedrale_wall</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\chat.shader">
+      <Name>chat</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\chateau.shader">
+      <Name>chateau</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\doors.shader">
+      <Name>doors</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\graveyard.shader">
+      <Name>graveyard</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\liquids.shader">
+      <Name>liquids</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\metal_misc.shader">
+      <Name>metal_misc</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\miltary_door.shader">
+      <Name>miltary_door</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\miltary_floor.shader">
+      <Name>miltary_floor</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\miltary_wall.shader">
+      <Name>miltary_wall</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\props.shader">
+      <Name>props</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\rock.shader">
+      <Name>rock</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\rubble.shader">
+      <Name>rubble</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\skies.shader">
+      <Name>skies</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\snow.shader">
+      <Name>snow</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\stone.shader">
+      <Name>stone</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\swf.shader">
+      <Name>swf</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\town_props.shader">
+      <Name>town_props</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\town_roof.shader">
+      <Name>town_roof</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\town_wall.shader">
+      <Name>town_wall</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\town_window.shader">
+      <Name>town_window</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\town_wood.shader">
+      <Name>town_wood</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\training.shader">
+      <Name>training</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\tree.shader">
+      <Name>tree</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\village.shader">
+      <Name>village</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\windows.shader">
+      <Name>windows</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\wood.shader">
+      <Name>wood</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\xlab_door.shader">
+      <Name>xlab_door</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\xlab_props.shader">
+      <Name>xlab_props</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\xlab_wall.shader">
+      <Name>xlab_wall</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\brandon.shader">
+      <Name>brandon</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\nerve-aaron.shader">
+      <Name>nerve-aaron</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\nerve-brandon.shader">
+      <Name>nerve-brandon</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\nerve-darin.shader">
+      <Name>nerve-darin</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\nerve-guf.shader">
+      <Name>nerve-guf</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\nerve-jpw.shader">
+      <Name>nerve-jpw</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\nerve-shwood.shader">
+      <Name>nerve-shwood</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
+    <Compile Include="scripts\nerve-turner.shader">
+      <Name>nerve-turner</Name>
+      <Importer>MaterialImporter</Importer>
+      <Processor>idMaterialProcessor</Processor>
+    </Compile>
     <None Include="sound\scripts\ai.sounds">
       <Name>ai</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

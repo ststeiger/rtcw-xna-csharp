@@ -389,7 +389,8 @@ namespace rtcw.Renderer
             new VertexElement(20, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 1),
             new VertexElement(28, VertexElementFormat.Vector3, VertexElementUsage.Tangent, 0),
             new VertexElement(40, VertexElementFormat.Vector3, VertexElementUsage.Binormal, 0),
-            new VertexElement(52, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0)
+            new VertexElement(52, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0),
+            new VertexElement(64, VertexElementFormat.Vector3, VertexElementUsage.Color, 0)
         );
 
         public readonly static VertexDeclaration idDrawSkinnedVertexDeclaration = new VertexDeclaration

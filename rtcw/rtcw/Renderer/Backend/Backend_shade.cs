@@ -18,7 +18,7 @@ namespace rtcw.Renderer.Backend
     //
     static class Shade
     {
-        private static BasicEffect default2DEffect;
+        private static BasicEffect singleEffect;
         private static DualTextureEffect defaultEffect;
         private static idSkeletalEffect skeletalEffect;
         private static idRenderMatrix orthoMatrix;
@@ -34,7 +34,7 @@ namespace rtcw.Renderer.Backend
         private static DynamicIndexBuffer dynIndexBuffer;
 
         private static bool useSkeletalEffect = false;
-        private static bool use2DEffect = false;
+        private static bool useSingleEffect = false;
 
         //
         // Init
@@ -42,10 +42,10 @@ namespace rtcw.Renderer.Backend
         public static void Init()
         {
             defaultEffect = new DualTextureEffect(Globals.graphics3DDevice);
-            default2DEffect = new BasicEffect(Globals.graphics3DDevice);
+            singleEffect = new BasicEffect(Globals.graphics3DDevice);
             skeletalEffect = new idSkeletalEffect();
 
-            default2DEffect.TextureEnabled = true;
+            singleEffect.TextureEnabled = true;
 
             //multiTextureEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
 
@@ -67,7 +67,7 @@ namespace rtcw.Renderer.Backend
         public static void SetBoneMatrix(Matrix[] bones)
         {
             useSkeletalEffect = true;
-            use2DEffect = false;
+            useSingleEffect = false;
             skeletalEffect.SetBoneMatrixes(bones);
         }
 
@@ -76,8 +76,8 @@ namespace rtcw.Renderer.Backend
         //
         public static void Set2DOrthoMode()
         {
-            use2DEffect = true;
-            orthoMatrix.SetAsActiveMatrix(ref default2DEffect);
+            useSingleEffect = true;
+            orthoMatrix.SetAsActiveMatrix(ref singleEffect);
         }
 
         //
@@ -85,10 +85,10 @@ namespace rtcw.Renderer.Backend
         //
         public static void CreateTranslateRotateMatrix(idRenderEntityLocal refdef)
         {
-            use2DEffect = false;
+            useSingleEffect = false;
             drawMatrix.SetEntityMatrix(refdef);
             drawMatrix.SetAsActiveMatrix(ref defaultEffect);
-            drawMatrix.SetAsActiveMatrix(ref skeletalEffect);
+            drawMatrix.SetAsActiveMatrix(ref singleEffect);
         }
 
         //
@@ -96,7 +96,7 @@ namespace rtcw.Renderer.Backend
         //
         public static void BindVertexIndexBuffer(VertexBuffer vertexBuffer, IndexBuffer indexBuffer)
         {
-            use2DEffect = false;
+            useSingleEffect = false;
             useSkeletalEffect = false;
             Globals.graphics3DDevice.SetVertexBuffer(vertexBuffer);
             Globals.graphics3DDevice.Indices = indexBuffer;
@@ -127,11 +127,11 @@ namespace rtcw.Renderer.Backend
             DrawElements(0, numVerts, 0, numIndexes, 0);
 
 #else
-            if (use2DEffect == true)
+            if (useSingleEffect == true)
             {
-                default2DEffect.DiffuseColor = pushedColor;
-                default2DEffect.Alpha = pushedAlpha;
-                default2DEffect.CurrentTechnique.Passes[0].Apply();
+                singleEffect.DiffuseColor = pushedColor;
+                singleEffect.Alpha = pushedAlpha;
+                singleEffect.CurrentTechnique.Passes[0].Apply();
             }
             else
             {
@@ -158,11 +158,11 @@ namespace rtcw.Renderer.Backend
 
             DrawElements(0, Globals.tess.numVertexes, 0, Globals.tess.numIndexes, 0);
 #else
-            if (use2DEffect == true)
+            if (useSingleEffect == true)
             {
-                default2DEffect.DiffuseColor = pushedColor;
-                default2DEffect.Alpha = pushedAlpha;
-                default2DEffect.CurrentTechnique.Passes[0].Apply();
+                singleEffect.DiffuseColor = pushedColor;
+                singleEffect.Alpha = pushedAlpha;
+                singleEffect.CurrentTechnique.Passes[0].Apply();
             }
             else
             {
@@ -193,9 +193,18 @@ namespace rtcw.Renderer.Backend
                 DrawSkinnedElements(startVertex, numVertexes, startIndexes, numIndexes, offset);
                 return;
             }
-            defaultEffect.Alpha = pushedAlpha;
-            defaultEffect.DiffuseColor = pushedColor;
-            defaultEffect.CurrentTechnique.Passes[0].Apply();
+            if (useSingleEffect == true)
+            {
+                singleEffect.DiffuseColor = pushedColor;
+                singleEffect.Alpha = pushedAlpha;
+                singleEffect.CurrentTechnique.Passes[0].Apply();
+            }
+            else
+            {
+                defaultEffect.DiffuseColor = pushedColor;
+                defaultEffect.Alpha = pushedAlpha;
+                defaultEffect.CurrentTechnique.Passes[0].Apply();
+            }
             Globals.graphics3DDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, startVertex + offset, 0, numVertexes, startIndexes, numIndexes / 3);
         }
 
@@ -216,6 +225,7 @@ namespace rtcw.Renderer.Backend
             {
                 drawMatrix.world = Matrix.Identity;
                 drawMatrix.SetAsActiveMatrix(ref defaultEffect);
+                drawMatrix.SetAsActiveMatrix(ref singleEffect);
             }
         }
 
@@ -225,10 +235,10 @@ namespace rtcw.Renderer.Backend
         public static void EnableFog(fogParms_t parms )
         {
 
-            defaultEffect.FogStart = -2500.0f;
-            defaultEffect.FogEnd = 2500.0f;
-            defaultEffect.FogColor = new Vector3(0.6f, 0.6f, 0.6f);
-            defaultEffect.FogEnabled = true;
+            singleEffect.FogStart = defaultEffect.FogStart = -2500.0f;
+            singleEffect.FogEnd = defaultEffect.FogEnd = 2500.0f;
+            singleEffect.FogColor = defaultEffect.FogColor = new Vector3(0.6f, 0.6f, 0.6f);
+            singleEffect.FogEnabled = defaultEffect.FogEnabled = true;
         }
 
         //
@@ -237,6 +247,7 @@ namespace rtcw.Renderer.Backend
         public static void DisableFog()
         {
             defaultEffect.FogEnabled = false;
+            singleEffect.FogEnabled = false;
         }
 
         //
@@ -249,13 +260,8 @@ namespace rtcw.Renderer.Backend
                 skeletalEffect.Texture = (Texture2D)image.GetDeviceHandle();
                 return;
             }
-            else if (use2DEffect)
-            {
-                default2DEffect.Texture = (Texture2D)image.GetDeviceHandle();
-                return;
-            }
-            defaultEffect.Texture = (Texture2D)image.GetDeviceHandle();
-            defaultEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
+            useSingleEffect = true;
+            singleEffect.Texture = (Texture2D)image.GetDeviceHandle();
         }
 
         //
@@ -271,7 +277,7 @@ namespace rtcw.Renderer.Backend
 #endif
             defaultEffect.Texture = (Texture2D)image.GetDeviceHandle();
             defaultEffect.Texture2 = (Texture2D)image2.GetDeviceHandle();
-
+            useSingleEffect = false;
         }
 
 
@@ -319,11 +325,23 @@ namespace rtcw.Renderer.Backend
         //
         public static void SetMaterialStageState(shaderStage_t stage)
         {
+            if (stage.rgbGen == colorGen_t.CGEN_VERTEX)
+            {
+                singleEffect.VertexColorEnabled = true;
+            }
+            else
+            {
+                singleEffect.VertexColorEnabled = false;
+            }
             if (stage.useBlending == true)
             {
                 if (blending != stage.blendState)
                 {
+#if false // fix me stage blending is messed up.
                     Globals.graphics3DDevice.BlendState = stage.blendState;
+#else
+                    Globals.graphics3DDevice.BlendState = BlendState.AlphaBlend;
+#endif
                     blending = stage.blendState;
                 }
             }

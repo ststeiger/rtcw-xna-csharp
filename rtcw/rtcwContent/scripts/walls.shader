@@ -258,21 +258,19 @@ textures/props/flags_m1
 textures/props/flags_m1_snow
 
 {
-//	surfaceparm nolightmap // added as test
-//	surfaceparm trans // added as test
-	surfaceparm alphashadow
+	surfaceparm nolightmap // added as test
+	surfaceparm trans // added as test
+	surfaceparm alphashadow 
+	// qer_trans 0.50
+//	deformVertexes wave 194 sin 0 2 0 .1
+//	deformVertexes wave 30 sin 0 1 0 .3
+//	deformVertexes wave 194 sin 0 1 0 .4
 	deformVertexes wave 10 sin 0 2 0 .2
 	cull twosided
 	{
 		map textures/props/flags_m1_snow.tga
-		alphafunc ge128		
+		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
 		rgbGen vertex
-	}
-	{
-		map $lightmap
-		blendfunc gl_zero gl_one
-		rgbgen identity
-		depthfunc equal
 	}
 
 }
@@ -1583,7 +1581,7 @@ textures/metal_misc/metal_m05ss
 textures/metal_misc/metal_m02ss
 {
 	
-	surfaceparm metalsteps
+	surfaceparm roofsteps
 	q3map_lightmapsamplesize 1
 
 	{
@@ -1749,6 +1747,7 @@ textures/metal_misc/ametal_m03_spec
 		rgbGen identity
 	}
 }
+
 
 textures/xlab_door/xdoor_m01f
 {
@@ -2013,7 +2012,7 @@ textures/metal_misc/diamond_c_01
 	}
 }
 
-textures/metal_misc/diamond_m_01
+textures/metal_misc/diamond_c_01
 {
 	surfaceparm metalsteps
 	{
@@ -2021,11 +2020,13 @@ textures/metal_misc/diamond_m_01
 		rgbGen identity
 	}
 	{
-		map textures/metal_misc/diamond_m_01.tga
+		map textures/metal_misc/diamond_c_01.tga
 		blendFunc GL_DST_COLOR GL_ZERO
 		rgbGen identity
 	}
 }
+
+
 
 textures/metal_misc/diamond_m_02
 {
@@ -2112,6 +2113,7 @@ textures/chat_wood/chwood_c04
 
 textures/snow/s_floor_l_01
 {
+	surfaceparm snowsteps
 	{
 		map $lightmap
 		rgbGen identity
@@ -2150,6 +2152,21 @@ textures/chateau/wood_c05
 		rgbGen identity
 	}
 }
+
+textures/chateau/door_c05
+{
+	surfaceparm woodsteps
+	{
+		map $lightmap
+		rgbGen identity
+	}
+	{
+		map textures/chateau/door_c05.tga
+		blendFunc GL_DST_COLOR GL_ZERO
+		rgbGen identity
+	}
+}
+
 
 textures/chateau/desk_c05
 {
@@ -2221,6 +2238,21 @@ textures/doors/door_c08
 		rgbGen identity
 	}
 }
+
+textures/doors/door_c13
+{
+	surfaceparm woodsteps
+	{
+		map $lightmap
+		rgbGen identity
+	}
+	{
+		map textures/doors/door_c13.tga
+		blendFunc GL_DST_COLOR GL_ZERO
+		rgbGen identity
+	}
+}
+
 
 textures/doors/door_c05
 {
@@ -2579,12 +2611,28 @@ textures/town_wood/wood_c01
 
 textures/snow/s_castle_m03_step_2a
 {
+	surfaceparm snowsteps
 	{
 		map $lightmap
 		rgbGen identity
 	}
 	{
 		map textures/snow/s_castle_m03_step_2a.tga
+		blendFunc GL_DST_COLOR GL_ZERO
+		rgbGen identity
+	}
+}
+
+textures/rock/s_roc_c30c
+{
+	surfaceparm snowsteps
+	q3map_lightmapsamplesize 32
+	{
+		map $lightmap
+		rgbGen identity
+	}
+	{
+		map textures/rock/s_roc_c30c.tga
 		blendFunc GL_DST_COLOR GL_ZERO
 		rgbGen identity
 	}
@@ -3163,12 +3211,12 @@ textures/assault_rock/ground_c09a
 	surfaceparm grasssteps
 	{
 		map $lightmap
-		rgbGen identity		
+		rgbGen identity
 	}
 	{
 		map textures/assault_rock/ground_c09a.tga
 		blendFunc GL_DST_COLOR GL_ZERO
-		rgbGen identity		
+		rgbGen identity
 	}
 }
 
@@ -3563,11 +3611,20 @@ textures/castle_window/cwindow_m01
 		tcMod Scale 1.2 1.2  
 		tcGen environment
 	}
-//	{
-//		map $lightmap
-//		blendFunc GL_DST_COLOR GL_ONE_MINUS_DST_ALPHA
-//		rgbGen identity
-//	}
+}
+
+textures/wood/wood_c13
+{
+	surfaceparm woodsteps
+	{
+		map $lightmap
+		rgbGen identity
+	}
+	{
+		map textures/wood/wood_c13.tga
+		blendFunc GL_DST_COLOR GL_ZERO
+		rgbGen identity
+	}
 }
 
 textures/terrain/dirt_m03_mung
@@ -4443,7 +4500,7 @@ textures/wood/wood_m16
 	}
 }
 
-textures/wood/wood_m16dm
+textures/textures/wood/wood_m16dm
 {
 	surfaceparm woodsteps
 	{
@@ -4456,6 +4513,36 @@ textures/wood/wood_m16dm
 		rgbGen identity
 	}
 }
+
+wood/wood_m19a
+{
+	surfaceparm woodsteps
+	{
+		map $lightmap
+		rgbGen identity
+	}
+	{
+		map textures/wood/wood_m19a.tga
+		blendFunc GL_DST_COLOR GL_ZERO
+		rgbGen identity
+	}
+}
+
+textures/wood/wood_m18
+{
+	surfaceparm woodsteps
+	{
+		map $lightmap
+		rgbGen identity
+	}
+	{
+		map textures/wood/wood_m18.tga
+		blendFunc GL_DST_COLOR GL_ZERO
+		rgbGen identity
+	}
+}
+
+
 
 textures/wood/wood_m16cm
 {
@@ -4600,6 +4687,7 @@ textures/miltary_door/mdoor_m01
 
 textures/snow/s_castle_m03_step_2
 {
+	surfaceparm snowsteps
 	{
 		map $lightmap
 		rgbGen identity
@@ -4641,6 +4729,7 @@ textures/snow/s_grass_ml03b
 
 textures/snow/s_castle_m03_step
 {
+	surfaceparm snowsteps
 	{
 		map $lightmap
 		rgbGen identity
@@ -5758,6 +5847,21 @@ textures/props/box_t_m02
 		rgbGen identity
 	}
 }
+
+textures/props/box_t_m02a
+{
+	surfaceparm woodsteps
+	{
+		map $lightmap
+		rgbGen identity
+	}
+	{
+		map textures/props/box_t_m02a.tga
+		blendFunc GL_DST_COLOR GL_ZERO
+		rgbGen identity
+	}
+}
+
 
 textures/props/sign_c05
 {

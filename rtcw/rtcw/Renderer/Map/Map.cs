@@ -1156,6 +1156,9 @@ namespace rtcw.Renderer.Map
                 v.st = dv[i].st;
                 v.lightmapST = dv[i].lightmap;
                 v.normal = dv[i].normal;
+                v.color.X = dv[i].color[0];
+                v.color.Y = dv[i].color[1];
+                v.color.Z = dv[i].color[2];
 
                 drawVerts.Add(v);
             }

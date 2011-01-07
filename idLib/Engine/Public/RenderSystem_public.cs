@@ -471,6 +471,7 @@ namespace idLib.Engine.Public
         public idVector3 tangent;
         public idVector3 binormal;
         public idVector3 normal;
+        public idVector3 color;
 
         public idDrawVertex(int unused)
         {
@@ -480,6 +481,7 @@ namespace idLib.Engine.Public
             tangent = new idVector3();
             binormal = new idVector3();
             normal = new idVector3();
+            color = new idVector3(1, 1, 1);
         }
     }
 

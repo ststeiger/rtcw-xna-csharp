@@ -2036,14 +2036,14 @@ namespace rtcw.Renderer
         {
             string defaultMtrLightmapped = "{" + "\n" +
                                         "map " + defaultImage + "\n" +
-                                        "blendFunc GL_DST_COLOR GL_ZERO" + "\n" +
+                                      //  "blendFunc GL_DST_COLOR GL_ZERO" + "\n" +
                                         "rgbGen identity" + "\n" +
                                     "}" + "\n" +
                                     "{" + "\n" +
-                                     "  map $lightmap" + "\n" +
-                                     "  rgbGen identity" + "\n" +
-                                     "  tcMod scale 1 1" + "\n" +
-                                     "   tcMod turb 0 .1 0 .1" + "\n" +
+                                     "map $lightmap" + "\n" +
+                                     "rgbGen identity" + "\n" +
+                                   //  "  tcMod scale 1 1" + "\n" +
+                                  //   "   tcMod turb 0 .1 0 .1" + "\n" +
                                     "}" + "\n" +
                                 "}\n";
             string defaultMtr =  "{" + "\n" +
