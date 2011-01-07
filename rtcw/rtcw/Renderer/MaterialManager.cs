@@ -426,7 +426,8 @@ namespace rtcw.Renderer
         private bool ParseStage(out shaderStage_t stage, ref idParser parser)
         {
             string token;
-	        int depthMaskBits = Globals.GLS_DEPTHMASK_TRUE, blendSrcBits = 0, blendDstBits = 0, atestBits = 0, depthFuncBits = 0;
+	        int depthMaskBits = Globals.GLS_DEPTHMASK_TRUE, atestBits = 0, depthFuncBits = 0;
+            Blend blendSrcBits = Blend.One, blendDstBits = Blend.One;
 	        bool depthMaskExplicit = false;
 
             stage = new shaderStage_t();
@@ -649,16 +650,19 @@ namespace rtcw.Renderer
 				        Engine.common.Warning("missing parm for blendFunc in shader '%s'\n", shader.name );
 				        return false;
 			        }
+
+                    stage.useBlending = true;
+
 			        // check for "simple" blends first
 			        if ( token == "add" ) {
-                        blendSrcBits = (int)Blend.One;// Globals.GLS_SRCBLEND_ONE;
-                        blendDstBits = (int)Blend.One;//Globals.GLS_DSTBLEND_ONE;
+                        blendSrcBits = Blend.One;// Globals.GLS_SRCBLEND_ONE;
+                        blendDstBits = Blend.One;//Globals.GLS_DSTBLEND_ONE;
 			        } else if ( token == "filter" ) {
-                        blendSrcBits = (int)Blend.DestinationColor;//Globals.GLS_SRCBLEND_DST_COLOR;
-				        blendDstBits = (int)Blend.Zero; //Globals.GLS_DSTBLEND_ZERO;
+                        blendSrcBits = Blend.DestinationColor;//Globals.GLS_SRCBLEND_DST_COLOR;
+				        blendDstBits = Blend.Zero; //Globals.GLS_DSTBLEND_ZERO;
 			        } else if ( token == "blend" ) {
-				        blendSrcBits = (int)Blend.SourceAlpha; //Globals.GLS_SRCBLEND_SRC_ALPHA;
-				        blendDstBits = (int)Blend.InverseSourceAlpha; //Globals.GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA;
+				        blendSrcBits = Blend.SourceAlpha; //Globals.GLS_SRCBLEND_SRC_ALPHA;
+				        blendDstBits = Blend.InverseSourceAlpha; //Globals.GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA;
 			        } else {
 				        // complex double blends
 				        blendSrcBits = NameToSrcBlendMode( token );
@@ -671,12 +675,21 @@ namespace rtcw.Renderer
 				        blendDstBits = NameToDstBlendMode( token );
 			        }
 
-                    stage.useBlending = true;
-                    stage.blendState = new BlendState();
-                    stage.blendState.AlphaSourceBlend = (Blend)blendSrcBits;
-                    stage.blendState.AlphaDestinationBlend = (Blend)blendDstBits;
-                    stage.blendState.ColorSourceBlend = (Blend)blendSrcBits;
-                    stage.blendState.ColorDestinationBlend = (Blend)blendDstBits;
+                    // GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA?
+            //        if ((blendSrcBits == Blend.One && blendDstBits == Blend.Zero)/* || (blendSrcBits == Blend.SourceAlpha && blendDstBits == Blend.InverseSourceAlpha) */)
+             //       {
+             //           stage.blendState = BlendState.AlphaBlend;
+            //        }
+            //        else
+            //        {
+                        stage.blendState = new BlendState();
+
+                        stage.blendState.AlphaSourceBlend = (Blend)blendSrcBits;
+                        stage.blendState.ColorSourceBlend = (Blend)blendSrcBits;
+
+                        stage.blendState.AlphaDestinationBlend = (Blend)blendDstBits;
+                        stage.blendState.ColorDestinationBlend = (Blend)blendDstBits;
+                //    }
 
 			        // clear depth mask for blended surfaces
 			        if ( !depthMaskExplicit ) {
@@ -864,8 +877,8 @@ namespace rtcw.Renderer
 	        //
 	        if ( stage.rgbGen == colorGen_t.CGEN_BAD ) {
 		        if ( blendSrcBits == 0 ||
-			         blendSrcBits == Globals.GLS_SRCBLEND_ONE ||
-			         blendSrcBits == Globals.GLS_SRCBLEND_SRC_ALPHA ) {
+			         blendSrcBits == Blend.One ||
+			         blendSrcBits == Blend.SourceAlpha ) {
 			        stage.rgbGen = colorGen_t.CGEN_IDENTITY_LIGHTING;
 		        } else {
 			        stage.rgbGen = colorGen_t.CGEN_IDENTITY;
@@ -876,13 +889,14 @@ namespace rtcw.Renderer
 	        //
 	        // implicitly assume that a GL_ONE GL_ZERO blend mask disables blending
 	        //
-	        if ( ( blendSrcBits == Globals.GLS_SRCBLEND_ONE ) &&
-		         ( blendDstBits == Globals.GLS_DSTBLEND_ZERO ) ) {
-		        blendDstBits = blendSrcBits = 0;
+	        if ( ( blendSrcBits == Blend.One ) &&
+		         ( blendDstBits == Blend.Zero ) ) 
+            {
+                stage.useBlending = false;
 		        depthMaskBits = Globals.GLS_DEPTHMASK_TRUE;
 	        }
 
-	        // decide which agens we can skip
+            // decide which agens we can skip
 	        if ( stage.alphaGen == (alphaGen_t)colorGen_t.CGEN_IDENTITY ) {
 		        if ( stage.rgbGen == colorGen_t.CGEN_IDENTITY
 			         || stage.rgbGen == colorGen_t.CGEN_LIGHTING_DIFFUSE ) {
@@ -894,7 +908,7 @@ namespace rtcw.Renderer
 	        // compute state bits
 	        //
 	        stage.stateBits = (depthMaskBits |
-					           blendSrcBits | blendDstBits |
+					        //   blendSrcBits | blendDstBits |
 					           atestBits |
 					           depthFuncBits);
 
@@ -993,9 +1007,8 @@ namespace rtcw.Renderer
 		        //
 		        // determine sort order and fog color adjustment
 		        //
-                if ((pStage.stateBits & (Globals.GLS_SRCBLEND_BITS | Globals.GLS_DSTBLEND_BITS)) != 0 &&
-                     (shader.stages[0].stateBits & (Globals.GLS_SRCBLEND_BITS | Globals.GLS_DSTBLEND_BITS)) != 0)
-                    {
+                if (pStage.useBlending)
+                {
                         int blendSrcBits = (int)pStage.stateBits & Globals.GLS_SRCBLEND_BITS;
                         int blendDstBits = (int)pStage.stateBits & Globals.GLS_DSTBLEND_BITS;
 
@@ -1328,29 +1341,31 @@ namespace rtcw.Renderer
         NameToSrcBlendMode
         ===============
         */
-        private int NameToSrcBlendMode( string name ) {
+        private Blend NameToSrcBlendMode( string name ) {
+            name = name.ToUpper();
+
 	        if ( name == "GL_ONE" ) {
-		        return (int)Blend.One;
+		        return Blend.One;
 	        } else if ( name == "GL_ZERO" )    {
-                return (int)Blend.Zero;
+                return Blend.Zero;
 	        } else if ( name == "GL_DST_COLOR" )    {
-                return (int)Blend.SourceColor;
+                return Blend.DestinationColor;
 	        } else if ( name == "GL_ONE_MINUS_DST_COLOR" )    {
-                return (int)Blend.InverseSourceColor;
+                return Blend.InverseSourceColor;
 	        } else if ( name == "GL_SRC_ALPHA" )    {
-                return (int)Blend.SourceAlpha;
+                return Blend.SourceAlpha;
 	        } else if ( name == "GL_ONE_MINUS_SRC_ALPHA" )    {
-                return (int)Blend.InverseSourceAlpha;
+                return Blend.InverseSourceAlpha;
 	        } else if ( name == "GL_DST_ALPHA" )    {
-                return (int)Blend.SourceAlpha;
+                return Blend.DestinationAlpha;
 	        } else if ( name == "GL_ONE_MINUS_DST_ALPHA" )    {
-                return (int)Blend.InverseSourceAlpha;
+                return Blend.InverseDestinationAlpha;
 	        } else if ( name == "GL_SRC_ALPHA_SATURATE"  )    {
-                return (int)Blend.SourceAlphaSaturation;
+                return Blend.SourceAlphaSaturation;
 	        }
 
 	        Engine.common.Warning( "unknown blend mode '%s' in shader '%s', substituting GL_ONE\n", name, shader.name );
-            return (int)Blend.One;
+            return Blend.One;
         }
 
         /*
@@ -1358,27 +1373,28 @@ namespace rtcw.Renderer
         NameToDstBlendMode
         ===============
         */
-        private int  NameToDstBlendMode( string name ) {
+        private Blend NameToDstBlendMode( string name ) {
+            name = name.ToUpper();
 	        if ( name == "GL_ONE" ) {
-		        return (int)Blend.One;
+		        return Blend.One;
 	        } else if ( name == "GL_ZERO" )    {
-                return (int)Blend.Zero;
+                return Blend.Zero;
 	        } else if ( name == "GL_SRC_ALPHA" )    {
-                return (int)Blend.DestinationAlpha;
+                return Blend.SourceAlpha;
 	        } else if ( name == "GL_ONE_MINUS_SRC_ALPHA" )    {
-                return (int)Blend.InverseDestinationAlpha;
+                return Blend.InverseSourceAlpha;
 	        } else if ( name == "GL_DST_ALPHA" )    {
-                return (int)Blend.DestinationAlpha;
+                return Blend.DestinationAlpha;
 	        } else if ( name == "GL_ONE_MINUS_DST_ALPHA" )    {
-                return (int)Blend.InverseDestinationAlpha;
+                return Blend.InverseDestinationAlpha;
 	        } else if ( name == "GL_SRC_COLOR" )    {
-                return (int)Blend.DestinationColor;
+                return Blend.SourceColor;
 	        } else if ( name == "GL_ONE_MINUS_SRC_COLOR" )    {
-                return (int)Blend.InverseDestinationColor;
+                return Blend.InverseSourceColor;
 	        }
 
             Engine.common.Warning("unknown blend mode '%s' in shader '%s', substituting GL_ONE\n", name, shader.name);
-            return (int)Blend.One;
+            return Blend.One;
         }
 
         /*

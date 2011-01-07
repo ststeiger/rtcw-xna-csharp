@@ -79,6 +79,114 @@ namespace idLib.Math
             SignBits = bits;
         }
 
+        /*
+        ==================
+        BoxOnPlaneSide
+
+        Returns 1, 2, or 1 + 2
+
+        // this is the slow, general version
+        int BoxOnPlaneSide2 (vec3_t emins, vec3_t emaxs, struct cplane_s *p)
+        {
+	        int		i;
+	        float	dist1, dist2;
+	        int		sides;
+	        vec3_t	corners[2];
+
+	        for (i=0 ; i<3 ; i++)
+	        {
+		        if (p->normal[i] < 0)
+		        {
+			        corners[0][i] = emins[i];
+			        corners[1][i] = emaxs[i];
+		        }
+		        else
+		        {
+			        corners[1][i] = emins[i];
+			        corners[0][i] = emaxs[i];
+		        }
+	        }
+	        dist1 = DotProduct (p->normal, corners[0]) - p->dist;
+	        dist2 = DotProduct (p->normal, corners[1]) - p->dist;
+	        sides = 0;
+	        if (dist1 >= 0)
+		        sides = 1;
+	        if (dist2 < 0)
+		        sides |= 2;
+
+	        return sides;
+        }
+
+        ==================
+        */
+
+        public int BoxOnPlaneSide(idVector3 emins, idVector3 emaxs)
+        {
+	        float dist1, dist2;
+	        int sides;
+
+        // fast axial cases
+	        if ( Type < 3 ) {
+		        if ( Dist <= emins[Type] ) {
+			        return 1;
+		        }
+		        if ( Dist >= emaxs[Type] ) {
+			        return 2;
+		        }
+		        return 3;
+	        }
+
+        // general case
+            switch (SignBits)
+	        {
+	        case 0:
+		        dist1 = Normal[0] * emaxs[0] + Normal[1] * emaxs[1] + Normal[2] * emaxs[2];
+		        dist2 = Normal[0] * emins[0] + Normal[1] * emins[1] + Normal[2] * emins[2];
+		        break;
+	        case 1:
+		        dist1 = Normal[0] * emins[0] + Normal[1] * emaxs[1] + Normal[2] * emaxs[2];
+		        dist2 = Normal[0] * emaxs[0] + Normal[1] * emins[1] + Normal[2] * emins[2];
+		        break;
+	        case 2:
+		        dist1 = Normal[0] * emaxs[0] + Normal[1] * emins[1] + Normal[2] * emaxs[2];
+		        dist2 = Normal[0] * emins[0] + Normal[1] * emaxs[1] + Normal[2] * emins[2];
+		        break;
+	        case 3:
+		        dist1 = Normal[0] * emins[0] + Normal[1] * emins[1] + Normal[2] * emaxs[2];
+		        dist2 = Normal[0] * emaxs[0] + Normal[1] * emaxs[1] + Normal[2] * emins[2];
+		        break;
+	        case 4:
+		        dist1 = Normal[0] * emaxs[0] + Normal[1] * emaxs[1] + Normal[2] * emins[2];
+		        dist2 = Normal[0] * emins[0] + Normal[1] * emins[1] + Normal[2] * emaxs[2];
+		        break;
+	        case 5:
+		        dist1 = Normal[0] * emins[0] + Normal[1] * emaxs[1] + Normal[2] * emins[2];
+		        dist2 = Normal[0] * emaxs[0] + Normal[1] * emins[1] + Normal[2] * emaxs[2];
+		        break;
+	        case 6:
+		        dist1 = Normal[0] * emaxs[0] + Normal[1] * emins[1] + Normal[2] * emins[2];
+		        dist2 = Normal[0] * emins[0] + Normal[1] * emaxs[1] + Normal[2] * emaxs[2];
+		        break;
+	        case 7:
+		        dist1 = Normal[0] * emins[0] + Normal[1] * emins[1] + Normal[2] * emins[2];
+		        dist2 = Normal[0] * emaxs[0] + Normal[1] * emaxs[1] + Normal[2] * emaxs[2];
+		        break;
+	        default:
+		        dist1 = dist2 = 0;      // shut up compiler
+		        break;
+	        }
+
+	        sides = 0;
+	        if ( dist1 >= Dist ) {
+		        sides = 1;
+	        }
+	        if ( dist2 < Dist ) {
+		        sides |= 2;
+	        }
+
+	        return sides;
+        }
+
         public void SetPlaneType()
         {
             if (Normal.X == 1.0f)

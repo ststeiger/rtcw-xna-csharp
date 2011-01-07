@@ -18,7 +18,7 @@ namespace rtcw.Renderer.Backend
     //
     static class Shade
     {
-        private static BasicEffect singleEffect;
+        private static AlphaTestEffect singleEffect;
         private static DualTextureEffect defaultEffect;
         private static idSkeletalEffect skeletalEffect;
         private static idRenderMatrix orthoMatrix;
@@ -28,10 +28,12 @@ namespace rtcw.Renderer.Backend
 
         private static BlendState blending = BlendState.AlphaBlend;
         private static cullType_t faceCulling = cullType_t.CT_FRONT_SIDED;
+        private static bool depthBufferEnabled = true;
 
         // Dynamic vertex and index buffers for uploading vertex and index data.
         private static DynamicVertexBuffer dynVertexBuffer;
         private static DynamicIndexBuffer dynIndexBuffer;
+        private static CompareFunction depthCompareFunc = CompareFunction.LessEqual;
 
         private static bool useSkeletalEffect = false;
         private static bool useSingleEffect = false;
@@ -42,10 +44,10 @@ namespace rtcw.Renderer.Backend
         public static void Init()
         {
             defaultEffect = new DualTextureEffect(Globals.graphics3DDevice);
-            singleEffect = new BasicEffect(Globals.graphics3DDevice);
+            singleEffect = new AlphaTestEffect(Globals.graphics3DDevice);
             skeletalEffect = new idSkeletalEffect();
 
-            singleEffect.TextureEnabled = true;
+           // singleEffect.TextureEnabled = true;
 
             //multiTextureEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
 
@@ -333,15 +335,66 @@ namespace rtcw.Renderer.Backend
             {
                 singleEffect.VertexColorEnabled = false;
             }
+
+            // Depth state.
+            if ((stage.stateBits & Globals.GLS_DEPTHMASK_TRUE) != 0)
+            {
+                if (depthBufferEnabled == true)
+                {
+                    Globals.graphics3DDevice.DepthStencilState = DepthStencilState.Default;
+                    depthBufferEnabled = false;
+                }
+            }
+            else
+            {
+                if (depthBufferEnabled == false)
+                {
+                    Globals.graphics3DDevice.DepthStencilState = DepthStencilState.None;
+                    depthBufferEnabled = true;
+                }
+            }
+
+            if ((stage.stateBits & Globals.GLS_ATEST_GE_80) != 0)
+            {
+                singleEffect.AlphaFunction = CompareFunction.GreaterEqual;
+            }
+            else if ((stage.stateBits & Globals.GLS_ATEST_GT_0) != 0)
+            {
+                singleEffect.AlphaFunction = CompareFunction.Greater;
+            }
+            else if ((stage.stateBits & Globals.GLS_ATEST_LT_80) != 0)
+            {
+                singleEffect.AlphaFunction = CompareFunction.LessEqual;
+            }
+            else
+            {
+                singleEffect.AlphaFunction = CompareFunction.Always;
+            }
+
+
+            // Depth FUnction.
+            if ((stage.stateBits & Globals.GLS_DEPTHFUNC_EQUAL) != 0)
+            {
+                if (depthCompareFunc != CompareFunction.Equal)
+                {
+                    depthCompareFunc = CompareFunction.Equal;
+                    Globals.graphics3DDevice.DepthStencilState.DepthBufferFunction = depthCompareFunc;
+                }
+            }
+            else
+            {
+                if (depthCompareFunc != CompareFunction.LessEqual)
+                {
+                    depthCompareFunc = CompareFunction.LessEqual;
+                    Globals.graphics3DDevice.DepthStencilState.DepthBufferFunction = depthCompareFunc;
+                }
+            }
+
             if (stage.useBlending == true)
             {
                 if (blending != stage.blendState)
                 {
-#if false // fix me stage blending is messed up.
                     Globals.graphics3DDevice.BlendState = stage.blendState;
-#else
-                    Globals.graphics3DDevice.BlendState = BlendState.AlphaBlend;
-#endif
                     blending = stage.blendState;
                 }
             }

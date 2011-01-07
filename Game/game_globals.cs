@@ -102,7 +102,7 @@ namespace Game
                 }
             }
 
-            Engine.common.Warning("G_TriggerEntity: Failed to trigger entity " + targetname + "\n");
+       //     Engine.common.Warning("G_TriggerEntity: Failed to trigger entity " + targetname + "\n");
         }
     }
 }

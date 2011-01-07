@@ -59,7 +59,7 @@ namespace idLib.Engine.Public
         public abstract void ServerRegisterEntity(int entityNum, out entityShared_t shared, out entityState_t state);
 
         // LinkEntity
-        public abstract void LinkEntity(int entityNum);
+        public abstract void LinkEntity(int entityNum, entityState_t state, entityShared_t shared);
 
         // Called by the server only to get the user command that was sent by the client.
         public abstract idUsercmd GetUserCmdForClient(int clientNum);

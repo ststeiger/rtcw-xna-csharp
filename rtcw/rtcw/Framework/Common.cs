@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using System.Diagnostics;
+using idLib.Game;
 using idLib.Engine.Public;
 using rtcw.Server;
 using rtcw.Client;
@@ -676,9 +677,9 @@ namespace rtcw.Framework
         //
         // LinkEntity
         //
-        public override void LinkEntity(int entityNum)
+        public override void LinkEntity(int entityNum, entityState_t state, entityShared_t shared)
         {
-            sv.LinkEntity(entityNum);
+            sv.LinkEntity(entityNum, state, shared);
         }
 
         //

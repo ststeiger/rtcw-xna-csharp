@@ -74,6 +74,7 @@ namespace rtcw.Renderer.Backend.Iterators
                 if (stage.bundle[1] != null && stage.bundle[1].isLightmap)
                 {
                     DrawMultitextured(stage);
+                    i++;
                     continue;
                 }
 

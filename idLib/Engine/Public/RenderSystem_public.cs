@@ -412,6 +412,9 @@ namespace idLib.Engine.Public
         // Tests to see if a point is visible from a certain location.
         public abstract bool isPointInPVS(idVector3 pvsorigin, idVector3 point);
 
+        // Tests to see if a point + bounding box is visible.
+        public abstract bool isBoundsInPVS(idVector3 pvsorigin, idVector3 point, idBounds bounds);
+
         // Returns the loaded cm handle.
         public abstract idCollisionModel cm();
     }
@@ -471,7 +474,7 @@ namespace idLib.Engine.Public
         public idVector3 tangent;
         public idVector3 binormal;
         public idVector3 normal;
-        public idVector3 color;
+        public idVector4 color;
 
         public idDrawVertex(int unused)
         {
@@ -481,7 +484,7 @@ namespace idLib.Engine.Public
             tangent = new idVector3();
             binormal = new idVector3();
             normal = new idVector3();
-            color = new idVector3(1, 1, 1);
+            color = new idVector4(255, 255, 255, 255);
         }
     }
 

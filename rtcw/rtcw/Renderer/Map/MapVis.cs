@@ -48,22 +48,27 @@ namespace rtcw.Renderer.Map
         byte[] visibility;
         idRenderNode[] nodes;
 
+        int[] boxleafs = new int[128];
+        int numLeafsForBox = 0;
+
         int viewCluster = -1;
         int numClusters = -1;
         int clusterBytes = -1;
+        int numNodes;
 
         int[] markSurfaces;
 
         //
         // idMapVis
         //
-        public idMapVis(byte[] visbuffer, idRenderNode[] nodes, int clusterBytes, int numClusters, int[] markSurfaces)
+        public idMapVis(byte[] visbuffer, idRenderNode[] nodes, int clusterBytes, int numClusters, int[] markSurfaces, int numNodes)
         {
             visibility = visbuffer;
             this.nodes = nodes;
             this.clusterBytes = clusterBytes;
             this.numClusters = numClusters;
             this.markSurfaces = markSurfaces;
+            this.numNodes = numNodes;
         }
 
         /*
@@ -76,27 +81,38 @@ namespace rtcw.Renderer.Map
             idRenderNode node;
             float d;
             idPlane plane;
+            int num = 0;
 
-            node = nodes[0];
+            
             while (true)
             {
-                if (node.contents != -1)
+                if (num < 0)
                 {
                     break;
                 }
+
+                node = nodes[num];
                 plane = node.plane;
-                d = ((p.X * plane.Normal.X) + (p.Y * plane.Normal.Y) + (p.Z * plane.Normal.Z)) - plane.Dist;
-                if (d > 0)
+
+                if (plane.Type < 3)
                 {
-                    node = node.children[0];
+                    d = p[plane.Type] - plane.Dist;
                 }
                 else
                 {
-                    node = node.children[1];
+                    d = idMath.DotProduct(plane.Normal, p) - plane.Dist;
+                }
+                if (d < 0)
+                {
+                    num = node.childrenhandles[1];
+                }
+                else
+                {
+                    num = node.childrenhandles[0];
                 }
             }
 
-            return node;
+            return nodes[numNodes + (-1 - num)];
         }
 
         /*
@@ -161,6 +177,93 @@ namespace rtcw.Renderer.Map
         }
 
         /*
+        =============
+        CM_BoxLeafnums
+
+        Fills in a list of all the leafs touched
+        =============
+        */
+        private void BoxLeafnums(int nodenum, idVector3 mins, idVector3 maxs)
+        {
+            idPlane plane;
+            idRenderNode node;
+            int s;
+
+            while (true)
+            {
+                if (nodenum < 0)
+                {
+                    boxleafs[numLeafsForBox++] = numNodes + (-1 - nodenum);
+                    return;
+                }
+
+                node = nodes[nodenum];
+                plane = node.plane;
+                s = plane.BoxOnPlaneSide(mins, maxs);
+                if (s == 1)
+                {
+                    nodenum = node.childrenhandles[0];
+                }
+                else if (s == 2)
+                {
+                    nodenum = node.childrenhandles[1];
+                }
+                else
+                {
+                    // go down both
+                    BoxLeafnums(node.childrenhandles[0], mins, maxs);
+                    nodenum = node.childrenhandles[1];
+                }
+
+            }
+        }
+
+
+        //
+        // TestBoundsInPVS
+        //
+        public bool TestBoundsInPVS(idVector3 p1, idVector3 p2, idBounds bounds)
+        {
+            numLeafsForBox = 0;
+
+            BoxLeafnums(0, p2 + bounds.Mins, p2 + bounds.Maxs);
+
+            if (numLeafsForBox <= 0)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < numLeafsForBox; i++)
+            {
+                if (TestLeafInPVS(p1, nodes[boxleafs[i]]))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        //
+        // TestLeafInPVS
+        //
+        private bool TestLeafInPVS(idVector3 p1, idRenderNode p2leaf)
+        {
+            idRenderNode leaf;
+            int vis;
+
+            leaf = R_PointInLeaf(p1);
+            vis = R_ClusterPVS(leaf.cluster);
+
+            if ((visibility[vis + (p2leaf.cluster >> 3)] & (1 << (p2leaf.cluster & 7))) == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /*
         ==================
         TestPointInPVS
          
@@ -169,33 +272,12 @@ namespace rtcw.Renderer.Map
         */
         public bool TestPointInPVS(idVector3 p1, idVector3 p2)
         {
-            idRenderNode leaf;
-            int vis;
-
             if (p1 == p2)
             {
                 return true;
             }
 
-            leaf = R_PointInLeaf(p1);
-            vis  = R_ClusterPVS(leaf.cluster);
-            leaf = R_PointInLeaf(p2);
-
-            // hack
-            if (leaf.cluster == -1)
-            {
-                return true;
-            }
-
-            if (vis <= 0)
-                return false;
-
-            if ( ( visibility[vis + (leaf.cluster >> 3)] & ( 1 << ( leaf.cluster & 7 ) ) ) == 0) 
-            {
-                return false;
-            }
-
-            return true;
+            return TestLeafInPVS(p1, R_PointInLeaf(p2));
         }
 
         /*
@@ -253,7 +335,7 @@ namespace rtcw.Renderer.Map
 		        }
 
 		        // check general pvs
-		        if ( vis < 0 || ( visibility[vis + (cluster >> 3)] & ( 1 << ( cluster & 7 ) ) ) == 0) {
+		        if (( visibility[vis + (cluster >> 3)] & ( 1 << ( cluster & 7 ) ) ) == 0) {
 			        continue;
 		        }
 

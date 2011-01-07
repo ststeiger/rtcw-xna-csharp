@@ -207,6 +207,16 @@ namespace rtcw.Renderer.Backend
         //
         // SetAsActiveMatrix
         //
+        public void SetAsActiveMatrix(ref AlphaTestEffect effect)
+        {
+            effect.World = world;
+            effect.Projection = projection;
+            effect.View = view;
+        }
+
+        //
+        // SetAsActiveMatrix
+        //
         public void SetAsActiveMatrix(ref idSkeletalEffect effect)
         {
             effect.World = world;

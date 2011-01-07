@@ -35,7 +35,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
-using System.Collections.Generic;
+using idLib;
+using idLib.Math;
 using idLib.Engine.Public;
 using rtcw.Renderer.Backend;
 using rtcw.Renderer.Models;
@@ -132,6 +133,14 @@ namespace rtcw.Renderer
         }
 
         //
+        // isPointInPVS
+        // 
+        public override bool isBoundsInPVS(idVector3 pvsorigin, idVector3 point, idBounds bounds)
+        {
+            return map.vis.TestBoundsInPVS(pvsorigin, point, bounds);
+        }
+
+        //
         // cm
         //
         public override idCollisionModel cm()
@@ -166,7 +175,7 @@ namespace rtcw.Renderer
                 {
                     if (!isPointInPVS(refdef.vieworg, entity.origin))
                     {
-                        continue;
+            //            continue;
                     }
                 }
 

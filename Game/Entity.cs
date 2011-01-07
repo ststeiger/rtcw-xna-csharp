@@ -112,6 +112,8 @@ namespace Game
 
         public idModel hModel;
 
+        public idBounds bounds;
+
         //
         // SplitModelSkinString
         //
@@ -287,7 +289,14 @@ namespace Game
         //
         public void LinkEntity()
         {
-            Engine.common.LinkEntity(state.number);
+            if (hModel != null && bounds == null)
+            {
+                idVector3 mins, maxs;
+                hModel.GetModelBounds(out mins, out maxs);
+                bounds = new idBounds(mins, maxs);
+            }
+            shared.bounds = bounds;
+            Engine.common.LinkEntity(state.number, state, shared);
         }
 
         // Spawn

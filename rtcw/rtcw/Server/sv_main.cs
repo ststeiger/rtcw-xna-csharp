@@ -432,8 +432,10 @@ namespace rtcw.Server
         //
         // LinkEntity
         //
-        public void LinkEntity(int entityNum)
+        public void LinkEntity(int entityNum, entityState_t state, entityShared_t shared)
         {
+            Globals.gentities[entityNum].state = state;
+            Globals.gentities[entityNum].shared = shared;
             Globals.linkedEntities[Globals.numLinkedEntities++] = entityNum;
         }
 
@@ -538,12 +540,22 @@ namespace rtcw.Server
 #endif
             for (int i = 0; i < Globals.numLinkedEntities; i++)
             {
+                entityShared_t shared = Globals.gentities[Globals.linkedEntities[i]].shared;
                 entityState_t ent = Globals.gentities[Globals.linkedEntities[i]].state;
 
-                // This should be the bounding box test :/.
-                if (!Globals.world.isPointInPVS(Globals.gentities[0].state.origin, ent.origin) && i > 0)
+                if (shared.bounds != null)
                 {
-                    continue;
+                    if (!Globals.world.isBoundsInPVS(Globals.gentities[0].state.origin, ent.origin, shared.bounds) && i > 0)
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    if (!Globals.world.isPointInPVS(Globals.gentities[0].state.origin, ent.origin) && i > 0)
+                    {
+                        continue;
+                    }
                 }
 
 #if false

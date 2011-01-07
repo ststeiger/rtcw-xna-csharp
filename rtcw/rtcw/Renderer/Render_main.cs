@@ -328,12 +328,12 @@ namespace rtcw.Renderer
             cmd.type = renderCommandType.RC_DRAW_SURFS;
 
             cmd.firstDrawSurf = backEnd.NumSurfaces;
-            cmd.numDrawSurfs = surfaces.Length;
+            cmd.numDrawSurfs = 0;
             cmd.vertexOffset = vertexOffset;
 
             for (shaderSort_t sort = shaderSort_t.SS_BAD + 1; sort < shaderSort_t.SS_NEAREST; sort++)
             {
-                for (int i = 0; i < cmd.numDrawSurfs; i++)
+                for (int i = 0; i < surfaces.Length; i++)
                 {
                     if (idMaterialLocal.GetMaterialBase(surfaces[i].materials[0]).sort != (float)sort) 
                         continue;
@@ -342,6 +342,7 @@ namespace rtcw.Renderer
                         continue;
 
                     backEnd.AddDrawSurface((idDrawSurface)surfaces[i]);
+                    cmd.numDrawSurfs++;
                 }
             }
         }

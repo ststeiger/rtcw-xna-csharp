@@ -638,7 +638,7 @@ namespace rtcw.Renderer.Map
             numClusters = bspFile.ReadInt();
             clusterBytes = bspFile.ReadInt();
 
-            vis = new idMapVis(bspFile.ReadBytes(lump.filelen - 8), nodes, clusterBytes, numClusters, markSurfaces);
+            vis = new idMapVis(bspFile.ReadBytes(lump.filelen - 8), nodes, clusterBytes, numClusters, markSurfaces, numNodes);
         }
 
         /*
@@ -1156,10 +1156,26 @@ namespace rtcw.Renderer.Map
                 v.st = dv[i].st;
                 v.lightmapST = dv[i].lightmap;
                 v.normal = dv[i].normal;
-                v.color.X = dv[i].color[0];
-                v.color.Y = dv[i].color[1];
-                v.color.Z = dv[i].color[2];
+                int r = dv[i].color[0] << 2;
+                int g = dv[i].color[1] << 2;
+                int b = dv[i].color[2] << 2;
 
+                // normalize by color instead of saturating to white
+                if ((r | g | b) > 255)
+                {
+                    int max;
+
+                    max = r > g ? r : g;
+                    max = max > b ? max : b;
+                    r = r * 255 / max;
+                    g = g * 255 / max;
+                    b = b * 255 / max;
+                }
+
+                v.color.X = r;
+                v.color.Y = g;
+                v.color.Z = b;
+                v.color.W = dv[i].color[3];
                 drawVerts.Add(v);
             }
 
