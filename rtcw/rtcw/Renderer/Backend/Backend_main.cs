@@ -73,6 +73,8 @@ namespace rtcw.Renderer.Backend
         private idDrawVertex[] quadVertexes = new idDrawVertex[4];
         private short[] quadIndexes = new short[] { 0, 1, 2, 0, 2, 3 };
 
+        private Viewport viewport;
+
         //
         // idRenderBackend
         //
@@ -204,6 +206,18 @@ namespace rtcw.Renderer.Backend
         //
         private void SetViewportAndScissor(idRefdefLocal viewParms)
         {
+            if (viewport.Width == viewParms.width && viewport.Height == viewParms.height && viewParms.x == viewport.X && viewParms.y == viewport.Y)
+                return;
+
+            viewport.MaxDepth = 1.0f;
+            viewport.MinDepth = 0.0f;
+            viewport.Width = viewParms.width;
+            viewport.Height = viewParms.height;
+            viewport.X = viewParms.x;
+            viewport.Y = viewParms.y;
+
+            Globals.graphics3DDevice.Viewport = viewport;
+
 	        // set the window clipping
 	      //  qglViewport(    backEnd.viewParms.viewportX,
 			//		        backEnd.viewParms.viewportY,
@@ -232,7 +246,7 @@ namespace rtcw.Renderer.Backend
 
             if (Globals.tess.shader.polygonOffset)
             {
-                Globals.graphics3DDevice.DepthStencilState = DepthStencilState.None;
+             //   Globals.graphics3DDevice.DepthStencilState = DepthStencilState.None;
             }
 
             //
@@ -249,7 +263,7 @@ namespace rtcw.Renderer.Backend
 
             if (Globals.tess.shader.polygonOffset)
             {
-                Globals.graphics3DDevice.DepthStencilState = DepthStencilState.Default;
+              //  Globals.graphics3DDevice.DepthStencilState = DepthStencilState.Default;
             }
 
             // Reset numverts and num indexes.
@@ -367,14 +381,10 @@ namespace rtcw.Renderer.Backend
         {
             SetViewportAndScissor(state.refdef);
 
-          //  if ((state.refdef.rdflags & idRenderType.RDF_DRAWSKYBOX) != 0)
-          //  {
-         //       Globals.graphics3DDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.LightBlue, 1.0f, 0);
-         //   }
-          //  else
-          //  {
+            if (state.refdef.rdflags == idRenderType.RF_DEPTHHACK)
+            {
                 Globals.graphics3DDevice.Clear(ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
-          //  }
+            }
         }
 
         //

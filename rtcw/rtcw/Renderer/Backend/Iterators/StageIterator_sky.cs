@@ -48,7 +48,19 @@ namespace rtcw.Renderer.Backend.Iterators
         //
         public static void Iterator()
         {
+            Shade.BindImage(Globals.tr.whiteImage);
+            Shade.SetColor(0.4f, 0.8f, 0.89f, 1.0f);
 
+            if (Globals.tess.indexBufferSize > 0)
+            {
+                Shade.DrawElements(Globals.tess.vertexBufferStart, Globals.tess.vertexBufferSize, Globals.tess.indexBufferStart, Globals.tess.indexBufferSize, Globals.tess.frame);
+            }
+            else
+            {
+                Shade.DrawTess();
+            }
+
+            Shade.SetColor(1, 1, 1, 1);
         }
     }
 }

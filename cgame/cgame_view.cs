@@ -83,11 +83,29 @@ namespace cgame
             if (Globals.inCinematic == false)
             {
                 refdef.vieworg.Z += 35.0f;
+
+                refdef.x = 0;
+                refdef.y = 0;
+                refdef.width = Engine.RenderSystem.GetViewportWidth();
+                refdef.height = Engine.RenderSystem.GetViewportHeight();
             }
-            refdef.x = 0;
-            refdef.y = 0;
-            refdef.width = Engine.RenderSystem.GetViewportWidth();
-            refdef.height = Engine.RenderSystem.GetViewportHeight();
+            else
+            {
+                int vidWidth = Engine.RenderSystem.GetViewportWidth();
+                int vidHeight = Engine.RenderSystem.GetViewportHeight();
+                int xsize = 100;
+                int ysize = 80;
+
+                refdef.width = vidWidth * xsize / 100;
+                refdef.width &= ~1;
+
+                refdef.height = vidHeight * ysize / 100;
+                refdef.height &= ~1;
+
+                refdef.x = (vidWidth - refdef.width) / 2;
+                refdef.y = (vidHeight - refdef.height) / 2;
+            }
+            
 
             refdef.rdflags = idRenderType.RDF_DRAWSKYBOX;
 

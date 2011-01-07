@@ -630,12 +630,18 @@ namespace ui
             
           //  refdef.vieworg[1] = y;
           //  refdef.vieworg[2] = -50;
-
+#if false
 	        refdef.x = (int)x;
 	        refdef.y = (int)y;
 	        refdef.width = (int)w;
 	        refdef.height = (int)h;
-
+#else
+            refdef.x = 0;
+            refdef.y = 0;
+            refdef.width = Engine.RenderSystem.GetViewportWidth();
+            refdef.height = Engine.RenderSystem.GetViewportHeight();
+            refdef.rdflags = idRenderType.RF_DEPTHHACK;
+#endif
             item.model.GetModelBounds( out mins, out maxs );
 
 

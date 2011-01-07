@@ -428,7 +428,7 @@ namespace rtcw.Renderer
 	        Globals.r_uiFullScreen = Engine.cvarManager.Cvar_Get( "r_uifullscreen", "0", 0 );
 	        Globals.r_subdivisions = Engine.cvarManager.Cvar_Get( "r_subdivisions", "4", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 #if WINDOWS_PHONE
-            Globals.r_smp = Engine.cvarManager.Cvar_Get( "r_smp", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
+            Globals.r_smp = Engine.cvarManager.Cvar_Get( "r_smp", "0", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 #else
             Globals.r_smp = Engine.cvarManager.Cvar_Get( "r_smp", "0", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 #endif
@@ -616,6 +616,8 @@ namespace rtcw.Renderer
             Engine.materialManager = new idMaterialManagerLocal();
             Engine.materialManager.Init();
 
+            
+
             Engine.common.Printf( "----- finished R_Init -----\n");
         }
 
@@ -652,7 +654,7 @@ namespace rtcw.Renderer
         //
         public override void BeginFrame()
         {
-
+            Globals.graphics3DDevice.Clear(ClearOptions.Target, Color.Black, 1.0f, 0);
         }
 
         //
@@ -753,12 +755,19 @@ namespace rtcw.Renderer
             AdjustFrom640(ref cmd.x, ref cmd.y, ref cmd.w, ref cmd.h);
         }
 
+        private int vidWindowWidth = 0;
+        private int vidWindowHeight = 0;
+
         //
         // GetViewportWidth
         //
         public override int GetViewportWidth()
         {
-            return _graphicsDevice.Viewport.Width;
+            if (vidWindowWidth == 0)
+            {
+                vidWindowWidth = _graphicsDevice.Viewport.Width;
+            }
+            return vidWindowWidth;
         }
 
         //
@@ -766,7 +775,11 @@ namespace rtcw.Renderer
         //
         public override int GetViewportHeight()
         {
-            return _graphicsDevice.Viewport.Height;
+            if (vidWindowHeight == 0)
+            {
+                vidWindowHeight = _graphicsDevice.Viewport.Height;
+            }
+            return vidWindowHeight;
         }
 
         //

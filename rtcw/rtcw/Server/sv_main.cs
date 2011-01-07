@@ -232,7 +232,7 @@ namespace rtcw.Server
                 return;
             }
 
-            Globals.clients = null;
+           // Globals.clients = null;
 
             Globals.game.Shutdown(false);
             Globals.snapshotEntities = null;

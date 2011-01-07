@@ -65,5 +65,7 @@ namespace cgame
         public static bool inCinematic = false;
 
         public static idView localview = new idView();
+
+        public static idImage white;
     }
 }

@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 //#define USE_XBOXLIVE // comment in for non-phone builds
 #if USE_XBOXLIVE
@@ -60,6 +61,7 @@ namespace rtcw.sys.app
         public static string cmdline = "";
         GraphicsDeviceManager graphics;
         public static idApp app;
+        private DateTime lastFrameTime;
 
         //
         // idApp
@@ -95,11 +97,20 @@ namespace rtcw.sys.app
         }
 
         //
+        // D3DDevice_PreparingDeviceSettings
+        //
+        private void D3DDevice_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
+        {
+        //    e.GraphicsDeviceInformation.PresentationParameters.PresentationInterval = PresentInterval.Immediate;
+        }
+
+        //
         // InitAppAttachedObjects
         // 
         private void InitAppAttachedObjects()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreparingDeviceSettings += D3DDevice_PreparingDeviceSettings;
             //graphics.PreferMultiSampling = true;
 #if USE_XBOXLIVE
             Components.Add(new GamerServicesComponent(this));
@@ -109,6 +120,14 @@ namespace rtcw.sys.app
             //graphics.PreferredBackBufferWidth = 800;
             //graphics.ApplyChanges();
 #endif
+        }
+
+        //
+        // BeginDraw
+        //
+        protected override bool BeginDraw()
+        {
+            return false;
         }
 
         //
@@ -133,20 +152,26 @@ namespace rtcw.sys.app
 
             // Init the system manager which will init all the needed engine components.
             Engine.common.Init(cmdline);
+
+            lastFrameTime = DateTime.Now;
         }
 
         //
-        // Draw
+        // Update
         //
-        protected override void Draw(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
+            DateTime milval = DateTime.Now;
+
 #if WINDOWS
             // On windows only process certain things if the app is active.
             Engine.Sys.SetWindowAttributes(IsActive, Window.ClientBounds);
 #endif
             // The system class handles the any need required updates before the common frame,
             // this handles all incoming messaging, etc.
-            Engine.Sys.Frame(gameTime.IsRunningSlowly, gameTime.ElapsedGameTime.Milliseconds, gameTime.TotalGameTime.Milliseconds);
+            int frameTime = (milval - lastFrameTime).Milliseconds;
+            Engine.Sys.Frame(gameTime.IsRunningSlowly, frameTime, gameTime.TotalGameTime.Milliseconds);
+            lastFrameTime = milval;
 
             // Let the XNA framework draw anything thats still needs to be pushed to screen,
             // and handle any backend OS messaging.

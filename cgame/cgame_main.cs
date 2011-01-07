@@ -98,6 +98,7 @@ namespace cgame
                 return;
             }
 #endif
+            Globals.white = Engine.imageManager.FindImage("*white");
         }
 
         //
@@ -396,9 +397,13 @@ namespace cgame
 #endif
             // Draw the world through the current view.
             Globals.localview.DrawView();
-#if WINDOWS_PHONE
-            hud_phonecontrols.Draw();
-#endif
+
+            if(Globals.inCinematic == false)
+            {
+    #if WINDOWS_PHONE
+                hud_phonecontrols.Draw();
+    #endif  
+            }
         }
     }
 }
