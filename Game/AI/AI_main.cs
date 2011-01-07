@@ -34,30 +34,41 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // gamemodel.cs (c) 2010 JV Software
 //
 
-using Game.Anim;
+using idLib.Engine.Public;
+using Game.Entities.Player;
 
 namespace Game.AI
 {
     //
-    // idEntityAI
+    // idBot
     //
-    public class idEntityAI : idEntity
+    public class idBot : idPlayer
     {
-        idAnim defaultAnim;
+        internal idUsercmd botcmd = new idUsercmd();
+
+        //
+        // idBot
+        //
+        public idBot() : base( false )
+        {
+
+        }
 
         //
         // Spawn
         //
         public override void Spawn()
         {
-            state.modelindex = Level.net.ModelIndex(model);
-            state.modelindex2 = Level.net.ModelIndex(model2);
-            state.modelSkin = Level.net.SkinIndex(aiSkin);
-            state.modelSkin2 = Level.net.SkinIndex(aihSkin);
-            state.eType = idLib.Game.entityType_t.ET_PLAYER;
+            botcmd.InitCommand(0);
+            base.Spawn();
+        }
 
-            InitAnim();
-            defaultAnim = anim[0];
+        //
+        // EnterWorld
+        //
+        public override void EnterWorld()
+        {
+            
         }
 
         //
@@ -68,10 +79,11 @@ namespace Game.AI
             if (state.modelindex < 0)
                 return;
 
-            state.frame++;
+            physicsState.cmd = botcmd;
+            physicsState.ps = state;
 
-            if (state.frame >= defaultAnim._numFrames)
-                state.frame = defaultAnim._firstFrame;
+            // Run the base player frame.
+            PlayerFrame();
 
             LinkEntity();
         }

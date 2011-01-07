@@ -41,6 +41,7 @@ using idLib.Engine.Public;
 using idLib.Engine.Public.Net;
 
 using Game.Physics;
+using Game.Anim;
 
 namespace Game.Entities.Player
 {
@@ -49,16 +50,33 @@ namespace Game.Entities.Player
     //
     public class idPlayer : idEntity
     {
-        idPlayerPhysics physics;
-        idPhysicsPlayerState physicsState = new idPhysicsPlayerState();
+        internal idPlayerPhysics physics;
+        internal idPhysicsPlayerState physicsState;
 
-        string profilename;
-        bool clientSpawned = false;
+        internal idAnim currentAnim;
 
-        int cameraframe = 0;
+        internal string profilename;
+        internal bool clientSpawned = false;
+
+        internal int cameraframe = 0;
+
+        internal bool isHumanPlayer = false;
 
         public const string default_player_model = "bj2";
         public const string default_player_skin = "default";
+
+        public idPlayer(bool isHumanPlayer)
+        {
+            if (isHumanPlayer)
+            {
+                model = "models/players/" + default_player_model + "/body.mds";
+                model2 = "models/players/" + default_player_model + "/head.mdc";
+
+                aiSkin = "models/players/" + default_player_model + "/head_" + default_player_skin + ".skin";
+                aihSkin = "models/players/" + default_player_model + "/body_" + default_player_skin + ".skin";
+                this.isHumanPlayer = true;
+            }
+        }
 
         public bool isActive
         {
@@ -73,21 +91,31 @@ namespace Game.Entities.Player
         //
         public override void Spawn()
         {
-            model = "models/players/" + default_player_model + "/body.mds";
-            model2 = "models/players/" + default_player_model + "/head.mdc";
             state.modelindex = Level.net.ModelIndex(model);
             state.modelindex2 = Level.net.ModelIndex(model2);
 
-            state.modelSkin = Level.net.SkinIndex("models/players/" + default_player_model + "/head_" + default_player_skin + ".skin");
-            state.modelSkin2 = Level.net.SkinIndex("models/players/" + default_player_model + "/body_" + default_player_skin + ".skin");
+            state.modelSkin = Level.net.SkinIndex(aiSkin);
+            state.modelSkin2 = Level.net.SkinIndex(aihSkin);
 
             profilename = spawnArgs.FindKey("name");
 
             state.eType = entityType_t.ET_PLAYER;
 
             physics = new idPlayerPhysics();
+            physicsState = new idPhysicsPlayerState();
 
             InitAnim();
+            currentAnim = anim[0];
+        }
+
+        //
+        // PlayAnimation
+        //
+        internal void PlayAnimation()
+        {
+            state.frame++;
+            if (state.frame >= currentAnim._numFrames)
+                state.frame = currentAnim._firstFrame;
         }
 
         //
@@ -108,26 +136,21 @@ namespace Game.Entities.Player
         }
 
         //
-        // Frame
+        // PlayerFrame
         //
-        public override void Frame()
+        internal void PlayerFrame()
         {
             float fov = 0;
-            physicsState.cmd = Engine.common.GetUserCmdForClient(state.number);
-            physicsState.ps = state;
-            
             if (hModel == null)
             {
                 idVector3 mins, maxs;
 
                 hModel = Engine.modelManager.LoadModel(model);
-                hModel.GetModelBounds( out mins, out maxs );
+                hModel.GetModelBounds(out mins, out maxs);
                 physicsState.bounds = new idBounds(mins, maxs);
             }
 
-            
-
-            if (Level.cameranum != -1)
+            if (Level.cameranum != -1 && isHumanPlayer == true)
             {
                 if (Level.camerapath.Length > 0)
                 {
@@ -142,7 +165,21 @@ namespace Game.Entities.Player
             {
                 physics.Move(ref physicsState);
             }
+        }
 
+        //
+        // Frame
+        //
+        public override void Frame()
+        {
+            // Set the current command and player state.
+            physicsState.cmd = Engine.common.GetUserCmdForClient(state.number);
+            physicsState.ps = state;
+
+            // Run the frame for the current player
+            PlayerFrame();
+
+            // Link the entity.
             LinkEntity();
         }
     }

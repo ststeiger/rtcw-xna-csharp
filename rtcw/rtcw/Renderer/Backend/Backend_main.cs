@@ -367,14 +367,14 @@ namespace rtcw.Renderer.Backend
         {
             SetViewportAndScissor(state.refdef);
 
-            if ((state.refdef.rdflags & idRenderType.RDF_DRAWSKYBOX) != 0)
-            {
-                Globals.graphics3DDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.LightBlue, 1.0f, 0);
-            }
-            else
-            {
+          //  if ((state.refdef.rdflags & idRenderType.RDF_DRAWSKYBOX) != 0)
+          //  {
+         //       Globals.graphics3DDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.LightBlue, 1.0f, 0);
+         //   }
+          //  else
+          //  {
                 Globals.graphics3DDevice.Clear(ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
-            }
+          //  }
         }
 
         //

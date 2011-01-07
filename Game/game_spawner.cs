@@ -74,7 +74,7 @@ namespace Game
     {
         private idGameSpawnDefs[] spawnDefs = new idGameSpawnDefs[] {
             new idGameSpawnDefs( "info_player_start", () => new idEntityPlayerStart() ),
-            new idGameSpawnDefs( "player", () => new idPlayer() ),
+            new idGameSpawnDefs( "player", () => new idPlayer(true) ),
 
             
             new idGameSpawnDefs( "func_static", () => new idEntityFuncStatic() ),
@@ -83,7 +83,7 @@ namespace Game
             new idGameSpawnDefs( "misc_gamemodel", () => new idEntityGameModel() ),
             new idGameSpawnDefs( "props_decoration", () => new idEntityPropDecoration() ),
 
-            new idGameSpawnDefs( "ai_civilian", () => new idEntityAI() ),
+            new idGameSpawnDefs( "ai_civilian", () => new idAICivilian() ),
 
             new idGameSpawnDefs( "worldspawn", () => new idWorldspawn() ),
 

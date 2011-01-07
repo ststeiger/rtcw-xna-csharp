@@ -31,76 +31,36 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// game_globals.cs (c) 2010 JV Software
+// AICast_Civilian.cs (c) 2010 JV Software
 //
 
-using idLib.Game.Server;
-using idLib.Engine.Public;
-
-namespace Game
+namespace Game.AI
 {
     //
-    // CVars
+    // idBot
     //
-    static class Cvars
+    public class idAICivilian : idBot
     {
-        public static idCVar g_skipLevelScript;
-
         //
-        // RegisterCvars
+        // Spawn
         //
-        public static void RegisterCvars()
+        public override void Spawn()
         {
-            g_skipLevelScript = Engine.cvarManager.Cvar_Get("g_skipLevelScript", "1", idCVar.CVAR_ROM);
+            base.Spawn();
         }
-    }
-
-    //
-    // Level
-    //
-    static class Level
-    {
-        public const string GAME = "RTCW";
-        public const string GAMEVERSION = GAME + " " + Engine.CPUSTRING + "\n";
-
-        public static idGameSpawner spawner;
-        public static idEntity[] entities = new idEntity[idGamePublic.MAX_GENTITIES];
-        public static int num_entities = 0;
-        public static int num_clients = 0;
-
-        public static idScript script;
-        public static idScript aiscript;
-
-        public static string mapname;
-
-        public static int time;
-        public static int cameranum = -1;
-        public static string camerapath = "";
-
-        public static idGameNetwork net = new idGameNetwork();
-        public static idWorld world;
 
         //
-        // TriggerEntity
+        // Frame
         //
-        public static void TriggerEntity(idEntity other, string targetname)
+        public override void Frame()
         {
-            if (targetname == null || targetname.Length <= 0)
+            if (state.modelindex < 0)
                 return;
 
-            foreach (idEntity target in entities)
-            {
-                if (target == null)
-                    continue;
+            // Play the current animation.
+            PlayAnimation();
 
-                if (target.targetname == targetname)
-                {
-                    target.Use(other);
-                    return;
-                }
-            }
-
-            Engine.common.Warning("G_TriggerEntity: Failed to trigger entity " + targetname + "\n");
+            base.Frame();
         }
     }
 }

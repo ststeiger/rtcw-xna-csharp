@@ -427,9 +427,11 @@ namespace rtcw.Renderer
 	        Globals.r_vertexLight = Engine.cvarManager.Cvar_Get( "r_vertexLight", "0", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 	        Globals.r_uiFullScreen = Engine.cvarManager.Cvar_Get( "r_uifullscreen", "0", 0 );
 	        Globals.r_subdivisions = Engine.cvarManager.Cvar_Get( "r_subdivisions", "4", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
-
-	        Globals.r_smp = Engine.cvarManager.Cvar_Get( "r_smp", "0", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
-
+#if WINDOWS_PHONE
+            Globals.r_smp = Engine.cvarManager.Cvar_Get( "r_smp", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
+#else
+            Globals.r_smp = Engine.cvarManager.Cvar_Get( "r_smp", "0", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
+#endif
 	        Globals.r_ignoreFastPath = Engine.cvarManager.Cvar_Get( "r_ignoreFastPath", "1", idCVar.CVAR_ARCHIVE | idCVar.CVAR_LATCH );
 
 	        //
