@@ -316,7 +316,7 @@ namespace idLib
 	        lastTime = t;
 
 	        // convert to seconds
-	        timePassed /= 300;
+            timePassed /= 90.0f;
 
 	        float distToTravel = timePassed * velocity;
 
@@ -485,7 +485,7 @@ namespace idLib
 	        lastTime = t;
 
 	        // convert to seconds
-	        timePassed /= 30;
+            timePassed /= 90.0f;
 
 	        float distToTravel = timePassed * velocity;
 
