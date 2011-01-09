@@ -51,7 +51,7 @@ namespace Game.Entities.Func
         //
         public override void Spawn()
         {
-            if (model != null)
+            if (model != null && model2 == null)
             {
                 state.modelindex = Level.net.ModelIndex(model);
             }

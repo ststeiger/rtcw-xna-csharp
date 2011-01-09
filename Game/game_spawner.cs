@@ -77,6 +77,7 @@ namespace Game
             new idGameSpawnDefs( "player", () => new idPlayer(true) ),
 
             
+            new idGameSpawnDefs( "func_explosive", () => new idEntityFuncStatic() ),
             new idGameSpawnDefs( "func_static", () => new idEntityFuncStatic() ),
             new idGameSpawnDefs( "func_door_rotating", () => new idEntityFuncDoor() ),
 

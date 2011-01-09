@@ -84,10 +84,8 @@ namespace cgame
             
             if(Globals.world == null)
                 return;
-            
+
             ent = Globals.world.AllocRenderEntity(ref Globals.localview.refdef);
-
-
             ent.frame = entity.frame;
             ent.oldframe = 0;
             ent.origin = entity.origin;

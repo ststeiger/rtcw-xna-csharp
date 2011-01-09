@@ -202,8 +202,47 @@ namespace rtcw.Renderer.Models
                 surfaces[i] = surf;
             }
 
+            
+
             // Build our vertex and index buffers.
             BuildVertexIndexBuffer();
+        }
+
+        //
+        // ShiftDrawOrderHack
+        //
+        private void ShiftDrawOrderHack()
+        {
+            // Move the blended surfaces to draw after everything else has been drawn,
+            // this is a NASTY hack and its slow.
+            int i = 0;
+            while (true)
+            {
+                idMaterialBase mtr;
+                if (i >= surfaces.Length)
+                    break;
+
+                mtr = idMaterialLocal.GetMaterialBase(surfaces[i].materials[0]);
+                if (mtr.stages[0].useBlending == true)
+                {
+                    if (i == surfaces.Length - 1)
+                        break;
+
+                    if (surfaces[i].vertexSort != 0)
+                    {
+                        i++;
+                        continue;
+                    }
+
+                    mdcSurface_t tmp = surfaces[i];
+                    surfaces[i] = surfaces[i + 1];
+                    surfaces[i + 1] = tmp;
+                    surfaces[i].vertexSort = 1;
+                    i++;
+                }
+
+                i++;
+            }
         }
 
         //
@@ -372,36 +411,7 @@ namespace rtcw.Renderer.Models
                 surfaces[i].vertexSort = 0;
             }
 
-            // Move the blended surfaces to draw after everything else has been drawn,
-            // this is a NASTY hack and its slow.
-            i = 0;
-            while (true)
-            {
-                idMaterialBase mtr;
-                if (i >= surfaces.Length)
-                    break;
-
-                mtr = idMaterialLocal.GetMaterialBase(surfaces[i].materials[0]);
-                if (mtr.stages[0].useBlending == true)
-                {
-                    if (i == surfaces.Length - 1)
-                        break;
-
-                    if (surfaces[i].vertexSort != 0)
-                    {
-                        i++;
-                        continue;
-                    }
-
-                    mdcSurface_t tmp = surfaces[i];
-                    surfaces[i] = surfaces[i + 1];
-                    surfaces[i + 1] = tmp;
-                    surfaces[i].vertexSort = 1;
-                    i++;
-                }
-
-                i++;
-            }
+            ShiftDrawOrderHack();
             
             Globals.SortSurfaces(entity.frame * numVertsPerFrame, ref surfaces);
         }

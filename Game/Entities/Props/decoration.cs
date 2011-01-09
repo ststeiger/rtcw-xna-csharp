@@ -74,7 +74,14 @@ namespace Game.Entities.Props
             if (hModel == null)
             {
                 hModel = Engine.modelManager.LoadModel(model);
-                maxFrames = (int)(hModel.GetNumFrames() / 1.4f); // hack for curtains.
+                if (numFrames != 0)
+                {
+                    maxFrames = numFrames;
+                }
+                else
+                {
+                    maxFrames = hModel.GetNumFrames();
+                }
             }
             else
             {

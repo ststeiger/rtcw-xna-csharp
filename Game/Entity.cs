@@ -114,6 +114,8 @@ namespace Game
 
         public idBounds bounds;
 
+        public int numFrames;
+
         //
         // SplitModelSkinString
         //
@@ -258,6 +260,11 @@ namespace Game
 
             state.number = spawnArgs.FindKeyInt("entitynum");
             state.modelindex2 = -3;
+
+            int loop = spawnArgs.FindKeyInt("loop");
+
+            // WRONG!
+            numFrames = spawnArgs.FindKeyInt("frames") - loop;
         }
 
         //
@@ -300,6 +307,9 @@ namespace Game
                 hModel.GetModelBounds(out mins, out maxs);
                 bounds = new idBounds(mins, maxs);
             }
+
+            
+
             shared.bounds = bounds;
             Engine.common.LinkEntity(state.number, state, shared);
         }

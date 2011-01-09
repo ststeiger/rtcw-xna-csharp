@@ -1164,6 +1164,7 @@ namespace rtcw.Renderer.Map
                 v.color.Y = g;
                 v.color.Z = b;
                 v.color.W = dv[i].color[3];
+                v.color.Normalize();
                 drawVerts.Add(v);
             }
 

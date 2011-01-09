@@ -59,7 +59,7 @@ namespace rtcw.sys.app
     public class idApp : Microsoft.Xna.Framework.Game
     {
 #if WINDOWS_PHONE
-        public static string cmdline = "spmap cutscene1";
+        public static string cmdline = "";
 #else
         public static string cmdline = "";
 #endif
