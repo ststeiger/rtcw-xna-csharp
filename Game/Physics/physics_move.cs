@@ -188,13 +188,13 @@ namespace Game.Physics
 
             endpos = pmove.ps.origin + velocity;
 
-            Level.world.cm().BoxTrace(out pmove.groundtrace, pmove.ps.origin, endpos, pmove.bounds, 0, idContentMask.MASK_ALL);
+            Level.world.cm().BoxTrace(out pmove.groundtrace, pmove.ps.origin, endpos, pmove.bounds, 0, idContentMask.MASK_SOLID);
             if (gravity)
             {
                 pmove.ps.origin = pmove.groundtrace.endpos;
                 endpos.Z -= Cvars.g_gravity.GetValueInteger();
 
-                Level.world.cm().BoxTrace(out pmove.groundtrace, pmove.ps.origin, endpos, pmove.bounds, 0, idContentMask.MASK_ALL);
+                Level.world.cm().BoxTrace(out pmove.groundtrace, pmove.ps.origin, endpos, pmove.bounds, 0, idContentMask.MASK_SOLID);
             }
 
             pmove.ps.origin = pmove.groundtrace.endpos;

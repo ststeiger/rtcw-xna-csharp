@@ -160,7 +160,10 @@ namespace Game
         public void PlayBackgroundTrackForPlayer(idEntity entity, string path)
         {
             // This is the wrong wya to do this but I'm testing on the phone atm.
-            Engine.soundManager.LoadBackgroundTrack(path).Play();
+            idSound music = Engine.soundManager.LoadBackgroundTrack(path);
+
+            if (music != null)
+                music.Play();
         }
 
         //
