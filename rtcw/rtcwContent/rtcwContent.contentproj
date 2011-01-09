@@ -2625,6 +2625,7 @@
     </Compile>
     <None Include="maps\escape1.bsp">
       <Name>escape1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Compile Include="maps\scripts\escape1.script">
       <Name>escape1</Name>
@@ -2633,15 +2634,19 @@
     </Compile>
     <None Include="maps\escape1_b0.aas">
       <Name>escape1_b0</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape1_b0.rcd">
       <Name>escape1_b0</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape1_b1.aas">
       <Name>escape1_b1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="maps\escape1_b1.rcd">
       <Name>escape1_b1</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Compile Include="maps\aiscripts\escape2.ai">
       <Name>escape2</Name>

@@ -901,6 +901,8 @@ namespace rtcw.Renderer.Map
             idBounds bounds;
 	        idVector3 tmpVec;
 
+            idGridSurface gridsurf;
+
 	        // we may have a nodraw surface, because they might still need to
 	        // be around for movement clipping
             if ((shaders[ds.shaderNum].surfaceFlags & surfaceFlags.SURF_NODRAW) != 0)
@@ -913,22 +915,24 @@ namespace rtcw.Renderer.Map
 	        height = ds.patchHeight;
 
 	        // pre-tesseleate
-            surf = MapCurveTessalator.SubdividePatchToGrid(width, height, ds.firstVert, drawVerts.ToArray());
+            gridsurf = MapCurveTessalator.SubdividePatchToGrid(width, height, ds.firstVert, drawVerts.ToArray());
 
             // Load in the material for the surface.
-            surf.materials = new idMaterial[1];
-            surf.materials[0] = Engine.materialManager.FindMaterial(shaders[ds.shaderNum].shader, ds.lightmapNum);
+            gridsurf.materials = new idMaterial[1];
+            gridsurf.materials[0] = Engine.materialManager.FindMaterial(shaders[ds.shaderNum].shader, ds.lightmapNum);
 
             // Set the fog index
-            surf.fogIndex = ds.fogNum + 1;
+            gridsurf.fogIndex = ds.fogNum + 1;
 
 	        // copy the level of detail origin, which is the center
 	        // of the group of all curves that must subdivide the same
 	        // to avoid cracking
             bounds = new idBounds(ds.lightmapVecs[0], ds.lightmapVecs[0] + ds.lightmapVecs[1]);
-            ((idGridSurface)surf).lodOrigin = bounds.Maxs * 0.5f;
-            tmpVec = bounds.Mins - ((idGridSurface)surf).lodOrigin;
-            ((idGridSurface)surf).lodRadius = tmpVec.Length();
+            gridsurf.lodOrigin = bounds.Maxs * 0.5f;
+            tmpVec = bounds.Mins - gridsurf.lodOrigin;
+            gridsurf.lodRadius = tmpVec.Length();
+
+            surf = gridsurf;
         }
 
         /*
@@ -971,7 +975,7 @@ namespace rtcw.Renderer.Map
 	        int used;
 	        int[] widthTable = new int[MapCurveTessalator.MAX_GRID_SIZE];
 	        int[] heightTable = new int[MapCurveTessalator.MAX_GRID_SIZE];
-	       // float lodError;
+	        float lodError;
             int numVertexes=0;
             int numIndexes = 0;
 	        int lodWidth, lodHeight;
@@ -979,17 +983,17 @@ namespace rtcw.Renderer.Map
 
 
 	        // determine the allowable discrepance
-	        //lodError = LodErrorForVolume( cv->lodOrigin, cv->lodRadius );
+            lodError = 0.53f; //LodErrorForVolume( cv->lodOrigin, cv->lodRadius );
 
 	        // determine which rows and columns of the subdivision
 	        // we are actually going to use
 	        widthTable[0] = 0;
 	        lodWidth = 1;
 	        for ( i = 1 ; i < cv.width - 1 ; i++ ) {
-		       // if ( cv->widthLodError[i] <= lodError ) {
+		        if ( cv.widthLodError[i] <= lodError ) {
 			        widthTable[lodWidth] = i;
 			        lodWidth++;
-		     //   }
+		        }
 	        }
 	        widthTable[lodWidth] = cv.width - 1;
 	        lodWidth++;
@@ -997,10 +1001,10 @@ namespace rtcw.Renderer.Map
 	        heightTable[0] = 0;
 	        lodHeight = 1;
 	        for ( i = 1 ; i < cv.height - 1 ; i++ ) {
-		       // if ( cv->heightLodError[i] <= lodError ) {
+		        if ( cv.heightLodError[i] <= lodError ) {
 			        heightTable[lodHeight] = i;
 			        lodHeight++;
-		     //   }
+		        }
 	        }
 	        heightTable[lodHeight] = cv.height - 1;
 	        lodHeight++;
@@ -1012,14 +1016,17 @@ namespace rtcw.Renderer.Map
 	        used = 0;
 	        rows = 0;
 
-            // Jv - this is just stupid, just a quick hack so everything works.
-            vrows = idMaterialBase.SHADER_MAX_VERTEXES / lodWidth;
-            irows = idMaterialBase.SHADER_MAX_INDEXES / ( lodWidth * 6 );
+            
 
             cv.startVertex = drawVerts.Count;
             cv.startIndex = drawIndexes.Count;
 
 	        while ( used < lodHeight - 1 ) {
+
+                // Jv - this is just stupid, just a quick hack so everything works.
+                vrows = (idMaterialBase.SHADER_MAX_VERTEXES - numVertexes) / (lodWidth);
+                irows = (idMaterialBase.SHADER_MAX_INDEXES - numIndexes) / (lodWidth * 6);
+
 		        rows = irows;
 		        if ( vrows < irows + 1 ) {
 			        rows = vrows - 1;
@@ -1045,7 +1052,7 @@ namespace rtcw.Renderer.Map
                         vert.binormal = dv.binormal;
 
                         drawVerts.Add(vert);
-                        numVertexes++;
+                    //    numVertexes++;
 			        }
 		        }
 
@@ -1079,6 +1086,8 @@ namespace rtcw.Renderer.Map
 			        }
 		        }
 		        used += rows - 1;
+
+                numVertexes += rows * lodWidth;
 	        }
 
             cv.numIndexes = numIndexes;
@@ -1340,8 +1349,9 @@ namespace rtcw.Renderer.Map
         {
             for (int i = 0; i < drawSurfs.Length; i++)
             {
-                int index = drawIndexes[drawSurfs[i].startVertex];
-                drawSurfs[i].sort = drawVerts[index].xyz.Length();
+                idDrawSurface surf = drawSurfs[i];
+                int index = drawIndexes[surf.startIndex];
+                drawSurfs[i].sort = drawVerts[surf.startVertex + index].xyz.Length();
             }
         }
 

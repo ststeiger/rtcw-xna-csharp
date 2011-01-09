@@ -367,14 +367,14 @@ namespace rtcw.Renderer.Map
             grid = new idGridSurface();
             grid.verts = new idDrawVertex[width * height];
 
-            grid.widthLodError = new float[width * 4];
-            for (i = 0; i < width * 4; i++)
+            grid.widthLodError = new float[width];
+            for (i = 0; i < width; i++)
             {
                 grid.widthLodError[i] = errorTable[0, i];
             }
 
-            grid.heightLodError = new float[height * 4];
-            for (i = 0; i < height * 4; i++)
+            grid.heightLodError = new float[height];
+            for (i = 0; i < height; i++)
             {
                 grid.heightLodError[i] = errorTable[1, i];
             }
