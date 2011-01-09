@@ -62,7 +62,7 @@ namespace rtcw.Renderer.Backend.Iterators
             {
                 shaderStage_t stage;
 
-                if (Globals.tess.shader.stages[i] == null)
+                if (Globals.tess.shader.stages[i] == null || Globals.tess.shader.stages[i].active == false)
                 {
                     break;
                 }

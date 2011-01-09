@@ -60,6 +60,7 @@ namespace Game.Entities.Func
                 state.modelindex = Level.net.ModelIndex(model2);
                 model = model2;
             }
+
             state.eType = idLib.Game.entityType_t.ET_GENERAL;
         }
 

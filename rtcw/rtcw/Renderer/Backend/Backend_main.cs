@@ -34,11 +34,16 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // Backend_main.cs (c) 2010 JV Software
 //
 
+// No matter how many sorting methods I try its always too damn slow :/.
+#define USE_QSORT 
+
 using System;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using idLib.Engine.Public;
+using rtcw.Renderer.Models;
 
 namespace rtcw.Renderer.Backend
 {
@@ -110,7 +115,7 @@ namespace rtcw.Renderer.Backend
         {
             get
             {
-                return backEndData[smpFrame].numDrawSurfs;
+                return backEndData[smpFrame].DrawSurfsCount;
             }
         }
 
@@ -277,6 +282,14 @@ namespace rtcw.Renderer.Backend
             Globals.tess.vertexBufferSize = 0;
         }
 
+        //
+        // SetSurfaceOffset
+        //
+        public void SetSurfaceOffset(int surfoffset)
+        {
+            backEndData[smpFrame].SetSurfaceOffset(surfoffset);
+        }
+
 
         //
         // Cmd_DrawStrechMaterial
@@ -348,27 +361,6 @@ namespace rtcw.Renderer.Backend
             return backEndData[smpFrame].numRenderCommands;
         }
 
-        //
-        // Cmd_SetRefDef
-        //
-        private void Cmd_SetRefDef(idRenderCommand cmd)
-        {
-            state.refdef = cmd.refdef;
-
-            RB_BeginDrawingView();
-
-            Shade.PushDrawMatrix(cmd.refdef);
-            
-        }
-
-        //
-        // Cmd_SetEntityMatrix
-        //
-        private void Cmd_SetEntityMatrix(idRenderCommand cmd)
-        {
-            Shade.CreateTranslateRotateMatrix(cmd.entity);
-        }
-
         /*
         =================
         RB_BeginDrawingView
@@ -388,71 +380,120 @@ namespace rtcw.Renderer.Backend
         }
 
         //
-        // Cmd_DrawTessSurfs
+        // DrawSurface
         //
-        private void Cmd_DrawTessSurfs(int smpFrame, idRenderCommand cmd)
+        private void DrawSurface(idDrawSurface surf, int offset)
         {
-            idDrawSurface[] surflist = cmd.model.BackendTessModel(cmd.frame, cmd.torsoFrame);
+            BeginSurface(surf.materials[0], 0);
 
-            // Draw all the surfaces.
-            for (int i = 0; i < surflist.Length; i++ )
+            Globals.tess.vertexBufferStart = surf.startVertex; ;
+            Globals.tess.indexBufferStart = surf.startIndex;
+            Globals.tess.indexBufferSize = surf.numIndexes;
+            Globals.tess.vertexBufferSize = surf.numVertexes;
+            Globals.tess.frame = offset;
+
+            EndSurface();
+        }
+
+        //
+        // DrawSurface
+        //
+        private void DrawUserSurface(idDrawSurface surf, int offset)
+        {
+            BeginSurface(surf.materials[0], 0);
+
+            Globals.tess.startVertex = surf.startVertex; ;
+            Globals.tess.startIndex = surf.startIndex;
+            Globals.tess.numIndexes = surf.numIndexes;
+            Globals.tess.numVertexes = surf.numVertexes;
+            Globals.tess.frame = offset;
+
+            EndSurface();
+        }
+
+        //
+        // Cmd_RenderScene
+        //
+        private void Cmd_RenderScene(int smpFrame, idRenderCommand cmd)
+        {
+            idRefdefLocal refdef;
+            int refentity_num = -2;
+
+            // Sort out draw surfaces.
+#if USE_QSORT
+            backEndData[smpFrame].SortSurfaces(cmd.startSurface);
+#endif
+            // Everyone surface here should have the same refdef.
+            refdef = cmd.refdef;
+
+            state.refdef = refdef;
+            RB_BeginDrawingView();
+
+            Shade.PushDrawMatrix(refdef);
+
+            // Render any skeletal models that weren't tessalated yet. 
+            for (int i = 0; i < refdef.num_entities; i++)
             {
-                idDrawSurface surf = surflist[i];
+                idDrawSurface[] surfaces;
 
-                if (surf == null)
-                    continue;
+                if (refdef.entities[i].hModel != null)
+                {
+                    surfaces = ((idModelLocal)refdef.entities[i].hModel).BackendTessModel(refdef.entities[i].frame, refdef.entities[i].torsoFrame);
 
-                BeginSurface(surf.materials[0], 0);
+                    if (surfaces != null)
+                    {
+                        Shade.CreateTranslateRotateMatrix(refdef.entities[i]);
 
-                Globals.tess.startVertex = surf.startVertex; ;
-                Globals.tess.startIndex = surf.startIndex;
-                Globals.tess.numIndexes = surf.numIndexes;
-                Globals.tess.numVertexes = surf.numVertexes;
-                Globals.tess.frame = cmd.vertexOffset;
-
-                EndSurface();
+                        for (int c = 0; c < surfaces.Length; c++)
+                        {
+                            DrawUserSurface(surfaces[c], 0);
+                        }
+                    }
+                }
             }
-        }
 
-        //
-        // Cmd_DrawSurfs
-        //
-        private void Cmd_DrawSurfs(int smpFrame, idRenderCommand cmd)
-        {
-            // Draw all the surfaces.
-            for (int i = cmd.firstDrawSurf; i < cmd.firstDrawSurf + cmd.numDrawSurfs; i++)
+            backEndData[smpFrame].SetBaseSourceSurface(cmd.startSurface);
+#if !USE_QSORT
+            for (shaderSort_t sort = shaderSort_t.SS_BAD + 1; sort < shaderSort_t.SS_NEAREST; sort++)
             {
-                idDrawSurface surf = backEndData[smpFrame].drawSurfs[i];
+#endif
+                // Render the rest of the tessalated data.
+                for (int i = cmd.startSurface; i < cmd.endSurface; i++)
+                {
+                    idSortSurface sortsurf = backEndData[smpFrame].GetNextSortSurface();
+                    idDrawSurface surf = backEndData[smpFrame].GetDrawSurface(sortsurf.index);
 
-                if (surf == null)
-                    continue;
+                    // Update the modelviewproj matrix if we have a different surf with a different matrix.
+                    if (sortsurf.entitymatrix != refentity_num)
+                    {
+                        Shade.BindVertexIndexBuffer(sortsurf.vertexBuffer, sortsurf.indexBuffer);
 
-                BeginSurface(surf.materials[0], 0);
+                        if (sortsurf.entitymatrix >= 0)
+                        {
+                            Shade.CreateTranslateRotateMatrix(refdef.entities[sortsurf.entitymatrix]);
+                        }
+                        else
+                        {
+                            Shade.PushDrawMatrix(refdef);
+                        }
 
-                Globals.tess.vertexBufferStart = surf.startVertex;;
-                Globals.tess.indexBufferStart = surf.startIndex;
-                Globals.tess.indexBufferSize = surf.numIndexes;
-                Globals.tess.vertexBufferSize = surf.numVertexes;
-                Globals.tess.frame = cmd.vertexOffset;
-
-                EndSurface();
+                        refentity_num = sortsurf.entitymatrix;
+                        
+                    }
+                    DrawSurface(surf, sortsurf.offset);
+                }
+#if !USE_QSORT
             }
+#endif
+            
         }
 
         //
-        // Cmd_SetVertexIndexBuffer
+        // SetVertexIndexBuffers
         //
-        private void Cmd_SetVertexIndexBuffer(idRenderCommand cmd)
+        public void SetVertexIndexBuffers(VertexBuffer vertexBuffer, IndexBuffer indexBuffer)
         {
-            Shade.BindVertexIndexBuffer(cmd.vertexBuffer, cmd.indexBuffer);
-        }
-
-        //
-        // Cmd_SetBoneMatrix
-        //
-        private void Cmd_SetBoneMatrix(idRenderCommand cmd)
-        {
-            Shade.SetBoneMatrix(cmd.bones);
+            backEndData[smpFrame].SetVertexIndexBuffers(vertexBuffer, indexBuffer);
         }
 
         //
@@ -483,29 +524,14 @@ namespace rtcw.Renderer.Backend
                             case renderCommandType.RC_SET_COLOR:
                                 Cmd_SetColor(cmd);
                                 break;
-                            case renderCommandType.RC_SET_BONEMATRIX:
-                                Cmd_SetBoneMatrix(cmd);
-                                break;
                             case renderCommandType.RC_STRETCH_IMAGE:
                                 Cmd_DrawStrechImage(cmd);
                                 break;
                             case renderCommandType.RC_SWAP_BUFFERS:
                                 Cmd_SwapBuffers(cmd);
                                 break;
-                            case renderCommandType.RC_DRAW_TESSBUFFER:
-                                Cmd_DrawTessSurfs(smpFrame, cmd);
-                                break;
-                            case renderCommandType.RC_DRAW_SURFS:
-                                Cmd_DrawSurfs(smpFrame, cmd);
-                                break;
-                            case renderCommandType.RC_SET_VERTEXINDEXBUFFER:
-                                Cmd_SetVertexIndexBuffer(cmd);
-                                break;
-                            case renderCommandType.RC_SET_REFDEF:
-                                Cmd_SetRefDef(cmd);
-                                break;
-                            case renderCommandType.RC_SET_ENTITYMATRIX:
-                                Cmd_SetEntityMatrix(cmd);
+                            case renderCommandType.RC_RENDER_SCENE:
+                                Cmd_RenderScene(smpFrame, cmd);
                                 break;
                             case renderCommandType.RC_STRETCH_PIC:
                                 Cmd_DrawStrechMaterial(cmd);
@@ -553,6 +579,22 @@ namespace rtcw.Renderer.Backend
             }
 
             return true;
+        }
+
+        //
+        // SetSurfaceRefdef
+        //
+        public void SetSurfaceRefdef(int refdefhandle)
+        {
+            backEndData[state.smpFrame].SetSurfaceRefdef(refdefhandle);
+        }
+
+        //
+        // SetSurfaceEntity
+        //
+        public void SetSurfaceEntity(int entityhandle)
+        {
+            backEndData[state.smpFrame].SetSurfaceEntity(entityhandle);
         }
 
         //
@@ -658,13 +700,45 @@ namespace rtcw.Renderer.Backend
         public idRenderEntityLocal entity2D;     // currentEntity will point at this when doing 2D rendering
     };
 
+    //
+    // idSortSurface
+    //
+    struct idSortSurface
+    {
+        public int sort;
+        public int index;
+        public int entitymatrix;
+        public int refdef;
+        public int offset;
+        public int numChildSurfaces;
+        public int startChildSurface;
+
+        public VertexBuffer vertexBuffer;
+        public IndexBuffer indexBuffer;
+
+        public void SetFromSurface(idSortSurface surf)
+        {
+            sort = surf.sort;
+            index = surf.index;
+            entitymatrix = surf.entitymatrix;
+            refdef = surf.refdef;
+            offset = surf.offset;
+        }
+    }
+
     // all of the information needed by the back end must be
     // contained in a backEndData_t.  This entire structure is
     // duplicated so the front and back end can run in parallel
     // on an SMP machine
     class backEndData_t {
-	    public idDrawSurface[] drawSurfs;
-        public int numDrawSurfs;
+	    private idDrawSurface[] drawSurfsInternal;
+
+        private idSortSurface[] sortedSurfaces;
+        private idSortSurface[] sortedChildSurfaces;
+        private int numDrawSurfs;
+        public int numSortedSurfs;
+        public int numChildSurfs;
+        public int lastChildEntity = -1;
 
         public dlight_t[] dlights;
         public corona_t[] coronas;          //----(SA)
@@ -680,7 +754,127 @@ namespace rtcw.Renderer.Backend
         private idThread smpthread;
         private int smpFrameNum;
 
+        private int surfrefdef = -1;
+        private int surfentity = -1;
+        private int surfoffset = 0;
 
+        private int currentSortSurface = 0;
+
+        private VertexBuffer surfVertexBuffer;
+        private IndexBuffer surfIndexBuffer;
+
+        //
+        // SetSurfaceRefdef
+        //
+        public void SetSurfaceRefdef(int refdefhandle)
+        {
+            surfrefdef = refdefhandle;
+            surfentity = -1;
+            surfoffset = 0;
+            lastChildEntity = -2;
+        }
+
+        //
+        // SetSurfaceEntity
+        //
+        public void SetSurfaceEntity(int entityhandle)
+        {
+            surfoffset = 0;
+            surfentity = entityhandle;
+        }
+
+        //
+        // SetSurfaceOffset
+        //
+        public void SetSurfaceOffset(int surfoffset)
+        {
+            this.surfoffset = surfoffset;
+        }
+
+        //
+        // UpdateRefdef
+        //
+        public void UpdateRefdef(idRefdefLocal refdef)
+        {
+            entities[refdef.refnum] = refdef;
+        }
+
+        private void q_sort( int left, int right)
+        {
+            int i = left - 1,
+                j = right;
+
+            while (true)
+            {
+                float d = sortedSurfaces[left].sort;
+                do i++; while (sortedSurfaces[i].sort < d);
+                do j--; while (sortedSurfaces[j].sort > d);
+
+                if (i < j)
+                {
+                    idSortSurface tmp = sortedSurfaces[i];
+                    sortedSurfaces[i] = sortedSurfaces[j];
+                    sortedSurfaces[j] = tmp;
+                }
+                else
+                {
+                    if (left < j) q_sort(left, j);
+                    if (++j < right) q_sort( j, right);
+                    return;
+                }
+            }
+        }
+
+        //
+        // SortSurfaces
+        //
+        public void SortSurfaces(int baseVert)
+        {
+            if ((numSortedSurfs - baseVert) < 1)
+                return;
+
+            q_sort(baseVert, numSortedSurfs - 1);
+        }
+
+
+
+        //
+        // GetDrawSurface
+        //
+        public idDrawSurface GetDrawSurface(int index)
+        {
+            return drawSurfsInternal[index];
+        }
+
+        //
+        // GetSortSurface
+        //
+        public idSortSurface GetNextSortSurface()
+        {
+            idSortSurface sortedSurface = sortedSurfaces[currentSortSurface];
+            if (sortedSurface.numChildSurfaces <= 0)
+            {
+                currentSortSurface++; // Go to the next command.
+                if (sortedSurface.startChildSurface > 0)
+                {
+                    return GetNextSortSurface();
+                }
+                return sortedSurface;
+            }
+
+            int childIndex = sortedSurfaces[currentSortSurface].startChildSurface++;
+            sortedSurfaces[currentSortSurface].numChildSurfaces--;
+
+            return sortedChildSurfaces[childIndex];
+        }
+
+        //
+        // SetBaseSourceSurface
+        //
+        public void SetBaseSourceSurface(int baseval)
+        {
+           // currentSortSurface = baseval;
+        }
 
         public backEndData_t(int smpFrameNum )
         {
@@ -688,7 +882,9 @@ namespace rtcw.Renderer.Backend
         //    {
        //         commands[i] = new idRenderCommand();
        //     }
-            drawSurfs = new idDrawSurface[idRenderGlobals.MAX_DRAWSURFS];
+            drawSurfsInternal = new idDrawSurface[idRenderGlobals.MAX_DRAWSURFS];
+            sortedSurfaces = new idSortSurface[idRenderGlobals.MAX_DRAWSURFS];
+            sortedChildSurfaces = new idSortSurface[idRenderGlobals.MAX_DRAWSURFS / 4];
             numDrawSurfs = 0;
 
             dlights = new dlight_t[idRenderSystem.MAX_DLIGHTS];
@@ -706,11 +902,81 @@ namespace rtcw.Renderer.Backend
         }
 
         //
+        // InitSortSurface
+        //
+        private void InitSortSurface(ref idSortSurface surf)
+        {
+            float viewSort = entities[surfrefdef].vieworg.Length();
+            surf.sort = (int)Math.Abs((viewSort - drawSurfsInternal[numDrawSurfs].sort));
+
+            surf.index = numDrawSurfs;
+
+            surf.offset = surfoffset;
+            surf.refdef = surfrefdef;
+            surf.entitymatrix = surfentity;
+
+            surf.vertexBuffer = surfVertexBuffer;
+            surf.indexBuffer = surfIndexBuffer;
+
+            surf.startChildSurface = 0;
+            surf.numChildSurfaces = 0;
+        }
+
+
+        //
         // PushDrawSurface
         //
         public void PushDrawSurface(idDrawSurface surf)
         {
-            drawSurfs[numDrawSurfs++] = surf;
+            drawSurfsInternal[numDrawSurfs] = surf;
+            
+            // Group non map surfaces(entity surfaces) 
+            if (surfentity >= 0)
+            {
+                int childSurfNum;
+
+                // If were on a different entity, setup a new sort surface if not setup the first entity surface for children.
+                if (lastChildEntity != surfentity)
+                {
+                    InitSortSurface(ref sortedSurfaces[numSortedSurfs]);
+
+                    sortedSurfaces[numSortedSurfs].startChildSurface = numChildSurfs;
+                    sortedSurfaces[numSortedSurfs].numChildSurfaces = 0;
+
+                    numSortedSurfs++;
+                    lastChildEntity = surfentity;
+                }
+
+                // Get the next child surf handle.
+                childSurfNum = sortedSurfaces[numSortedSurfs-1].startChildSurface + sortedSurfaces[numSortedSurfs-1].numChildSurfaces;
+
+                // Init the child surface.
+                InitSortSurface(ref sortedChildSurfaces[childSurfNum]);
+
+                // Increment the number of child surfaces.
+                sortedSurfaces[numSortedSurfs-1].numChildSurfaces++;
+                numChildSurfs++;
+            }
+            else
+            {
+                InitSortSurface(ref sortedSurfaces[numSortedSurfs]);
+
+                numSortedSurfs++;
+                lastChildEntity = -1;
+            }
+
+            numDrawSurfs++;
+        }
+
+        //
+        // DrawSurfsCount
+        //
+        public int DrawSurfsCount
+        {
+            get
+            {
+                return numDrawSurfs;
+            }
         }
 
         //
@@ -725,6 +991,15 @@ namespace rtcw.Renderer.Backend
         }
 
         //
+        // SetVertexIndexBuffers
+        //
+        public void SetVertexIndexBuffers(VertexBuffer vertexBuffer, IndexBuffer indexBuffer)
+        {
+            surfVertexBuffer = vertexBuffer;
+            surfIndexBuffer = indexBuffer;
+        }
+
+        //
         // GetNextEntity
         //
         public idRefdefLocal GetNextEntity()
@@ -733,6 +1008,8 @@ namespace rtcw.Renderer.Backend
             {
                 entities[numEntities] = new idRefdefLocal();
             }
+
+            entities[numEntities].refnum = numEntities;
            
             entities[numEntities].areamaskModified = false;
             entities[numEntities].floatTime = 0;
@@ -757,6 +1034,10 @@ namespace rtcw.Renderer.Backend
             executingFrameBuffer = false;
             numEntities = 0;
             numDrawSurfs = 0;
+            numSortedSurfs = 0;
+            numChildSurfs = 0;
+            currentSortSurface = 0;
+            lastChildEntity = -1;
         }
 
         //

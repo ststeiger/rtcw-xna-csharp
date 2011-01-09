@@ -561,10 +561,10 @@ namespace rtcw.Renderer.Models
         //
         private void SetBoneBuffer()
         {
-            idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
+     //       idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
 
-            cmd.type = renderCommandType.RC_SET_BONEMATRIX;
-            cmd.bones = bones;
+    //        cmd.type = renderCommandType.RC_SET_BONEMATRIX;
+    //        cmd.bones = bones;
             //cmd.vertexBuffer = vertexBuffer;
             //cmd.indexBuffer = indexBuffer;
         }
@@ -661,12 +661,13 @@ namespace rtcw.Renderer.Models
                 surfaces[i].visCount = -1;
             }
 
+            /*
             idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
             cmd.type = renderCommandType.RC_DRAW_TESSBUFFER;
             cmd.frame = entity.frame;
             cmd.torsoFrame = entity.torsoFrame;
             cmd.model = this;
-
+            */
          //   Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
             //SetBoneBuffer();
             //Globals.SortSurfaces(0, ref surfaces);

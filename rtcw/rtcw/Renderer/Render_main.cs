@@ -274,11 +274,7 @@ namespace rtcw.Renderer
         //
         public static void SetVertexIndexBuffers( VertexBuffer vertexBuffer, IndexBuffer indexBuffer )
         {
-            idRenderCommand cmd = backEnd.GetCommandBuffer();
-
-            cmd.type = renderCommandType.RC_SET_VERTEXINDEXBUFFER;
-            cmd.vertexBuffer = vertexBuffer;
-            cmd.indexBuffer = indexBuffer;
+            backEnd.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
         }
 
         //
@@ -300,51 +296,44 @@ namespace rtcw.Renderer
         //
         // SortSurfaces
         //
-        public static void SortSurface<T>(int vertexOffset, ref T surfaces) where T : idDrawSurface
+        public static void SortSurfaces<T>(int vertexOffset, ref T[] surfaces) where T : idDrawSurface
         {
-            idRenderCommand cmd;
-            if (surfaces.visCount != Globals.visCount && surfaces.visCount != -1)
-            {
-                return;
-            }
-            cmd = backEnd.GetCommandBuffer();
-
-            cmd.type = renderCommandType.RC_DRAW_SURFS;
-
-            cmd.firstDrawSurf = backEnd.NumSurfaces;
-            cmd.numDrawSurfs = 1;
-            cmd.vertexOffset = vertexOffset;
-
-            backEnd.AddDrawSurface((idDrawSurface)surfaces);
+            SortSurfaces<T>(vertexOffset, ref surfaces, 0, surfaces.Length);
         }
 
         //
         // SortSurfaces
         //
-        public static void SortSurfaces<T>(int vertexOffset, ref T[] surfaces) where T : idDrawSurface
+        public static void SortSurfaces<T>(int vertexOffset, ref T[] surfaces, int startSurface, int numSurfaces) where T : idDrawSurface
         {
-            idRenderCommand cmd = backEnd.GetCommandBuffer();
+        //    idRenderCommand cmd = backEnd.GetCommandBuffer();
 
-            cmd.type = renderCommandType.RC_DRAW_SURFS;
+       //     cmd.type = renderCommandType.RC_DRAW_SURFS;
 
-            cmd.firstDrawSurf = backEnd.NumSurfaces;
-            cmd.numDrawSurfs = 0;
-            cmd.vertexOffset = vertexOffset;
+//            cmd.firstDrawSurf = backEnd.NumSurfaces;
+        //    cmd.numDrawSurfs = 0;
+       //     cmd.vertexOffset = vertexOffset;
 
-            for (shaderSort_t sort = shaderSort_t.SS_BAD + 1; sort < shaderSort_t.SS_NEAREST; sort++)
-            {
-                for (int i = 0; i < surfaces.Length; i++)
+            backEnd.SetSurfaceOffset(vertexOffset);
+
+         //   for (shaderSort_t sort = shaderSort_t.SS_BAD + 1; sort < shaderSort_t.SS_NEAREST; sort++)
+        //    {
+                for (int i = startSurface; i < (startSurface + numSurfaces); i++)
                 {
-                    if (idMaterialLocal.GetMaterialBase(surfaces[i].materials[0]).sort != (float)sort) 
+          //          if (idMaterialLocal.GetMaterialBase(surfaces[i].materials[0]).sort != (float)sort)
+          //              continue;
+                    if (surfaces[i] == null)
                         continue;
 
                     if (surfaces[i].visCount != Globals.visCount && surfaces[i].visCount != -1)
                         continue;
 
+                //    surfaces[i].sort = (shaderSort_t)idMaterialLocal.GetMaterialBase(surfaces[i].materials[0]).sort;
+
                     backEnd.AddDrawSurface((idDrawSurface)surfaces[i]);
-                    cmd.numDrawSurfs++;
+              //      cmd.numDrawSurfs++;
                 }
-            }
+       //     }
         }
     }
 

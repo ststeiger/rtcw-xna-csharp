@@ -289,6 +289,11 @@ namespace Game
         //
         public void LinkEntity()
         {
+            if (model.Contains("*"))
+            {
+                hModel = Level.world.LoadBrushModel(model);
+            }
+
             if (hModel != null && bounds == null)
             {
                 idVector3 mins, maxs;

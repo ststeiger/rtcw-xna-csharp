@@ -50,13 +50,14 @@ namespace rtcw.Renderer.Backend
         RC_STRETCH_IMAGE,
 	    RC_STRETCH_PIC,
 	    RC_STRETCH_PIC_GRADIENT,    // (SA) added
-        RC_SET_REFDEF,
-        RC_SET_VERTEXINDEXBUFFER,
-        RC_SET_BONEMATRIX,
-	    RC_DRAW_SURFS,
+   //   RC_SET_REFDEF,
+   //   RC_SET_VERTEXINDEXBUFFER,
+   //   RC_SET_BONEMATRIX,
+   //   RC_DRAW_SURFS,
+        RC_RENDER_SCENE,
 	    RC_DRAW_BUFFER,
-        RC_DRAW_TESSBUFFER,
-        RC_SET_ENTITYMATRIX,
+   //     RC_DRAW_TESSBUFFER,
+   //   RC_SET_ENTITYMATRIX,
 	    RC_SWAP_BUFFERS
     };
 
@@ -84,19 +85,13 @@ namespace rtcw.Renderer.Backend
 	    public byte[] gradientColor = new byte[4];      // color values 0-255
 	    public int gradientType;       //----(SA)	added
 
-        public idRefdefLocal refdef;
-        public idRenderEntityLocal entity;
-        public viewParms_t viewParms;
-        public int firstDrawSurf;
-        public int numDrawSurfs;
-        public int vertexOffset;
-        public VertexBuffer vertexBuffer;
-        public IndexBuffer indexBuffer;
-
         public int frame;
         public int torsoFrame;
 
         public idModelLocal model;
+        public idRefdefLocal refdef;
+        public int startSurface;
+        public int endSurface;
 
         // RC_SET_BONEMATRIX
         public Matrix[] bones;

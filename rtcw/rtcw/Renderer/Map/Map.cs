@@ -1156,21 +1156,9 @@ namespace rtcw.Renderer.Map
                 v.st = dv[i].st;
                 v.lightmapST = dv[i].lightmap;
                 v.normal = dv[i].normal;
-                int r = dv[i].color[0] << 2;
-                int g = dv[i].color[1] << 2;
-                int b = dv[i].color[2] << 2;
-
-                // normalize by color instead of saturating to white
-                if ((r | g | b) > 255)
-                {
-                    int max;
-
-                    max = r > g ? r : g;
-                    max = max > b ? max : b;
-                    r = r * 255 / max;
-                    g = g * 255 / max;
-                    b = b * 255 / max;
-                }
+                int r = dv[i].color[0];
+                int g = dv[i].color[1];
+                int b = dv[i].color[2];
 
                 v.color.X = r;
                 v.color.Y = g;
@@ -1188,6 +1176,12 @@ namespace rtcw.Renderer.Map
             }
 
 	        for ( i = 0 ; i < count ; i++ ) {
+                if ((shaders[inSurf[i].shaderNum].surfaceFlags & surfaceFlags.SURF_NODRAW) != 0)
+                {
+                    drawSurfs[i] = null;
+                    continue;
+                }
+
 		        switch ( (idMapFormat.idMapSurfaceType)inSurf[i].surfaceType ) {
 		        case idMapFormat.idMapSurfaceType.MST_PATCH:
 			        ParseMesh( inSurf[i], dv, out drawSurfs[i] );
@@ -1209,8 +1203,6 @@ namespace rtcw.Renderer.Map
 			        Engine.common.ErrorFatal( "Bad surfaceType" );
                     break;
 		        }
-
-               // 
 	        }
 
         #if PATCH_STITCHING
@@ -1341,6 +1333,18 @@ namespace rtcw.Renderer.Map
         }
 
         //
+        // SetSurfaceSort
+        //
+        private void SetSurfaceSort()
+        {
+            for (int i = 0; i < drawSurfs.Length; i++)
+            {
+                int index = drawIndexes[drawSurfs[i].startVertex];
+                drawSurfs[i].sort = drawVerts[index].xyz.Length();
+            }
+        }
+
+        //
         // LoadMap
         //
         public void LoadMap(string mappath)
@@ -1385,6 +1389,9 @@ namespace rtcw.Renderer.Map
 
             // Load CM lumps.
             LoadLeafBrushes(ref bspFile, header.lumps[idMapFormat.LUMP_LEAFBRUSHES]);
+
+            // Calculate the surface sort value.
+            SetSurfaceSort();
 
             // Close the bsp file.
             Engine.fileSystem.CloseFile(ref bspFile);

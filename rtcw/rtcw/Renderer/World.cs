@@ -118,10 +118,7 @@ namespace rtcw.Renderer
         //
         private void SetWorldMatrix( idRenderEntityLocal entity )
         {
-            idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
-
-            cmd.type = renderCommandType.RC_SET_ENTITYMATRIX;
-            cmd.entity = entity;
+            Globals.backEnd.SetSurfaceEntity(entity.entityNum);
         }
 
         //
@@ -149,14 +146,26 @@ namespace rtcw.Renderer
         }
 
         //
-        // RenderScene
+        // Draw
         //
-        public override void RenderScene(idRefdef refdef)
+        private void Draw(idRefdefLocal refdef, int startSurface)
         {
             idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
-            
-            cmd.type = renderCommandType.RC_SET_REFDEF;
-            cmd.refdef = (idRefdefLocal)refdef;
+            cmd.type = renderCommandType.RC_RENDER_SCENE;
+            cmd.refdef = refdef;
+            cmd.startSurface = startSurface;
+            cmd.endSurface = Globals.backEnd.NumSurfaces;
+        }
+
+        //
+        // RenderScene
+        //
+        public override void RenderScene(idRefdef scenerefdef)
+        {
+            idRefdefLocal refdef = (idRefdefLocal)scenerefdef;
+            int startSurface = Globals.backEnd.NumSurfaces;
+
+            Globals.backEnd.SetSurfaceRefdef(refdef.refnum);
 
             // Render the bsp if its present.
             if (map != null)
@@ -165,9 +174,9 @@ namespace rtcw.Renderer
             }
 
             // Render the entities.
-            for (int i = 0; i < cmd.refdef.num_entities; i++)
+            for (int i = 0, numEntities = 0; i < refdef.num_entities; i++)
             {
-                idRenderEntityLocal entity = cmd.refdef.entities[i];
+                idRenderEntityLocal entity = refdef.entities[i];
 
                 // Server side entities should already be excluded before sent down to the client,
                 // this is here for client effects so they arent drawn if they arent in the current view.
@@ -179,7 +188,9 @@ namespace rtcw.Renderer
                     }
                 }
 
+                entity.entityNum = numEntities++;
                 SetWorldMatrix(entity);
+                
 
                 switch (entity.reType)
                 {
@@ -188,6 +199,8 @@ namespace rtcw.Renderer
                         break;
                 }
             }
+
+            Draw(refdef, startSurface);
         }
     }
 }

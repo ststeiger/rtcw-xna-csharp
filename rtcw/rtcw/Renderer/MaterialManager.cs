@@ -676,12 +676,20 @@ namespace rtcw.Renderer
 			        }
 
                     // GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA?
-            //        if ((blendSrcBits == Blend.One && blendDstBits == Blend.Zero)/* || (blendSrcBits == Blend.SourceAlpha && blendDstBits == Blend.InverseSourceAlpha) */)
-             //       {
-             //           stage.blendState = BlendState.AlphaBlend;
-            //        }
-            //        else
-            //        {
+                //    if ((blendSrcBits == Blend.One && blendDstBits == Blend.Zero) || (blendSrcBits == Blend.SourceAlpha && blendDstBits == Blend.InverseSourceAlpha))
+                 //   {
+               //         stage.blendState = BlendState.AlphaBlend;
+               //     }
+                //    else
+                //    {
+                    //GL_DST_COLOR GL_ZERO
+
+                    if (blendSrcBits == Blend.DestinationColor && blendDstBits == Blend.Zero)
+                    {
+                        stage.useBlending = false;
+                    }
+                    else
+                    {
                         stage.blendState = new BlendState();
 
                         stage.blendState.AlphaSourceBlend = (Blend)blendSrcBits;
@@ -689,12 +697,15 @@ namespace rtcw.Renderer
 
                         stage.blendState.AlphaDestinationBlend = (Blend)blendDstBits;
                         stage.blendState.ColorDestinationBlend = (Blend)blendDstBits;
-                //    }
+                        // clear depth mask for blended surfaces
+                        if (!depthMaskExplicit)
+                        {
+                            depthMaskBits = 0;
+                        }
+                    }
+                  //  }
 
-			        // clear depth mask for blended surfaces
-			        if ( !depthMaskExplicit ) {
-				        depthMaskBits = 0;
-			        }
+			        
 		        }
 		        //
 		        // rgbGen
@@ -892,7 +903,8 @@ namespace rtcw.Renderer
 	        if ( ( blendSrcBits == Blend.One ) &&
 		         ( blendDstBits == Blend.Zero ) ) 
             {
-                stage.useBlending = false;
+               stage.useBlending = false;
+   //             shader.sort = (float)shaderSort_t.SS_SEE_THROUGH;
 		        depthMaskBits = Globals.GLS_DEPTHMASK_TRUE;
 	        }
 
@@ -930,14 +942,14 @@ namespace rtcw.Renderer
 	        // set sky stuff appropriate
 	        //
 	        if ( shader.isSky ) {
-		        shader.sort = (float)shaderSort_t.SS_ENVIRONMENT;
+		     //   shader.sort = (float)shaderSort_t.SS_ENVIRONMENT;
 	        }
 
 	        //
 	        // set polygon offset
 	        //
 	        if ( shader.polygonOffset && shader.sort <= 0 ) {
-		        shader.sort = (float)shaderSort_t.SS_DECAL;
+		     //   shader.sort = (float)shaderSort_t.SS_DECAL;
 	        }
 
 	        //
@@ -1009,50 +1021,30 @@ namespace rtcw.Renderer
 		        //
                 if (pStage.useBlending)
                 {
-                        int blendSrcBits = (int)pStage.stateBits & Globals.GLS_SRCBLEND_BITS;
-                        int blendDstBits = (int)pStage.stateBits & Globals.GLS_DSTBLEND_BITS;
-
-			        // fog color adjustment only works for blend modes that have a contribution
-			        // that aproaches 0 as the modulate values aproach 0 --
-			        // GL_ONE, GL_ONE
-			        // GL_ZERO, GL_ONE_MINUS_SRC_COLOR
-			        // GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA
-
-			        // modulate, additive
-                        if (((blendSrcBits == Globals.GLS_SRCBLEND_ONE) && (blendDstBits == Globals.GLS_DSTBLEND_ONE)) ||
-                         ((blendSrcBits == Globals.GLS_SRCBLEND_ZERO) && (blendDstBits == Globals.GLS_DSTBLEND_ONE_MINUS_SRC_COLOR)))
-                        {
-				            pStage.adjustColorsForFog = acff_t.ACFF_MODULATE_RGB;
-			            }
-			            // strict blend
-                        else if ((blendSrcBits == Globals.GLS_SRCBLEND_SRC_ALPHA) && (blendDstBits == Globals.GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA))
-                        {
-				            pStage.adjustColorsForFog = acff_t.ACFF_MODULATE_ALPHA;
-			            }
-			            // premultiplied alpha
-                        else if ((blendSrcBits == Globals.GLS_SRCBLEND_ONE) && (blendDstBits == Globals.GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA))
-                        {
-				            pStage.adjustColorsForFog = acff_t.ACFF_MODULATE_RGBA;
-			            } else {
-				             // we can't adjust this one correctly, so it won't be exactly correct in fog
-			            }
-
 			        // don't screw with sort order if this is a portal or environment
-			        if ( shader.sort <= 0 ) {
-				        // see through item, like a grill or grate
-				        if ( (((int)pStage.stateBits) & Globals.GLS_DEPTHMASK_TRUE) != 0 ) {
-					        shader.sort = (float)shaderSort_t.SS_SEE_THROUGH;
-				        } else {
-                            shader.sort = (float)shaderSort_t.SS_BLEND0;
-				        }
-			        }
+                    if (shader.sort <= 0)
+                    {
+                        // see through item, like a grill or grate
+                        if ((((int)pStage.stateBits) & Globals.GLS_DEPTHMASK_TRUE) != 0)
+                        {
+                         //   shader.sort = (float)shaderSort_t.SS_SEE_THROUGH;
+                        }
+                        else
+                        {
+                        //    shader.sort = (float)shaderSort_t.SS_BLEND0;
+                        }
+                    }
+                    else
+                    {
+                     //   shader.sort++;
+                    }
 		        }
 	        }
 
 	        // there are times when you will need to manually apply a sort to
 	        // opaque alpha tested shaders that have later blend passes
 	        if ( shader.sort <= 0 ) {
-                shader.sort = (float)shaderSort_t.SS_OPAQUE;
+           //     shader.sort = (float)shaderSort_t.SS_OPAQUE;
 	        }
 
 	        //
@@ -1643,43 +1635,43 @@ namespace rtcw.Renderer
 
             if (token == "portal")
             {
-                shader.sort = (float)shaderSort_t.SS_PORTAL;
+            //    shader.sort = (float)shaderSort_t.SS_PORTAL;
             }
             else if (token ==  "sky")
             {
-                shader.sort = (float)shaderSort_t.SS_ENVIRONMENT;
+            //    shader.sort = (float)shaderSort_t.SS_ENVIRONMENT;
             }
             else if (token ==  "opaque")
             {
-                shader.sort = (float)shaderSort_t.SS_OPAQUE;
+            //    shader.sort = (float)shaderSort_t.SS_OPAQUE;
             }
             else if (token == "decal")
             {
-                shader.sort = (float)shaderSort_t.SS_DECAL;
+           //     shader.sort = (float)shaderSort_t.SS_DECAL;
             }
             else if (token == "seeThrough")
             {
-                shader.sort = (float)shaderSort_t.SS_SEE_THROUGH;
+           //     shader.sort = (float)shaderSort_t.SS_SEE_THROUGH;
             }
             else if (token == "banner")
             {
-                shader.sort = (float)shaderSort_t.SS_BANNER;
+            //    shader.sort = (float)shaderSort_t.SS_BANNER;
             }
             else if (token == "additive")
             {
-                shader.sort = (float)shaderSort_t.SS_BLEND1;
+           //     shader.sort = (float)shaderSort_t.SS_BLEND1;
             }
             else if (token == "nearest")
             {
-                shader.sort = (float)shaderSort_t.SS_NEAREST;
+           //     shader.sort = (float)shaderSort_t.SS_NEAREST;
             }
             else if (token == "underwater")
             {
-                shader.sort = (float)shaderSort_t.SS_UNDERWATER;
+            //    shader.sort = (float)shaderSort_t.SS_UNDERWATER;
             }
             else
             {
-                shader.sort = float.Parse(token);
+                float.Parse(token);
             }
         }
 
@@ -1818,7 +1810,7 @@ namespace rtcw.Renderer
 		        }
 		        // portal
 		        else if ( token == "portal" ) {
-			        shader.sort = (float)shaderSort_t.SS_PORTAL;
+			      //  shader.sort = (float)shaderSort_t.SS_PORTAL;
 			        continue;
 		        }
 		        // skyparms <cloudheight> <outerbox> <innerbox>

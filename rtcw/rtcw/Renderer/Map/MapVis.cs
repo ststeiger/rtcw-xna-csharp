@@ -157,10 +157,13 @@ namespace rtcw.Renderer.Map
 		        // add the individual surfaces
 		        mark = node.firstmarksurface;
 		        c = node.nummarksurfaces;
+                idPlane plane = node.parent.plane;
+                float sort = plane.Dist;
 		        while ( c > 0 ) {
 			        // the surface may have already been added if it
 			        // spans multiple leafs
                     surfaces[markSurfaces[mark]].visCount = Globals.visCount;
+                  //  surfaces[markSurfaces[mark]].sort = sort;
 			        mark++;
                     c--;
 		        }

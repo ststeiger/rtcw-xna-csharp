@@ -58,7 +58,11 @@ namespace rtcw.sys.app
     //
     public class idApp : Microsoft.Xna.Framework.Game
     {
+#if WINDOWS_PHONE
+        public static string cmdline = "spmap cutscene1";
+#else
         public static string cmdline = "";
+#endif
         GraphicsDeviceManager graphics;
         public static idApp app;
         private DateTime lastFrameTime;
@@ -125,10 +129,10 @@ namespace rtcw.sys.app
         //
         // BeginDraw
         //
-        protected override bool BeginDraw()
-        {
-            return false;
-        }
+      //  protected override bool BeginDraw()
+       // {
+       //     return false;
+        //}
 
         //
         // EndDraw
@@ -159,7 +163,7 @@ namespace rtcw.sys.app
         //
         // Update
         //
-        protected override void Update(GameTime gameTime)
+        protected override void Draw(GameTime gameTime)
         {
             DateTime milval = DateTime.Now;
 

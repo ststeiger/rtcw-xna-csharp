@@ -41,6 +41,7 @@ using idLib.Math;
 
 namespace rtcw.Renderer
 {
+    /*
     public enum shaderSort_t
     {
 	    SS_BAD,
@@ -68,6 +69,7 @@ namespace rtcw.Renderer
 
 	    SS_NEAREST          // blood blobs
     };
+    */
 
     public enum genFunc_t
     {

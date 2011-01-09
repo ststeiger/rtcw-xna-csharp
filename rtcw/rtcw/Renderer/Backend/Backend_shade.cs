@@ -18,7 +18,7 @@ namespace rtcw.Renderer.Backend
     //
     static class Shade
     {
-        private static AlphaTestEffect singleEffect;
+        private static BasicEffect singleEffect;
         private static DualTextureEffect defaultEffect;
         private static idSkeletalEffect skeletalEffect;
         private static idRenderMatrix orthoMatrix;
@@ -44,10 +44,10 @@ namespace rtcw.Renderer.Backend
         public static void Init()
         {
             defaultEffect = new DualTextureEffect(Globals.graphics3DDevice);
-            singleEffect = new AlphaTestEffect(Globals.graphics3DDevice);
+            singleEffect = new BasicEffect(Globals.graphics3DDevice);
             skeletalEffect = new idSkeletalEffect();
 
-           // singleEffect.TextureEnabled = true;
+            singleEffect.TextureEnabled = true;
 
             //multiTextureEffect.Texture2 = (Texture2D)Globals.tr.whiteImage.GetDeviceHandle();
 
@@ -223,12 +223,12 @@ namespace rtcw.Renderer.Backend
             drawMatrix.CreateViewMatrix(refdef);
 
             // If there isn't a world model don't set as the active matrix.
-            if ((refdef.rdflags & idRenderType.RDF_NOWORLDMODEL) == 0)
-            {
+        //    if ((refdef.rdflags & idRenderType.RDF_NOWORLDMODEL) == 0)
+        //    {
                 drawMatrix.world = Matrix.Identity;
                 drawMatrix.SetAsActiveMatrix(ref defaultEffect);
                 drawMatrix.SetAsActiveMatrix(ref singleEffect);
-            }
+        //    }
         }
 
         //
@@ -341,7 +341,7 @@ namespace rtcw.Renderer.Backend
             {
                 if (depthBufferEnabled == true)
                 {
-                 //   Globals.graphics3DDevice.DepthStencilState = DepthStencilState.Default;
+              //      Globals.graphics3DDevice.DepthStencilState = DepthStencilState.Default;
                     depthBufferEnabled = false;
                 }
             }
@@ -349,11 +349,11 @@ namespace rtcw.Renderer.Backend
             {
                 if (depthBufferEnabled == false)
                 {
-                 //   Globals.graphics3DDevice.DepthStencilState = DepthStencilState.None;
+                //    Globals.graphics3DDevice.DepthStencilState = DepthStencilState.None;
                     depthBufferEnabled = true;
                 }
             }
-
+#if false
             if ((stage.stateBits & Globals.GLS_ATEST_GE_80) != 0)
             {
                 singleEffect.AlphaFunction = CompareFunction.GreaterEqual;
@@ -370,7 +370,7 @@ namespace rtcw.Renderer.Backend
             {
                 singleEffect.AlphaFunction = CompareFunction.Always;
             }
-
+#endif
 
             // Depth FUnction.
             if ((stage.stateBits & Globals.GLS_DEPTHFUNC_EQUAL) != 0)

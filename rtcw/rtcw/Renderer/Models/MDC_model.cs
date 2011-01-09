@@ -364,6 +364,7 @@ namespace rtcw.Renderer.Models
             for (int i = 0; i < surfaces.Length; i++)
             {
                 surfaces[i].visCount = -1;
+                surfaces[i].sort = entity.origin.LengthSqr();
             }
             Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
             Globals.SortSurfaces(entity.frame * numVertsPerFrame, ref surfaces);

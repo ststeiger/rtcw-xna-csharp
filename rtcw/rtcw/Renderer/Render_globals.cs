@@ -96,7 +96,7 @@ namespace rtcw.Renderer
     //
     public abstract class idDrawSurface
     {
-        public uint sort;                      // bit combination for fast compares
+        public float sort;                      // bit combination for fast compares
 	    public surfaceType_t       type;       // any of surface*_t
         public idMaterial[]        materials;
         public int startVertex;
@@ -289,6 +289,8 @@ namespace rtcw.Renderer
         public bool areamaskModified;      // qtrue if areamask changed since last scene
 
 	    public float floatTime;                // tr.refdef.time / 1000.0
+
+        public int refnum;
 
 	    public int num_entities = 0;
         public idRenderEntityLocal[] entities = new idRenderEntityLocal[idRenderGlobals.MAX_RENDER_ENTITIES];
