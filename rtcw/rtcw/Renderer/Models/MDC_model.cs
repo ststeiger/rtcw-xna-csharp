@@ -170,6 +170,8 @@ namespace rtcw.Renderer.Models
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsXyzNormals);
                 ParseMD3Vertexes(surf.startVertex, surf.numVerts, surf.numBaseFrames, ref f);
 
+                surf.vertexSort = drawVertexes[surf.startVertex + drawIndexes[surf.startIndex]].xyz.LengthSqr();
+
                 // swap all the XyzCompressed
                 //xyzComp = (mdcXyzCompressed_t*)((byte*)surf + surf->ofsXyzCompressed);
                 f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsXyzCompressed);
@@ -361,12 +363,46 @@ namespace rtcw.Renderer.Models
         // 
         public override void TessModel(ref idRenderEntityLocal entity)
         {
-            for (int i = 0; i < surfaces.Length; i++)
+            int i;
+            Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
+            for (i = 0; i < surfaces.Length; i++)
             {
                 surfaces[i].visCount = -1;
                 surfaces[i].sort = entity.origin.LengthSqr();
+                surfaces[i].vertexSort = 0;
             }
-            Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
+
+            // Move the blended surfaces to draw after everything else has been drawn,
+            // this is a NASTY hack and its slow.
+            i = 0;
+            while (true)
+            {
+                idMaterialBase mtr;
+                if (i >= surfaces.Length)
+                    break;
+
+                mtr = idMaterialLocal.GetMaterialBase(surfaces[i].materials[0]);
+                if (mtr.stages[0].useBlending == true)
+                {
+                    if (i == surfaces.Length - 1)
+                        break;
+
+                    if (surfaces[i].vertexSort != 0)
+                    {
+                        i++;
+                        continue;
+                    }
+
+                    mdcSurface_t tmp = surfaces[i];
+                    surfaces[i] = surfaces[i + 1];
+                    surfaces[i + 1] = tmp;
+                    surfaces[i].vertexSort = 1;
+                    i++;
+                }
+
+                i++;
+            }
+            
             Globals.SortSurfaces(entity.frame * numVertsPerFrame, ref surfaces);
         }
 

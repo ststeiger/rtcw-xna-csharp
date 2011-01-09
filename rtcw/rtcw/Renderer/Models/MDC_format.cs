@@ -161,6 +161,9 @@ namespace rtcw.Renderer.Models
         public mdcXyzCompressed_t[] xyzCompressedIndexPool;
         public short[] baseFrames;
         public short[] compFrames;
+
+        // internal not included in the format.
+        public float vertexSort;
     };
 
     class mdcHeader_t {
