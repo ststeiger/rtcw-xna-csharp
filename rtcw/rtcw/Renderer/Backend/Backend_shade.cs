@@ -34,6 +34,7 @@ namespace rtcw.Renderer.Backend
         private static DynamicVertexBuffer dynVertexBuffer;
         private static DynamicIndexBuffer dynIndexBuffer;
         private static CompareFunction depthCompareFunc = CompareFunction.LessEqual;
+        private static DepthStencilState depthCompareLessEqual, depthCompareEqual;
 
         private static bool useSkeletalEffect = false;
         private static bool useSingleEffect = false;
@@ -46,6 +47,13 @@ namespace rtcw.Renderer.Backend
             defaultEffect = new DualTextureEffect(Globals.graphics3DDevice);
             singleEffect = new BasicEffect(Globals.graphics3DDevice);
             skeletalEffect = new idSkeletalEffect();
+
+            depthCompareLessEqual = Globals.graphics3DDevice.DepthStencilState;
+
+            depthCompareEqual = new DepthStencilState();
+            depthCompareEqual.DepthBufferEnable = true;
+            depthCompareEqual.DepthBufferFunction = CompareFunction.Equal;
+            depthCompareEqual.DepthBufferWriteEnable = true;
 
             singleEffect.TextureEnabled = true;
 
@@ -341,7 +349,7 @@ namespace rtcw.Renderer.Backend
             {
                 if (depthBufferEnabled == true)
                 {
-              //      Globals.graphics3DDevice.DepthStencilState = DepthStencilState.Default;
+               //     Globals.graphics3DDevice.DepthStencilState = depthCompareLessEqual;
                     depthBufferEnabled = false;
                 }
             }
@@ -349,7 +357,7 @@ namespace rtcw.Renderer.Backend
             {
                 if (depthBufferEnabled == false)
                 {
-                //    Globals.graphics3DDevice.DepthStencilState = DepthStencilState.None;
+                  //  Globals.graphics3DDevice.DepthStencilState = DepthStencilState.None;
                     depthBufferEnabled = true;
                 }
             }
@@ -377,8 +385,8 @@ namespace rtcw.Renderer.Backend
             {
                 if (depthCompareFunc != CompareFunction.Equal)
                 {
-                    depthCompareFunc = CompareFunction.Equal;
-                    Globals.graphics3DDevice.DepthStencilState.DepthBufferFunction = depthCompareFunc;
+              //      depthCompareFunc = CompareFunction.Equal;
+               //     Globals.graphics3DDevice.DepthStencilState = depthCompareEqual;
                 }
             }
             else
@@ -386,7 +394,7 @@ namespace rtcw.Renderer.Backend
                 if (depthCompareFunc != CompareFunction.LessEqual)
                 {
                     depthCompareFunc = CompareFunction.LessEqual;
-                    Globals.graphics3DDevice.DepthStencilState.DepthBufferFunction = depthCompareFunc;
+                 //   Globals.graphics3DDevice.DepthStencilState = depthCompareLessEqual;
                 }
             }
 

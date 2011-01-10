@@ -57,6 +57,7 @@ namespace rtcw.Renderer.Map
         int numNodes;
 
         int[] markSurfaces;
+        private idVector3[] visBounds = new idVector3[2];
 
         //
         // idMapVis
@@ -153,6 +154,33 @@ namespace rtcw.Renderer.Map
 	        {
 		        // leaf node, so add mark surfaces
 		        int c, mark;
+
+                // add to z buffer bounds
+                if (node.mins[0] < visBounds[0][0])
+                {
+                    visBounds[0][0] = node.mins[0];
+                }
+                if (node.mins[1] < visBounds[0][1])
+                {
+                    visBounds[0][1] = node.mins[1];
+                }
+                if (node.mins[2] < visBounds[0][2])
+                {
+                    visBounds[0][2] = node.mins[2];
+                }
+
+                if (node.maxs[0] > visBounds[1][0])
+                {
+                    visBounds[1][0] = node.maxs[0];
+                }
+                if (node.maxs[1] > visBounds[1][1])
+                {
+                    visBounds[1][1] = node.maxs[1];
+                }
+                if (node.maxs[2] > visBounds[1][2])
+                {
+                    visBounds[1][2] = node.maxs[2];
+                }
 		       
 		        // add the individual surfaces
 		        mark = node.firstmarksurface;
@@ -170,13 +198,73 @@ namespace rtcw.Renderer.Map
 	        }
         }
 
+        /*
+        ==============
+        SetFarClip
+        ==============
+        */
+        private float SetFarClip(idVector3 pvsOrigin) {
+	        float farthestCornerDistance = 0;
+	        int i;
+
+	        //
+	        // set far clipping planes dynamically
+	        //
+	        farthestCornerDistance = 0;
+	        for ( i = 0; i < 8; i++ )
+	        {
+		        idVector3 v = idVector3.vector_origin;
+                idVector3 vecTo = idVector3.vector_origin;
+		        float distance;
+
+		        if ( (i & 1) != 0 ) {
+			        v[0] = visBounds[0][0];
+		        } else
+		        {
+			        v[0] = visBounds[1][0];
+		        }
+
+		        if ( (i & 2) != 0 ) {
+			        v[1] = visBounds[0][1];
+		        } else
+		        {
+			        v[1] = visBounds[1][1];
+		        }
+
+		        if ( (i & 4) != 0 ) {
+			        v[2] = visBounds[0][2];
+		        } else
+		        {
+			        v[2] = visBounds[1][2];
+		        }
+
+               // vecTo = v - pvsOrigin;
+                vecTo = v;
+
+		        distance = vecTo[0] * vecTo[0] + vecTo[1] * vecTo[1] + vecTo[2] * vecTo[2];
+
+		        if ( distance > farthestCornerDistance ) {
+			        farthestCornerDistance = distance;
+		        }
+	        }
+
+	        return (float)System.Math.Sqrt( farthestCornerDistance );
+        }
+
         //
         // SetSurfacesVisibility
         //
-        public void SetSurfacesVisibility(idVector3 pvsOrigin, ref idDrawSurface[] surfaces)
+        public float SetSurfacesVisibility(idVector3 pvsOrigin, ref idDrawSurface[] surfaces)
         {
+            // Reset the visibily boundry.
+            visBounds[0] = idVector3.vector_origin;
+            visBounds[1] = idVector3.vector_origin;
+
             MarkLeavesInPVS(pvsOrigin);
             RecursiveWorldNode(nodes[0], ref surfaces );
+
+            //return SetFarClip(pvsOrigin);
+            return 1000.0f;
         }
 
         /*

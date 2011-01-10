@@ -148,7 +148,7 @@ namespace rtcw.Renderer
         //
         // Draw
         //
-        private void Draw(idRefdefLocal refdef, int startSurface)
+        private void Draw(idRefdefLocal refdef, int startSurface, float zFar)
         {
             idRenderCommand cmd = Globals.backEnd.GetCommandBuffer();
             cmd.type = renderCommandType.RC_RENDER_SCENE;
@@ -164,13 +164,14 @@ namespace rtcw.Renderer
         {
             idRefdefLocal refdef = (idRefdefLocal)scenerefdef;
             int startSurface = Globals.backEnd.NumSurfaces;
+            float zFar = 500.0f;
 
             Globals.backEnd.SetSurfaceRefdef(refdef.refnum);
 
             // Render the bsp if its present.
             if (map != null)
             {
-                map.RenderMap(refdef.vieworg);
+                zFar = map.RenderMap(refdef.vieworg);
             }
 
             // Render the entities.
@@ -200,7 +201,7 @@ namespace rtcw.Renderer
                 }
             }
 
-            Draw(refdef, startSurface);
+            Draw(refdef, startSurface, zFar);
         }
     }
 }

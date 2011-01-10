@@ -604,8 +604,6 @@ namespace ui
 	        // setup the refdef
 	        //memset( &refdef, 0, sizeof( refdef ) );
             refdef = world.AllocRefdef();
-
-	        refdef.rdflags = idRenderType.RDF_NOWORLDMODEL;
             refdef.viewaxis = idVector3.vector_origin.ToAxis();
             
 	        //AxisClear( refdef.viewaxis );
@@ -640,7 +638,7 @@ namespace ui
             refdef.y = 0;
             refdef.width = Engine.RenderSystem.GetViewportWidth();
             refdef.height = Engine.RenderSystem.GetViewportHeight();
-            refdef.rdflags = idRenderType.RF_DEPTHHACK;
+            refdef.rdflags = idRenderType.RDF_NOWORLDMODEL;
 #endif
             item.model.GetModelBounds( out mins, out maxs );
 

@@ -698,10 +698,12 @@ namespace rtcw.Renderer
                         stage.blendState.AlphaDestinationBlend = (Blend)blendDstBits;
                         stage.blendState.ColorDestinationBlend = (Blend)blendDstBits;
                         // clear depth mask for blended surfaces
-                        if (!depthMaskExplicit)
-                        {
-                            depthMaskBits = 0;
-                        }
+                        
+                    }
+
+                    if (!depthMaskExplicit)
+                    {
+                        depthMaskBits = 0;
                     }
                   //  }
 

@@ -407,7 +407,7 @@ namespace rtcw.Renderer.Models
             for (i = 0; i < surfaces.Length; i++)
             {
                 surfaces[i].visCount = -1;
-                surfaces[i].sort = entity.origin.LengthSqr();
+                surfaces[i].sort = entity.origin.Length();
                 surfaces[i].vertexSort = 0;
             }
 

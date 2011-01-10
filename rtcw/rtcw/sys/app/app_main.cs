@@ -129,10 +129,10 @@ namespace rtcw.sys.app
         //
         // BeginDraw
         //
-      //  protected override bool BeginDraw()
-       // {
-       //     return false;
-        //}
+    //    protected override bool BeginDraw()
+   //     {
+   //         return false;
+    //    }
 
         //
         // EndDraw
@@ -179,7 +179,7 @@ namespace rtcw.sys.app
 
             // Let the XNA framework draw anything thats still needs to be pushed to screen,
             // and handle any backend OS messaging.
-            //base.Draw(gameTime);
+            base.Draw(gameTime);
         }
     }
 

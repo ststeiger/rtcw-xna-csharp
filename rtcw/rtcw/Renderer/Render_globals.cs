@@ -291,6 +291,7 @@ namespace rtcw.Renderer
 	    public float floatTime;                // tr.refdef.time / 1000.0
 
         public int refnum;
+        public float zFar;
 
 	    public int num_entities = 0;
         public idRenderEntityLocal[] entities = new idRenderEntityLocal[idRenderGlobals.MAX_RENDER_ENTITIES];

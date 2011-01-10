@@ -1120,6 +1120,36 @@ namespace rtcw.Renderer.Map
             Engine.common.Printf("TessAllPatchSurfaces: NumSurfs %d NumVertexes %d NumIndexes %d\n", numSurfsTessalated, drawVerts.Count - vertexCount, drawIndexes.Count - indexCount);
         }
 
+        //
+        // PrepareSurface
+        //
+        private idVector3 polyOffsetConstant = new idVector3(0.1f, 0.1f, 0.1f);
+        private void PrepareSurface(ref idDrawSurface surface)
+        {
+            idMaterialBase mtr = idMaterialLocal.GetMaterialBase(surface.materials[0]);
+
+            // If the surface requires the verts to be offseted by the normal, we have to do that here,
+            // its easier than displacing it at runtime.
+            if (mtr.polygonOffset)
+            {
+                for (int i = surface.startVertex; i < surface.startVertex + surface.numVertexes; i++)
+                {
+                    idDrawVertex vert = drawVerts[i];
+                    vert.xyz = vert.xyz + (polyOffsetConstant * drawVerts[i].normal);
+                    drawVerts[i] = vert;
+                }
+
+                // This isn't right at all...
+                surface.sort = -0x80000;
+            }
+
+            if (mtr.cullType == cullType_t.CT_TWO_SIDED)
+            {
+                // This isn't right at all...
+                surface.sort = -0x140000;
+            }
+        }
+
         /*
         ===============
         LoadSurfaces
@@ -1213,6 +1243,8 @@ namespace rtcw.Renderer.Map
 			        Engine.common.ErrorFatal( "Bad surfaceType" );
                     break;
 		        }
+
+                PrepareSurface(ref drawSurfs[i]);
 	        }
 
         #if PATCH_STITCHING
@@ -1334,12 +1366,16 @@ namespace rtcw.Renderer.Map
         //
         // RenderMap
         //
-        public void RenderMap(idVector3 pvsorigin)
+        public float RenderMap(idVector3 pvsorigin)
         {
-            vis.SetSurfacesVisibility(pvsorigin, ref drawSurfs);
+            float zFar;
+
+            zFar = vis.SetSurfacesVisibility(pvsorigin, ref drawSurfs);
 
             Globals.SetVertexIndexBuffers(vertexBuffer, indexBuffer);
             Globals.SortSurfaces(0, ref drawSurfs);
+
+            return zFar;
         }
 
         //
@@ -1350,8 +1386,34 @@ namespace rtcw.Renderer.Map
             for (int i = 0; i < drawSurfs.Length; i++)
             {
                 idDrawSurface surf = drawSurfs[i];
-                int index = drawIndexes[surf.startIndex];
-                drawSurfs[i].sort = drawVerts[surf.startVertex + index].xyz.Length();
+                float fartherLength = 0;
+                int fartherIndex = 0;
+
+                //int index = drawIndexes[surf.startIndex];
+                for (int c = 1; c < surf.numVertexes; c++)
+                {
+                    idVector3 p = drawVerts[surf.startVertex + fartherIndex].xyz - drawVerts[surf.startVertex + c].xyz;
+
+                    float v = p.Length();
+
+                    if (v > fartherLength)
+                    {
+                        fartherLength = v;
+                        fartherIndex = c;
+                    }
+                }
+
+                idVector3 midPoint = drawVerts[surf.startVertex].xyz - drawVerts[surf.startVertex + fartherIndex].xyz;
+
+                if (surf.sort == 0)
+                {
+                    surf.sort += midPoint.LengthSqr();
+                }
+                else
+                {
+                    surf.sort -= midPoint.LengthSqr();
+                }
+                drawSurfs[i] = surf;
             }
         }
 

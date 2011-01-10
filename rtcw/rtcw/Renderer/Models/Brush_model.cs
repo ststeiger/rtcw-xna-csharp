@@ -119,7 +119,7 @@ namespace rtcw.Renderer.Models
             for (int i = firstSurface; i < firstSurface + numSurfaces; i++)
             {
                 parent.drawSurfs[i].visCount = Globals.visCount;
-                parent.drawSurfs[i].sort = entity.origin.LengthSqr();
+                parent.drawSurfs[i].sort = entity.origin.Length();
             }
 
             Globals.SortSurfaces<idDrawSurface>(0, ref parent.drawSurfs, firstSurface, numSurfaces);

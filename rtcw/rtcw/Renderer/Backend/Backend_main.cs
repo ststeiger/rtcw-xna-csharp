@@ -373,7 +373,7 @@ namespace rtcw.Renderer.Backend
         {
             SetViewportAndScissor(state.refdef);
 
-            if (state.refdef.rdflags == idRenderType.RF_DEPTHHACK)
+            if (state.refdef.rdflags == idRenderType.RF_DEPTHHACK || state.refdef.rdflags == idRenderType.RDF_NOWORLDMODEL)
             {
                 Globals.graphics3DDevice.Clear(ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
             }
@@ -421,7 +421,10 @@ namespace rtcw.Renderer.Backend
 
             // Sort out draw surfaces.
 #if USE_QSORT
-            backEndData[smpFrame].SortSurfaces(cmd.startSurface);
+            if (cmd.refdef.rdflags != idRenderType.RDF_NOWORLDMODEL)
+            {
+                backEndData[smpFrame].SortSurfaces(cmd.startSurface);
+            }
 #endif
             // Everyone surface here should have the same refdef.
             refdef = cmd.refdef;
@@ -906,8 +909,17 @@ namespace rtcw.Renderer.Backend
         //
         private void InitSortSurface(ref idSortSurface surf)
         {
-            float viewSort = entities[surfrefdef].vieworg.Length();
-            surf.sort = (int)Math.Abs((viewSort - drawSurfsInternal[numDrawSurfs].sort));
+            idLib.Math.idVector3 view = idLib.Math.idVector3.vector_origin;
+            float viewSort;
+
+            for (int i = 0; i < 3; i++)
+            {
+                view += entities[surfrefdef].vieworg + entities[surfrefdef].viewaxis[i];
+            }
+
+            viewSort = view.Length();
+
+            surf.sort = (int)(viewSort - drawSurfsInternal[numDrawSurfs].sort);
 
             surf.index = numDrawSurfs;
 
