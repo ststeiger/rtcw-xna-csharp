@@ -1,0 +1,111 @@
+// Director sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+
+cs11_director_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_dir_01_4.wav
+}
+
+cs11_director_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_dir_02_5.wav
+}
+
+cs11_director_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_dir_03_4.wav
+}
+
+cs11_director_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_dir_04_1.wav
+}
+
+cs11_director_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_dir_05_6.wav
+}
+
+cs11_director_6
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_dir_06_2.wav
+}
+
+cs11_director_7
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_dir_07_4.wav
+}
+
+cs11_director_8
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_dir_08_6.wav
+}
+
+cs11_jack_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_jac_01_6.wav
+}
+
+cs11_jack_clearthroat
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_jac_clearthroat
+}
+
+cs11_jack_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_jac_02.wav
+}
+
+cs11_jack_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_jac_03_6.wav
+}
+
+cs11_jack_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_jac_04.wav
+}
+
+cs11_jack_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_jac_05_6.wav
+}
+
+cs11_jack_6
+{
+	voice
+	streaming
+	sound sound/scenaric/cs11/cs11_jac_06_2.wav
+}

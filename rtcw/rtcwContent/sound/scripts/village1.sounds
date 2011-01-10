@@ -1,0 +1,579 @@
+// village1 sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+
+vill_doorlock
+{
+	streaming
+	sound sound/movers/doors/door6_locked.wav
+}
+
+villnazi1_2	// Nazi1 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis1_colder_than_last_night.wav
+}
+
+villnazi1_3	// Nazi1 Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis1_i_know.wav
+}
+
+villnazi1_4	// Nazi1 Dialog4, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis1_los_los.wav
+}
+
+villnazi0_2	// Nazi0 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis0_its_freezing.wav
+}
+
+villnazi0_3	// Nazi0 Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis0_bathed_in_2_weeks.wav
+}
+
+villdrunk1_1	// Drunk1 Dialog1, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/drunk1_chorus1.wav
+}
+
+villdrunk1_2	// Drunk1 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/drunk1_chorus2.wav
+}
+
+villdrunk1_3	// Drunk1 Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/drunk1_chorus3.wav
+}
+
+villdrunk1_4	// Drunk1 Dialog4, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/drunk1_chorus4.wav
+}
+
+villdrunk1_5	// Drunk1 Dialog5, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/drunk1_slovenly_swine.wav
+}
+
+villdrunk1_6	// Drunk1 Dialog6, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/drunk1_attention.wav
+}
+
+villdrunk1_7	// Drunk1 Dialog7, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/drunk1_bring_beer.wav
+}
+
+villdrunk1_8	// Drunk1 Dialog8, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/drunk1_frauhlein.wav
+}
+
+villdrunk1_9	// Drunk1 Dialog9, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/drunk1_back_to_post.wav
+}
+
+villnazi5_1	// Nazi5 Dialog5, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis5_strange_things.wav
+}
+
+villnazi5_2	// Nazi5 Dialog1, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis5_out_of_control.wav
+}
+
+villnazi5_3	// Nazi5 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis5_another_casualty.wav
+}
+
+villnazi5_4	// Nazi5 Dialog4, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis5_3_replacements.wav
+}
+
+villnazi5_5	// Nazi5 Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis5_according_to_otto.wav
+}
+
+villnazi5_6	// Nazi5 Dialog4, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis5_on_to_something.wav
+}
+
+villnazi5_7	// Nazi5 Dialog7 Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis5_as_you_wish.wav
+}
+
+villnazi5_8	// Nazi5 Dialog8, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis5_ya_ya.wav
+}
+
+villnazi3_1	// Nazi3 Dialog1, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis3_I_wouldnt_know.wav
+}
+
+villnazi3_2	// Nazi3 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis3_you_dont_say.wav
+}
+
+villnazi3_3	// Nazi3 Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis3_is_that_a_fact.wav
+}
+
+villnazi3_4	// Nazi3 Dialog4, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis3_did_they_really.wav
+}
+
+villnazi3_5	// Nazi3 Dialog5, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis3_otto_talks_too_much.wav
+}
+
+villnazi3_6	// Nazi3 Dialog6, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis3_I_didnt_ask_you.wav
+}
+
+villnazi3_7	// Nazi3 Dialog7, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis3_I_hear_very_little.wav
+}
+
+villnazi14_1	// Nazi14 Dialog1, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis14_what_do_you_know.wav
+}
+
+villnazi14_2	// Nazi14 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis14_crazy_witch.wav
+}
+
+villnazi14_3	// Nazi14 Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis14_right_about_rest.wav
+}
+
+villnazi14_4	// Nazi14 Dialog4, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis14_well_you_know.wav
+}
+
+villnazi15_1	// Nazi15 Dialog1, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis15_unbelievable.wav
+}
+
+villnazi15_2	// Nazi15 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis15_knew_to_dig.wav
+}
+
+villnazi15_3	// Nazi15 Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis15_rest_of_what.wav
+}
+
+villnazi15_4	// Nazi15 Dialog4, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis15_resurrecting.wav
+}
+
+villnazi15_5	// Nazi15 Dialog5, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis15_jawohl.wav
+}
+
+villofficer1_1	// Officer1 Dialog1, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/officer1_bad_business.wav
+}
+
+villofficer1_2	// Officer1 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/officer1_our_own_men.wav
+}
+
+villofficer1_3	// Officer1 Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/officer1_of_course.wav
+}
+
+villofficer1_4	// Officer1 Dialog4, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/officer1_those_screams.wav
+}
+
+villofficer1_5	// Officer1 Dialog5, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/officer1_need_drink.wav
+}
+
+villofficer2_1	// Officer1 Dialog1, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/officer2_yes_agree.wav
+}
+
+villofficer2_2	// Officer1 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/officer2_I_was_there.wav
+}
+
+villofficer2_3	// Officer1 Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/officer2_seal_crypt.wav
+}
+
+villofficer2_4	// Officer1 Dialog4, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/officer2_enough_already.wav
+}
+
+villp4_1	// Partisan4 Dialog1, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p4_come_inside.wav
+}
+
+villp4_2	// Partisan4 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p4_have_something.wav
+}
+
+villp4_3	// Partisan4 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p4_sten.wav
+}
+
+villp4_4	// Partisan4 Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p4_mp40_ammo.wav
+}
+
+villp4_5	// Partisan4 Dialog4, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p4_nothing.wav
+}
+
+villp4_6	// Partisan4 Dialog5, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p4_officer_qtrs.wav
+}
+
+villp4_7	// Partisan4 Dialog6, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p4_must_stay.wav
+}
+
+villp4_8	// Partisan4 Dialog7, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p4_snipers.wav
+}
+
+villp4_9	// Partisan4 Dialog8, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p4_must_go.wav
+}
+
+villp3_1	// Partisan3 Dialog1, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p3_you_want.wav
+}
+
+villp3_2	// Partisan3 Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p3_stay_away.wav
+}
+
+villp3_3	// Partisan3 Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/p3_guards.wav
+}
+
+villnazi17_1	// Nazi17 Dialog1, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/axis17_come_here.wav
+}
+
+villmisc_1	// MISC Dialog1, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_always.wav
+}
+
+villmisc_2	// MISC Dialog2, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_belch.wav
+}
+
+villmisc_3	// MISC Dialog3, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_cough_1.wav
+}
+
+villmisc_4	// MISC Dialog4, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_cough_2.wav
+}
+
+villmisc_5	// MISC Dialog5, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_cough_3.wav
+}
+
+villmisc_6	// MISC Dialog6, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum.wav
+}
+
+villmisc_7	// MISC Dialog7, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum2.wav
+}
+
+villmisc_8	// MISC Dialog8, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum3.wav
+}
+
+villmisc_9	// MISC Dialog9, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum4.wav
+}
+
+villmisc_10	// MISC Dialog10, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_shiver.wav
+}
+
+villmisc_11	// MISC Dialog11, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_shiver_2.wav
+}
+
+villmisc_12	// MISC Dialog12, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_whistle.wav
+}
+
+villmisc_13	// MISC Dialog13, Village1 -Mike
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_yawn.wav
+}
+
+villblank
+{
+	streaming
+	voice
+	sound sound/scenaric/general/blank.wav
+}
+
+villkess_1
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/kess_my_house.wav
+}
+
+villkess_2
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/kess_down_stairs.wav
+}
+
+villkess_3
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/kess_accompany.wav
+}
+
+villkess_4
+{
+	streaming
+	voice
+	sound sound/scenaric/village1/kess_must_hurry.wav
+}
+
+villp1_1
+{
+	streaming
+	voice
+	sound sound/scenaric/assault/mech_1.wav
+}
+
+villfem1_1
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/Gret_dont_kill_me.wav
+}
+
+villfem2_1
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/inge_please_dont.wav
+}

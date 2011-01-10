@@ -1,0 +1,202 @@
+// Director sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+
+cs1_director_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_dir_01.wav
+}
+
+cs1_director_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_dir_02.wav
+}
+
+cs1_director_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_dir_03.wav
+}
+
+cs1_director_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_dir_04.wav
+}
+
+cs1_director_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_dir_05.wav
+}
+
+cs1_director_6
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_dir_06.wav
+}
+
+cs1_director_7
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_dir_07.wav
+}
+
+cs1_director_8
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_dir_08.wav
+}
+
+cs1_director_9
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_dir_09.wav
+}
+
+cs1_director_10
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_dir_10.wav
+}
+
+cs1_director_11
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_dir_11.wav
+}
+
+cs1_jack_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_01.wav
+}
+
+cs1_jack_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_02.wav
+}
+
+cs1_jack_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_03.wav
+}
+
+cs1_jack_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_04.wav
+}
+
+cs1_jack_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_05.wav
+}
+
+cs1_jack_6
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_06.wav
+}
+
+cs1_jack_7
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_07.wav
+}
+
+cs1_jack_8
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_08.wav
+}
+
+cs1_jack_9
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_09.wav
+}
+
+cs1_jack_10
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_10.wav
+}
+
+cs1_jack_11
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_11.wav
+}
+
+cs1_jack_12
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_12.wav
+}
+
+cs1_jack_13
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_jac_13.wav
+}
+
+cs1_hig_01
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_hig_01.wav
+}
+
+cs1_hig_02
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_hig_02.wav
+}
+
+cs1_mur_01
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_mur_01.wav
+}
+
+cs1_mur_02
+{
+	voice
+	streaming
+	sound sound/scenaric/cs1/cs01_mur_02.wav
+}

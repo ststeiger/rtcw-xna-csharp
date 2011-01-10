@@ -1,0 +1,49 @@
+// Trainyard sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+// Sounds for Trainyard
+
+TYSci1_1
+{
+	streaming
+	voice
+	sound sound/scenaric/trainyard/sci1_hurry_up.wav
+}
+
+TYSci1_2
+{
+	streaming
+	voice
+	sound sound/scenaric/trainyard/sci1_a_minute.wav
+}
+
+TYSci1_3
+{
+	streaming
+	voice
+	sound sound/scenaric/trainyard/sci1_hes_leaving.wav
+}
+
+TYSci2_1
+{
+	streaming
+	voice
+	sound sound/scenaric/trainyard/sci2_almost_done.wav
+}
+
+TYSci2_2
+{
+	streaming
+	voice
+	sound sound/scenaric/trainyard/sci2_alright.wav
+}
+
+TYMech1_1
+{
+	streaming
+	voice
+	sound sound/scenaric/trainyard/mech1_elevator_fixed.wav
+}

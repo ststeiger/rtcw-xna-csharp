@@ -1,0 +1,162 @@
+// escape1 sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+// Sounds for Escape2
+
+AlarmAlert
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/machanz.wav
+}
+
+Esc2Officer1_1
+{
+	streaming
+	voice
+	sound sound/scenaric/forest/axis9_american.wav
+}
+
+Esc2Nazi1_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis1_doubled_guard.wav
+}
+
+Esc2Nazi1_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis1_i_know.wav
+}
+
+Esc2Nazi1_3
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis1_polish_weapon.wav
+}
+
+Esc2Nazi1_4
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis1_hey.wav
+}
+
+Esc2Nazi2_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis2_whats_going_on.wav
+}
+
+Esc2Nazi2_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis2_bad_case.wav
+}
+
+Esc2Nazi2_3
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis2_understandable.wav
+}
+
+Esc2Nazi3_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis3_wie_gates.wav
+}
+
+Esc2Nazi5_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis5_nein.wav
+}
+
+Esc2Nazi5_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis5_jawhol.wav
+}
+
+Esc2Officer2_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/officer2_any_luck.wav
+}
+
+Esc2Officer2_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/officer2_trying.wav
+}
+
+Esc2Nazi10_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis10_sigh.wav
+}
+
+Esc2Nazi10_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis10_explain.wav
+}
+
+Esc2Nazi10_3
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis10_bottle.wav
+}
+
+Esc2Nazi11_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis11_what.wav
+}
+
+Esc2Nazi11_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis11_heard.wav
+}
+
+Esc2Nazi11_3
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis11_kidding.wav
+}
+
+Esc2Nazi23_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis23_protect.wav
+}
+
+Esc2Nazi23_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape2/axis23_move_fools.wav
+}
+

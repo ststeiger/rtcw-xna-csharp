@@ -1,0 +1,131 @@
+// Street Fighting Man Sound Scripts
+// This file is meant mostly for level defind sounds used in many levels
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+TankCom1
+{
+	streaming
+	global
+	sound sound/scenaric/sfm/tank_com_01.wav
+}
+
+TankCom2
+{
+	streaming
+	global
+	sound sound/scenaric/sfm/tank_com_02.wav
+}
+
+TankCom3
+{
+	streaming
+	global
+	sound sound/scenaric/sfm/tank_com_03.wav
+}
+
+TankCom4
+{
+	streaming
+	global
+	sound sound/scenaric/sfm/tank_com_04.wav
+}
+
+TankCom5
+{
+	streaming
+	global
+	sound sound/scenaric/sfm/tank_com_05.wav
+}
+
+TankCom6
+{
+	streaming
+	global
+	sound sound/scenaric/sfm/tank_com_06.wav
+}
+
+TankCom7
+{
+	streaming
+	global
+	sound sound/scenaric/sfm/tank_com_07.wav
+}
+
+TankCom8
+{
+	streaming
+	global
+	sound sound/scenaric/sfm/tank_com_08.wav
+}
+
+TankCom9
+{
+	streaming
+	global
+	sound sound/scenaric/sfm/tank_com_09.wav
+}
+
+TankCom10
+{
+	streaming
+	global
+	sound sound/scenaric/sfm/tank_com_10.wav
+}
+
+SFMHelp1
+{
+	streaming
+	voice
+	sound sound/scenaric/sfm/kre_01.wav
+}
+
+SFMHelp2
+{
+	streaming
+	voice
+	sound sound/scenaric/sfm/kre_02.wav
+}
+
+SFMHelp3
+{
+	streaming
+	voice
+	sound sound/scenaric/sfm/kre_03.wav
+}
+
+SFMHelp4
+{
+	streaming
+	voice
+	sound sound/scenaric/sfm/kre_04.wav
+}
+
+SFMHelp5
+{
+	streaming
+	voice
+	sound sound/scenaric/sfm/kre_05.wav
+}
+
+SFMHelp6
+{
+	streaming
+	voice
+	sound sound/scenaric/sfm/kre_06.wav
+}
+
+SFMHelp7
+{
+	streaming
+	voice
+	sound sound/scenaric/sfm/kre_07.wav
+}
+
+SFMHelp8
+{
+	streaming
+	voice
+	sound sound/scenaric/sfm/kre_08.wav
+}

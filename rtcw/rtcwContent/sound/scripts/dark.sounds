@@ -1,0 +1,65 @@
+// dam sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+blank	// troop jeremy, dark/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/misc_blank.wav
+}
+
+dk_cs15_eli_01_3  // troop jeremy, dark/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dark/cs15_eli_01_3.wav
+}
+
+dk_cs15_eli_02_2 // troop jeremy, dark/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dark/cs15_eli_02_2.wav
+}
+
+dk_cs15_eli_03 // troop jeremy, dark/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dark/cs15_eli_03.wav
+}
+
+dk_cs15_sol_01_3 // troop jeremy, dark/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dark/cs15_sol_01_3.wav
+}
+
+dk_cs15_sol_02 // troop jeremy, dark/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dark/cs15_sol_02.wav
+}
+
+dk_cs15_sol2_01 // troop jeremy, dark/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dark/cs15_sol2_01.wav
+}
+
+dk_earth_rumble
+{
+	shake 0.11 16000 17000
+	auto
+	streaming
+	global
+	sound sound/scenaric/crypt2/earth_rumble.wav
+}
+
+

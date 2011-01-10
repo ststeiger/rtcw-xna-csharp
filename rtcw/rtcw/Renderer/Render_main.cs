@@ -557,6 +557,8 @@ namespace rtcw.Renderer
         {
             Engine.common.Printf("----- R_Init -----\n");
 
+            Register();
+
             // clear all our internal state
             Globals.tr = new idRenderGlobals();
             Globals.backEnd = new idRenderBackend();
@@ -597,8 +599,6 @@ namespace rtcw.Renderer
             InitFogTable();
 
             Noise.Init();
-
-            Register();
 
             Engine.imageManager = new idImageManagerLocal();
             Engine.imageManager.Init();

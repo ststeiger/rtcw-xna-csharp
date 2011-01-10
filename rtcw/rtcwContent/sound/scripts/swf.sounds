@@ -1,0 +1,63 @@
+// swf sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+// Sounds for Escape2
+
+SWFNazi1_1
+{
+	streaming
+	voice
+	sound sound/scenaric/swf/axis1_wunderba.wav
+}
+
+SWFLab3_1
+{
+	streaming
+	voice
+	sound sound/scenaric/swf/lab3_let_me_in.wav
+}
+
+SWFdeath_1
+{
+	streaming
+	voice
+	sound sound/scenaric/swf/cs10_dh_01.wav
+}
+
+SWFdeath_2
+{
+	streaming
+	voice
+	sound sound/scenaric/swf/cs10_dh_02.wav
+}
+
+SWFmajor_1
+{
+	streaming
+	voice
+	sound sound/scenaric/swf/cs10_maj_01.wav
+}
+
+SWFmajor_2
+{
+	streaming
+	voice
+	sound sound/scenaric/swf/cs10_maj_02.wav
+}
+
+SWFSub_1
+{
+	streaming
+	voice
+	sound sound/scenaric/swf/spo_01.wav
+}
+
+SWFSub_2
+{
+	streaming
+	voice
+	sound sound/scenaric/swf/spo_02.wav
+}

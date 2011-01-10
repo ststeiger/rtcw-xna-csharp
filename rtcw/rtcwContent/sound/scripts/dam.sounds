@@ -1,0 +1,257 @@
+// dam sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+blank	// troop jeremy, Dam6/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/misc_blank.wav
+}
+
+elevator1start	// mover, dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/movers/elevators/elev1_start.wav
+}
+
+elevator1loop	// mover, dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/movers/elevators/elev1_loop.wav
+}
+
+elevator1end	// mover, dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/movers/elevators/elev1_end.wav
+}
+
+whistle1	// infantry, dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/misc_whistle.wav
+}
+
+yawn	// infantry, dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/misc_yawn.wav
+}
+
+galarm	// infantry, dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/norway/g1_alarm.wav
+}
+
+bridgefall1	// infantry, dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/bridge_crash.wav
+}
+
+hitler1	// for radio, dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/1933_reichstag.wav
+}
+
+hitler2	// for radio, dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/trumph_speech_2c_loop_18db.wav
+}
+
+hitler3	// for radio, dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/trumph_speech_2d_loop_21db.wav
+}
+
+hes_coming // First conversation, dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/axis7a_any_minute.wav
+}
+
+driver_open_gate // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/driver_open_gate.wav
+}
+
+guard_sorry_road_closed // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/guard_sorry_road_closed.wav
+}
+
+driver_what_do_you_mean_closed // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/driver_what_do_you_mean_closed.wav
+}
+
+guard_I_know // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/guard_I_know.wav
+}
+
+driver_delivery_for_gen // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/driver_delivery_for_gen.wav
+}
+
+guard_sorry_blacked_out // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/guard_sorry_blacked_out.wav
+}
+
+driver_what // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/driver_what.wav
+}
+
+guard_due_to_radio // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/guard_due_to_radio.wav
+}
+
+guard_suit_yourself // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/guard_suit_yourself.wav
+}
+
+driver_ja_ja // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/driver_ja_ja.wav
+}
+
+driver_what_am_I_supposed_to_do // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/driver_what_am_I_supposed_to_do.wav
+}
+
+guard_look_for_crackers // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/guard_look_for_crackers.wav
+}
+
+m1_verdammt_leak // Mechanics conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/m1_verdammt_leak.wav
+}
+
+m2_but_we_just // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/m2_but_we_just.wav
+}
+
+m1_thats_right // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/m1_thats_right.wav
+}
+
+m2_doesnt_make_sense // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/m2_doesnt_make_sense.wav
+}
+
+m1_yes_it_was_obvious // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/m1_yes_it_was_obvious.wav
+}
+
+m2_alright // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/m2_alright.wav
+}
+
+m1_makes_perfect_sense // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/m1_makes_perfect_sense.wav
+}
+
+door10_close // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/door10_close.wav
+}
+
+dam_b25_radio // First conversation , dam -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/dam/b25_radio.wav
+}
+
+dam_b25
+{
+	shake 0.1 16000 15000
+	auto
+	streaming
+	global
+	sound sound/scenaric/dam/b25.wav
+}
+
+
+
+
+
+
+
+
+
+
+
+

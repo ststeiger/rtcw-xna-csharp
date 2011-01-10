@@ -1,0 +1,160 @@
+// Director sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+
+cs9_director_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs01_dir_01_2.wav
+}
+
+cs9_director_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_dir_02_4.wav
+}
+
+cs9_director_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_dir_03_2.wav
+}
+
+cs9_director_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_dir_04_3.wav
+}
+
+cs9_director_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_dir_05_2.wav
+}
+
+cs9_director_6
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_dir_06_2.wav
+}
+
+cs9_director_7
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_dir_07_2.wav
+}
+
+cs9_director_8
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_dir_08_2.wav
+}
+
+cs9_director_9
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_dir_09_4.wav
+}
+
+cs9_director_10
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_dir_10_4.wav
+}
+
+cs9_director_11
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_dir_11_4.wav
+}
+
+cs9_director_12
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_dir_12_4.wav
+}
+
+cs9_jack_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_jac_01_2.wav
+}
+
+cs9_jack_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_jac_02_3.wav
+}
+
+cs9_jack_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_jac_03.wav
+}
+
+cs9_jack_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_jac_04_3.wav
+}
+
+cs9_jack_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_jac_05.wav
+}
+
+cs9_jack_6
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_jac_06_2.wav
+}
+
+cs9_jack_7
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_jac_07_1.wav
+}
+
+cs9_jack_8
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_jac_08_4.wav
+}
+
+cs9_jack_9
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_jac_09_3.wav
+}
+
+cs9_jack_10
+{
+	voice
+	streaming
+	sound sound/scenaric/cs9/cs09_jac_10_1.wav
+}

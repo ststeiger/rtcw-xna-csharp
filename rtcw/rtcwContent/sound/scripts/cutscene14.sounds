@@ -1,0 +1,186 @@
+// Director sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+
+cs14_director_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_dir_01_2.wav
+}
+
+cs14_director_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_dir_02_4.wav
+}
+
+cs14_director_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_dir_03.wav
+}
+
+cs14_director_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_dir_04.wav
+}
+
+cs14_director_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_dir_05_1.wav
+}
+
+cs14_director_6
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_dir_06_3.wav
+}
+
+cs14_director_7
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_dir_07_2.wav
+}
+
+cs14_director_8
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_dir_08_1.wav
+}
+
+cs14_director_9
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_dir_09_2.wav
+}
+
+cs14_director_10
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_dir_10.wav
+}
+
+cs14_director_11
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_dir_11_1.wav
+}
+
+cs14_jack_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_jac_01_2.wav
+}
+
+cs14_jack_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_jac_03_3.wav
+}
+
+cs14_jack_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_jac_04_3.wav
+}
+
+cs14_jack_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_jac_05.wav
+}
+
+cs14_jack_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_jac_06_2.wav
+}
+
+cs14_jack_6
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_jac_07.wav
+}
+
+cs14_jack_7
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_jac_08_2.wav
+}
+
+cs14_jack_8
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_jac_09_4.wav
+}
+
+cs14_hig_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_hig_01.wav
+}
+
+cs14_murphy_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_mur_01_4.wav
+}
+
+cs14_murphy_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_mur_02_2.wav
+}
+
+cs14_murphy_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_mur_03_1.wav
+}
+
+cs14_hig_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_hig_02_1.wav
+}
+
+cs14_hig_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs14/cs14_hig_03_1.wav
+}
+
+
+
+
+

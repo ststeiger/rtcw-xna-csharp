@@ -40,6 +40,7 @@ using idLib.Engine.Public;
 using idLib.Engine.Public.Net;
 using idLib.Game.Server;
 
+using Game.AAS;
 using Game.Entities.Player;
 
 namespace Game
@@ -61,6 +62,29 @@ namespace Game
         }
 
         //
+        // InitAAS
+        //
+        private idAAS InitAAS(string mapname)
+        {
+            idFile file;
+            idAAS aas;
+            
+            file = Engine.fileSystem.OpenFileRead("maps/" + mapname + ".aas", true);
+
+            if (file == null)
+            {
+                Engine.common.Warning("InitAAS: Failed to find AAS for map " + mapname + " \n");
+                return null;
+            }
+
+            aas = new idAAS(mapname, ref file);
+
+            Engine.fileSystem.CloseFile(ref file);
+
+            return aas;
+        }
+
+        //
         // Init
         //
         public override void Init(string mapname, int levelTime, int randomSeed, int restart)
@@ -70,6 +94,12 @@ namespace Game
 
             // Reset the game network manager.
             Level.net.Reset();
+
+            // Load the map AAS files
+            for (int i = 0; i < 2; i++)
+            {
+                Level.aas[i] = InitAAS(mapname + "_b" + i);
+            }
 
             Level.mapname = mapname;
 

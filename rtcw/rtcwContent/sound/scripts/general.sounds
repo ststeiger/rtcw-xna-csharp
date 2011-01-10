@@ -1,0 +1,441 @@
+// General Sound Scripts
+// This file is meant mostly for level defind sounds used in many levels
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+Blank
+{
+	voice
+	sound sound/scenaric/general/blank.wav
+}
+
+Cough1
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_cough_1.wav
+}
+
+Cough2
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_cough_2.wav
+}
+
+Cough3
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_cough_3.wav
+}
+
+Whistle1
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_whistle.wav
+}
+
+DaDum1
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum.wav
+}
+
+DaDum2
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum2.wav
+}
+
+DaDum3
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum3.wav
+}
+
+DaDum4
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum4.wav
+}
+
+MiscHum1
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_hum1.wav
+}
+
+MiscHum2
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_hum2.wav
+}
+
+MiscHum3
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_hum3.wav
+}
+
+Mumble1
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_mumb1.wav
+}
+
+Mumble2
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_mumb2.wav
+}
+
+Mumble3
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_mumb3.wav
+}
+
+Mumble4
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_mumb4.wav
+}
+
+Mumble5
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_mumb5.wav
+}
+
+MiscIntruder
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_intruder.wav
+}
+
+MiscHuh1
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_huh1.wav
+}
+
+MiscHuh2
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_huh2.wav
+}
+
+MiscYawn
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_yawn.wav
+}
+
+MiscGoingOn
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_going_on.wav
+}
+
+MiscHesHere1
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_here_somewhere.wav
+}
+
+MiscHesHere2
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_hes_here.wav
+}
+
+MiscOverThere1
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_over_there.wav
+}
+
+MiscSmellHim
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_smell_him.wav
+}
+
+MiscKeepLooking
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_keep_looking.wav
+}
+
+MiscKillHim
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_kill_him.wav
+}
+
+MiscStopHim
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_stop_him.wav
+}
+
+MiscWhatsThat
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_whats_that.wav
+}
+
+MiscGetHelp
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_get_help.wav
+}
+
+MiscAmerican
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_american.wav
+}
+
+MiscAmerican2
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_american2.wav
+}
+
+male_ze_american
+{
+	streaming
+	voice
+	sound sound/scenaric/general/male_ze_american.wav
+}
+
+MiscHalt
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_halt.wav
+}
+
+MiscWhoGoes
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_who_goes_there.wav
+}
+
+Miscschnell
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_schnell.wav
+}
+
+MiscAlarm1
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_alarm1.wav
+}
+
+MiscAlarm2
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_alarm2.wav
+}
+
+MiscAlarm3
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_alarm3.wav
+}
+
+// ---START FEMALE SOUNDS---
+fem_die
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_die.wav
+}
+
+fem_ahh_there_you_are
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_ahh_there_you_are.wav
+}
+
+fem_alarm
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_alarm.wav
+}
+
+fem_alright_leibsen
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_alright_leibsen.wav
+}
+
+fem_bah_its_no_one
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_bah_its_no_one.wav
+}
+
+fem_cover_me
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_cover_me.wav
+}
+
+fem_achtung
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_achtung.wav
+}
+
+fem_get_ready_he_is_coming
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_get_ready_he_is_coming.wav
+}
+
+fem_gunfire
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_gunfire.wav
+}
+
+fem_halt
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_halt.wav
+}
+
+fem_hello
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_hello.wav
+}
+
+fem_honda_hoch
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_honda_hoch.wav
+}
+
+fem_huh_what_was_that
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_huh_what_was_that.wav
+}
+
+fem_i_must_flee
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_i_must_flee.wav
+}
+
+fem_identify_yourself
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_identify_yourself.wav
+}
+
+fem_is_someone_there
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_is_someone_there.wav
+}
+
+fem_its_ze_american
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_its_ze_american.wav
+}
+
+fem_schweinhund
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_schweinhund.wav
+}
+
+fem_sheisse
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_sheisse.wav
+}
+
+fem_take_cover
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_take_cover.wav
+}
+
+fem_who_goes_there
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_who_goes_there.wav
+}
+
+fem_you_are_dead_american
+{
+	streaming
+	voice
+	sound sound/scenaric/general/fem_you_are_dead_american.wav
+}
+
+// ---END FEMALE SOUNDS---

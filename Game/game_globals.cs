@@ -37,6 +37,8 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 using idLib.Game.Server;
 using idLib.Engine.Public;
 
+using Game.AAS;
+
 namespace Game
 {
     //
@@ -81,6 +83,7 @@ namespace Game
 
         public static idGameNetwork net = new idGameNetwork();
         public static idWorld world;
+        public static idAAS[] aas = new idAAS[2];
 
         //
         // TriggerEntity

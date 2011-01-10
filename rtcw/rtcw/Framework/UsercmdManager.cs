@@ -184,8 +184,11 @@ namespace rtcw.Framework
             float rate, accelSensitivity;
 
             rate = (float)System.Math.Sqrt(mx * mx + my * my) / (float)Engine.common.Frametime();
-            accelSensitivity = 1; // +rate * 1;
-
+#if WINDOWS_PHONE
+            accelSensitivity = 5; // +rate * 1;
+#else
+            accelSensitivity = 2;
+#endif
             viewangles[0] -= mx * accelSensitivity;
             viewangles[1] += my * accelSensitivity;
 

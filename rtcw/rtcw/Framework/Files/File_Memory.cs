@@ -243,6 +243,14 @@ namespace rtcw.Framework.Files
         }
 
         //
+        // ReadSignedByte
+        //
+        public override sbyte ReadSignedByte()
+        {
+            return reader.ReadSByte();
+        }
+
+        //
         // ReadChars
         //
         public override char[] ReadChars(int len)
@@ -256,6 +264,14 @@ namespace rtcw.Framework.Files
         public override double ReadDouble()
         {
             return reader.ReadDouble();
+        }
+
+        //
+        // ReadUShort
+        //
+        public override ushort ReadUShort()
+        {
+            return reader.ReadUInt16();
         }
 
         //

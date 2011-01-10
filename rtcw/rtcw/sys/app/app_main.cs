@@ -59,7 +59,7 @@ namespace rtcw.sys.app
     public class idApp : Microsoft.Xna.Framework.Game
     {
 #if WINDOWS_PHONE
-        public static string cmdline = "";
+        public static string cmdline = "+set developer 1 +spmap escape1 +set g_skipLevelScript 1";
 #else
         public static string cmdline = "";
 #endif
@@ -130,9 +130,9 @@ namespace rtcw.sys.app
         // BeginDraw
         //
     //    protected override bool BeginDraw()
-   //     {
-   //         return false;
-    //    }
+     //   {
+    //        return false;
+     //   }
 
         //
         // EndDraw
@@ -179,7 +179,7 @@ namespace rtcw.sys.app
 
             // Let the XNA framework draw anything thats still needs to be pushed to screen,
             // and handle any backend OS messaging.
-            base.Draw(gameTime);
+           // base.Update(gameTime);
         }
     }
 

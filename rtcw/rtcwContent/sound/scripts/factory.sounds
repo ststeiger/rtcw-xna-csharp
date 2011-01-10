@@ -1,0 +1,35 @@
+// factory sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+// Sounds for Factory
+
+FacNazi1_1
+{
+	streaming
+	voice
+	sound sound/scenaric/factory/axis1_how_disarm.wav
+}
+
+FacNazi1_2
+{
+	streaming
+	voice
+	sound sound/scenaric/factory/axis1_nevermind.wav
+}
+
+FacNazi2_1
+{
+	streaming
+	voice
+	sound sound/scenaric/factory/axis2_i_told_you.wav
+}
+
+FacNazi3_1
+{
+	streaming
+	voice
+	sound sound/scenaric/factory/axis3_lower_ladder.wav
+}

@@ -1,0 +1,19 @@
+//
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+castle_pound1
+{
+	streaming
+	auto
+	sound sound/scenaric/castle/coffin_pound3.wav
+}
+
+castle_zgrowl1
+{
+	streaming
+	voice
+	sound sound/scenaric/castle/firstsight2.wav
+}

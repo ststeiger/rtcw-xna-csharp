@@ -1,0 +1,142 @@
+
+end_cs16_hei_01	// cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/cs16_hei_01.wav
+}
+
+end_cs16_hei_03 	// cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/cs16_hei_03.wav
+}
+
+end_cs16_hei_05_4  // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/cs16_hei_05_4.wav
+}
+
+end_cs16_pri_01_1 // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/cs16_pri_01_1.wav
+}
+
+end_cs16_pri_02_6 // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/cs16_pri_02_6.wav
+}
+
+end_cs16_pri_03_7 // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/cs16_pri_03_7.wav
+}
+
+end_cs16_pri_04_a // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/cs16_pri_04_a.wav
+}
+
+end_heinr127  // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/heinr127.wav
+}
+
+end_eg_solo_loop // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/eg_solo_loop.wav
+}
+
+end_cs18_aid_01 // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/cs18_aid_01.wav
+}
+
+end_cs18_aid_02 // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/cs18_aid_02.wav
+}
+
+end_cs18_him_01 // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/cs18_him_01.wav
+}
+
+end_cs18_him_02 // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/cs18_him_02.wav
+}
+
+end_ss_powerup
+{
+	streaming
+	voice
+	sound sound/scenaric/end/ss_powerup.wav
+}
+
+end_war_giant1
+{
+	streaming
+	voice
+	sound sound/scenaric/end/war_giant1.wav
+}
+
+end_war_giant2
+{
+	streaming
+	voice
+	sound sound/scenaric/end/war_giant2.wav
+}
+
+end_war_giant3
+{
+	streaming
+	voice
+	sound sound/scenaric/end/war_giant3.wav
+}
+
+end_war_giant_medley
+{
+	streaming
+	voice
+	sound sound/scenaric/end/war_giant_medley.wav
+}
+
+end_liftup
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt2/pillar_raise_loop.wav
+}
+
+end_earth_rumble
+{
+	shake 0.15 5000 20000
+	auto
+	streaming
+	global
+	sound sound/scenaric/crypt2/earth_rumble.wav
+}

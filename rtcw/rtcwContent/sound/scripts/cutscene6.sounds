@@ -1,0 +1,174 @@
+// Director sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+
+cs6_director_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_dir_01_2.wav
+}
+
+cs6_director_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_dir_02_2.wav
+}
+
+cs6_director_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_dir_04_8.wav
+}
+
+cs6_director_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_dir_05_3.wav
+}
+
+cs6_director_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_dir_07.wav
+}
+
+cs6_director_6
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_dir_08_1.wav
+}
+
+cs6_director_7
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_dir_09.wav
+}
+
+cs6_director_8
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_dir_10_2.wav
+}
+
+cs6_director_9
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_dir_11_3.wav
+}
+
+cs6_jack_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_jac_01_1.wav
+}
+
+cs6_jack_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_jac_02.wav
+}
+
+cs6_jack_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_jac_03_4.wav
+}
+
+cs6_jack_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_jac_04_2.wav
+}
+
+cs6_jack_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_jac_05_1.wav
+}
+
+cs6_jack_6
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_jac_08.wav
+}
+
+cs6_jack_7
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_jac_09_3.wav
+}
+
+cs6_higgs_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_hig_02_2.wav
+}
+
+cs6_higgs_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_hig_03_1.wav
+}
+
+cs6_higgs_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_hig_04_7.wav
+}
+
+cs6_murphy_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_mur_01.wav
+}
+
+cs6_murphy_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_mur_03_1.wav
+}
+
+cs6_murphy_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_mur_04_1.wav
+}
+
+cs6_murphy_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_mur_05_4.wav
+}
+
+cs6_murphy_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs6/cs06_mur_06_6.wav
+}

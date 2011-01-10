@@ -1,0 +1,163 @@
+// Crypt1 sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+zmoan1
+{
+	sound sound/scenaric/crypt1/ambzomb1.wav
+}
+
+zmoan2
+{
+	sound sound/scenaric/crypt1/ambzomb2.wav
+}
+
+zgrowl1
+{
+	voice
+	sound sound/scenaric/crypt1/firstsight1.wav
+}
+
+zgrowl2
+{
+	voice
+	sound sound/scenaric/crypt1/firstsight2.wav
+}
+
+zgrowl3
+{
+	voice
+	sound sound/scenaric/crypt1/firstsight3.wav
+}
+
+zgrowl5
+{
+	sound sound/scenaric/crypt1/growl1.wav
+}
+
+squish
+{
+	sound sound/scenaric/crypt1/squish.wav
+}
+
+chase
+{
+	sound sound/scenaric/crypt1/chase.wav
+}
+
+crypt1_talk1
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/a_what.wav
+}
+
+crypt1_talk2
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/b_dont_know.wav
+}
+
+crypt1_talk3
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/a_not_either.wav
+}
+
+crypt1_talk4
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/b_agreed.wav
+}
+
+lets_go
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/lets_go.wav
+}
+
+// Start Cinematic 1 dialog
+crypt1_cnazi1_1
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/cn1_slaughterhouse.wav
+}
+
+crypt1_cnazi1_2
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/cn1_what_are_they.wav
+}
+
+crypt1_cnazi1_3
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/cn1_mein_gott.wav
+}
+
+crypt1_cnazi1_4
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/cn1_the_ladder.wav
+}
+
+crypt1_cnazi1_5
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/cn1_get_ready.wav
+}
+
+crypt1_cnazi2_1
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/cn2_I_know.wav
+}
+
+crypt1_cnazi2_2
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/cn2_wish.wav
+}
+
+crypt1_cnazi2_3
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/cn2_sealed_us.wav
+}
+
+crypt1_cnazi3_1
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/cn3_dont_ask_me.wav
+}
+
+crypt1_cnazi3_2
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/cn3_get_out.wav
+}
+
+crypt1_cnazi1_shiver
+{
+	streaming
+	voice
+	sound sound/scenaric/crypt1/crypt_shiver.wav
+}
+
+// End Cinematic 1 dialog

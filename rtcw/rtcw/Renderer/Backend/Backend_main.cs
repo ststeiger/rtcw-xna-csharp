@@ -53,7 +53,7 @@ namespace rtcw.Renderer.Backend
     public class idRenderBackend
     {
         backEndState_t state = new backEndState_t();
-        backEndData_t[]  backEndData = new backEndData_t[idRenderGlobals.SMP_FRAMES];
+        backEndData_t[]  backEndData;
 
         private int r_firstSceneDrawSurf = 0;
 
@@ -85,16 +85,27 @@ namespace rtcw.Renderer.Backend
         //
         public idRenderBackend()
         {
-            for (int i = 0; i < idRenderGlobals.SMP_FRAMES; i++)
-            {
-                backEndData[i] = new backEndData_t(i);
-            }
             for (int i = 0; i < 4; i++)
             {
                 quadVertexes[i] = new idDrawVertex();
             }
 
             Shade.Init();
+
+            if (Globals.r_smp.GetValueInteger() > 0)
+            {
+                backEndData = new backEndData_t[idRenderGlobals.SMP_FRAMES];
+
+                for (int i = 0; i < idRenderGlobals.SMP_FRAMES; i++)
+                {
+                    backEndData[i] = new backEndData_t(i);
+                }
+            }
+            else
+            {
+                backEndData = new backEndData_t[1];
+                backEndData[0] = new backEndData_t(0);
+            }
             
 
             state.smpFrame = 0;
@@ -706,7 +717,7 @@ namespace rtcw.Renderer.Backend
     //
     // idSortSurface
     //
-    struct idSortSurface
+    class idSortSurface
     {
         public int sort;
         public int index;
@@ -918,6 +929,11 @@ namespace rtcw.Renderer.Backend
             }
 
             viewSort = view.Length();
+
+            if (surf == null)
+            {
+                surf = new idSortSurface();
+            }
 
             surf.sort = (int)(viewSort - drawSurfsInternal[numDrawSurfs].sort);
 

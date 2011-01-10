@@ -194,6 +194,8 @@ namespace rtcw.Renderer
             skin.InitFromFile(ref skinFile);
             skins.Add(skin);
 
+            Engine.fileSystem.CloseFile(ref skinFile);
+
             return skins[skins.Count - 1];
         }
     }

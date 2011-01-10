@@ -1,0 +1,44 @@
+// all sound scripts must be listed in here, or they will be ignored
+// level sounds
+cutscene1.sounds
+cutscene6.sounds
+cutscene9.sounds
+cutscene11.sounds
+cutscene14.sounds
+cutscene19.sounds
+escape1.sounds
+escape2.sounds
+tram.sounds
+village1.sounds
+crypt1.sounds
+crypt2.sounds
+church.sounds
+boss1.sounds
+forest.sounds
+rocket.sounds
+// baseout.sounds
+assault.sounds
+sfm.sounds
+factory.sounds
+trainyard.sounds
+swf.sounds
+norway.sounds
+xlabs.sounds
+boss2.sounds
+dam.sounds
+village2.sounds
+chateau.sounds
+dark.sounds
+// dig.sounds
+castle.sounds
+end.sounds
+
+// all levels sounds
+ai.sounds
+general.sounds
+combat.sounds
+movers.sounds
+
+// temp sounds
+//voicetest.sounds
+//md_test.sounds

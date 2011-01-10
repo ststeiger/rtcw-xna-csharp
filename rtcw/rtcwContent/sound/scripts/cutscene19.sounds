@@ -1,0 +1,87 @@
+// Director sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+
+cs19_director_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs19/cs19_dir_01_5.wav
+}
+
+cs19_director_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs19/cs19_dir_02_5.wav
+}
+
+cs19_director_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs19/cs19_dir_03_5.wav
+}
+
+cs19_director_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs19/cs19_dir_04_5.wav
+}
+
+cs19_director_5
+{
+	voice
+	streaming
+	sound sound/scenaric/cs19/cs19_dir_05_5.wav
+}
+
+cs19_director_6
+{
+	voice
+	streaming
+	sound sound/scenaric/cs19/cs19_dir_06_1.wav
+}
+
+cs19_jack_1
+{
+	voice
+	streaming
+	sound sound/scenaric/cs19/cs19_jac_01_4.wav
+}
+
+cs19_jack_2
+{
+	voice
+	streaming
+	sound sound/scenaric/cs19/cs19_jac_03_4.wav
+}
+
+cs19_jack_3
+{
+	voice
+	streaming
+	sound sound/scenaric/cs19/cs19_jac_04_3.wav
+}
+
+cs19_jack_4
+{
+	voice
+	streaming
+	sound sound/scenaric/cs19/cs19_jac_05_5.wav
+}
+
+cs19_soldiers_running
+{
+	voice
+	streaming
+	sound sound/scenaric/cs19/soldiers_running.wav
+}
+
+
+
+

@@ -1,0 +1,38 @@
+// Crypt2 sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+
+crypt2_swingblade_1
+{
+	shake 0.025 384 5000
+	auto
+	streaming
+	sound sound/scenaric/crypt2/trap_door1.wav
+}
+
+crypt2_swingblade_2
+{
+	auto
+	streaming
+	sound sound/movers/doors/door6_loopo.wav
+}
+
+crypt2_bigwall_1
+{
+	shake 0.075 512 5000
+	auto
+	streaming
+	sound sound/scenaric/crypt2/crush_trap1.wav
+}
+
+crypt2_earth_rumble
+{
+	shake 0.15 16000 20000
+	auto
+	streaming
+	global
+	sound sound/scenaric/crypt2/earth_rumble.wav
+}

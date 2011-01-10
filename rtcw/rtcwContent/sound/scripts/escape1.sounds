@@ -1,0 +1,350 @@
+// escape1 sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+// Sounds for Escape1
+
+esc1_cine1_drz_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/zee_01_come_in.wav
+}
+
+esc1_cine1_drz_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/zee_02_go_and_get_other_one.wav
+}
+
+esc1_cine1_drz_3
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/zee_03_lets_try_again.wav
+}
+
+esc1_cine1_c_nazi1_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/c_axis1_your_orders.wav
+}
+
+esc1_cine1_c_nazi1_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/c_axis1_jawhol.wav
+}
+
+esc1_cine1_scuffle
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/scuffle.wav
+}
+
+esc1_cine1_scream1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/torture_scream.wav
+}
+
+Esc1Arc
+{
+	streaming
+	auto
+	sound sound/scenaric/escape1/tesla_arc_short.wav
+}
+
+Esc1Electro
+{
+	streaming
+	auto
+	sound sound/scenaric/escape1/electrocute.wav
+}
+
+Esc1Nazi1_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis1_yes_yes.wav
+}
+
+Esc1Nazi1_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis1_ahh_there.wav
+}
+
+Esc1Nazi1_3
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis1_give_order.wav
+}
+
+Esc1Nazi1_4
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis1_sergeant.wav
+}
+
+Esc1Nazi1_5
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis1_american_is_loose.wav
+}
+
+Esc1Res10_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/res10_ok.wav
+}
+
+Esc1Nazi2_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis2_still_trying.wav
+}
+
+Esc1Nazi2_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis2_good_luck.wav
+}
+
+Esc1Nazi2_3
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis2_hey_hans.wav
+}
+
+Esc1Nazi2_4
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis2_not_much.wav
+}
+
+Esc1Nazi2_5
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis2_radio_room.wav
+}
+
+Esc1Nazi2_6
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis2_ya.wav
+}
+
+Esc1Nazi3_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis3_weather.wav
+}
+
+Esc1Nazi3_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis3_danke.wav
+}
+
+Esc1Nazi5_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis6_wie_gates.wav
+}
+
+Esc1Nazi5_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis6_good_doctor.wav
+}
+
+Esc1Nazi5_3
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis6_village_tonight.wav
+}
+
+Esc1Nazi12_1n2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis12_dispatches_n2.wav
+}
+
+Esc1Nazi12_1r
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis12_coded_relax.wav
+}
+
+Esc1Nazi12_2r
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis12_priority_relax.wav
+}
+
+Esc1Nazi12_3r
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis12_status_relax.wav
+}
+
+Esc1Nazi12_4r
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis12_typical_relax.wav
+}
+
+Esc1Nazi13_1r
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis13_yes1_relax.wav
+}
+
+Esc1Nazi13_2r
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis13_yes2_relax.wav
+}
+
+Esc1Nazi13_3r
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis13_waiting_relax.wav
+}
+
+Esc1Nazi12_1a
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis12_american_alert.wav
+}
+
+Esc1Nazi12_2a
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis12_broadcast_alert.wav
+}
+
+Esc1Nazi12_3a
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis12_inform_alert.wav
+}
+
+Esc1Nazi12_4a
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis12_restricted_alert.wav
+}
+
+Esc1Nazi13_1a
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis13_yes1_alert.wav
+}
+
+Esc1Nazi13_2a
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis13_yes2_alert.wav
+}
+
+Esc1Nazi13_3a
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis13_yes3_alert.wav
+}
+
+Esc1Nazi13_4a
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis13_yes4_alert.wav
+}
+
+Esc1Nazi17_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis17_catch_american.wav
+}
+
+Esc1Nazi17_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis17_know_where.wav
+}
+
+Esc1Nazi17_3
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis17_big_help.wav
+}
+
+Esc1Nazi18_1
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis18_on_the_loose.wav
+}
+
+Esc1Nazi18_2
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis18_anywhere.wav
+}
+
+Esc1Nazi18_3
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis18_guard_this_post.wav
+}
+
+Esc1Nazi18_4
+{
+	streaming
+	voice
+	sound sound/scenaric/escape1/axis18_shoot.wav
+}

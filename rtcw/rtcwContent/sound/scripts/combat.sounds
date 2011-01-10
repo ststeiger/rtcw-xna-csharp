@@ -1,0 +1,169 @@
+//////////////////
+//
+// Combat/Battle related sounds
+//
+//////////////////
+
+bulletHitFlesh
+{
+	channel body
+	sound sound/working/bullethitflesh1.wav
+	sound sound/working/bullethitflesh2.wav
+	sound sound/working/bullethitflesh3.wav
+}
+
+bulletHitFleshMetal
+{
+	channel body
+	sound sound/weapons/bullethit_metal1.wav
+	sound sound/weapons/bullethit_metal2.wav
+	sound sound/weapons/bullethit_metal3.wav
+}
+
+teslaZap
+{
+	channel auto
+	sound sound/weapons/tesla/zap1.wav
+	sound sound/weapons/tesla/zap2.wav
+	sound sound/weapons/tesla/zap3.wav
+}
+
+bulletRicochet
+{
+	channel auto
+	sound sound/weapons/ric1.wav
+	sound sound/weapons/ric2.wav
+	sound sound/weapons/ric3.wav
+	sound sound/weapons/ric4.wav
+}
+
+helgaSpiritGasp
+{
+	channel voice
+	sound sound/beast/gasp1.wav
+	sound sound/beast/gasp2.wav
+	sound sound/beast/gasp3.wav
+}
+
+
+
+// the general character movement sound
+sound/player/infantryss/death1
+{
+	channel body
+	sound sound/player/infantryss/death1.wav
+}
+
+sound/player/infantryss/death2
+{
+	channel body
+	sound sound/player/infantryss/death2.wav
+}
+
+sound/player/infantryss/death3
+{
+	channel body
+	sound sound/player/infantryss/death3.wav
+}
+
+sound/player/infantryss/jump1
+{
+	channel body
+	sound sound/player/infantryss/jump1.wav
+}
+
+sound/player/infantryss/pain25
+{
+	channel body
+	sound sound/player/infantryss/pain25_1.wav
+}
+
+sound/player/infantryss/pain50
+{
+	channel body
+	sound sound/player/infantryss/pain50_1.wav
+}
+
+sound/player/infantryss/pain75
+{
+	channel body
+	sound sound/player/infantryss/pain75_1.wav
+}
+
+sound/player/infantryss/pain100
+{
+	channel body
+	sound sound/player/infantryss/pain100_1.wav
+}
+
+sound/player/infantryss/falling1
+{
+	channel body
+	sound sound/player/infantryss/falling1.wav
+}
+
+sound/player/infantryss/gasp
+{
+	channel body
+	sound sound/player/infantryss/gasp.wav
+}
+
+sound/player/infantryss/drown
+{
+	channel body
+	sound sound/player/infantryss/drown.wav
+}
+
+sound/player/infantryss/fallshort
+{
+	channel body
+	sound sound/player/infantryss/fallshort.wav
+}
+
+sound/player/infantryss/fall10
+{
+	channel body
+	sound sound/player/infantryss/fall10.wav
+}
+
+sound/player/infantryss/fall15
+{
+	channel body
+	sound sound/player/infantryss/fall15.wav
+}
+
+sound/player/infantryss/fall25
+{
+	channel body
+	sound sound/player/infantryss/fall25.wav
+}
+
+sound/player/infantryss/fall50
+{
+	channel body
+	sound sound/player/infantryss/fall50.wav
+}
+
+sound/player/infantryss/taunt
+{
+	channel body
+	sound sound/player/infantryss/taunt.wav
+}
+
+sound/player/infantryss/exert1
+{
+	channel body
+	sound sound/player/infantryss/exert1.wav
+}
+
+sound/player/infantryss/exert2
+{
+	channel body
+	sound sound/player/infantryss/exert2.wav
+}
+
+sound/player/infantryss/exert3
+{
+	channel body
+	sound sound/player/infantryss/exert3.wav
+}

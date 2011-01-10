@@ -1,0 +1,85 @@
+// Boss2 sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+
+boss2_breathe
+{
+	streaming
+	voice
+	sound sound/scenaric/xlabs/xl_breath_01.wav
+}
+
+b2_deathshead01
+{
+	streaming
+	voice
+	global
+	sound sound/scenaric/boss2/dh_well_agent.wav
+}
+
+b2_deathshead02
+{
+	streaming
+	voice
+	global
+	sound sound/scenaric/boss2/dh_my_pleasure.wav
+}
+
+b2_alltaunts
+{
+	streaming
+	voice
+	global
+	random
+	sound sound/scenaric/boss2/dh_I_suppose.wav
+	sound sound/scenaric/boss2/dh_the_results.wav
+	sound sound/scenaric/boss2/dh_try_harder.wav
+	sound sound/scenaric/boss2/dh_only_delaying.wav
+	sound sound/scenaric/boss2/dh_see_what_I_mean.wav
+	sound sound/scenaric/boss2/dh_feeling_fatigued.wav
+	sound sound/scenaric/boss2/dh_have_to_do_better.wav
+	sound sound/scenaric/boss2/dh_thats_the_spirit.wav
+	sound sound/scenaric/boss2/dh_very_amusing.wav
+	sound sound/scenaric/boss2/dh_make_it_easy.wav
+	sound sound/scenaric/boss2/dh_new_armor.wav
+	sound sound/scenaric/boss2/dh_very_good.wav
+	sound sound/scenaric/boss2/dh_you_must_forgive.wav
+	sound sound/scenaric/boss2/dh_quite_the_toy.wav
+	sound sound/scenaric/boss2/dh_thus_we_see.wav
+}
+
+b2_losing3
+{
+	streaming
+	voice
+	global
+	sound sound/scenaric/boss2/dh_winning_meet_again.wav
+}
+
+b2_losing1
+{
+	streaming
+	voice
+	global
+	sound sound/scenaric/boss2/dh_winning_how.wav
+}
+
+b2_losing2
+{
+	streaming
+	voice
+	global
+	sound sound/scenaric/boss2/dh_winning_what.wav
+}
+
+boss2_takeoff
+{
+	shake 0.1 2000 20000
+	streaming
+	global
+	auto
+	sound sound/scenaric/rocket/v2_takeoff.wav
+}

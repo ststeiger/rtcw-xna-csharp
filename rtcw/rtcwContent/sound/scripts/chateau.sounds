@@ -1,0 +1,236 @@
+// Chateau sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+
+blank	// chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/misc_blank.wav
+}
+
+chat_who_are_you	// chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/hoch_who_are_you.wav
+}
+
+cough2	// chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_cough_2.wav
+}
+
+yawn	// chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_yawn.wav
+}
+
+whistle	// chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_whistle.wav
+}
+
+marching // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_always.wav
+}
+
+dadum3 // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum3.wav
+}
+
+alert_guards // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/axis10_sentries.wav
+}
+
+what_was_that // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/pguard_huh.wav
+}
+
+american // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/forest/axis9_american.wav
+}
+
+chat_whats_going_down_there // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/hoch_whats_going_on.wav
+}
+
+guards_guards // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/g2_intruder.wav
+}
+
+it_was_nothing // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/pguard_it_was_nothing.wav
+}
+
+los_los // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/los los.wav
+}
+
+corp_jawol // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/corp_jawol.wav
+}
+
+corp_just_checked // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/corp_just_checked.wav
+}
+
+corp_sir // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/corp_sir.wav
+}
+
+off_check_again // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/off_check_again.wav
+}
+
+off_corporal // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/off_corporal.wav
+}
+
+off_go_see // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/off_go_see.wav
+}
+
+gen1_did_you_know // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/gen1_did_you_know.wav
+}
+
+gen2_very_bad // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/gen2_very_bad.wav
+}
+
+gen1_blav_unwound // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/gen1_blav_unwound.wav
+}
+
+gen2_josef_furious // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/gen2-josef_furious.wav
+}
+
+gen2_you_have_a_point // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/gen2_you_have_a_point.wav
+}
+
+bg1_almost_feel // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/bg1_almost_feel.wav
+}
+
+bg2_definitely // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/bg2_definitely.wav
+}
+
+bg1_not_kidding // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/bg1_not_kidding.wav
+}
+
+hurt75 // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/player/infantry/pain/hurt75.wav
+}
+
+bguard_intruder // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/bguard_intruder.wav
+}
+
+gen1_maybe_so // chateau/Aug/2001 18:04 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/chateau/gen1_maybe_so.wav
+}
+
+chat_eg_solo_loop // cine1, end -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/end/eg_solo_loop.wav
+}
+
+
+
+
+
+

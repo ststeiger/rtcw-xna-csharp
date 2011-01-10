@@ -1,0 +1,509 @@
+// village2 sounds
+// This file is meant mostly for level defind sounds.
+//
+// channels: local, announcer, body, voice, weapon, item, auto (default)
+// toggles: streaming, looping (only works for streaming sounds), global
+
+
+// This is temp right now being used for drunk...
+villdrunk1	// Drunk1 Dialog1, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/drunk1_chorus1.wav
+}
+
+villdrunk2	// Drunk1 Dialog2, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/drunk1_Fraulhein.wav
+}
+
+whistle1	// troop whistle, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/misc_whistle.wav
+}
+
+villdrunk3	// troop whistle, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/drunk1_slovenly_swine.wave
+}
+
+da_dum1	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum.wav
+}
+
+da_dum2	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum2.wav
+}
+
+yawn1	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/misc_yawn.wav
+}
+
+da_dum3	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum3.wav
+}
+
+da_dum4	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/general/misc_da_dum4.wav
+}
+
+stonedoor1	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/misc_stonedoor1.wav
+}
+
+stonedoor2	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/misc_stonedoor2.wav
+}
+
+stonedoor3	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/misc_stonedoor3.wav
+}
+
+g1_vas_is_los	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g1_vas_is_los.wav
+}
+
+g2_he_changed_mind	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g2_he_changed_mind.wav
+}
+
+g1_ach_allright 	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g1_ach_allright.wav
+}
+
+g2_ya_ya	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g2_ya_ya.wav
+}
+
+hoch_come_my_dear	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/hoch_come_my_dear.wav
+}
+
+hilda_just_a_minute	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/hilda_just_a_minute.wav
+}
+
+inge_wimp1	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/inge_wimp1.wav
+}
+
+officer1_speak	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/hoch_whats_going_on.wav
+}
+
+officer1_enemysight	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/hoch_who_are_you.wav
+}
+
+officer1_mmm1	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/Hoch_hum1.wav
+}
+
+officer1_mmm2	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/Hoch_hum2.wav
+}
+
+officer1_mmm3	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/Hoch_hum3.wav
+}
+
+guard1_alarm	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g1_alarm.wav
+}
+
+blank	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/misc_blank.wav
+}
+
+prof_who_are_you	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/prof_who_are_you.wav
+}
+
+prof_another_failure	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/prof_another_failure.wav
+}
+
+prof_hmm	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/prof_hmm.wav
+}
+
+prof_yes_yes	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/prof_yes_yes.wav
+}
+
+officer2_alarm	// troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/Gen_I_must_raise_alarm.wav
+}
+
+officer2_whats_happening_down_there // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/Gen_vas_is_happening.wav
+}
+
+officer3_mmm1 // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/col_m1.wav
+}
+
+officer3_mmm2 // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/col_m2.wav
+}
+
+officer3_mmm3 // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/col_m3.wav
+}
+
+officer3_mmm4 // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/col_m4.wav
+}
+
+officer3_mmm5 // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/col_m5.wav
+}
+
+officer3_sound // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/col_huh.wav
+}
+
+officer3_sight // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/col_vos_is_los.wav
+}
+
+officer4_breath_taking // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/gen_look_at_moon.wav
+}
+
+officer4_where_is_latour // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/gen_where_is_my_latour.wav
+}
+
+officer4_see_that_you_do // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/gen_see_that_you_do.wav
+}
+
+officer4_intruder // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/gen_alarm_alarm.wav
+}
+
+officer4_sound // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/pguard_huh.wav
+}
+
+officer3_random_mumble	// This is a random test
+{
+	streaming
+	voice
+	random
+	sound sound/scenaric/village2/col_m1.wav
+	sound sound/scenaric/village2/col_m2.wav
+	sound sound/scenaric/village2/col_m3.wav
+	sound sound/scenaric/village2/col_m4.wav
+	sound sound/scenaric/village2/col_m5.wav	
+}
+
+04_help1_respond // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/kemph_my_apologies.wav
+}
+
+g1_tasty_sb // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g1_tasty_sb.wav
+}
+
+v2_g2_not_bad // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g2_not_bad.wav
+}
+
+v2_g2_so_did_you_find // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g2_so_did_you_find.wav
+}
+
+v2_g1_no_ze_officers // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g1_no_ze_officers.wav
+}
+
+v2_g1_haha // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g1_haha.wav
+}
+
+vill2_random_sound // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	random
+	sound sound/scenaric/village2/misc_da_dum1.wav
+	sound sound/scenaric/village2/misc_da_dum2.wav
+	sound sound/scenaric/village2/misc_da_dum3.wav
+	sound sound/scenaric/village2/misc_yawn.wav
+	sound sound/scenaric/village2/misc_da_dum4.wav
+	sound sound/scenaric/village2/misc_whistle.wav
+}
+
+nazi9_can't_find_wine // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/klugg_no_such_wine.wav
+}
+
+nazi9_hopeless // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/klugg_hopeless.wav
+}
+
+nazi9_frustrated // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/klugg_hmmph.wav
+}
+
+offduty_warm // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g_warm_up.wav
+}
+
+vill2_beethoven
+{
+	streaming
+	auto
+	sound sound\scenaric\village2\beethoven.wav
+}
+
+v2_inge_please_dont // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/inge_please_dont.wav
+}
+
+v2_g1_quite_a_show // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g1_quite_a_show.wav	
+}
+
+v2_g2_really_true // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g2_really_true.wav	
+}
+
+v2_g1_still_you_doubt // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g1_still_you_doubt.wav	
+}
+
+v2_g2_yes_I_remember // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g2_yes_I_remember.wav	
+}
+
+v2_g1_glorious_death // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g1_glorious_death.wav	
+}
+
+v2_g2_no_glory // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g2_no_glory.wav	
+}
+
+v2_g1lc_haha // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g1lc_haha.wav	
+}
+
+v2_Gen_izzat_you // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/Gen_izzat_you.wav	
+}
+
+v2_Gen5_alarm_alarm // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/Gen5_alarm_alarm.wav
+}
+
+v2_Gret_dont_kill_me // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/Gret_dont_kill_me.wav
+}
+
+v2_g_awful_racket // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g_awful_racket.wav
+}
+
+v2_g_shut_up.wav // troop jeremy, Village2 -Jeremy
+{
+	streaming
+	voice
+	sound sound/scenaric/village2/g_shut_up.wav
+}
+
