@@ -120,9 +120,9 @@ namespace rtcw.sys.app
             Components.Add(new GamerServicesComponent(this));
 #endif
 #if WINDOWS
-            //graphics.PreferredBackBufferHeight = 600;
-            //graphics.PreferredBackBufferWidth = 800;
-            //graphics.ApplyChanges();
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.ApplyChanges();
 #endif
         }
 

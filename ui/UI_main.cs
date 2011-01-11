@@ -451,6 +451,8 @@ namespace ui
             item.window.rect.w = item.window.rectClient.w;
             item.window.rect.h = item.window.rectClient.h;
 
+            
+
             // force the text rects to recompute
             item.textRect.w = 0;
             item.textRect.h = 0;
@@ -477,16 +479,23 @@ namespace ui
         //
         public static void AdjustFrom640(ref float x, ref float y, ref float w, ref float h)
         {
+#if false
             float vidwidth = Engine.RenderSystem.GetViewportWidth();
             float vidheight = Engine.RenderSystem.GetViewportHeight();
-            float yscale = vidheight * (1.0f / 480.0f);
-            float xscale = vidwidth * (1.0f / 640.0f);
+            float yscale = vidheight / 480.0f;
+            float xscale = vidwidth / 640.0f;
+
+            if (vidwidth * 480 > vidheight * 640)
+            {
+          //      x += 0.5f * (vidwidth - (vidheight * 640 / 480));
+            }
 
             //*x = *x * DC->scale + DC->bias;
             x *= xscale;
             y *= yscale;
             w *= xscale;
             h *= yscale;
+#endif
         }
 
         //

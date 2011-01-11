@@ -37,7 +37,7 @@ namespace ui
             if (Engine.RenderSystem.GetViewportWidth() * 480 > Engine.RenderSystem.GetViewportHeight() * 640)
             {
                 //x -= 0.7f * (Engine.RenderSystem.GetViewportWidth() - (Engine.RenderSystem.GetViewportHeight() * 640 / 480));
-                x *= 0.8f; // Hack for widescreens.
+             //   x *= 0.8f; // Hack for widescreens.
             }
 
             Engine.RenderSystem.DrawStretchPic(x, y, w, h, s, t, s2, t2, hShader);
