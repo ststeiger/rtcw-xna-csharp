@@ -35,6 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using idLib.Engine.Public;
+using Game.AAS.Private;
 
 namespace Game.AAS
 {
@@ -43,21 +44,83 @@ namespace Game.AAS
     //
     public class idAAS
     {
-        protected string mapname = "";
-        internal idAASFile aasfile = new idAASFile();
+        internal bool aasInit = false;
+        internal idAASWorld[] aasworlds = new idAASWorld[2];
+        internal int currentWorldNum = -1;
 
         //
-        // idAAS
+        // AASWorld
         //
-        public idAAS(string mapname, ref idFile file)
+        public idAASWorld AASWorld
+        {
+            get
+            {
+                return aasworlds[currentWorldNum];
+            }
+        }
+
+        //
+        // SetCurrentAASWorld
+        //
+        public void SetCurrentAASWorld(int worldnum)
+        {
+            currentWorldNum = worldnum;
+        }
+
+        //
+        // LoadAASForWorld
+        //
+        public void LoadAASForWorld(string mapname)
         {
             Engine.common.Printf("-------- AAS_Init ---------\n");
-            Engine.common.Printf("Parsing maps/%s.aas", mapname);
 
-            this.mapname = mapname;
+            // Load the map AAS files
+            for (int i = 0; i < 2; i++)
+            {
+                SetCurrentAASWorld(i);
 
-            // Parse the AAS file.
-            aasfile.ParseAASFile(ref file);
+                aasworlds[i] = new idAASWorld();
+
+             //   if (aasworlds[i].Init(mapname + "_b" + i) == false)
+            //    {
+                    Engine.common.Warning("AAS_Init: Failed to load %s AI will be disabled...\n", mapname + "_b" + i);
+                    return;
+          //      }
+            }
+
+            aasInit = true;
         }
+
+        
+    }
+
+    public class idAASTravelFlags
+    {
+        //travel flags
+        public const int  TFL_INVALID          =   0x0000001;   //traveling temporary not possible
+        public const int  TFL_WALK             =   0x0000002;   //walking
+        public const int  TFL_CROUCH           =   0x0000004;   //crouching
+        public const int  TFL_BARRIERJUMP      =   0x0000008;   //jumping onto a barrier
+        public const int  TFL_JUMP             =   0x0000010;   //jumping
+        public const int  TFL_LADDER           =   0x0000020;   //climbing a ladder
+        public const int  TFL_WALKOFFLEDGE     =   0x0000080;   //walking of a ledge
+        public const int  TFL_SWIM             =   0x0000100;   //swimming
+        public const int  TFL_WATERJUMP        =   0x0000200;   //jumping out of the water
+        public const int  TFL_TELEPORT         =   0x0000400;   //teleporting
+        public const int  TFL_ELEVATOR         =   0x0000800;   //elevator
+        public const int  TFL_ROCKETJUMP       =   0x0001000;   //rocket jumping
+        public const int  TFL_BFGJUMP          =   0x0002000;   //bfg jumping
+        public const int  TFL_GRAPPLEHOOK      =   0x0004000;   //grappling hook
+        public const int  TFL_DOUBLEJUMP       =   0x0008000;   //double jump
+        public const int  TFL_RAMPJUMP         =   0x0010000;   //ramp jump
+        public const int  TFL_STRAFEJUMP       =   0x0020000;   //strafe jump
+        public const int  TFL_JUMPPAD          =   0x0040000;   //jump pad
+        public const int  TFL_AIR              =   0x0080000;   //travel through air
+        public const int  TFL_WATER            =   0x0100000;   //travel through water
+        public const int  TFL_SLIME            =   0x0200000;   //travel through slime
+        public const int  TFL_LAVA             =   0x0400000;   //travel through lava
+        public const int  TFL_DONOTENTER       =   0x0800000;   //travel through donotenter area
+        public const int  TFL_FUNCBOB          =   0x1000000;   //func bobbing
+        public const int  TFL_DONOTENTER_LARGE =   0x2000000;   //travel through donotenter area
     }
 }

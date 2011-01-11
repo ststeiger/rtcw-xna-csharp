@@ -83,7 +83,7 @@ namespace Game
 
         public static idGameNetwork net = new idGameNetwork();
         public static idWorld world;
-        public static idAAS[] aas = new idAAS[2];
+        public static idAAS aas;
 
         //
         // TriggerEntity

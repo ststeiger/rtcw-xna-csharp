@@ -24,7 +24,7 @@
     <OutputPath>..\rtcw\rtcw\main\dlls\</OutputPath>
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>2</WarningLevel>
     <NoStdLib>true</NoStdLib>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
@@ -92,8 +92,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AAS\AAS_file.cs" />
     <Compile Include="AAS\AAS_main.cs" />
+    <Compile Include="AAS\Private\AAS_file.cs" />
+    <Compile Include="AAS\Private\AAS_route.cs" />
+    <Compile Include="AAS\Private\AAS_routecachefile.cs" />
+    <Compile Include="AAS\Private\AAS_world.cs" />
     <Compile Include="AI\AICast_Civilian.cs" />
     <Compile Include="AI\AI_main.cs" />
     <Compile Include="Anim\Anim_cfg.cs" />

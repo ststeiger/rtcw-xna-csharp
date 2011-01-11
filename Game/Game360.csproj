@@ -47,8 +47,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AAS\AAS_file.cs" />
     <Compile Include="AAS\AAS_main.cs" />
+    <Compile Include="AAS\Private\AAS_file.cs" />
+    <Compile Include="AAS\Private\AAS_route.cs" />
+    <Compile Include="AAS\Private\AAS_routecachefile.cs" />
+    <Compile Include="AAS\Private\AAS_world.cs" />
     <Compile Include="AI\AICast_Civilian.cs" />
     <Compile Include="AI\AI_main.cs" />
     <Compile Include="Anim\Anim_cfg.cs" />
