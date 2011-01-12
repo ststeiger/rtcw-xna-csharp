@@ -105,6 +105,9 @@ namespace rtcw.sys.app
         //
         private void D3DDevice_PreparingDeviceSettings(object sender, PreparingDeviceSettingsEventArgs e)
         {
+#if WINDOWS
+            e.GraphicsDeviceInformation.GraphicsProfile = GraphicsProfile.HiDef;
+#endif
         //    e.GraphicsDeviceInformation.PresentationParameters.PresentationInterval = PresentInterval.Immediate;
         }
 

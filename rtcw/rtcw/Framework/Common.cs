@@ -565,7 +565,7 @@ namespace rtcw.Framework
                 if (com_introPlayed.GetValueInteger() == 0)
                 {
                     //Cvar_Set( com_introPlayed->name, "1" );		//----(SA)	force this to get played every time (but leave cvar for override)
-                    Engine.cmdSystem.Cbuf_AddText("cinematic wolfintro 3\n");
+                   // Engine.cmdSystem.Cbuf_AddText("cinematic wolfintro 3\n");
                     //Cvar_Set( "nextmap", "cinematic wolfintro.RoQ" );
                 }
             }

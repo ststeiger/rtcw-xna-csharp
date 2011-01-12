@@ -238,7 +238,7 @@ namespace idLib.Engine.Public
         public abstract sysEvent_t GetEvent();
         public abstract int Sys_Milliseconds();
         public abstract idSysModule LoadDLL(string path);
-
+        public abstract void DrawInputDebug();
         public abstract idThread CreateThread(string threadName, ThreadFunc_t func);
         public abstract void DestroyThread(ref idThread thread);
 #if WINDOWS

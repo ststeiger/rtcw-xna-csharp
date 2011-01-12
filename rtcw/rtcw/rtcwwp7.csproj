@@ -118,6 +118,7 @@
     <Compile Include="Sound\SoundManager.cs" />
     <Compile Include="Sound\Sound_Shader.cs" />
     <Compile Include="sys\app\app_main.cs" />
+    <Compile Include="sys\sys_kinect.cs" />
     <Compile Include="sys\sys_thread.cs" />
     <Compile Include="sys\sys_input.cs" />
     <Compile Include="sys\sys_main.cs" />
@@ -187,6 +188,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="kinect\licenses.xml" />
+    <Content Include="kinect\modules.xml" />
+    <Content Include="kinect\SamplesConfig.xml" />
     <Content Include="sys\app\res\Background.png" />
     <Content Include="sys\app\res\GameThumbnail.png" />
     <Content Include="sys\app\res\rtcw-sp.ico" />

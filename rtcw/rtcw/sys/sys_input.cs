@@ -21,6 +21,9 @@ namespace rtcw.sys
 
         int window_center_x = -1;
         int window_center_y = -1;
+
+        idSysKinect kinect;
+        idCVar sys_kinect;
 #elif XBOX360
         GamePadState gamepad;
 #endif
@@ -29,6 +32,21 @@ namespace rtcw.sys
         //
         public void Init()
         {
+#if WINDOWS
+            sys_kinect = Engine.cvarManager.Cvar_Get("sys_kinect", "1", idCVar.CVAR_ROM);
+
+            // Ensure kinect hasn't been disabled from the command line.
+            if (sys_kinect.GetValueInteger() != 0)
+            {
+                kinect = new idSysKinect();
+
+                if (kinect.InitKinect() == false)
+                {
+                    sys_kinect.SetValueInt(0);
+                }
+            }
+#endif
+
 #if WINDOWS_PHONE
             Engine.cmdSystem.Cmd_AddCommand("playerMoveUp", InputPlayerMoveUp);
             Engine.cmdSystem.Cmd_AddCommand("playerMoveDown", InputPlayerMoveDown);
@@ -239,6 +257,18 @@ namespace rtcw.sys
             }
         }
 #endif
+        //
+        // DrawDebug
+        //
+        public void DrawDebug()
+        {
+#if WINDOWS
+            if (sys_kinect.GetValueInteger() != 0)
+            {
+                kinect.DrawDebug();
+            }
+#endif
+        }
 
         //
         // Frame
@@ -246,6 +276,11 @@ namespace rtcw.sys
         public void Frame()
         {
 #if WINDOWS
+            if (sys_kinect.GetValueInteger() != 0)
+            {
+                kinect.Frame();
+           //     return;
+            }
             GetWindowsKeyInput();
             GetWindowMouseInput();
 #elif XBOX360

@@ -79,6 +79,14 @@ namespace rtcw.sys
         }
 
         //
+        // DrawInputDebug
+        //
+        public override void DrawInputDebug()
+        {
+            sysInput.DrawDebug();
+        }
+
+        //
         // LoadDLL
         //
         public override idSysModule LoadDLL(string path)

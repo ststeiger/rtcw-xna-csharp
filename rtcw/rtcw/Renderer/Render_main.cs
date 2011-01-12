@@ -606,8 +606,6 @@ namespace rtcw.Renderer
             Engine.materialManager = new idMaterialManagerLocal();
             Engine.materialManager.Init();
 
-            
-
             Engine.common.Printf( "----- finished R_Init -----\n");
         }
 

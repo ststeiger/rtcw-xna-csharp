@@ -93,6 +93,7 @@
     </Reference>
     <Reference Include="OpenNI.net">
       <HintPath>..\..\..\..\..\Program Files (x86)\OpenNI\Samples\Bin\Debug\OpenNI.net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>
@@ -162,6 +163,7 @@
     <Compile Include="Sound\SoundManager.cs" />
     <Compile Include="Sound\Sound_Shader.cs" />
     <Compile Include="sys\app\app_main.cs" />
+    <Compile Include="sys\sys_kinect.cs" />
     <Compile Include="sys\sys_thread.cs" />
     <Compile Include="sys\sys_input.cs" />
     <Compile Include="sys\sys_main.cs" />
@@ -225,6 +227,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="kinect\licenses.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="kinect\modules.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="kinect\SamplesConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="sys\app\res\rtcw-sp.ico" />
     <Content Include="sys\app\res\rtcw-thumbnail.png" />
   </ItemGroup>

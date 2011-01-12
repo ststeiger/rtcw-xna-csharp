@@ -88,6 +88,7 @@ namespace rtcw.Renderer
         //
         public override object GetDeviceHandle()
         {
+       //     Globals.graphics3DDevice.SamplerStates[0] = WrapClampMode;
             return tex2d;
         }
 

@@ -715,6 +715,8 @@ namespace rtcw.Client
 
             DrawGammaCorrection(255.0f, 100.0f);
 
+            Engine.Sys.DrawInputDebug();
+
             Engine.RenderSystem.EndFrame();
 
             Engine.soundManager.Update();

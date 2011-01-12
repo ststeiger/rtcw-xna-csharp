@@ -309,7 +309,7 @@ namespace ui
                     fillRect.w = window.rectClient.w;
                     fillRect.h = window.rectClient.h;
 
-                    AdjustFrom640(ref fillRect.v.X, ref fillRect.v.Y, ref fillRect.v.Z, ref fillRect.v.W);
+                    //AdjustFrom640(ref fillRect.v.X, ref fillRect.v.Y, ref fillRect.v.Z, ref fillRect.v.W);
 
                     window.cinematicHandle.SetLooping(true);
                     window.cinematicHandle.SetExtents((int)fillRect.x, (int)fillRect.y, (int)fillRect.w, (int)fillRect.h);
@@ -479,7 +479,7 @@ namespace ui
         //
         public static void AdjustFrom640(ref float x, ref float y, ref float w, ref float h)
         {
-#if false
+#if true
             float vidwidth = Engine.RenderSystem.GetViewportWidth();
             float vidheight = Engine.RenderSystem.GetViewportHeight();
             float yscale = vidheight / 480.0f;
@@ -624,7 +624,7 @@ namespace ui
            // refdef.vieworg[0] = x;
            
 
-	        AdjustFrom640( ref x, ref y, ref w, ref h );
+	        //AdjustFrom640( ref x, ref y, ref w, ref h );
 
             refdef.vieworg.Y = (x / 6);
             refdef.vieworg.Z = (y / 10);

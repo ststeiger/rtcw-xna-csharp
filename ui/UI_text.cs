@@ -31,7 +31,7 @@ namespace ui
             w = width * scale;
             h = height * scale;
 
-            idUserInterfaceLocal.AdjustFrom640(ref x, ref y, ref w, ref h);
+         //   idUserInterfaceLocal.AdjustFrom640(ref x, ref y, ref w, ref h);
 
             // This really is a hack for proper text scaling.
             if (Engine.RenderSystem.GetViewportWidth() * 480 > Engine.RenderSystem.GetViewportHeight() * 640)
