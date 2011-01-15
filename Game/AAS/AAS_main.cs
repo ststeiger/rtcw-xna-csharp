@@ -81,11 +81,11 @@ namespace Game.AAS
 
                 aasworlds[i] = new idAASWorld();
 
-             //   if (aasworlds[i].Init(mapname + "_b" + i) == false)
-            //    {
+                if (aasworlds[i].Init(mapname + "_b" + i) == false)
+                {
                     Engine.common.Warning("AAS_Init: Failed to load %s AI will be disabled...\n", mapname + "_b" + i);
                     return;
-          //      }
+                }
             }
 
             aasInit = true;

@@ -34,10 +34,13 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // sys_kinect.cs (c) 2010 JV Software
 //
 
+#if WINDOWS
 using xn;
+#endif
 using System;
 using Microsoft.Xna.Framework;
 
+using idLib.Math;
 using idLib.Engine.Public;
 using System.Collections.Generic;
 
@@ -52,7 +55,10 @@ namespace rtcw.sys
         public DepthMetaData depthMD;
         public string calibPose;
         public int[] histogram;
+        public GestureGenerator gestures; 
+        public HandsGenerator handsGenerator;
         public Context context;
+        public HandsGenerator hands;
         public DepthGenerator depth;
         public UserGenerator userGenerator;
         public SkeletonCapability skeletonCapbility;
@@ -68,15 +74,19 @@ namespace rtcw.sys
         idKinectDevice device;
         idImage debugImage;
         Color[] debugImageData;
+        idCVar kinect_playerIsActive;
+        idVector3 lastpoint = idVector3.vector_origin;
 
         void Kinect_NewUser(ProductionNode node, uint id)
         {
             device.poseDetectionCapability.StartPoseDetection(device.calibPose, id);
+            kinect_playerIsActive.SetValueInt(1);
         }
 
         void Kinect_LostUser(ProductionNode node, uint id)
         {
             device.joints.Remove(id);
+            kinect_playerIsActive.SetValueInt(0);
         }
 
         void Kinect_CalibrationEnd(ProductionNode node, uint id, bool success)
@@ -145,6 +155,8 @@ namespace rtcw.sys
             idThread kinectThread;
             Engine.common.Printf("Init Kinect Device...\n");
 
+            kinect_playerIsActive = Engine.cvarManager.Cvar_Get("kinect_playerisavtive", "0", idCVar.CVAR_CHEAT);
+
             device.context = new Context("kinect/SamplesConfig.xml");
 
             if (device.context == null)
@@ -176,6 +188,9 @@ namespace rtcw.sys
             device.joints = new Dictionary<uint, Dictionary<SkeletonJoint, SkeletonJointPosition>>();
             device.userGenerator.StartGenerating();
 
+            KinectSetupHandInput();
+            KinectSetupGestureInput();
+
             device.depthMD = new DepthMetaData();
 
             // Create the kinect debug image
@@ -186,6 +201,105 @@ namespace rtcw.sys
             kinectThread.Start(null);
 
             return true;
+        }
+
+        //
+        // Kinect_HandUpdateHandler
+        //
+        private float clickLastPoint = 0;
+        void Kinect_HandUpdateHandler(ProductionNode node, uint id, ref Point3D position, float fTime)
+        {
+            idVector3 newPosition;
+            idVector3 delta;
+            idSysLocal sys = (idSysLocal)Engine.Sys;
+
+            newPosition = idVector3.vector_origin;
+            newPosition.X = position.X;
+            newPosition.Y = position.Y;
+            newPosition.Z = position.Z;
+            delta = newPosition - lastpoint;
+            delta.Y = -delta.Y;
+
+          //  delta *= 0.1f;
+            if ((delta.X < 6 && delta.X > -6) && (delta.Y < 6 && delta.Y > -6))
+            {
+                return;
+            }
+
+            sys.Sys_QueEvent(0, sysEventType_t.SE_MOUSE, (int)(delta.X), (int)(delta.Y), 0, null);
+
+            if (delta.Z <= -20)
+            {
+                clickLastPoint = lastpoint.Z + 70;
+                sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 0, 1, 0, null);
+            }
+            else
+            {
+                if (lastpoint.Z > clickLastPoint)
+                {
+                    clickLastPoint = 0.0f;
+                }
+            }
+           // Engine.common.DPrintf("" + delta.X + " " + delta.Y + " " + delta.Z + "\n");
+
+            lastpoint = newPosition;
+        }
+
+        //
+        // Kinect_HandCreate
+        //
+        void Kinect_HandCreate(ProductionNode node, uint id, ref Point3D position, float fTime)
+        {
+            lastpoint.X = position.X;
+            lastpoint.Y = position.Y;
+            lastpoint.Z = position.Z;
+        } 
+
+        //
+        // KinectSetupHandInput
+        //
+        private void KinectSetupHandInput()
+        {
+            device.hands = device.context.FindExistingNode(NodeType.Hands) as HandsGenerator;
+            device.hands.HandCreate += new HandsGenerator.HandCreateHandler(Kinect_HandCreate);
+            device.hands.HandUpdate += new HandsGenerator.HandUpdateHandler(Kinect_HandUpdateHandler);
+            device.hands.StartGenerating();
+        }
+
+        //
+        // Kinect_GestureRecognized
+        //
+        void Kinect_GestureRecognized(ProductionNode node,  string strGesture, ref Point3D idPosition, ref Point3D endPosition) 
+        {
+            idSysLocal sys = (idSysLocal)Engine.Sys;
+            switch (strGesture) 
+            {
+                case "Click":
+                    sys.Sys_QueEvent(sys.Sys_Milliseconds(), sysEventType_t.SE_KEY, (int)keyNum.K_MOUSE1 + 0, 1, 0, null);
+                    break; 
+                case "Wave": 
+                    //The wave gesture is detected. If not tracking  start it. 
+                    if (kinect_playerIsActive.GetValueInteger() < 2) 
+                    {
+                        kinect_playerIsActive.SetValueInt(2);
+                        device.hands.StartTracking(ref idPosition); 
+                    } 
+                    break; 
+                default: 
+                    break; 
+            } 
+        } 
+
+        //
+        // KinectSetupGestureInput
+        //
+        private void KinectSetupGestureInput()
+        {
+            device.gestures = device.context.FindExistingNode(NodeType.Gesture) as GestureGenerator;
+            device.gestures.AddGesture("Wave");
+            device.gestures.AddGesture("Click");
+            device.gestures.GestureRecognized += new GestureGenerator.GestureRecognizedHandler(Kinect_GestureRecognized);
+            device.gestures.StartGenerating();
         }
 
         //

@@ -50,8 +50,15 @@ namespace cgame
         idUserInterface mainMenu;
         idUserInterface connectUI;
         idUserInterface briefingUI;
+        
 #if WINDOWS_PHONE
         idUserInterface hud_phonecontrols;
+#endif
+
+#if WINDOWS
+        idUserInterface[] kinect_paused = new idUserInterface[2];
+        idCVar kinect_playerisavtive;
+        idCVar sys_kinect;
 #endif
 
         //
@@ -84,7 +91,7 @@ namespace cgame
             }
 
             briefingUI = Engine.ui.FindUserInterface("briefing");
-            if (connectUI == null)
+            if (briefingUI == null)
             {
                 Engine.common.ErrorFatal("Failed to load the briefing menu.\n");
                 return;
@@ -97,6 +104,25 @@ namespace cgame
                 Engine.common.ErrorFatal("Failed to load the phone hud controls.\n");
                 return;
             }
+#endif
+
+#if WINDOWS
+            kinect_paused[0] = Engine.ui.FindUserInterface("kinectpaused");
+            if (kinect_paused[0] == null)
+            {
+                Engine.common.ErrorFatal("Failed to load the kinect_paused menu.\n");
+                return;
+            }
+
+            kinect_paused[1] = Engine.ui.FindUserInterface("kinectpaused2");
+            if (kinect_paused[1] == null)
+            {
+                Engine.common.ErrorFatal("Failed to load the kinect_paused2 menu.\n");
+                return;
+            }
+
+            sys_kinect = Engine.cvarManager.Cvar_Get("sys_kinect", "0", idCVar.CVAR_ROM);
+            kinect_playerisavtive = Engine.cvarManager.Cvar_Get("kinect_playerisavtive", "0", idCVar.CVAR_CHEAT);
 #endif
             Globals.white = Engine.imageManager.FindImage("*white");
         }
@@ -274,6 +300,14 @@ namespace cgame
         //
         public override void DrawMainMenu()
         {
+#if WINDOWS
+            if (kinect_playerisavtive.GetValueInteger() < 2 && sys_kinect.GetValueInteger() != 0)
+            {
+                kinect_paused[kinect_playerisavtive.GetValueInteger()].Draw();
+                return;
+            }
+#endif 
+
             // Set the keycatcher so the UI will pick up controller events.
             Engine.common.SetKeyCatcher(keyCatch.UI);
 

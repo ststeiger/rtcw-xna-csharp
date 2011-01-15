@@ -54,7 +54,7 @@ namespace Game
         //
         public static void RegisterCvars()
         {
-            g_skipLevelScript = Engine.cvarManager.Cvar_Get("g_skipLevelScript", "0", idCVar.CVAR_ROM);
+            g_skipLevelScript = Engine.cvarManager.Cvar_Get("g_skipLevelScript", "1", idCVar.CVAR_ROM);
             g_gravity = Engine.cvarManager.Cvar_Get("g_gravity", "800", idCVar.CVAR_ROM);
         }
     }

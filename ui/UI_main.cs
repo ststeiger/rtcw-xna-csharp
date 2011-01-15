@@ -37,6 +37,9 @@ namespace ui
 
             LoadAssets();
 
+            cursorPosX = Engine.RenderSystem.GetViewportWidth() / 2;
+            cursorPosY = Engine.RenderSystem.GetViewportHeight() / 2;
+
             whiteImage = Engine.imageManager.FindImage("*white");
             world = Engine.RenderSystem.AllocWorld();
         }

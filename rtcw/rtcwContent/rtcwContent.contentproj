@@ -9127,6 +9127,11 @@
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_TextureFormat>DxtCompressed</ProcessorParameters_TextureFormat>
     </Compile>
+    <Compile Include="ui\kinect_pause.menu">
+      <Name>kinect_pause</Name>
+      <Importer>idUserInterfaceImporter</Importer>
+      <Processor>idUserInterfaceProcessor</Processor>
+    </Compile>
     <None Include="ui\menudef.h">
       <Name>menudef</Name>
     </None>

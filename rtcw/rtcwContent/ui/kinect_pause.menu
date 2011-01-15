@@ -1,0 +1,116 @@
+#include "ui/menudef.h"
+
+
+{
+menuDef {
+    	name "kinectpaused"
+    	background "ui/assets/backscreen"
+      	rect 0 0 640 480
+    	fullScreen MENU_TRUE
+    	visible MENU_TRUE
+      	style WINDOW_STYLE_SHADER
+
+  }
+
+menuDef {
+    	name "kinectpaused2"
+    	background "ui/assets/backscreen"
+      	rect 0 0 640 480
+    	fullScreen MENU_TRUE
+    	visible MENU_TRUE
+      	style WINDOW_STYLE_SHADER
+
+	itemDef {
+		name BLACKGRAD					// BLACKGRAD
+		style WINDOW_STYLE_SHADER
+		rect 0 -4 640 132
+		background "BLACKGRAD"
+		visible 1
+		decoration
+		}
+
+	itemDef {
+		name BLACKGRAD2					// BLACKGRAD
+		style WINDOW_STYLE_SHADER
+		rect 0 370 640 -128
+		background "BLACKGRAD"
+		visible 1
+		decoration
+		}
+
+	itemDef {
+		name WOLFFLAMELOGO				// WOLFFLAMELOGO
+		style WINDOW_STYLE_SHADER
+		rect 200 -5 240 120
+		background "WOLFFLAMELOGO"
+		visible 1
+		decoration
+		}
+
+
+	itemDef {
+		name WOLFICON					// WOLFICON
+		style WINDOW_STYLE_SHADER
+		rect 220 380 200 100
+		background "WOLFICON"
+		visible 1
+		decoration
+		}
+
+	itemDef {
+		name gold_line					// gold_line
+		style WINDOW_STYLE_SHADER
+		rect 0 410 250 10
+		background "gold_line"
+		visible 1
+		decoration
+		}
+
+	itemDef {
+		name gold_line					// gold_line
+		style WINDOW_STYLE_SHADER
+		rect 390 410 250 10
+		background "gold_line"
+		visible 1
+		decoration
+		}
+
+
+	itemDef {
+		name gold_line					// gold_line
+		style WINDOW_STYLE_SHADER
+		rect 0 76 226 10
+		background "gold_line"
+		visible 1
+		decoration
+		}
+
+	itemDef {
+		name gold_line					// gold_line
+		style WINDOW_STYLE_SHADER
+		rect 414 76 230 10
+		background "gold_line"
+		visible 1
+		decoration
+		}
+
+itemDef {
+      	name kinectpausemsg
+      	text "PLEASE STEP IN FRONT OF THE KINECT TO PLAY"
+      	style 0
+      	textscale 0.6
+      	rect 130 275 360 40
+      	textalign 1	
+      	textaligny 0
+      	textalignx 20 
+      	forecolor .7 .7 .7 .9      
+	textfont UI_FONT_NORMAL
+	visible 1 
+      	decoration 
+	}
+
+
+
+  }
+
+}
