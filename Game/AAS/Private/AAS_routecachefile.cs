@@ -51,6 +51,73 @@ namespace Game.AAS.Private
         public idVector3[] areawaypoints;
 
         //
+        // GetPortalRoutingCache
+        //
+        public aas_routingcache_t GetPortalRoutingCache(int clusternum, int areanum, int travelflags)
+        {
+            aas_routingcache_t cache;
+
+            //find the cached portal routing if existing
+            for (cache = portalcache[areanum]; cache != null; cache = cache.next)
+            {
+                if (cache.travelflags == travelflags)
+                {
+                    break;
+                }
+            } 
+            
+            return cache;
+        }
+
+        //
+        // GetAreaRoutingCache
+        //
+        public aas_routingcache_t GetAreaRoutingCache(int clusternum, int areanum, int travelflags, bool forceUpdate) {
+	        int clusterareanum;
+	        aas_routingcache_t cache, clustercache;
+
+	        //number of the area in the cluster
+	        clusterareanum = AAS_ClusterAreaNum( clusternum, areanum );
+	        //pointer to the cache for the area in the cluster
+	        clustercache = clusterareacache[clusternum][clusterareanum];
+	        //find the cache without undesired travel flags
+	        for ( cache = clustercache; cache != null; cache = cache.next )
+	        {
+		        //if there aren't used any undesired travel types for the cache
+		        if ( cache.travelflags == travelflags ) {
+			        break;
+		        }
+	        } //end for
+	          //if there was no cache
+	        if ( cache == null ) {
+#if false
+		        //NOTE: the number of routing updates is limited per frame
+		        if ( !forceUpdate && ( ( *aasworld ).frameroutingupdates > MAX_FRAMEROUTINGUPDATES ) ) {
+			        return NULL;
+		        } //end if
+
+		        cache = AAS_AllocRoutingCache( ( *aasworld ).clusters[clusternum].numreachabilityareas );
+		        cache->cluster = clusternum;
+		        cache->areanum = areanum;
+		        VectorCopy( ( *aasworld ).areas[areanum].center, cache->origin );
+		        cache->starttraveltime = 1;
+		        cache->travelflags = travelflags;
+		        cache->prev = NULL;
+		        cache->next = clustercache;
+		        if ( clustercache ) {
+			        clustercache->prev = cache;
+		        }
+		        ( *aasworld ).clusterareacache[clusternum][clusterareanum] = cache;
+		        AAS_UpdateAreaRoutingCache( cache );
+#endif
+                return null;
+	        } //end if
+	          //the cache has been accessed
+	       // cache->time = AAS_RoutingTime();
+	        return cache;
+        }
+
+        //
         // idAASRouteCacheFile
         //
         public idAASRouteCacheFile()

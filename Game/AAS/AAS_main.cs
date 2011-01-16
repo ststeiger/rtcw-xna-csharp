@@ -306,9 +306,40 @@ namespace Game.AAS
         }
 
         //
+        // AreaReachability
+        //
+        public int AreaReachability(int areanum)
+        {
+            if (areanum < 0 || areanum >= AASWorld.aasfile.numareas)
+            {
+                Engine.common.ErrorFatal("AAS_AreaReachability: areanum %d out of range", areanum);
+                return 0;
+            } //end if
+            // RF, if this area is disabled, then fail
+            if ((AASWorld.aasfile.areasettings[areanum].areaflags & aas_areaflags.AREA_DISABLED) != 0)
+            {
+                return 0;
+            }
+            return AASWorld.aasfile.areasettings[areanum].numreachableareas;
+        }
+
+        //
+        // ReachabilityFromNum
+        //
+        private aas_reachability_t defaultReachability = new aas_reachability_t();
+        public void ReachabilityFromNum( int num, out aas_reachability_t reach ) {
+            if (num < 0 || num >= AASWorld.aasfile.reachabilitysize)
+            {
+                reach = defaultReachability;
+		        return;
+	        }
+            reach = AASWorld.aasfile.reachability[num];
+        }
+
+        //
         // AAS_TraceClientBBox
         //
-        public idTrace AAS_TraceClientBBox( idVector3 start, idVector3 end, int presencetype, int passent ) {
+        public idTrace AAS_TraceClientBBox( idVector3 start, idVector3 end, int presencetype, idEntity passent ) {
 	        int side, nodenum, tmpplanenum;
 	        float front, back, frac;
 	        idVector3 cur_start, cur_end, cur_mid, v1, v2, v1n;
@@ -576,7 +607,65 @@ namespace Game.AAS
         //	return trace;
         } //end of the function AAS_TraceClientBBox
 
-        public bool IsPointOnGround(idVector3 origin, int presencetype, int passent)
+        public int AAS_Time()
+        {
+            return Level.time;
+        }
+
+        public int AAS_TravelFlagForType(int traveltype)
+        {
+            if (traveltype < 0 || traveltype >= aas_traveltype.MAX_TRAVELTYPES)
+            {
+                return idAASTravelFlags.TFL_INVALID;
+            }
+            return AASWorld.aasroute.travelflagfortype[traveltype];
+        } //end of the function AAS_TravelFlagForType
+
+        public bool AAS_AreaDoNotEnter(int areanum)
+        {
+            return (AASWorld.aasfile.areasettings[areanum].contents & aas_areacontents.AREACONTENTS_DONOTENTER) != 0;
+        } //end of the function AAS_AreaDoNotEnter
+        //===========================================================================
+        //
+        // Parameter:				-
+        // Returns:					-
+        // Changes Globals:		-
+        //===========================================================================
+        public bool AAS_AreaDoNotEnterLarge(int areanum)
+        {
+            return (AASWorld.aasfile.areasettings[areanum].contents & aas_areacontents.AREACONTENTS_DONOTENTER_LARGE) != 0;
+        }
+
+        public int AAS_NextAreaReachability(int areanum, int reachnum)
+        {
+            aas_areasettings_t settings;
+
+
+            if (areanum <= 0 || areanum >= AASWorld.aasfile.numareas)
+            {
+                Engine.common.ErrorFatal( "AAS_NextAreaReachability: areanum %d out of range\n", areanum);
+                return 0;
+            } //end if
+
+            settings = AASWorld.aasfile.areasettings[areanum];
+            if (reachnum == 0)
+            {
+                return settings.firstreachablearea;
+            } //end if
+            if (reachnum < settings.firstreachablearea)
+            {
+                Engine.common.Warning( "AAS_NextAreaReachability: reachnum < settings->firstreachableara");
+                return 0;
+            } //end if
+            reachnum++;
+            if (reachnum >= settings.firstreachablearea + settings.numreachableareas)
+            {
+                return 0;
+            } //end if
+            return reachnum;
+        }
+
+        public bool IsPointOnGround(idVector3 origin, int presencetype, idEntity entity)
         {
             idTrace trace;
             idVector3 end, up;
@@ -588,7 +677,7 @@ namespace Game.AAS
             end = origin;
             end[2] -= 10;
 
-            trace = AAS_TraceClientBBox(origin, end, presencetype, passent);
+            trace = AAS_TraceClientBBox(origin, end, presencetype, entity);
 
             //if in solid
             if (trace.startsolid)
@@ -655,6 +744,8 @@ namespace Game.AAS
 
     public class idAASTravelFlags
     {
+        public const int TFL_DEFAULT = ((TFL_WALK | TFL_CROUCH | TFL_BARRIERJUMP | TFL_JUMP | TFL_LADDER | TFL_WALKOFFLEDGE | TFL_SWIM | TFL_WATERJUMP | TFL_TELEPORT | TFL_ELEVATOR | TFL_AIR | TFL_WATER | TFL_SLIME | TFL_JUMPPAD | TFL_FUNCBOB) & ~(TFL_JUMPPAD | TFL_ROCKETJUMP | TFL_BFGJUMP | TFL_GRAPPLEHOOK | TFL_DOUBLEJUMP | TFL_RAMPJUMP | TFL_STRAFEJUMP | TFL_LAVA));
+// RF, added that bottom line so it's the same as AICAST_TFL_DEFAULT
         //travel flags
         public const int  TFL_INVALID          =   0x0000001;   //traveling temporary not possible
         public const int  TFL_WALK             =   0x0000002;   //walking

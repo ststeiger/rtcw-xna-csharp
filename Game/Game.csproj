@@ -94,7 +94,7 @@
   <ItemGroup>
     <Compile Include="AAS\AAS_main.cs" />
     <Compile Include="AAS\Private\AAS_file.cs" />
-    <Compile Include="AAS\Private\AAS_Move.cs" />
+    <Compile Include="AAS\Private\AAS_move.cs" />
     <Compile Include="AAS\Private\AAS_route.cs" />
     <Compile Include="AAS\Private\AAS_routecachefile.cs" />
     <Compile Include="AAS\Private\AAS_world.cs" />
@@ -103,6 +103,7 @@
     <Compile Include="AI\AI_main.cs" />
     <Compile Include="AI\AI_marker.cs" />
     <Compile Include="AI\AI_state.cs" />
+    <Compile Include="AI\AI_usercmd.cs" />
     <Compile Include="Anim\Anim_cfg.cs" />
     <Compile Include="Entities\Func\Door.cs" />
     <Compile Include="Entities\Func\Func_Static.cs" />

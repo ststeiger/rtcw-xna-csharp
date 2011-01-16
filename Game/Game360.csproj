@@ -58,6 +58,7 @@
     <Compile Include="AI\AI_main.cs" />
     <Compile Include="AI\AI_marker.cs" />
     <Compile Include="AI\AI_state.cs" />
+    <Compile Include="AI\AI_usercmd.cs" />
     <Compile Include="Anim\Anim_cfg.cs" />
     <Compile Include="Entities\func\door.cs">
       <SubType>Code</SubType>

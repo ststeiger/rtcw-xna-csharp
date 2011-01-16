@@ -48,10 +48,12 @@ namespace Game.AI
     //
     public class idBot : idPlayer
     {
-        internal idUsercmd botcmd = new idUsercmd();
+        internal idAIUsercmd ea = new idAIUsercmd();
         internal idAICastState cs = new idAICastState();
         internal aas_movestate_t movestate = new aas_movestate_t();
         internal aas_moveresult_t moveresult = new aas_moveresult_t();
+
+        internal const int AICAST_TFL_DEFAULT = idAASTravelFlags.TFL_DEFAULT & ~(idAASTravelFlags.TFL_JUMPPAD | idAASTravelFlags.TFL_ROCKETJUMP | idAASTravelFlags.TFL_BFGJUMP | idAASTravelFlags.TFL_GRAPPLEHOOK | idAASTravelFlags.TFL_DOUBLEJUMP | idAASTravelFlags.TFL_RAMPJUMP | idAASTravelFlags.TFL_STRAFEJUMP | idAASTravelFlags.TFL_LAVA);
 
         private const int SCRIPT_REACHGOAL_DIST = 8;
         private const int SCRIPT_REACHCAST_DIST = 64;
@@ -65,13 +67,26 @@ namespace Game.AI
         }
 
         //
+        // EA
+        //
+        public idAIUsercmd EA
+        {
+            get
+            {
+                return ea;
+            }
+        }
+
+        //
         // Spawn
         //
         public override void Spawn()
         {
             movestate.origin = state.origin;
             movestate.presencetype = aas_presencetype.PRESENCE_NORMAL;
-            botcmd.InitCommand(0);
+            movestate.entity = this;
+            cs.entity = this;
+            ea.Init();
             base.Spawn();
         }
 
@@ -80,6 +95,7 @@ namespace Game.AI
         //
         private void AI_PushChaseGoal(idEntity entity, float reachdist, bool slowApproach)
         {
+            cs.travelflags = AICAST_TFL_DEFAULT;
             cs.followEntity = entity;
             cs.followDist = reachdist;
             cs.followIsGoto = false;
@@ -187,7 +203,7 @@ namespace Game.AI
                 cs.aifunc();
             }
 
-            physicsState.cmd = botcmd;
+            physicsState.cmd = ea.GetNextBotCommand(cs);
             physicsState.ps = state;
 
             // Run the base player frame.
@@ -197,5 +213,25 @@ namespace Game.AI
         }
 
        
+    }
+
+    public class idBotActionFlags
+    {
+       public const int ACTION_ATTACK = 1;
+       public const int ACTION_USE          =    2;
+       public const int ACTION_RESPAWN      =    4;
+       public const int ACTION_JUMP         =    8;
+       public const int ACTION_MOVEUP       =    8;
+       public const int ACTION_CROUCH       =    16;
+       public const int ACTION_MOVEDOWN     =    16;
+       public const int ACTION_MOVEFORWARD  =    32;
+       public const int ACTION_MOVEBACK     =    64;
+       public const int ACTION_MOVELEFT     =    128;
+       public const int ACTION_MOVERIGHT    =    256;
+       public const int ACTION_DELAYEDJUMP  =    512;
+       public const int ACTION_TALK         =    1024;
+       public const int ACTION_GESTURE      =    2048;
+       public const int ACTION_WALK         =    4096;
+       public const int ACTION_RELOAD       =    8192;
     }
 }

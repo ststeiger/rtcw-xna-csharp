@@ -47,7 +47,7 @@ namespace Game.AAS.Private
         idAASRouteCacheFile routecache = new idAASRouteCacheFile();
 
         //index to retrieve travel flag for a travel type
-        private int[] travelflagfortype;
+        public int[] travelflagfortype;
 
         //routing update
         private aas_routingupdate_t[] areaupdate;
@@ -136,6 +136,399 @@ namespace Game.AAS.Private
             clusterareacache = null;
             portalmaxtraveltimes = null;
             Engine.common.ForceGCCollect();
+        }
+
+        int AAS_ClusterAreaNum(int cluster, int areanum)
+        {
+            int side, areacluster;
+
+            areacluster = Level.aas.AASWorld.aasfile.areasettings[areanum].cluster;
+            if (areacluster > 0)
+            {
+                return Level.aas.AASWorld.aasfile.areasettings[areanum].clusterareanum;
+            }
+            else
+            {
+                /*#ifdef ROUTING_DEBUG
+                        if ((*aasworld).portals[-areacluster].frontcluster != cluster &&
+                                (*aasworld).portals[-areacluster].backcluster != cluster)
+                        {
+                            botimport.Print(PRT_ERROR, "portal %d: does not belong to cluster %d\n"
+                                                            , -areacluster, cluster);
+                        } //end if
+                #endif //ROUTING_DEBUG*/
+                if (Level.aas.AASWorld.aasfile.portals[-areacluster].frontcluster != cluster)
+                {
+                    side = 1;
+                }
+                else
+                {
+                    side = 0;
+                }
+                return Level.aas.AASWorld.aasfile.portals[-areacluster].clusterareanum[side];
+            } //end else
+        } //end of the function AAS_ClusterAreaNum
+
+        private bool AAS_AreaRouteToGoalArea(int areanum, idVector3 origin, int goalareanum, int travelflags, ref int traveltime, ref int reachnum) {
+	        int clusternum, goalclusternum, portalnum, i, clusterareanum, bestreachnum;
+	        int t, besttime;
+	        aas_portal_t portal;
+	        aas_cluster_t cluster;
+	        aas_routingcache_t areacache, portalcache;
+	        aas_reachability_t reach;
+	        int pPortalnum;
+
+	        if ( areanum == goalareanum ) {
+		        traveltime = 1;
+		        reachnum = 0;
+		        return true;
+	        } 
+
+	        if ( areanum <= 0 || areanum >= Level.aas.AASWorld.aasfile.numareas ) {
+		        Engine.common.Warning( "AAS_AreaTravelTimeToGoalArea: areanum %d out of range\n", areanum );
+		        return false;
+	        }
+
+            if (goalareanum <= 0 || goalareanum >= Level.aas.AASWorld.aasfile.numareas)
+            {
+                Engine.common.Warning("AAS_AreaTravelTimeToGoalArea: goalareanum %d out of range\n", goalareanum);
+		        return false;
+	        }
+
+	        //make sure the routing cache doesn't grow to large
+	      //  while ( routingcachesize > max_routingcachesize ) {
+		 //       if ( !AAS_FreeOldestCache() ) {
+		//	        break;
+		//        }
+	   //     }
+	        //
+            if (Level.aas.AAS_AreaDoNotEnter(areanum) || Level.aas.AAS_AreaDoNotEnter(goalareanum))
+            {
+                travelflags |= idAASTravelFlags.TFL_DONOTENTER;
+	        }
+            if (Level.aas.AAS_AreaDoNotEnterLarge(areanum) || Level.aas.AAS_AreaDoNotEnterLarge(goalareanum))
+            {
+                travelflags |= idAASTravelFlags.TFL_DONOTENTER_LARGE;
+	        } 
+	          
+            //NOTE: the number of routing updates is limited per frame
+	          /*
+	          if ((*aasworld).frameroutingupdates > MAX_FRAMEROUTINGUPDATES)
+	          {
+          #ifdef DEBUG
+		          //Log_Write("WARNING: AAS_AreaTravelTimeToGoalArea: frame routing updates overflowed");
+          #endif
+		          return 0;
+	          } //end if
+	          */
+	          //
+            clusternum = Level.aas.AASWorld.aasfile.areasettings[areanum].cluster;
+            goalclusternum = Level.aas.AASWorld.aasfile.areasettings[goalareanum].cluster;
+	        //check if the area is a portal of the goal area cluster
+	        if ( clusternum < 0 && goalclusternum > 0 ) {
+                portal = Level.aas.AASWorld.aasfile.portals[-clusternum];
+		        if ( portal.frontcluster == goalclusternum ||
+			         portal.backcluster == goalclusternum ) {
+			        clusternum = goalclusternum;
+		        } //end if
+	        } //end if
+	          //check if the goalarea is a portal of the area cluster
+	        else if ( clusternum > 0 && goalclusternum < 0 ) {
+                portal = Level.aas.AASWorld.aasfile.portals[-goalclusternum];
+		        if ( portal.frontcluster == clusternum ||
+			         portal.backcluster == clusternum ) {
+			        goalclusternum = clusternum;
+		        } //end if
+	        } //end if
+	          //if both areas are in the same cluster
+	          //NOTE: there might be a shorter route via another cluster!!! but we don't care
+	        if ( clusternum > 0 && goalclusternum > 0 && clusternum == goalclusternum ) {
+		        //
+		        areacache = routecache.GetAreaRoutingCache( clusternum, goalareanum, travelflags, false );
+		        // RF, note that the routing cache might be NULL now since we are restricting
+		        // the updates per frame, hopefully rejected cache's will be requested again
+		        // when things have settled down
+		        if ( areacache == null ) {
+			        return false;
+		        }
+		        //the number of the area in the cluster
+		        clusterareanum = AAS_ClusterAreaNum( clusternum, areanum );
+		        //the cluster the area is in
+                cluster = Level.aas.AASWorld.aasfile.clusters[clusternum];
+		        //if the area is NOT a reachability area
+		        if ( clusterareanum >= cluster.numreachabilityareas ) {
+			        return false;
+		        }
+		        //if it is possible to travel to the goal area through this cluster
+                if (areacache.traveltimes[clusterareanum] != 0)
+                {
+                    reachnum = Level.aas.AASWorld.aasfile.areasettings[areanum].firstreachablearea +
+						        areacache.reachabilities[clusterareanum];
+			        //
+			        if ( origin == idVector3.vector_origin) {
+				        traveltime = areacache.traveltimes[clusterareanum];
+				        return true;
+			        }
+			        //
+                    reach = Level.aas.AASWorld.aasfile.reachability[reachnum];
+			        traveltime = areacache.traveltimes[clusterareanum] +
+						          AAS_AreaTravelTime( areanum, origin, reach.start );
+			        return true;
+		        } //end if
+	        } //end if
+	          //
+            clusternum = Level.aas.AASWorld.aasfile.areasettings[areanum].cluster;
+            goalclusternum = Level.aas.AASWorld.aasfile.areasettings[goalareanum].cluster;
+	        //if the goal area is a portal
+	        if ( goalclusternum < 0 ) {
+		        //just assume the goal area is part of the front cluster
+                portal = Level.aas.AASWorld.aasfile.portals[-goalclusternum];
+		        goalclusternum = portal.frontcluster;
+	        } //end if
+	          //get the portal routing cache
+	        portalcache = routecache.GetPortalRoutingCache( goalclusternum, goalareanum, travelflags );
+	        //if the area is a cluster portal, read directly from the portal cache
+	        if ( clusternum < 0 ) {
+		        traveltime = portalcache.traveltimes[-clusternum];
+                reachnum = Level.aas.AASWorld.aasfile.areasettings[areanum].firstreachablearea +
+					        portalcache.reachabilities[-clusternum];
+		        return true;
+	        }
+	        //
+	        besttime = 0;
+	        bestreachnum = -1;
+	        //the cluster the area is in
+	        cluster = Level.aas.AASWorld.aasfile.clusters[clusternum];
+	        //current area inside the current cluster
+	        clusterareanum = AAS_ClusterAreaNum( clusternum, areanum );
+	        //if the area is NOT a reachability area
+	        if ( clusterareanum >= cluster.numreachabilityareas ) {
+		        return false;
+	        }
+	        //
+	        pPortalnum = Level.aas.AASWorld.aasfile.portalindex[cluster.firstportal];
+	        //find the portal of the area cluster leading towards the goal area
+	        for ( i = 0; i < cluster.numportals; i++, pPortalnum++ )
+	        {
+		        portalnum = pPortalnum;
+		        //if the goal area isn't reachable from the portal
+		        if ( portalcache.traveltimes[portalnum] == 0 ) {
+			        continue;
+		        }
+		        //
+		        portal = Level.aas.AASWorld.aasfile.portals[portalnum];
+		        // if the area in disabled
+                if ((Level.aas.AASWorld.aasfile.areasettings[portal.areanum].areaflags & aas_areaflags.AREA_DISABLED) != 0)
+                {
+			        continue;
+		        }
+		        //get the cache of the portal area
+		        areacache = routecache.GetAreaRoutingCache( clusternum, portal.areanum, travelflags, false );
+		        // RF, this may be NULL if we were unable to calculate the cache this frame
+		        if ( areacache == null) {
+			        return false;
+		        }
+		        //if the portal is NOT reachable from this area
+		        if ( areacache.traveltimes[clusterareanum] == 0 ) {
+			        continue;
+		        }
+		        //total travel time is the travel time the portal area is from
+		        //the goal area plus the travel time towards the portal area
+		        t = portalcache.traveltimes[portalnum] + areacache.traveltimes[clusterareanum];
+		        //FIXME: add the exact travel time through the actual portal area
+		        //NOTE: for now we just add the largest travel time through the area portal
+		        //		because we can't directly calculate the exact travel time
+		        //		to be more specific we don't know which reachability is used to travel
+		        //		into the portal area when coming from the current area
+                t += portalmaxtraveltimes[portalnum];
+		        //
+		        // Ridah, needs to be up here
+		        reachnum = Level.aas.AASWorld.aasfile.areasettings[areanum].firstreachablearea +
+					        areacache.reachabilities[clusterareanum];
+
+        //botimport.Print(PRT_MESSAGE, "portal reachability: %i\n", (int)areacache->reachabilities[clusterareanum] );
+
+		        if ( origin.X != 0 && origin.Y != 0 && origin.Z != 0 ) {
+			        reach = Level.aas.AASWorld.aasfile.reachability[reachnum];
+			        t += AAS_AreaTravelTime( areanum, origin, reach.start );
+		        } 
+		         //if the time is better than the one already found
+		        if ( besttime == 0|| t < besttime ) {
+			        bestreachnum = reachnum;
+			        besttime = t;
+		        } 
+	        } //end for
+	          // Ridah, check a route was found
+	        if ( bestreachnum < 0 ) {
+		        return false;
+	        }
+	        reachnum = bestreachnum;
+	        traveltime = besttime;
+	        return true;
+        } 
+
+        public int AAS_AreaTravelTimeToGoalAreaCheckLoop(int areanum, idVector3 origin, int goalareanum, int travelflags, int loopareanum)
+        {
+            int traveltime = 0, reachnum = 0;
+            aas_reachability_t reach;
+
+            if (AAS_AreaRouteToGoalArea(areanum, origin, goalareanum, travelflags, ref traveltime, ref reachnum))
+            {
+                reach = Level.aas.AASWorld.aasfile.reachability[reachnum];
+                if (loopareanum != 0 && reach.areanum == loopareanum)
+                {
+                    return 0;   // going here will cause a looped route
+                }
+                return traveltime;
+            }
+            return 0;
+        }
+
+        //
+        // BotValidTravel
+        //
+        private bool BotValidTravel(idVector3 origin, aas_reachability_t reach, int travelflags)
+        {
+            //if the reachability uses an unwanted travel type
+            if ((Level.aas.AAS_TravelFlagForType(reach.traveltype) & ~travelflags) != 0)
+            {
+                return false;
+            }
+            //don't go into areas with bad travel types
+            if ((Level.aas.AASWorld.aasroute.AAS_AreaContentsTravelFlag(reach.areanum) & ~travelflags) != 0)
+            {
+                return false;
+            }
+            return true;
+        } //end of the function BotValidTravel
+
+        //
+        // BotGetReachabilityToGoal
+        //
+        public int BotGetReachabilityToGoal(idVector3 origin, int areanum, idEntity entity, int lastgoalareanum, int lastareanum,
+                                              int[] avoidreach, float[] avoidreachtimes, int[] avoidreachtries, Game.AI.idAIGoal goal, int travelflags, int movetravelflags)
+        {
+            int t, besttime, bestreachnum, reachnum;
+            aas_reachability_t reach;
+
+            //if not in a valid area
+            if (areanum == 0)
+            {
+                return 0;
+            }
+            //
+            if (Level.aas.AAS_AreaDoNotEnter(areanum) || Level.aas.AAS_AreaDoNotEnter(goal.areanum))
+            {
+                travelflags |= idAASTravelFlags.TFL_DONOTENTER;
+                movetravelflags |= idAASTravelFlags.TFL_DONOTENTER;
+            } //end if
+            if (Level.aas.AAS_AreaDoNotEnterLarge(areanum) || Level.aas.AAS_AreaDoNotEnterLarge(goal.areanum))
+            {
+                travelflags |= idAASTravelFlags.TFL_DONOTENTER_LARGE;
+                movetravelflags |= idAASTravelFlags.TFL_DONOTENTER_LARGE;
+            } //end if
+            //use the routing to find the next area to go to
+            besttime = 0;
+            bestreachnum = 0;
+            //
+            for (reachnum = Level.aas.AAS_NextAreaReachability(areanum, 0); reachnum != 0;
+                  reachnum = Level.aas.AAS_NextAreaReachability(areanum, reachnum))
+            {
+#if AVOIDREACH
+		        int i;
+		        //check if it isn't an reachability to avoid
+		        for ( i = 0; i < MAX_AVOIDREACH; i++ )
+		        {
+			        if ( avoidreach[i] == reachnum && avoidreachtimes[i] >= AAS_Time() ) {
+				        break;
+			        }
+		        } //end for
+		        if ( i != MAX_AVOIDREACH && avoidreachtries[i] > AVOIDREACH_TRIES ) {
+			        continue;
+		        } //end if
+#endif //AVOIDREACH
+                //get the reachability from the number
+                Level.aas.ReachabilityFromNum(reachnum, out reach);
+                //NOTE: do not go back to the previous area if the goal didn't change
+                //NOTE: is this actually avoidance of local routing minima between two areas???
+                if (lastgoalareanum == goal.areanum && reach.areanum == lastareanum)
+                {
+                    continue;
+                }
+                //if (AAS_AreaContentsTravelFlag(reach.areanum) & ~travelflags) continue;
+                //if the travel isn't valid
+                if (!BotValidTravel(origin, reach, movetravelflags))
+                {
+                    continue;
+                }
+                //RF, ignore disabled areas
+                if (Level.aas.AreaReachability(reach.areanum) == 0)
+                {
+                    continue;
+                }
+                //get the travel time (ignore routes that leads us back our current area)
+                t = AAS_AreaTravelTimeToGoalAreaCheckLoop(reach.areanum, reach.end, goal.areanum, travelflags, areanum);
+                //if the goal area isn't reachable from the reachable area
+                if (t == 0)
+                {
+                    continue;
+                }
+
+                // Ridah, if this sends us to a looped route, ignore it
+                //if (AAS_AreaTravelTimeToGoalArea(areanum, reach.start, goal->areanum, travelflags) + reach.traveltime < t)
+                //	continue;
+
+                //add the travel time towards the area
+                // Ridah, not sure why this was disabled, but it causes looped links in the route-cache
+                // RF, update.. seems to work better like this....
+                t += reach.traveltime; // + AAS_AreaTravelTime(areanum, origin, reach.start);
+                //t += reach.traveltime + AAS_AreaTravelTime(areanum, origin, reach.start);
+
+                // Ridah, if there exists other entities in this area, avoid it
+                //		if (reach.areanum != goal->areanum && AAS_IsEntityInArea( entnum, goal->entitynum, reach.areanum )) {
+                //			t += 50;
+                //		}
+
+                //if the travel time is better than the ones already found
+                if (besttime == 0 || t < besttime)
+                {
+                    besttime = t;
+                    bestreachnum = reachnum;
+                } //end if
+            } //end for
+            //
+            return bestreachnum;
+        }
+
+
+        public int AAS_AreaContentsTravelFlag(int areanum)
+        {
+            int contents, tfl;
+
+            contents = Level.aas.AASWorld.aasfile.areasettings[areanum].contents;
+            tfl = 0;
+            if ((contents & aas_areacontents.AREACONTENTS_WATER) != 0)
+            {
+                return tfl |= idAASTravelFlags.TFL_WATER;
+            }
+            else if ((contents & aas_areacontents.AREACONTENTS_SLIME) != 0)
+            {
+                return tfl |= idAASTravelFlags.TFL_SLIME;
+            }
+            else if ((contents & aas_areacontents.AREACONTENTS_LAVA) != 0)
+            {
+                return tfl |= idAASTravelFlags.TFL_LAVA;
+            }
+            else { tfl |= idAASTravelFlags.TFL_AIR; }
+            if ((contents & aas_areacontents.AREACONTENTS_DONOTENTER_LARGE) != 0)
+            {
+                tfl |= idAASTravelFlags.TFL_DONOTENTER_LARGE;
+            }
+            if ((contents & aas_areacontents.AREACONTENTS_DONOTENTER) != 0)
+            {
+                return tfl |= idAASTravelFlags.TFL_DONOTENTER;
+            }
+            return tfl;
         }
 
         //

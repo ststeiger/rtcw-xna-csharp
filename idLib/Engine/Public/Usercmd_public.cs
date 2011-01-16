@@ -160,6 +160,10 @@ namespace idLib.Engine.Public
             {
                 return forwardmove;
             }
+            set
+            {
+                forwardmove = (sbyte)value;
+            }
         }
 
         //
@@ -171,6 +175,10 @@ namespace idLib.Engine.Public
             {
                 return rightmove;
             }
+            set
+            {
+                rightmove = (sbyte)value;
+            }
         }
 
         //
@@ -181,6 +189,10 @@ namespace idLib.Engine.Public
             get
             {
                 return upmove;
+            }
+            set
+            {
+                upmove = (sbyte)value;
             }
         }
 

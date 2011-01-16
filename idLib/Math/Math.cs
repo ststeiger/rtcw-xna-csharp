@@ -42,10 +42,74 @@ namespace idLib.Math
         public const float M_DEG2RAD = PI / 180.0f;
         public const float CIRCLE_APPROXIMATION_LENGTH		=	64.0f;
 
+        // angle indexes
+        public const int PITCH = 0;       // up / down
+        public const int YAW       =          1;       // left / right
+        public const int ROLL      =          2;       // fall over
+
         public static float DEG2RAD(float f)
         {
             return f * M_DEG2RAD;
         }
+
+        /*
+        =================
+        AngleNormalize360
+
+        returns angle normalized to the range [0 <= angle < 360]
+        =================
+        */
+        public static float AngleNormalize360(float angle)
+        {
+            return (360.0f / 65536) * ((int)(angle * (65536 / 360.0)) & 65535);
+        }
+
+
+        /*
+        =================
+        AngleNormalize180
+
+        returns angle normalized to the range [-180 < angle <= 180]
+        =================
+        */
+        public static float AngleNormalize180(float angle)
+        {
+            angle = AngleNormalize360(angle);
+            if (angle > 180.0)
+            {
+                angle -= 360.0f;
+            }
+            return angle;
+        }
+
+        /*
+        ==============
+        AngleDifference
+        ==============
+        */
+        public static float AngleDifference(float ang1, float ang2)
+        {
+            float diff;
+
+            diff = ang1 - ang2;
+            if (ang1 > ang2)
+            {
+                if (diff > 180.0)
+                {
+                    diff -= 360.0f;
+                }
+            }
+            else
+            {
+                if (diff < -180.0)
+                {
+                    diff += 360.0f;
+                }
+            }
+            return diff;
+        }
+
+
 
         public static float DotProduct(idVector3 v1, idVector3 v2)
         {

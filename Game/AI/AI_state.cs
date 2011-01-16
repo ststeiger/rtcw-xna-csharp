@@ -34,9 +34,11 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 // AI_state.cs (c) 2010 JV Software
 //
 
+using idLib.Math;
+
 namespace Game.AI
 {
-    enum aistateEnum_t
+    public enum aistateEnum_t
     {
 	    AISTATE_RELAXED,
 	    AISTATE_QUERY,
@@ -46,7 +48,7 @@ namespace Game.AI
 	    MAX_AISTATES
     };
 
-    enum movestate_t
+    public enum movestate_t
     {
 	    MS_DEFAULT,
 	    MS_WALK,
@@ -54,7 +56,7 @@ namespace Game.AI
 	    MS_CROUCH
     };
     //
-    enum movestateType_t
+    public enum movestateType_t
     {
 	    MSTYPE_NONE,
 	    MSTYPE_TEMPORARY,
@@ -62,10 +64,10 @@ namespace Game.AI
     };
 
      // the main cast structure
-     class idAICastState
+     public class idAICastState
      {
 	       //bot_state_t     *bs;
-	        public int entityNum;
+	        public idEntity entity;
 
 	        public int aasWorldIndex;              // set this according to our bounding box type
 
@@ -279,14 +281,16 @@ namespace Game.AI
 
 	        int lastValidAreaNum[2];        // last valid area within each AAS world
 	        int lastValidAreaTime[2];       // time we last got the area
-
-	        int weaponNum;              // our current weapon
-	        int enemyNum;               // our current enemy
-	        vec3_t ideal_viewangles, viewangles;
+#endif
+	        public int weaponNum;              // our current weapon
+            public int enemyNum;               // our current enemy
+            public idVector3 ideal_viewangles, viewangles;
+#if false
 	        usercmd_t lastucmd;
-	        int attackcrouch_time;
-	        int bFlags;
-
+#endif
+            public int attackcrouch_time;
+            public int bFlags;
+#if false
 	        int deadSinkStartTime;
 
 	        int lastActivate;
