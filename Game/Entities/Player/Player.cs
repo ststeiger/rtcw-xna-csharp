@@ -54,6 +54,7 @@ namespace Game.Entities.Player
         internal idPhysicsPlayerState physicsState;
 
         internal idAnim currentAnim;
+        internal idAnimScript animscript;
 
         internal string profilename;
         internal bool clientSpawned = false;
@@ -87,6 +88,16 @@ namespace Game.Entities.Player
         }
 
         //
+        // LoadAnimScript
+        //
+        private void LoadAnimScript()
+        {
+            animscript = new idAnimScript();
+
+            animscript.InitFromFile(System.IO.Path.GetDirectoryName(model) + "/wolfanim.script");
+        }
+
+        //
         // Spawn
         //
         public override void Spawn()
@@ -105,6 +116,8 @@ namespace Game.Entities.Player
             physicsState = new idPhysicsPlayerState();
 
             InitAnim();
+            LoadAnimScript();
+
             currentAnim = anim[0];
         }
 
@@ -114,7 +127,7 @@ namespace Game.Entities.Player
         internal void PlayAnimation()
         {
             state.frame++;
-            if (state.frame >= currentAnim._numFrames)
+            if (state.frame >= currentAnim._firstFrame + currentAnim._numFrames)
                 state.frame = currentAnim._firstFrame;
         }
 

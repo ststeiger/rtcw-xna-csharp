@@ -67,6 +67,8 @@ namespace Game.Anim
         {
             string token;
 
+            this.name = name;
+
             // First Frame.
             token = parser.GetNextTokenFromLine();
             if (token != null)

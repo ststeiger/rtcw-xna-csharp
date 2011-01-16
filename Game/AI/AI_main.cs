@@ -38,6 +38,7 @@ using idLib.Math;
 using idLib.Engine.Public;
 
 using Game.AAS;
+using Game.Anim;
 using Game.AAS.Private;
 using Game.Entities.Player;
 
@@ -52,6 +53,9 @@ namespace Game.AI
         internal idAICastState cs = new idAICastState();
         internal aas_movestate_t movestate = new aas_movestate_t();
         internal aas_moveresult_t moveresult = new aas_moveresult_t();
+
+        internal idAnimScriptAnimation relaxed_idleanim;
+        internal idAnimScriptAnimation relaxed_walkanim;
 
         internal const int AICAST_TFL_DEFAULT = idAASTravelFlags.TFL_DEFAULT & ~(idAASTravelFlags.TFL_JUMPPAD | idAASTravelFlags.TFL_ROCKETJUMP | idAASTravelFlags.TFL_BFGJUMP | idAASTravelFlags.TFL_GRAPPLEHOOK | idAASTravelFlags.TFL_DOUBLEJUMP | idAASTravelFlags.TFL_RAMPJUMP | idAASTravelFlags.TFL_STRAFEJUMP | idAASTravelFlags.TFL_LAVA);
 
@@ -88,6 +92,9 @@ namespace Game.AI
             cs.entity = this;
             ea.Init();
             base.Spawn();
+
+            relaxed_walkanim = animscript.GetAnimationForState("RELAXED", "walk");
+            relaxed_idleanim = animscript.GetAnimationForState("RELAXED", "idle");
         }
 
         //
@@ -128,6 +135,11 @@ namespace Game.AI
         //
         public bool WalkToEntity(idEntity entity)
         {
+            if (cs.isWalking == false)
+            {
+                currentAnim = anim.FindAnim(relaxed_walkanim.AnimName);
+                state.frame = currentAnim._firstFrame;
+            }
             cs.isWalking = true;
             return MoveToEntity(entity);
         }
@@ -155,6 +167,7 @@ namespace Game.AI
             // Check to see if we made it to our destination.
             if (distTogoal < SCRIPT_REACHGOAL_DIST + 1)
             {
+                currentAnim = anim.FindAnim(relaxed_idleanim.AnimName);
                 cs.isWalking = false;
                 return true;
             }
