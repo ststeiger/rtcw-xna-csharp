@@ -329,6 +329,13 @@ namespace idLib.Math
             return axis;
         }
 
+        public float Distance(idVector3 p2)
+        {
+            idVector3 v;
+            v = p2 - this;
+            return v.Length();
+        }
+
         //
         // ToString
         //

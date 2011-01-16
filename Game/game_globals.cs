@@ -54,7 +54,7 @@ namespace Game
         //
         public static void RegisterCvars()
         {
-            g_skipLevelScript = Engine.cvarManager.Cvar_Get("g_skipLevelScript", "1", idCVar.CVAR_ROM);
+            g_skipLevelScript = Engine.cvarManager.Cvar_Get("g_skipLevelScript", "0", idCVar.CVAR_ROM);
             g_gravity = Engine.cvarManager.Cvar_Get("g_gravity", "800", idCVar.CVAR_ROM);
         }
     }
@@ -84,6 +84,25 @@ namespace Game
         public static idGameNetwork net = new idGameNetwork();
         public static idWorld world;
         public static idAAS aas;
+
+        //
+        // FindEntity
+        //
+        public static idEntity FindEntity(string name)
+        {
+            foreach (idEntity target in entities)
+            {
+                if (target == null)
+                    continue;
+
+                if (target.targetname == name)
+                {
+                    return target;
+                }
+            }
+
+            return null;
+        }
 
         //
         // TriggerEntity

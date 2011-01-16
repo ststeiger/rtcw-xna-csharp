@@ -85,6 +85,7 @@ namespace Game
             new idGameSpawnDefs( "props_decoration", () => new idEntityPropDecoration() ),
 
             new idGameSpawnDefs( "ai_civilian", () => new idAICivilian() ),
+            new idGameSpawnDefs( "ai_marker", () => new idAIMarker() ),
 
             new idGameSpawnDefs( "worldspawn", () => new idWorldspawn() ),
 

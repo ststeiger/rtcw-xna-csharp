@@ -48,6 +48,9 @@ namespace idLib.Engine.Public
 	    public int surfaceFlags;           // surface hit
         public int contents;           // contents on other side of surface hit
         public int entityNum;          // entity the contacted sirface is a part of
+        public int area;
+        public int planenum;
+        public int lastarea;
 
         public static idTrace defaultTrace = new idTrace();
     };

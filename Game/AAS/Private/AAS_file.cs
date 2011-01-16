@@ -196,8 +196,6 @@ namespace Game.AAS.Private
 
             //clusters
             LoadAASLump<aas_cluster_t>(header.lumps[aas_lumptype.AASLUMP_CLUSTERS], ref file, out numclusters, out clusters);
-
-            Engine.common.Printf("AAS Loaded Successfully...\n");
             Engine.fileSystem.CloseFile(ref file);
             return true;
         }

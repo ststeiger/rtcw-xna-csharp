@@ -31,63 +31,26 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 ===========================================================================
 */
 
-// AAS_world.cs (c) 2010 JV Software
+// AI_goal.cs (c) 2010 JV Software
 //
 
+using idLib.Math;
 using idLib.Engine.Public;
+using Game.Entities.Player;
 
-namespace Game.AAS.Private
+namespace Game.AI
 {
-    public class idAASWorld
+    public struct idAIGoal
     {
-        public idAASFile aasfile;
-        public idAASRoute aasroute;
+        public idVector3 origin;              //origin of the goal
+        public int areanum;                //area number of the goal
+        public idVector3 mins;
+        public idVector3 maxs;          //mins and maxs of the goal
+        public idEntity entity;              //number of the goal entity
+        public int number;                 //goal number
+        public int flags;                  //goal flags
+        public int iteminfo;               //item information
+    };
 
-        //
-        // Init
-        //
-        public bool Init(string mappath)
-        {
-            aasfile = new idAASFile();
 
-            Engine.common.Printf("Loading World " + mappath + "\n");
-
-            if (!aasfile.ParseAASFile("maps/" + mappath + ".aas"))
-            {
-                return false;
-            }
-
-            aasroute = new idAASRoute();
-            if (!aasroute.Init("maps/" + mappath + ".rcd"))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        //
-        // CanAreaCrouch
-        //
-        public bool CanAreaCrouch(int areanum)
-        {
-            if ((aasfile.areasettings[areanum].presencetype & aas_presencetype.PRESENCE_NORMAL) == 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        //
-        // CanAreaSwim
-        //
-        public bool CanAreaSwim(int areanum)
-        {
-            if ((aasfile.areasettings[areanum].areaflags & aas_areaflags.AREA_LIQUID) != 0)
-            {
-                return true;
-            }
-            return false;
-        }
-    }
 }

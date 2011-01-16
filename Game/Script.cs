@@ -7,6 +7,8 @@ using idLib;
 using idLib.Game;
 using idLib.Engine.Public;
 
+using Game.AI;
+
 namespace Game
 {
     //
@@ -325,6 +327,7 @@ namespace Game
         private static bool G_ScriptAction_Trigger(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
             idScriptAction action2;
             idScript script = Level.script;
+            idEntity triggerentity;
 
             action2 = script.FindAction(func.parms[0], func.parms[1], false);
             if (action2 == null)
@@ -337,7 +340,13 @@ namespace Game
                 }
             }
 
-            if (!script.ExecuteTrigger(action.actionEntity, action2))
+            triggerentity = Level.FindEntity(func.parms[0]);
+            if (triggerentity == null)
+            {
+                triggerentity = action.actionEntity;
+            }
+
+            if (!script.ExecuteTrigger(triggerentity, action2))
             {
                 return false;
             }
@@ -470,6 +479,31 @@ namespace Game
         }
         //----(SA)	end
 
+        private static bool AICast_ScriptAction_GotoMarker(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { 
+            idEntity marker = Level.FindEntity( func.parms[0] );
+
+            if(marker == null)
+            {
+                Engine.common.Warning("AICast_ScriptAction_GotoMarker: Failed to find ai_marker %s \n", func.parms[0] );
+                return true;
+            }
+
+            return ((idBot)action.actionEntity).MoveToEntity(marker); 
+        }
+
+        private static bool AICast_ScriptAction_WalkToMarker(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) {
+            idEntity marker = Level.FindEntity(func.parms[0]);
+
+            if (marker == null)
+            {
+                Engine.common.Warning("AICast_ScriptAction_GotoMarker: Failed to find ai_marker %s \n", func.parms[0]);
+                return true;
+            }
+
+
+            return ((idBot)action.actionEntity).MoveToEntity(marker);
+        }
+
         #region ScriptStubs_ImplementMe
         private static bool G_ScriptAction_GotoMarker(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
         
@@ -504,8 +538,7 @@ namespace Game
         private static bool G_ScriptAction_SetHealth(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
 
         // AI scripting functions
-        private static bool AICast_ScriptAction_GotoMarker(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
-        private static bool AICast_ScriptAction_WalkToMarker(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
+        
         private static bool AICast_ScriptAction_CrouchToMarker(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
         private static bool AICast_ScriptAction_GotoCast(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
         private static bool AICast_ScriptAction_WalkToCast(ref idScriptPendingAction action, idScriptFuncBinary func, idScript parent) { return true; }
