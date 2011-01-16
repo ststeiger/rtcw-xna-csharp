@@ -336,6 +336,49 @@ namespace idLib.Math
             return v.Length();
         }
 
+        public idVector3 ToAngles() {
+	        float forward;
+	        float yaw, pitch;
+            idVector3 angles = idVector3.vector_origin;
+
+            if (this[1] == 0 && this[0] == 0)
+            {
+		        yaw = 0;
+                if (this[2] > 0)
+                {
+			        pitch = 90;
+		        } else {
+			        pitch = 270;
+		        }
+	        } else {
+                if (this[0] != 0)
+                {
+			        yaw = ((float)System.Math.Atan2( this[1], this[0] ) * 180 / (float)System.Math.PI );
+                }
+                else if (this[1] > 0)
+                {
+			        yaw = 90;
+		        } else {
+			        yaw = 270;
+		        }
+		        if ( yaw < 0 ) {
+			        yaw += 360;
+		        }
+
+		        forward = (float)System.Math.Sqrt( this[0] * this[0] + this[1] * this[1] );
+		        pitch = (float)(System.Math.Atan2( this[2], forward ) * 180 / (float)System.Math.PI );
+		        if ( pitch < 0 ) {
+			        pitch += 360;
+		        }
+	        }
+
+            angles[idMath.PITCH] = -pitch;
+            angles[idMath.YAW] = yaw;
+	        angles[idMath.ROLL] = 0;
+
+            return angles;
+        }
+
         //
         // ToString
         //

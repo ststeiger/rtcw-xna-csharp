@@ -100,7 +100,11 @@ namespace Game.AI
             cs.followDist = reachdist;
             cs.followIsGoto = false;
             cs.followSlowApproach = slowApproach;
-            cs.aifunc = AIGoal_Chase;
+
+            if (cs.isWalking == false)
+            {
+                cs.aifunc = AIGoal_Chase;
+            }
         }
 
         //
@@ -120,15 +124,43 @@ namespace Game.AI
         }
 
         //
+        // WalkToEntity
+        //
+        public bool WalkToEntity(idEntity entity)
+        {
+            cs.isWalking = true;
+            return MoveToEntity(entity);
+        }
+
+        //
+        // LookAtEntity
+        //
+        private void LookAtEntity(idEntity entity)
+        {
+            idVector3 dir, angles;
+            
+            dir = entity.state.origin - state.origin;
+            state.angles = dir.ToAngles();
+            state.angles[0] = 0;
+            state.angles[2] = 0;
+        }
+
+        //
         // MoveToEntity
         //
         public bool MoveToEntity(idEntity entity)
         {
+            float distTogoal = state.origin.Distance(entity.state.origin);
+
             // Check to see if we made it to our destination.
-            if (state.origin.Distance(entity.state.origin) < SCRIPT_REACHGOAL_DIST)
-            { 
+            if (distTogoal < SCRIPT_REACHGOAL_DIST + 1)
+            {
+                cs.isWalking = false;
                 return true;
             }
+
+            // Ensure the entity is facing the goal entity.
+            LookAtEntity(entity);
 
             AI_PushChaseGoal(entity, SCRIPT_REACHCAST_DIST, true);
 
@@ -201,13 +233,17 @@ namespace Game.AI
             if (cs.aifunc != null)
             {
                 cs.aifunc();
+                cs.aifunc = null;
             }
 
+            state.angles2 = state.angles;
+
             physicsState.cmd = ea.GetNextBotCommand(cs);
+            physicsState.cmd.SetViewAngles(state.angles2[1], state.angles2[0], 0);
             physicsState.ps = state;
 
             // Run the base player frame.
-            PlayerFrame();
+            base.PlayerFrame();
 
             LinkEntity();
         }

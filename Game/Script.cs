@@ -501,7 +501,7 @@ namespace Game
             }
 
 
-            return ((idBot)action.actionEntity).MoveToEntity(marker);
+            return ((idBot)action.actionEntity).WalkToEntity(marker);
         }
 
         #region ScriptStubs_ImplementMe

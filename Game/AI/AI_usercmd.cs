@@ -194,7 +194,7 @@ namespace Game.AI
 #if false
 		        if ( ( !( cs->aiFlags & AIFL_WALKFORWARD ) && cs->enemyNum >= 0 ) || ( ( ucmd->forwardmove >= 0 ) && fabs( AngleNormalize180( AngleDifference( cs->ideal_viewangles[YAW], cs->viewangles[YAW] ) ) ) < 60 ) ) {
 #else
-                if (System.Math.Abs(idMath.AngleNormalize180(idMath.AngleDifference(cs.ideal_viewangles[idMath.YAW], cs.viewangles[idMath.YAW]))) < 60)
+                if (cs.isWalking == false && System.Math.Abs(idMath.AngleNormalize180(idMath.AngleDifference(cs.ideal_viewangles[idMath.YAW], cs.viewangles[idMath.YAW]))) < 60)
                 {
 #endif
 			        //NOTE: movement is relative to the REAL view angles
@@ -232,16 +232,16 @@ namespace Game.AI
 	        }
 	        //
 	        //normal keyboard movement
-	      //  if ( cs.actionFlags & CASTACTION_WALK ) {
+	        if ( cs.isWalking ) {
 		        movechar = 70;
-	      //  } else {
-		  //      movechar = 127;
-	    //    }
-            if ((bi.actionflags & idBotActionFlags.ACTION_MOVEFORWARD) != 0)
+	        } else {
+		        movechar = 127;
+	        }
+            if ((bi.actionflags & idBotActionFlags.ACTION_MOVEFORWARD) != 0 || cs.isWalking)
             {
 		        ucmd.ForwardMove = movechar;
             }
-#if false
+            /*
 	        if ( !( cs->aiFlags & AIFL_WALKFORWARD ) || ( !cs->bs->cur_ps.groundEntityNum || cs->bs->cur_ps.groundEntityNum == ENTITYNUM_NONE ) ) {   // only do other movements if we are allowed to
 		        if ( bi->actionflags & ACTION_MOVEBACK ) {
 			        ucmd->forwardmove = -movechar;
@@ -255,11 +255,13 @@ namespace Game.AI
 	        }
 	        // prevent WALKFORWARD AI from moving backwards
 
-	        if ( cs.aiFlags & AIFL_WALKFORWARD ) {
-		        if ( ucmd.forwardmove < 0 ) {
-			        ucmd.forwardmove = 0;
+	        if ( cs.isWalking ) {
+		        if ( ucmd.ForwardMove < 0 ) {
+                    ucmd.ForwardMove = 0;
 		        }
-	        }
+            }
+            */
+#if false
 	        //jump/moveup
             if ((bi.actionflags & idBotActionFlags.ACTION_JUMP) != 0)
             {

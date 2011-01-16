@@ -136,6 +136,7 @@ namespace Game.AI
 
 	        // goal/AI stuff
 #endif
+            public bool isWalking;
 	        public idEntity followEntity;
 	        public float followDist;
 	        public bool followIsGoto;      // we are really just going to the entity, but should wait until scripting tells us we can stop
