@@ -233,9 +233,9 @@ namespace Game.AI
 	        //
 	        //normal keyboard movement
 	        if ( cs.isWalking ) {
-		        movechar = 70;
+		        movechar = 30;
 	        } else {
-		        movechar = 127;
+		        movechar = 70;
 	        }
             if ((bi.actionflags & idBotActionFlags.ACTION_MOVEFORWARD) != 0 || cs.isWalking)
             {

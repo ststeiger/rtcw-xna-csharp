@@ -85,7 +85,8 @@ namespace rtcw.Renderer.Backend.Iterators
                         break;
                     }
 
-                    Shade.BindImage(stage.bundle[c].image[0]);
+                    //Shade.BindImage(stage.bundle[c].image[0]);
+                    Shade.BindAnimatedImage(ref stage.bundle[c]);
 
                     if (Globals.tess.indexBufferSize > 0)
                     {

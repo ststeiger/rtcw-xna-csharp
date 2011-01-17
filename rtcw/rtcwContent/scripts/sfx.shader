@@ -1137,8 +1137,12 @@ textures/sfx/fan
 	cull none
         nopicmip
 	{
-		clampmap textures/sfx/fan.tga
-		tcMod rotate 256 
+// jv - stupid hack for the phone.
+//		clampmap textures/sfx/fan.tga
+//		tcMod rotate 256 
+		animclamp 20 textures/sfx/fan/fan_
+
+// jv end
 		blendFunc GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA
 //		blendFunc GL_ONE GL_ZERO
 //		alphaFunc GE128

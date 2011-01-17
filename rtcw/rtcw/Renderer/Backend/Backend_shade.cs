@@ -263,6 +263,26 @@ namespace rtcw.Renderer.Backend
         //
         // BindImage
         //
+        public static void BindAnimatedImage(ref textureBundle_t bundle)
+        {
+            useSingleEffect = true;
+            if (bundle.numImageAnimations == 0)
+            {
+                singleEffect.Texture = (Texture2D)bundle.image[0].GetDeviceHandle();
+                return;
+            }
+            bundle.frame+=0.3f;
+
+            if(bundle.frame >= bundle.numImageAnimations)
+            {
+                bundle.frame = 0;
+            }
+            singleEffect.Texture = (Texture2D)bundle.image[(int)bundle.frame].GetDeviceHandle();
+        }
+
+        //
+        // BindImage
+        //
         public static void BindImage(idImage image)
         {
             if (useSkeletalEffect)

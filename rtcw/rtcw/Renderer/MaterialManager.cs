@@ -532,156 +532,205 @@ namespace rtcw.Renderer
 				        }
 			        }
 		        }
-		        //
-		        // clampmap <name>
-		        //
-		        else if ( token == "clampmap" ) {
-			        token = parser.NextToken;
+                else if (token == "animclamp")
+                {
+                    string texpath;
                     stage.bundle[0] = new textureBundle_t();
-			        stage.bundle[0].image[0] =  Engine.imageManager.FindImageFile( token, !shader.noMipMaps, !shader.noPicMip, SamplerState.LinearClamp );
-			        if ( stage.bundle[0].image[0] == null ) {
-					    Engine.common.Warning("R_FindImageFile could not find '%s' in shader '%s'\n", token, shader.name );
-					    return false;
-				    }
-		        }
-		        //
-		        // animMap <frequency> <image1> .... <imageN>
-		        //
-		        else if ( token == "animmap" ) {
-			        token = parser.GetNextTokenFromLine();
-			        if ( token == null ) {
-				        Engine.common.Warning( "missing parameter for 'animMmap' keyword in shader '%s'\n", shader.name );
-				        return false;
-			        }
+                    stage.bundle[0].numImageAnimations = int.Parse(parser.NextToken);
+
+                    texpath = parser.NextToken;
+
+                    for( int i = 0; i < stage.bundle[0].numImageAnimations; i++ )
+                    {
+                        stage.bundle[0].image[i] = Engine.imageManager.FindImageFile(texpath + i, !shader.noMipMaps, !shader.noPicMip, SamplerState.LinearClamp);
+                    }
+                }
+                //
+                // clampmap <name>
+                //
+                else if (token == "clampmap")
+                {
+                    token = parser.NextToken;
                     stage.bundle[0] = new textureBundle_t();
-			        stage.bundle[0].imageAnimationSpeed = float.Parse( token );
+                    stage.bundle[0].image[0] = Engine.imageManager.FindImageFile(token, !shader.noMipMaps, !shader.noPicMip, SamplerState.LinearClamp);
+                    if (stage.bundle[0].image[0] == null)
+                    {
+                        Engine.common.Warning("R_FindImageFile could not find '%s' in shader '%s'\n", token, shader.name);
+                        return false;
+                    }
+                }
+                //
+                // animMap <frequency> <image1> .... <imageN>
+                //
+                else if (token == "animmap")
+                {
+                    token = parser.GetNextTokenFromLine();
+                    if (token == null)
+                    {
+                        Engine.common.Warning("missing parameter for 'animMmap' keyword in shader '%s'\n", shader.name);
+                        return false;
+                    }
+                    stage.bundle[0] = new textureBundle_t();
+                    stage.bundle[0].imageAnimationSpeed = float.Parse(token);
 
-			        // parse up to MAX_IMAGE_ANIMATIONS animations
-			        while ( true ) {
-				        int num;
+                    // parse up to MAX_IMAGE_ANIMATIONS animations
+                    while (true)
+                    {
+                        int num;
 
-				        token = parser.GetNextTokenFromLine();
-				        if ( token == null ) {
-					        break;
-				        }
-				        num = stage.bundle[0].numImageAnimations;
-				        if ( num < idMaterialBase.MAX_IMAGE_ANIMATIONS ) {
-					        stage.bundle[0].image[num] = Engine.imageManager.FindImageFile( token, !shader.noMipMaps, !shader.noPicMip, SamplerState.LinearWrap );
-					        if ( stage.bundle[0].image[num] == null ) {
-						        Engine.common.Warning("R_FindImageFile could not find '%s' in shader '%s'\n", token, shader.name );
-						        return false;
-					        }
-					        stage.bundle[0].numImageAnimations++;
-				        }
-			        }
-		        } else if ( token == "videomap" )    {
-			        token = parser.GetNextTokenFromLine();
-			        if ( token == null ) {
-				        Engine.common.Warning( "missing parameter for 'videoMmap' keyword in shader '%s'\n", shader.name );
-				        return false;
-			        }
-			        //stage.bundle[0].videoMapHandle = ri.CIN_PlayCinematic( token, 0, 0, 256, 256, ( CIN_loop | CIN_silent | CIN_shader ) );
-			        if ( stage.bundle[0].videoMapHandle != -1 ) {
-				        stage.bundle[0].isVideoMap = true;
-				        //stage.bundle[0].image[0] = tr.scratchImage[stage->bundle[0].videoMapHandle];
-			        }
-		        }
-		        //
-		        // alphafunc <func>
-		        //
-		        else if ( token == "alphafunc" ) {
-			        token = parser.GetNextTokenFromLine();
-			        if ( token == null ) {
-				        Engine.common.Warning( "missing parameter for 'alphaFunc' keyword in shader '%s'\n", shader.name );
-				        return false;
-			        }
+                        token = parser.GetNextTokenFromLine();
+                        if (token == null)
+                        {
+                            break;
+                        }
+                        num = stage.bundle[0].numImageAnimations;
+                        if (num < idMaterialBase.MAX_IMAGE_ANIMATIONS)
+                        {
+                            stage.bundle[0].image[num] = Engine.imageManager.FindImageFile(token, !shader.noMipMaps, !shader.noPicMip, SamplerState.LinearWrap);
+                            if (stage.bundle[0].image[num] == null)
+                            {
+                                Engine.common.Warning("R_FindImageFile could not find '%s' in shader '%s'\n", token, shader.name);
+                                return false;
+                            }
+                            stage.bundle[0].numImageAnimations++;
+                        }
+                    }
+                }
+                else if (token == "videomap")
+                {
+                    token = parser.GetNextTokenFromLine();
+                    if (token == null)
+                    {
+                        Engine.common.Warning("missing parameter for 'videoMmap' keyword in shader '%s'\n", shader.name);
+                        return false;
+                    }
+                    //stage.bundle[0].videoMapHandle = ri.CIN_PlayCinematic( token, 0, 0, 256, 256, ( CIN_loop | CIN_silent | CIN_shader ) );
+                    if (stage.bundle[0].videoMapHandle != -1)
+                    {
+                        stage.bundle[0].isVideoMap = true;
+                        //stage.bundle[0].image[0] = tr.scratchImage[stage->bundle[0].videoMapHandle];
+                    }
+                }
+                //
+                // alphafunc <func>
+                //
+                else if (token == "alphafunc")
+                {
+                    token = parser.GetNextTokenFromLine();
+                    if (token == null)
+                    {
+                        Engine.common.Warning("missing parameter for 'alphaFunc' keyword in shader '%s'\n", shader.name);
+                        return false;
+                    }
 
-			        atestBits = NameToAFunc( token );
-		        }
-		        //
-		        // depthFunc <func>
-		        //
-		        else if ( token == "depthfunc" ) {
-			        token = parser.GetNextTokenFromLine();
+                    atestBits = NameToAFunc(token);
+                }
+                //
+                // depthFunc <func>
+                //
+                else if (token == "depthfunc")
+                {
+                    token = parser.GetNextTokenFromLine();
 
-			        if ( token == null ) {
-				        Engine.common.Warning("missing parameter for 'depthfunc' keyword in shader '%s'\n", shader.name );
-				        return false;
-			        }
+                    if (token == null)
+                    {
+                        Engine.common.Warning("missing parameter for 'depthfunc' keyword in shader '%s'\n", shader.name);
+                        return false;
+                    }
 
-			        if ( token == "lequal" ) {
-				        depthFuncBits = 0;
-			        } else if ( token == "equal" )    {
-				        depthFuncBits = Globals.GLS_DEPTHFUNC_EQUAL;
-			        } else
-			        {
-				        Engine.common.Warning( "unknown depthfunc '%s' in shader '%s'\n", token, shader.name );
-				        //continue;
-			        }
-		        }
-		        //
-		        // detail
-		        //
-		        else if ( token == "detail" ) {
-			        stage.isDetail = true;
-		        }
-		        //
-		        // fog
-		        //
-		        else if ( token == "fog" ) {
-			        token = parser.GetNextTokenFromLine();
-			        if ( token == null ) {
-				        Engine.common.Warning("missing parm for fog in shader '%s'\n", shader.name );
-				        return false;
-			        }
-			        if ( token == "on" ) {
-				        stage.isFogged = true;
-			        } else {
-				        stage.isFogged = false;
-			        }
-		        }
-		        //
-		        // blendfunc <srcFactor> <dstFactor>
-		        // or blendfunc <add|filter|blend>
-		        //
-		        else if ( token == "blendfunc" ) {
-			        token = parser.GetNextTokenFromLine();
-			        if ( token == null) {
-				        Engine.common.Warning("missing parm for blendFunc in shader '%s'\n", shader.name );
-				        return false;
-			        }
+                    if (token == "lequal")
+                    {
+                        depthFuncBits = 0;
+                    }
+                    else if (token == "equal")
+                    {
+                        depthFuncBits = Globals.GLS_DEPTHFUNC_EQUAL;
+                    }
+                    else
+                    {
+                        Engine.common.Warning("unknown depthfunc '%s' in shader '%s'\n", token, shader.name);
+                        //continue;
+                    }
+                }
+                //
+                // detail
+                //
+                else if (token == "detail")
+                {
+                    stage.isDetail = true;
+                }
+                //
+                // fog
+                //
+                else if (token == "fog")
+                {
+                    token = parser.GetNextTokenFromLine();
+                    if (token == null)
+                    {
+                        Engine.common.Warning("missing parm for fog in shader '%s'\n", shader.name);
+                        return false;
+                    }
+                    if (token == "on")
+                    {
+                        stage.isFogged = true;
+                    }
+                    else
+                    {
+                        stage.isFogged = false;
+                    }
+                }
+                //
+                // blendfunc <srcFactor> <dstFactor>
+                // or blendfunc <add|filter|blend>
+                //
+                else if (token == "blendfunc")
+                {
+                    token = parser.GetNextTokenFromLine();
+                    if (token == null)
+                    {
+                        Engine.common.Warning("missing parm for blendFunc in shader '%s'\n", shader.name);
+                        return false;
+                    }
 
                     stage.useBlending = true;
 
-			        // check for "simple" blends first
-			        if ( token == "add" ) {
+                    // check for "simple" blends first
+                    if (token == "add")
+                    {
                         blendSrcBits = Blend.One;// Globals.GLS_SRCBLEND_ONE;
                         blendDstBits = Blend.One;//Globals.GLS_DSTBLEND_ONE;
-			        } else if ( token == "filter" ) {
+                    }
+                    else if (token == "filter")
+                    {
                         blendSrcBits = Blend.DestinationColor;//Globals.GLS_SRCBLEND_DST_COLOR;
-				        blendDstBits = Blend.Zero; //Globals.GLS_DSTBLEND_ZERO;
-			        } else if ( token == "blend" ) {
-				        blendSrcBits = Blend.SourceAlpha; //Globals.GLS_SRCBLEND_SRC_ALPHA;
-				        blendDstBits = Blend.InverseSourceAlpha; //Globals.GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA;
-			        } else {
-				        // complex double blends
-				        blendSrcBits = NameToSrcBlendMode( token );
+                        blendDstBits = Blend.Zero; //Globals.GLS_DSTBLEND_ZERO;
+                    }
+                    else if (token == "blend")
+                    {
+                        blendSrcBits = Blend.SourceAlpha; //Globals.GLS_SRCBLEND_SRC_ALPHA;
+                        blendDstBits = Blend.InverseSourceAlpha; //Globals.GLS_DSTBLEND_ONE_MINUS_SRC_ALPHA;
+                    }
+                    else
+                    {
+                        // complex double blends
+                        blendSrcBits = NameToSrcBlendMode(token);
 
-				        token = parser.GetNextTokenFromLine();
-				        if ( token == null ) {
-					        Engine.common.Warning( "missing parm for blendFunc in shader '%s'\n", shader.name );
-					        return false;
-				        }
-				        blendDstBits = NameToDstBlendMode( token );
-			        }
+                        token = parser.GetNextTokenFromLine();
+                        if (token == null)
+                        {
+                            Engine.common.Warning("missing parm for blendFunc in shader '%s'\n", shader.name);
+                            return false;
+                        }
+                        blendDstBits = NameToDstBlendMode(token);
+                    }
 
                     // GL_SRC_ALPHA GL_ONE_MINUS_SRC_ALPHA?
-                //    if ((blendSrcBits == Blend.One && blendDstBits == Blend.Zero) || (blendSrcBits == Blend.SourceAlpha && blendDstBits == Blend.InverseSourceAlpha))
-                 //   {
-               //         stage.blendState = BlendState.AlphaBlend;
-               //     }
-                //    else
-                //    {
+                    //    if ((blendSrcBits == Blend.One && blendDstBits == Blend.Zero) || (blendSrcBits == Blend.SourceAlpha && blendDstBits == Blend.InverseSourceAlpha))
+                    //   {
+                    //         stage.blendState = BlendState.AlphaBlend;
+                    //     }
+                    //    else
+                    //    {
                     //GL_DST_COLOR GL_ZERO
 
                     if (blendSrcBits == Blend.DestinationColor && blendDstBits == Blend.Zero)
@@ -698,191 +747,258 @@ namespace rtcw.Renderer
                         stage.blendState.AlphaDestinationBlend = (Blend)blendDstBits;
                         stage.blendState.ColorDestinationBlend = (Blend)blendDstBits;
                         // clear depth mask for blended surfaces
-                        
+
                     }
 
                     if (!depthMaskExplicit)
                     {
                         depthMaskBits = 0;
                     }
-                  //  }
+                    //  }
 
-			        
-		        }
-		        //
-		        // rgbGen
-		        //
-		        else if ( token == "rgbgen" ) {
-			        token = parser.GetNextTokenFromLine().ToLower();
-			        if ( token == null ) {
-				        Engine.common.Warning( "missing parameters for rgbGen in shader '%s'\n", shader.name );
-				        return false;
-			        }
 
-			        if ( token == "wave" ) {
-				        ParseWaveForm( ref parser, out stage.rgbWave );
-				        stage.rgbGen = colorGen_t.CGEN_WAVEFORM;
-			        } else if ( token == "const" )    {
-                        parser.NextVector3( ref stage.constantColor );
+                }
+                //
+                // rgbGen
+                //
+                else if (token == "rgbgen")
+                {
+                    token = parser.GetNextTokenFromLine().ToLower();
+                    if (token == null)
+                    {
+                        Engine.common.Warning("missing parameters for rgbGen in shader '%s'\n", shader.name);
+                        return false;
+                    }
+
+                    if (token == "wave")
+                    {
+                        ParseWaveForm(ref parser, out stage.rgbWave);
+                        stage.rgbGen = colorGen_t.CGEN_WAVEFORM;
+                    }
+                    else if (token == "const")
+                    {
+                        parser.NextVector3(ref stage.constantColor);
                         stage.constantColor *= 255;
 
                         stage.rgbGen = colorGen_t.CGEN_CONST;
-			        } else if ( token == "identity"  )    {
-				        stage.rgbGen = colorGen_t.CGEN_IDENTITY;
-			        } else if ( token == "identitylighting"  )    {
-				        stage.rgbGen = colorGen_t.CGEN_IDENTITY_LIGHTING;
-			        } else if ( token == "entity"  )    {
-				        stage.rgbGen = colorGen_t.CGEN_ENTITY;
-			        } else if ( token == "oneminusentity"  )    {
-				        stage.rgbGen = colorGen_t.CGEN_ONE_MINUS_ENTITY;
-			        } else if ( token == "vertex"  )    {
-				        stage.rgbGen = colorGen_t.CGEN_VERTEX;
-				        if ( stage.alphaGen == 0 ) {
-					        stage.alphaGen = alphaGen_t.AGEN_VERTEX;
-				        }
-			        } else if ( token == "exactvertex"  )    {
-				        stage.rgbGen = colorGen_t.CGEN_EXACT_VERTEX;
-			        } else if ( token == "lightingdiffuse"  )    {
-				        stage.rgbGen = colorGen_t.CGEN_LIGHTING_DIFFUSE;
-			        } else if ( token == "oneminusvertex"  )    {
-				        stage.rgbGen = colorGen_t.CGEN_ONE_MINUS_VERTEX;
-			        } else
-			        {
-				        Engine.common.Warning( "unknown rgbGen parameter '%s' in shader '%s'\n", token, shader.name );
-				        continue;
-			        }
-		        }
-		        //
-		        // alphaGen
-		        //
-		        else if ( token == "alphagen" ) {
-			        token = parser.GetNextTokenFromLine().ToLower();
-			        if ( token == null ) {
-				        Engine.common.Warning( "missing parameters for alphaGen in shader '%s'\n", shader.name );
-				        continue;
-			        }
+                    }
+                    else if (token == "identity")
+                    {
+                        stage.rgbGen = colorGen_t.CGEN_IDENTITY;
+                    }
+                    else if (token == "identitylighting")
+                    {
+                        stage.rgbGen = colorGen_t.CGEN_IDENTITY_LIGHTING;
+                    }
+                    else if (token == "entity")
+                    {
+                        stage.rgbGen = colorGen_t.CGEN_ENTITY;
+                    }
+                    else if (token == "oneminusentity")
+                    {
+                        stage.rgbGen = colorGen_t.CGEN_ONE_MINUS_ENTITY;
+                    }
+                    else if (token == "vertex")
+                    {
+                        stage.rgbGen = colorGen_t.CGEN_VERTEX;
+                        if (stage.alphaGen == 0)
+                        {
+                            stage.alphaGen = alphaGen_t.AGEN_VERTEX;
+                        }
+                    }
+                    else if (token == "exactvertex")
+                    {
+                        stage.rgbGen = colorGen_t.CGEN_EXACT_VERTEX;
+                    }
+                    else if (token == "lightingdiffuse")
+                    {
+                        stage.rgbGen = colorGen_t.CGEN_LIGHTING_DIFFUSE;
+                    }
+                    else if (token == "oneminusvertex")
+                    {
+                        stage.rgbGen = colorGen_t.CGEN_ONE_MINUS_VERTEX;
+                    }
+                    else
+                    {
+                        Engine.common.Warning("unknown rgbGen parameter '%s' in shader '%s'\n", token, shader.name);
+                        continue;
+                    }
+                }
+                //
+                // alphaGen
+                //
+                else if (token == "alphagen")
+                {
+                    token = parser.GetNextTokenFromLine().ToLower();
+                    if (token == null)
+                    {
+                        Engine.common.Warning("missing parameters for alphaGen in shader '%s'\n", shader.name);
+                        continue;
+                    }
 
-			        if ( token == "wave" ) {
-				        ParseWaveForm( ref parser, out stage.alphaWave );
-				        stage.alphaGen = alphaGen_t.AGEN_WAVEFORM;
-			        } else if ( token == "const" )    {
-				        token = parser.GetNextTokenFromLine();
-				        stage.constantColorAlpha = 255 * float.Parse( token );
-				        stage.alphaGen = alphaGen_t.AGEN_CONST;
-			        } else if ( token == "identity"  )    {
-				        stage.alphaGen = alphaGen_t.AGEN_IDENTITY;
-			        } else if ( token == "entity" )    {
-				        stage.alphaGen = alphaGen_t.AGEN_ENTITY;
-			        } else if ( token == "oneminusentity" )    {
-				        stage.alphaGen = alphaGen_t.AGEN_ONE_MINUS_ENTITY;
-			        }
-			        // Ridah
-			        else if ( token == "normalzfade" ) {
-				        stage.alphaGen = alphaGen_t.AGEN_NORMALZFADE;
-				        token = parser.GetNextTokenFromLine();
-				        if ( token != null ) {
-					        stage.constantColorAlpha = 255 * float.Parse( token );
-				        } else {
-					        stage.constantColorAlpha = 255;
-				        }
+                    if (token == "wave")
+                    {
+                        ParseWaveForm(ref parser, out stage.alphaWave);
+                        stage.alphaGen = alphaGen_t.AGEN_WAVEFORM;
+                    }
+                    else if (token == "const")
+                    {
+                        token = parser.GetNextTokenFromLine();
+                        stage.constantColorAlpha = 255 * float.Parse(token);
+                        stage.alphaGen = alphaGen_t.AGEN_CONST;
+                    }
+                    else if (token == "identity")
+                    {
+                        stage.alphaGen = alphaGen_t.AGEN_IDENTITY;
+                    }
+                    else if (token == "entity")
+                    {
+                        stage.alphaGen = alphaGen_t.AGEN_ENTITY;
+                    }
+                    else if (token == "oneminusentity")
+                    {
+                        stage.alphaGen = alphaGen_t.AGEN_ONE_MINUS_ENTITY;
+                    }
+                    // Ridah
+                    else if (token == "normalzfade")
+                    {
+                        stage.alphaGen = alphaGen_t.AGEN_NORMALZFADE;
+                        token = parser.GetNextTokenFromLine();
+                        if (token != null)
+                        {
+                            stage.constantColorAlpha = 255 * float.Parse(token);
+                        }
+                        else
+                        {
+                            stage.constantColorAlpha = 255;
+                        }
 
-				        token = parser.GetNextTokenFromLine();
-				        if ( token != null ) {
-					        stage.zFadeBounds[0] = float.Parse( token );    // lower range
-					        token = parser.GetNextTokenFromLine();
-					        stage.zFadeBounds[1] = float.Parse( token );    // upper range
-				        } else {
-					        stage.zFadeBounds[0] = -1.0f;   // lower range
-					        stage.zFadeBounds[1] =  1.0f;   // upper range
-				        }
+                        token = parser.GetNextTokenFromLine();
+                        if (token != null)
+                        {
+                            stage.zFadeBounds[0] = float.Parse(token);    // lower range
+                            token = parser.GetNextTokenFromLine();
+                            stage.zFadeBounds[1] = float.Parse(token);    // upper range
+                        }
+                        else
+                        {
+                            stage.zFadeBounds[0] = -1.0f;   // lower range
+                            stage.zFadeBounds[1] = 1.0f;   // upper range
+                        }
 
-			        }
-			        // done.
-			        else if ( token == "vertex"  ) {
-				        stage.alphaGen = alphaGen_t.AGEN_VERTEX;
-			        } else if ( token == "lightingspecular" )    {
-				        stage.alphaGen = alphaGen_t.AGEN_LIGHTING_SPECULAR;
-			        } else if ( token == "oneMinusvertex" )    {
-				        stage.alphaGen = alphaGen_t.AGEN_ONE_MINUS_VERTEX;
-			        } else if ( token == "portal" )    {
-				        stage.alphaGen = alphaGen_t.AGEN_PORTAL;
-				        token = parser.GetNextTokenFromLine();
-				        if ( token == null ) {
-					        shader.portalRange = 256;
-					        Engine.common.Warning( "missing range parameter for alphaGen portal in shader '%s', defaulting to 256\n", shader.name );
-				        } else
-				        {
-					        shader.portalRange = float.Parse( token );
-				        }
-			        } else
-			        {
-				        Engine.common.Warning( "unknown alphaGen parameter '%s' in shader '%s'\n", token, shader.name );
-				        continue;
-			        }
-		        }
-		        //
-		        // tcGen <function>
-		        //
-		        else if ( token == "texgen" || token == "tcgen"  ) {
-			        token = parser.GetNextTokenFromLine().ToLower();
-			        if ( token == null ) {
-				        Engine.common.Warning("missing texgen parm in shader '%s'\n", shader.name );
-				        continue;
-			        }
+                    }
+                    // done.
+                    else if (token == "vertex")
+                    {
+                        stage.alphaGen = alphaGen_t.AGEN_VERTEX;
+                    }
+                    else if (token == "lightingspecular")
+                    {
+                        stage.alphaGen = alphaGen_t.AGEN_LIGHTING_SPECULAR;
+                    }
+                    else if (token == "oneMinusvertex")
+                    {
+                        stage.alphaGen = alphaGen_t.AGEN_ONE_MINUS_VERTEX;
+                    }
+                    else if (token == "portal")
+                    {
+                        stage.alphaGen = alphaGen_t.AGEN_PORTAL;
+                        token = parser.GetNextTokenFromLine();
+                        if (token == null)
+                        {
+                            shader.portalRange = 256;
+                            Engine.common.Warning("missing range parameter for alphaGen portal in shader '%s', defaulting to 256\n", shader.name);
+                        }
+                        else
+                        {
+                            shader.portalRange = float.Parse(token);
+                        }
+                    }
+                    else
+                    {
+                        Engine.common.Warning("unknown alphaGen parameter '%s' in shader '%s'\n", token, shader.name);
+                        continue;
+                    }
+                }
+                //
+                // tcGen <function>
+                //
+                else if (token == "texgen" || token == "tcgen")
+                {
+                    token = parser.GetNextTokenFromLine().ToLower();
+                    if (token == null)
+                    {
+                        Engine.common.Warning("missing texgen parm in shader '%s'\n", shader.name);
+                        continue;
+                    }
 
-			        if ( token == "environment" ) {
-				        stage.bundle[0].tcGen = texCoordGen_t.TCGEN_ENVIRONMENT_MAPPED;
-			        } else if ( token == "firerisenv" )    {
-				        stage.bundle[0].tcGen = texCoordGen_t.TCGEN_FIRERISEENV_MAPPED;
-			        } else if ( token == "lightmap" )    {
-				        stage.bundle[0].tcGen = texCoordGen_t.TCGEN_LIGHTMAP;
-			        } else if ( token == "texture" || token == "base" )     {
-				        stage.bundle[0].tcGen = texCoordGen_t.TCGEN_TEXTURE;
-			        } else if ( token == "vector" )    {
+                    if (token == "environment")
+                    {
+                        stage.bundle[0].tcGen = texCoordGen_t.TCGEN_ENVIRONMENT_MAPPED;
+                    }
+                    else if (token == "firerisenv")
+                    {
+                        stage.bundle[0].tcGen = texCoordGen_t.TCGEN_FIRERISEENV_MAPPED;
+                    }
+                    else if (token == "lightmap")
+                    {
+                        stage.bundle[0].tcGen = texCoordGen_t.TCGEN_LIGHTMAP;
+                    }
+                    else if (token == "texture" || token == "base")
+                    {
+                        stage.bundle[0].tcGen = texCoordGen_t.TCGEN_TEXTURE;
+                    }
+                    else if (token == "vector")
+                    {
                         stage.bundle[0].tcGenVectors[0] = new idVector3();
-                        parser.NextVector3( ref stage.bundle[0].tcGenVectors[0] );
+                        parser.NextVector3(ref stage.bundle[0].tcGenVectors[0]);
 
                         stage.bundle[0].tcGenVectors[1] = new idVector3();
-                        parser.NextVector3( ref stage.bundle[0].tcGenVectors[1] );
+                        parser.NextVector3(ref stage.bundle[0].tcGenVectors[1]);
 
-				        stage.bundle[0].tcGen = texCoordGen_t.TCGEN_VECTOR;
-			        } else
-			        {
-				        Engine.common.Warning( "unknown texgen parm in shader '%s'\n", shader.name );
-			        }
-		        }
-		        //
-		        // tcMod <type> <...>
-		        //
-		        else if ( token == "tcmod" ) {
-			        string buffer = "";
+                        stage.bundle[0].tcGen = texCoordGen_t.TCGEN_VECTOR;
+                    }
+                    else
+                    {
+                        Engine.common.Warning("unknown texgen parm in shader '%s'\n", shader.name);
+                    }
+                }
+                //
+                // tcMod <type> <...>
+                //
+                else if (token == "tcmod")
+                {
+                    string buffer = "";
 
-			        while ( true )
-			        {
+                    while (true)
+                    {
                         token = parser.GetNextTokenFromLine();
-				        if ( token == null ) {
-					        break;
-				        }
+                        if (token == null)
+                        {
+                            break;
+                        }
                         buffer += token + " ";
-			        }
+                    }
 
-			        ParseTexMod( buffer, ref stage );
+                    ParseTexMod(buffer, ref stage);
 
-			        continue;
-		        }
-		        //
-		        // depthmask
-		        //
-		        else if ( token == "depthwrite" ) {
-			        depthMaskBits = Globals.GLS_DEPTHMASK_TRUE;
-			        depthMaskExplicit = true;
+                    continue;
+                }
+                //
+                // depthmask
+                //
+                else if (token == "depthwrite")
+                {
+                    depthMaskBits = Globals.GLS_DEPTHMASK_TRUE;
+                    depthMaskExplicit = true;
 
-			        continue;
-		        } else
-		        {
-			        Engine.common.Warning( "unknown parameter '%s' in shader '%s'\n", token, shader.name );
-			        return false;
-		        }
+                    continue;
+                }
+                else
+                {
+                    Engine.common.Warning("unknown parameter '%s' in shader '%s'\n", token, shader.name);
+                    return false;
+                }
 	        }
 
 	        //

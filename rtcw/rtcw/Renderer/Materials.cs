@@ -221,6 +221,7 @@ namespace rtcw.Renderer
      {
 	    public idImage[] image = new idImage[idMaterialBase.MAX_IMAGE_ANIMATIONS];
 	    public int numImageAnimations;
+        public float frame;
 	    public float imageAnimationSpeed;
 
 	    public texCoordGen_t tcGen;
@@ -276,7 +277,7 @@ namespace rtcw.Renderer
         public const int MAX_SHADER_DEFORMS =  3;
         // RF increased this for onfire animation
         //#define	MAX_IMAGE_ANIMATIONS	8
-        public const int MAX_IMAGE_ANIMATIONS =   16;
+        public const int MAX_IMAGE_ANIMATIONS = 22;
         public const int MAX_SHADER_STATES = 2048;
         public const int MAX_STATES_PER_SHADER = 32;
 
