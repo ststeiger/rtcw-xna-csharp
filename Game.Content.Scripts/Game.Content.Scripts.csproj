@@ -54,12 +54,6 @@
     <Compile Include="script_import.cs" />
     <Compile Include="script_processor.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\idLib\idLib.csproj">
-      <Project>{5236F485-6E4D-47A3-9C39-68AF719EC1E6}</Project>
-      <Name>idLib</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.ContentPipelineExtensions.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

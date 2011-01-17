@@ -575,6 +575,10 @@ namespace rtcw.Client
         {
             idMsgWriter msg = new idMsgWriter(idNetwork.netcmd_getchallenge.Length + 4);
 
+            Engine.RenderSystem.BeginFrame();
+            cls.cgame.DrawConnectScreen();
+            Engine.RenderSystem.EndFrame();
+
             msg.WriteString(idNetwork.netcmd_getchallenge);
 
             cls.state = connstate_t.CA_CONNECTING;

@@ -41,12 +41,6 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\idLib\idlib360.csproj">
-      <Project>{64235D89-47F0-4491-8C94-11D5A0BC30D5}</Project>
-      <Name>idlib360</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="AAS\AAS_main.cs" />
     <Compile Include="AAS\Private\AAS_file.cs" />
     <Compile Include="AAS\Private\AAS_Move.cs" />
