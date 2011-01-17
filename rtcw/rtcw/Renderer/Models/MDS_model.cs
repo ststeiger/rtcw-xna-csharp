@@ -66,7 +66,8 @@ namespace rtcw.Renderer.Models
         int[] boneRefs;
 
         List<idDrawVertexSkin> vertexes = new List<idDrawVertexSkin>();
-        List<short> indexes = new List<short>();
+        List<short> indexlist = new List<short>();
+        short[] indexes;
 
         idDrawVertex[] drawVertexes;
 
@@ -194,11 +195,11 @@ namespace rtcw.Renderer.Models
                 }
 
                 // Load in the indexes.
-                surf.startIndex = indexes.Count;
+                surf.startIndex = indexlist.Count;
              //   f.Seek(idFileSeekOrigin.FS_SEEK_SET, surfpos + surf.ofsTriangles);
                 for (int d = 0; d < surf.numIndexes; d++)
                 {
-                    indexes.Add(f.ReadShort());
+                    indexlist.Add(f.ReadShort());
                 }
 
                 // Load in the vertexes.
@@ -244,9 +245,9 @@ namespace rtcw.Renderer.Models
 
             drawVertexes = new idDrawVertex[vertexes.Count];
 
-            vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idRenderGlobals.idDrawVertexDeclaration, vertexes.Count, BufferUsage.WriteOnly);
-            indexBuffer = new IndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, indexes.Count, BufferUsage.WriteOnly);
-            indexBuffer.SetData<short>(indexes.ToArray());
+         //   vertexBuffer = new VertexBuffer(Globals.graphics3DDevice, idRenderGlobals.idDrawVertexDeclaration, vertexes.Count, BufferUsage.WriteOnly);
+         //   indexBuffer = new IndexBuffer(Globals.graphics3DDevice, IndexElementSize.SixteenBits, indexes.Count, BufferUsage.WriteOnly);
+         //   indexBuffer.SetData<short>(indexes.ToArray());
 
             for (int i = 0; i < vertexes.Count; i++)
             {
@@ -256,7 +257,9 @@ namespace rtcw.Renderer.Models
             // Build our vertex and index buffers.
             //BuildVertexIndexBuffer();
 
-
+            indexes = indexlist.ToArray();
+            indexlist.Clear();
+            indexlist = null;
         }
 
         //
@@ -616,21 +619,23 @@ namespace rtcw.Renderer.Models
         //
         // idDrawSurface
         //
-        public override idDrawSurface[] BackendTessModel(int frame, int torsoFrame)
+        public override void BackendTessModel(idRenderEntityLocal entity, int frame, int torsoFrame)
         {
             GenerateBonesForFrame(frame, torsoFrame);
             GenerateSurfaces();
 
-            Array.Copy(drawVertexes, Globals.tess.drawVerts, drawVertexes.Length);
-            Array.Copy(indexes.ToArray(), Globals.tess.indexes, indexes.Count);
-
-         //   Buffer.BlockCopy(drawVertexes, 0, Globals.tess.drawVerts, 0,drawVertexes.Length);
-         //   Buffer.BlockCopy(indexes.ToArray(), 0, Globals.tess.indexes, 0, indexes.Count);
+            Globals.tess.drawVerts = drawVertexes;
+            Globals.tess.indexes = indexes;
 
             Globals.tess.numVertexes = drawVertexes.Length;
-            Globals.tess.numIndexes = indexes.Count;
+            Globals.tess.numIndexes = indexes.Length;
 
-            return surfaces;
+            Shade.CreateTranslateRotateMatrix(entity);
+
+            for (int c = 0; c < surfaces.Length; c++)
+            {
+                Globals.backEnd.DrawUserSurface(surfaces[c], 0);
+            }
         }
 
         //

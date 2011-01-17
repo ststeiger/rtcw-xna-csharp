@@ -185,9 +185,9 @@ namespace rtcw.Renderer.Models
         //
         // BackendTessModel
         //
-        public virtual idDrawSurface[] BackendTessModel(int frame, int torsoFrame)
+        public virtual void BackendTessModel(idRenderEntityLocal entity, int frame, int torsoFrame)
         {
-            return null;
+            
         }
 
         //

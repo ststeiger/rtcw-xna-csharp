@@ -319,6 +319,9 @@ namespace rtcw.Renderer.Backend
                 BeginSurface(cmd.shader, 0);
             }
 
+            Globals.tess.drawVerts = quadVertexes;
+            Globals.tess.indexes = quadIndexes;
+
             Globals.tess.UploadVertex(cmd.x, cmd.y, 0, cmd.s1, cmd.t1);
             Globals.tess.UploadVertex(cmd.x + cmd.w, cmd.y, 0, cmd.s2, cmd.t1);
             Globals.tess.UploadVertex(cmd.x + cmd.w, cmd.y + cmd.h, 0, cmd.s2, cmd.t2);
@@ -409,7 +412,7 @@ namespace rtcw.Renderer.Backend
         //
         // DrawSurface
         //
-        private void DrawUserSurface(idDrawSurface surf, int offset)
+        public void DrawUserSurface(idDrawSurface surf, int offset)
         {
             BeginSurface(surf.materials[0], 0);
 
@@ -452,17 +455,7 @@ namespace rtcw.Renderer.Backend
 
                 if (refdef.entities[i].hModel != null)
                 {
-                    surfaces = ((idModelLocal)refdef.entities[i].hModel).BackendTessModel(refdef.entities[i].frame, refdef.entities[i].torsoFrame);
-
-                    if (surfaces != null)
-                    {
-                        Shade.CreateTranslateRotateMatrix(refdef.entities[i]);
-
-                        for (int c = 0; c < surfaces.Length; c++)
-                        {
-                            DrawUserSurface(surfaces[c], 0);
-                        }
-                    }
+                    ((idModelLocal)refdef.entities[i].hModel).BackendTessModel(refdef.entities[i], refdef.entities[i].frame, refdef.entities[i].torsoFrame);
                 }
             }
 

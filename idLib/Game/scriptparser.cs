@@ -349,6 +349,12 @@ namespace idLib.Game
             {
                 parms[i] = file.ReadString();
             }
+
+            // Precache the sounds
+            if (opCode == (short)ScriptReaderShared.gameScriptOpcode.ai_playsound)
+            {
+                idLib.Engine.Public.Engine.soundManager.LoadSound(parms[0]);
+            }
         }
     }
 

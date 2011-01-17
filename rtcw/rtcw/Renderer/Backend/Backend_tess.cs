@@ -50,13 +50,13 @@ namespace rtcw.Renderer
     public class shaderCommands_t
     {
         public delegate void currentStageIteratorFunc_t();
-	    public short[] indexes = new short[idMaterialBase.SHADER_MAX_INDEXES];
-        public idDrawVertex[] drawVerts = new idDrawVertex[idMaterialBase.SHADER_MAX_VERTEXES];
+	    public short[] indexes;// = new short[idMaterialBase.SHADER_MAX_INDEXES];
+        public idDrawVertex[] drawVerts;// = new idDrawVertex[idMaterialBase.SHADER_MAX_VERTEXES];
 	    public int[] vertexDlightBits = new int[idMaterialBase.SHADER_MAX_VERTEXES];
 
 	    public stageVars_t svars;
 
-	    public idVector4[] constantColor255 = new idVector4[idMaterialBase.SHADER_MAX_VERTEXES];
+	    //public idVector4[] constantColor255 = new idVector4[idMaterialBase.SHADER_MAX_VERTEXES];
 
 	    public idMaterialBase shader;
 	    public float shaderTime;

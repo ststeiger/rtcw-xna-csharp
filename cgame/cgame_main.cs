@@ -242,6 +242,8 @@ namespace cgame
                     Engine.common.ErrorFatal("CG_ParseConfigString: Unknown or unexpected token in network packet %s-%s \n", token, prevToken);
                 }
 
+                DrawLoadingScreen(true);
+
                 prevToken = token;
             }
 

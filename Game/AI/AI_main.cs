@@ -59,7 +59,7 @@ namespace Game.AI
 
         internal const int AICAST_TFL_DEFAULT = idAASTravelFlags.TFL_DEFAULT & ~(idAASTravelFlags.TFL_JUMPPAD | idAASTravelFlags.TFL_ROCKETJUMP | idAASTravelFlags.TFL_BFGJUMP | idAASTravelFlags.TFL_GRAPPLEHOOK | idAASTravelFlags.TFL_DOUBLEJUMP | idAASTravelFlags.TFL_RAMPJUMP | idAASTravelFlags.TFL_STRAFEJUMP | idAASTravelFlags.TFL_LAVA);
 
-        private const int SCRIPT_REACHGOAL_DIST = 8;
+        private const int SCRIPT_REACHGOAL_DIST = 10; // jv - had to up this from 8.
         private const int SCRIPT_REACHCAST_DIST = 64;
 
         //
@@ -165,7 +165,7 @@ namespace Game.AI
             float distTogoal = state.origin.Distance(entity.state.origin);
 
             // Check to see if we made it to our destination.
-            if (distTogoal < SCRIPT_REACHGOAL_DIST + 1)
+            if (distTogoal < SCRIPT_REACHGOAL_DIST)
             {
                 currentAnim = anim.FindAnim(relaxed_idleanim.AnimName);
                 cs.isWalking = false;

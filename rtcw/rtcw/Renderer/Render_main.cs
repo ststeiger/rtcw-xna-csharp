@@ -564,11 +564,6 @@ namespace rtcw.Renderer
             Globals.backEnd = new idRenderBackend();
             Globals.tess = new shaderCommands_t();
 
-            for( int i = 0; i < Globals.tess.constantColor255.Length; i++ )
-            {
-                Globals.tess.constantColor255[i] = new idVector4(255, 255, 255, 255);
-            }
-
             //
             // init function tables
             //
