@@ -77,7 +77,8 @@ namespace idLib.Engine.Content.MDS
             BinaryWriter file = new BinaryWriter(compstream);
 
             value.WriteMDSBinary(ref file);
-            output.Write(SevenZip.Compression.LZMA.SevenZipHelper.Compress(compstream.ToArray()));
+           // output.Write(SevenZip.Compression.LZMA.SevenZipHelper.Compress(compstream.ToArray()));
+            output.Write(compstream.ToArray());
 #endif
         }
 
