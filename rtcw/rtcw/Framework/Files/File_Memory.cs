@@ -84,14 +84,13 @@ namespace rtcw.Framework.Files
         {
             // Skip the XNB header.
             Seek(idFileSeekOrigin.FS_SEEK_SET, 25);
-/*
+
             byte[] buffer = ReadBytes(Length() - 25);
             reader.Dispose();
             reader = null;
 
             reader = new BinaryReader(new MemoryStream(SevenZip.Compression.LZMA.SevenZipHelper.Decompress(buffer)));
             reader.BaseStream.Position = 0;
-*/
         }
 
         //

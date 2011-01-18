@@ -28,6 +28,9 @@
     <Reference Include="idLib">
       <HintPath>..\..\idLib.Engine.Content.FileList\bin\x86\Debug\idLib.dll</HintPath>
     </Reference>
+    <Reference Include="idLib.Engine.Content.BSP">
+      <HintPath>..\..\idLib.Engine.Content.BSP\bin\x86\Debug\idLib.Engine.Content.BSP.dll</HintPath>
+    </Reference>
     <Reference Include="idLib.Engine.Content.FileList">
       <HintPath>..\..\idLib.Engine.Content.FileList\bin\x86\Debug\idLib.Engine.Content.FileList.dll</HintPath>
     </Reference>
@@ -2165,6 +2168,8 @@
     </Compile>
     <None Include="maps\assault.bsp">
       <Name>assault</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\assault.script">
       <Name>assault</Name>
@@ -2190,6 +2195,8 @@
     </Compile>
     <None Include="maps\baseout.bsp">
       <Name>baseout</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\baseout.script">
       <Name>baseout</Name>
@@ -2215,6 +2222,8 @@
     </Compile>
     <None Include="maps\boss1.bsp">
       <Name>boss1</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\boss1.script">
       <Name>boss1</Name>
@@ -2240,6 +2249,8 @@
     </Compile>
     <None Include="maps\boss2.bsp">
       <Name>boss2</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\boss2.script">
       <Name>boss2</Name>
@@ -2265,6 +2276,8 @@
     </Compile>
     <None Include="maps\castle.bsp">
       <Name>castle</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\castle.script">
       <Name>castle</Name>
@@ -2290,6 +2303,8 @@
     </Compile>
     <None Include="maps\chateau.bsp">
       <Name>chateau</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\chateau.script">
       <Name>chateau</Name>
@@ -2315,6 +2330,8 @@
     </Compile>
     <None Include="maps\church.bsp">
       <Name>church</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\church.script">
       <Name>church</Name>
@@ -2340,6 +2357,8 @@
     </Compile>
     <None Include="maps\crypt1.bsp">
       <Name>crypt1</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\crypt1.script">
       <Name>crypt1</Name>
@@ -2365,6 +2384,8 @@
     </Compile>
     <None Include="maps\crypt2.bsp">
       <Name>crypt2</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\crypt2.script">
       <Name>crypt2</Name>
@@ -2389,10 +2410,11 @@
       <Importer>idGameScriptImporter</Importer>
       <Processor>idScriptProcessor</Processor>
     </Compile>
-    <None Include="maps\cutscene1.bsp">
+    <Compile Include="maps\cutscene1.bsp">
       <Name>cutscene1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
+    </Compile>
     <Compile Include="maps\scripts\cutscene1.script">
       <Name>cutscene1</Name>
       <Importer>idGameScriptImporter</Importer>
@@ -2405,6 +2427,8 @@
     </Compile>
     <None Include="maps\cutscene11.bsp">
       <Name>cutscene11</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\cutscene11.script">
       <Name>cutscene11</Name>
@@ -2430,6 +2454,8 @@
     </Compile>
     <None Include="maps\cutscene14.bsp">
       <Name>cutscene14</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\cutscene14.script">
       <Name>cutscene14</Name>
@@ -2455,6 +2481,8 @@
     </Compile>
     <None Include="maps\cutscene19.bsp">
       <Name>cutscene19</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\cutscene19.script">
       <Name>cutscene19</Name>
@@ -2496,6 +2524,8 @@
     </Compile>
     <None Include="maps\cutscene6.bsp">
       <Name>cutscene6</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\cutscene6.script">
       <Name>cutscene6</Name>
@@ -2521,6 +2551,8 @@
     </Compile>
     <None Include="maps\cutscene9.bsp">
       <Name>cutscene9</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\cutscene9.script">
       <Name>cutscene9</Name>
@@ -2546,6 +2578,8 @@
     </Compile>
     <None Include="maps\dam.bsp">
       <Name>dam</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\dam.script">
       <Name>dam</Name>
@@ -2571,6 +2605,8 @@
     </Compile>
     <None Include="maps\dark.bsp">
       <Name>dark</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\dark.script">
       <Name>dark</Name>
@@ -2596,6 +2632,8 @@
     </Compile>
     <None Include="maps\dig.bsp">
       <Name>dig</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\dig.script">
       <Name>dig</Name>
@@ -2621,6 +2659,8 @@
     </Compile>
     <None Include="maps\end.bsp">
       <Name>end</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\end.script">
       <Name>end</Name>
@@ -2644,10 +2684,11 @@
       <Importer>idGameScriptImporter</Importer>
       <Processor>idScriptProcessor</Processor>
     </Compile>
-    <None Include="maps\escape1.bsp">
+    <Compile Include="maps\escape1.bsp">
       <Name>escape1</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
+    </Compile>
     <Compile Include="maps\scripts\escape1.script">
       <Name>escape1</Name>
       <Importer>idGameScriptImporter</Importer>
@@ -2676,9 +2717,8 @@
     </Compile>
     <None Include="maps\escape2.bsp">
       <Name>escape2</Name>
-    </None>
-    <None Include="maps\escape2.script">
-      <Name>escape2</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <None Include="maps\escape2_b0.aas">
       <Name>escape2_b0</Name>
@@ -2699,6 +2739,8 @@
     </Compile>
     <None Include="maps\factory.bsp">
       <Name>factory</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\factory.script">
       <Name>factory</Name>
@@ -2724,6 +2766,8 @@
     </Compile>
     <None Include="maps\forest.bsp">
       <Name>forest</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\forest.script">
       <Name>forest</Name>
@@ -2749,6 +2793,8 @@
     </Compile>
     <None Include="maps\norway.bsp">
       <Name>norway</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\norway.script">
       <Name>norway</Name>
@@ -2774,6 +2820,8 @@
     </Compile>
     <None Include="maps\rocket.bsp">
       <Name>rocket</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\rocket.script">
       <Name>rocket</Name>
@@ -2799,6 +2847,8 @@
     </Compile>
     <None Include="maps\sfm.bsp">
       <Name>sfm</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\sfm.script">
       <Name>sfm</Name>
@@ -2824,6 +2874,8 @@
     </Compile>
     <None Include="maps\swf.bsp">
       <Name>swf</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\swf.script">
       <Name>swf</Name>
@@ -2849,9 +2901,8 @@
     </Compile>
     <None Include="maps\trainyard.bsp">
       <Name>trainyard</Name>
-    </None>
-    <None Include="maps\trainyard.script">
-      <Name>trainyard</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <None Include="maps\trainyard_b0.aas">
       <Name>trainyard_b0</Name>
@@ -2872,6 +2923,8 @@
     </Compile>
     <None Include="maps\tram.bsp">
       <Name>tram</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\tram.script">
       <Name>tram</Name>
@@ -2897,6 +2950,8 @@
     </Compile>
     <None Include="maps\village1.bsp">
       <Name>village1</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\village1.script">
       <Name>village1</Name>
@@ -2922,6 +2977,8 @@
     </Compile>
     <None Include="maps\village2.bsp">
       <Name>village2</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\village2.script">
       <Name>village2</Name>
@@ -2947,6 +3004,8 @@
     </Compile>
     <None Include="maps\xlabs.bsp">
       <Name>xlabs</Name>
+      <Importer>bsp_importer</Importer>
+      <Processor>idBSPProcessor</Processor>
     </None>
     <Compile Include="maps\scripts\xlabs.script">
       <Name>xlabs</Name>

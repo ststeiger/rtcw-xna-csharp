@@ -99,7 +99,34 @@ namespace rtcw.Renderer
                 return image;
             }
 
-            image.Init(name, width, height, mipmap);
+            image.Init(name, width, height, mipmap, false);
+            image.SetWrapState(WrapClampMode);
+            image.BlitImageData(ref pic);
+
+            return image;
+        }
+
+        //
+        // CreateImage
+        //
+        public override idImage CreateDXTImage(string name, byte[] pic, int width, int height, bool mipmap, bool allowPicmip, SamplerState WrapClampMode)
+        {
+            bool isUniqueImage = false;
+
+            // Remove the file extension if its present.
+            if (!name.Contains("*"))
+            {
+                name = Engine.fileSystem.RemoveExtensionFromPath(name);
+            }
+
+            idImageLocal image = AllocImage(name, ref isUniqueImage);
+            if (isUniqueImage == false)
+            {
+                Engine.common.Warning("R_CreateImage: Create image already defined, use blit instead\n");
+                return image;
+            }
+
+            image.Init(name, width, height, mipmap, true);
             image.SetWrapState(WrapClampMode);
             image.BlitImageData(ref pic);
 

@@ -95,13 +95,20 @@ namespace rtcw.Renderer
         //
         // Init
         //
-        public void Init(string imgname, int width, int height, bool mipmap)
+        public void Init(string imgname, int width, int height, bool mipmap, bool dxtbuffer)
         {
             name = imgname;
             imagewidth  = width;
             imageheight = height;
-            
-            tex2d = new Texture2D(Globals.graphics3DDevice, width, height, mipmap, SurfaceFormat.Color);
+
+            if (dxtbuffer)
+            {
+                tex2d = new Texture2D(Globals.graphics3DDevice, width, height, mipmap, SurfaceFormat.Dxt3);
+            }
+            else
+            {
+                tex2d = new Texture2D(Globals.graphics3DDevice, width, height, mipmap, SurfaceFormat.Color);
+            }
         }
 
         //
@@ -113,6 +120,17 @@ namespace rtcw.Renderer
 
             Globals.graphics3DDevice.Textures[0] = null;
             tex2d.SetData<Color>(data);
+        }
+
+        //
+        // BlitImageData
+        //
+        public override void BlitImageData(ref byte[] data)
+        {
+            Globals.backEnd.SyncRenderThread();
+
+            Globals.graphics3DDevice.Textures[0] = null;
+            tex2d.SetData<byte>(data);
         }
 
         //

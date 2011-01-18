@@ -808,20 +808,6 @@ namespace rtcw.Renderer
         }
 
         //
-        // LoadWorldEntityString
-        //
-        public override string LoadWorldEntityString(string mappath)
-        {
-            idMap map = new idMap();
-            string entityString;
-
-            entityString = map.LoadMapEntityString(mappath);
-
-            map = null;
-            return entityString;
-        }
-
-        //
         // RegisterFont
         //
         public override idFont RegisterFont(string filename, int pointSize)

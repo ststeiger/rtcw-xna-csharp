@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
-    <ProjectGuid>{FDBC6D91-3DA8-48E3-96FC-8D44BC4C09B0}</ProjectGuid>
+    <ProjectGuid>{19BBE9DD-0DA9-4702-8CFE-9B75A44CD3C9}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>idLib.Engine.Content.ui</RootNamespace>
-    <AssemblyName>idLib.Engine.Content.ui</AssemblyName>
+    <RootNamespace>idLib.Engine.Content.BSP</RootNamespace>
+    <AssemblyName>idLib.Engine.Content.BSP</AssemblyName>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
@@ -23,10 +23,6 @@
     <XnaPlatform>Windows</XnaPlatform>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="idLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\idLib\bin\x86\Debug\idLib.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
       <SpecificVersion>True</SpecificVersion>
@@ -54,13 +50,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ui_compiledcontent.cs" />
-    <Compile Include="ui_importer.cs" />
-    <Compile Include="ui_itemparser.cs" />
-    <Compile Include="ui_menuparser.cs" />
-    <Compile Include="ui_processor.cs" />
+    <Compile Include="bsp_content.cs" />
+    <Compile Include="bsp_importer.cs" />
+    <Compile Include="bsp_processor.cs" />
+    <Compile Include="bsp_writer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ui_writer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\idLib\idLib.csproj">
+      <Project>{5236F485-6E4D-47A3-9C39-68AF719EC1E6}</Project>
+      <Name>idLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.ContentPipelineExtensions.targets" />

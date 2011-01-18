@@ -35,9 +35,11 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 
 using idLib.Math;
+using idLib.Engine.Public;
 
 namespace idLib
 {
@@ -76,6 +78,37 @@ namespace idLib
             get
             {
                 return keys.Count;
+            }
+        }
+
+        //
+        // InitFromFile
+        //
+        public void InitFromFile(ref idFile file)
+        {
+            int numKeys = file.ReadInt();
+            for (int i = 0; i < numKeys; i++)
+            {
+                idKey newKey = new idKey();
+
+                newKey.name = file.ReadString();
+                newKey.val = file.ReadString();
+
+                keys.Add(newKey);
+            }
+        }
+
+        //
+        // WriteToStream
+        //
+        public void WriteToStream(ref BinaryWriter writer)
+        {
+            writer.Write(keys.Count);
+
+            for (int i = 0; i < keys.Count; i++)
+            {
+                writer.Write(keys[i].name);
+                writer.Write(keys[i].val);
             }
         }
 

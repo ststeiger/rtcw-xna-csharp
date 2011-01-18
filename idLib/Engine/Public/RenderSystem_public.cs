@@ -444,6 +444,7 @@ namespace idLib.Engine.Public
     {
         public abstract string Name();
         public abstract void BlitImageData(ref Color[] data);
+        public abstract void BlitImageData(ref byte[] data);
         public abstract int Width();
         public abstract int Height();
         public abstract void SetWrapState(SamplerState WrapClampMode);
@@ -460,6 +461,7 @@ namespace idLib.Engine.Public
         public abstract idImage FindImage(string qpath);
         public abstract idImage FindImageFile(string qpath, bool mipmap, bool picmap, SamplerState wrapClampMode);
         public abstract idImage CreateImage(string name, Color[] pic, int width, int height, bool mipmap, bool allowPicmip, SamplerState WrapClampMode);
+        public abstract idImage CreateDXTImage(string name, byte[] pic, int width, int height, bool mipmap, bool allowPicmip, SamplerState WrapClampMode);
         public abstract void DestroyImage(ref idImage image);
     }
 
@@ -600,7 +602,6 @@ namespace idLib.Engine.Public
         public abstract void DrawStretchPic(float x, float y, float w, float h, float s1, float t1, float s2, float t2, idMaterial material);
         public abstract idWorld AllocWorld();
         public abstract idWorld LoadWorld(string mappath);
-        public abstract string LoadWorldEntityString(string mappath);
         public abstract idSkin LoadSkin(string skinpath);
     }
 }

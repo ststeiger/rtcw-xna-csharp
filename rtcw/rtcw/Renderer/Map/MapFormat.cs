@@ -177,7 +177,7 @@ namespace rtcw.Renderer.Map
 	        }
         }
 
-        public const int BSP_IDENT =  ( ( 'P' << 24 ) + ( 'S' << 16 ) + ( 'B' << 8 ) + 'I' );
+        public const int BSP_IDENT =  ( ( 'P' << 24 ) + ( 'S' << 16 ) + ( 'B' << 8 ) + 'J' );
         // little-endian "IBSP"
 
         public const int BSP_VERSION  =       47;  // updated (9/12/2001) to sync everything up pre-beta

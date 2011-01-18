@@ -314,7 +314,7 @@ namespace rtcw.Renderer.Map
 	        lightGridSize[0] = 64;
 	        lightGridSize[1] = 64;
 	        lightGridSize[2] = 128;
-
+#if false // disabled
             SetLumpPosition(lump, ref bspFile);
 
 	        // store for reference by the cgame
@@ -386,6 +386,7 @@ namespace rtcw.Renderer.Map
 	        }
 
             parser.Dispose();
+#endif
         }
 
         /*
@@ -656,7 +657,7 @@ namespace rtcw.Renderer.Map
             Color[] image = new Color[LIGHTMAP_SIZE * LIGHTMAP_SIZE];
             idVector3 outrgb = new idVector3();
 
-            count = LumpCount(lump,LIGHTMAP_LUMP_SIZE );
+            count = lump.filelen; //LumpCount(lump,LIGHTMAP_LUMP_SIZE );
             SetLumpPosition( lump, ref bspFile );
 
             Globals.tr.lightmaps = new idImage[count];
@@ -669,6 +670,7 @@ namespace rtcw.Renderer.Map
             }
 
             for ( int i = 0 ; i < count ; i++ ) {
+#if false
 		        // expand the 24 bit on-disk to 32 bit
 		        byte[] buf_p = bspFile.ReadBytes( LIGHTMAP_LUMP_SIZE );
 
@@ -707,12 +709,19 @@ namespace rtcw.Renderer.Map
 			        }
 		        }
                 Globals.tr.lightmaps[i] = Engine.imageManager.CreateImage("*lightmap" + i, image, LIGHTMAP_SIZE, LIGHTMAP_SIZE, false, false, SamplerState.LinearClamp);
+#else
+                // DXT images are already expanded.
+                int dxtImageSize = bspFile.ReadInt();
+                byte[] buf_p = bspFile.ReadBytes(dxtImageSize);
+                Globals.tr.lightmaps[i] = Engine.imageManager.CreateDXTImage("*lightmap" + i, buf_p, LIGHTMAP_SIZE, LIGHTMAP_SIZE, false, false, SamplerState.LinearClamp);
+#endif
 	        }
-
+#if false
             if (Globals.r_lightmap.GetValueInteger() == 2)
             {
 		        Engine.common.Printf( "Brightest lightmap value: %d\n", ( int ) ( maxIntensity * 255 ) );
 	        }
+#endif
         }
 
         /*
@@ -1336,34 +1345,6 @@ namespace rtcw.Renderer.Map
         }
 
         //
-        // LoadMapEntityString
-        //
-        public string LoadMapEntityString(string mappath)
-        {
-            idFile bspFile;
-
-            baseName = "maps/" + mappath;
-            name = baseName + ".bsp";
-
-            bspFile = Engine.fileSystem.OpenFileRead(name, true);
-
-            // This should have been caught long before this.
-            if (bspFile == null)
-            {
-                Engine.common.ErrorFatal("R_LoadMap: Failed to open map %s \n", mappath);
-            }
-
-            // Load in the header and ensure the iden and version's are valid.
-            header.InitFromFile(ref bspFile);
-
-            LoadEntities(ref bspFile, header.lumps[idMapFormat.LUMP_ENTITIES]);
-
-            Engine.fileSystem.CloseFile(ref bspFile);
-
-            return entityString;
-        }
-
-        //
         // RenderMap
         //
         public float RenderMap(idVector3 pvsorigin)
@@ -1432,7 +1413,7 @@ namespace rtcw.Renderer.Map
             loadScreenThread.Start(null);
 
             baseName = "maps/" + mappath;
-            name = baseName + ".bsp";
+            name = baseName + ".xnb";
             
             bspFile = Engine.fileSystem.OpenFileRead(name, true);
 
@@ -1441,6 +1422,9 @@ namespace rtcw.Renderer.Map
             {
                 Engine.common.ErrorFatal("R_LoadMap: Failed to open map %s \n", mappath);
             }
+
+            // Decompress the map.
+            bspFile.DecompressCompiledFile();
 
             // Load in the header and ensure the iden and version's are valid.
             header.InitFromFile(ref bspFile);

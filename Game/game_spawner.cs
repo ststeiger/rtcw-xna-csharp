@@ -257,37 +257,31 @@ namespace Game
         //
         public void SpawnEntitiesFromBsp(string mappath)
         {
-            idParser parser;
-            string bspEntityString;
+            idFile file;
+            int numEntities;
 
-            bspEntityString = Engine.RenderSystem.LoadWorldEntityString(mappath);
-            if (bspEntityString == null || bspEntityString.Length <= 0)
+            file = Engine.fileSystem.OpenFileRead("maps/" + mappath + ".entities", true);
+            if (file == null)
             {
-                Engine.common.ErrorFatal("Bsp Entity String null.\n");
+                Engine.common.ErrorFatal("SpawnEntitiesFromBsp: No Entity File found. \n");
+                return;
             }
 
-            Engine.common.Printf("Spawning Entities...\n");
-
-            parser = new idParser(bspEntityString);
-
-            while (parser.ReachedEndOfBuffer == false)
+            numEntities = file.ReadInt();
+            if (numEntities <= 0)
             {
-                string token = parser.NextToken;
-
-                if( token == null || token.Length <= 0)
-                    break;
-
-                if (token == "{")
-                {
-                    idDict dict = new idDict();
-                    BspStringToEntityDict(ref parser, ref dict);
-                    SpawnEntity(dict);
-                }
-                else
-                {
-                    Engine.common.ErrorFatal("SpawnEntitiesFromBsp: Unknown or unepxected token " + token + "\n");
-                }
+                Engine.common.ErrorFatal("SpawnEntitiesFromBsp: No entities found. \n");
+                return;
             }
+
+            for (int i = 0; i < numEntities; i++)
+            {
+                idDict dict = new idDict();
+                dict.InitFromFile(ref file);
+                SpawnEntity(dict);
+            }
+
+            Engine.fileSystem.CloseFile(ref file);
         }
     }
 }
