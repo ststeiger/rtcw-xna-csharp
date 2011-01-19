@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using System.IO;
+using idLib.Engine.Public;
 
 namespace idLib.Engine.Content.ui.Private
 {
@@ -44,7 +45,7 @@ namespace idLib.Engine.Content.ui.Private
     //
     public abstract class idUserInterfaceDefBase
     {
-        public abstract void ReadBinaryFile(ref BinaryReader reader);
+        public abstract void ReadBinaryFile(ref idFile reader);
         public abstract void WriteBinaryFile(ref BinaryWriter writer);
     }
 

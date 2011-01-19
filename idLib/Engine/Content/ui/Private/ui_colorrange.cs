@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using idLib.Math;
+using idLib.Engine.Public;
 
 namespace idLib.Engine.Content.ui.Private
 {
@@ -49,16 +50,16 @@ namespace idLib.Engine.Content.ui.Private
         public float low = 0;
         public float high = 0;
 
-        public override void ReadBinaryFile(ref System.IO.BinaryReader reader)
+        public override void ReadBinaryFile(ref idFile reader)
         {
             for (int i = 0; i < 4; i++)
             {
-                color[i] = reader.ReadSingle();
+                color[i] = reader.ReadFloat();
             }
 
-            type = reader.ReadInt32();
-            low = reader.ReadSingle();
-            high = reader.ReadSingle();
+            type = reader.ReadInt();
+            low = reader.ReadFloat();
+            high = reader.ReadFloat();
         }
 
         public override void WriteBinaryFile(ref System.IO.BinaryWriter writer)

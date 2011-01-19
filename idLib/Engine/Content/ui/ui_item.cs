@@ -54,7 +54,7 @@ namespace idLib.Engine.Content.ui
         //
         // AllocItemType
         //
-        private void AllocItemType(ref BinaryReader reader)
+        private void AllocItemType(ref idFile reader)
         {
             if (typeData != null)
             {
@@ -94,7 +94,7 @@ namespace idLib.Engine.Content.ui
             }
         }
 
-        public virtual void ReadBinaryFile(ref BinaryReader reader)
+        public virtual void ReadBinaryFile(ref idFile reader)
         {
             if (reader.ReadString() != ui_globals.ITEM_BINARY_HEADER)
             {
@@ -102,15 +102,15 @@ namespace idLib.Engine.Content.ui
             }
             window.ReadBinaryFile(ref reader);
             textRect.ReadBinaryFile(ref reader);
-            type = reader.ReadInt32();
-            alignment = reader.ReadInt32();
+            type = reader.ReadInt();
+            alignment = reader.ReadInt();
             font = reader.ReadString();
-            fontSize = reader.ReadInt32();
-            textalignment = reader.ReadInt32();
-            textalignx = reader.ReadSingle();
-            textaligny = reader.ReadSingle();
-            textscale = reader.ReadSingle();
-            textStyle = reader.ReadInt32();
+            fontSize = reader.ReadInt();
+            textalignment = reader.ReadInt();
+            textalignx = reader.ReadFloat();
+            textaligny = reader.ReadFloat();
+            textscale = reader.ReadFloat();
+            textStyle = reader.ReadInt();
             text = reader.ReadString();
             textSavegameInfo = reader.ReadBoolean();
             asset_model = reader.ReadString();
@@ -126,18 +126,18 @@ namespace idLib.Engine.Content.ui
             cvar = reader.ReadString();
             cvarTest = reader.ReadString();
             enableCvar = reader.ReadString();
-            cvarFlags = reader.ReadInt32();
+            cvarFlags = reader.ReadInt();
             focusSound = reader.ReadString();
-            numColors = reader.ReadInt32();
+            numColors = reader.ReadInt();
 
             for (int i = 0; i < numColors; i++)
             {
                 colorRanges[i] = new idUserInterfaceColorRangeDef();
                 colorRanges[i].ReadBinaryFile(ref reader);
             }
-            colorRangeType = reader.ReadInt32();
-            special = reader.ReadInt32();
-            cursorPos = reader.ReadInt32();
+            colorRangeType = reader.ReadInt();
+            special = reader.ReadInt();
+            cursorPos = reader.ReadInt();
             if (reader.ReadBoolean() == true)
             {
                 AllocItemType(ref reader);

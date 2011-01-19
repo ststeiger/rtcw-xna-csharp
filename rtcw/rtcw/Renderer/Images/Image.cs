@@ -57,6 +57,7 @@ namespace rtcw.Renderer
         //
         // Init
         //
+#if false
         public void Init(string imgpath)
         {
             try
@@ -71,7 +72,28 @@ namespace rtcw.Renderer
             imageheight = tex2d.Height;
             name = imgpath;
         }
+#else
+        //
+        // Init
+        //
+        public void Init(string imgpath, ref idFile file)
+        {
+            int imageBufferSize;
+            byte[] imgbuffer;
 
+            imagewidth = file.ReadShort();
+            imageheight = file.ReadShort();
+
+            imageBufferSize = file.Length() - 4;
+            tex2d = new Texture2D(Globals.graphics3DDevice, imagewidth, imageheight, false, SurfaceFormat.Dxt5);
+
+            imgbuffer = file.ReadBytes( imageBufferSize );
+
+            BlitImageData(ref imgbuffer);
+
+            name = imgpath;
+        }
+#endif
         //
         // BlitD3DHandle
         //
@@ -103,7 +125,7 @@ namespace rtcw.Renderer
 
             if (dxtbuffer)
             {
-                tex2d = new Texture2D(Globals.graphics3DDevice, width, height, mipmap, SurfaceFormat.Dxt3);
+                tex2d = new Texture2D(Globals.graphics3DDevice, width, height, mipmap, SurfaceFormat.Dxt5);
             }
             else
             {

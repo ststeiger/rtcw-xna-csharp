@@ -43,34 +43,6 @@ using idLib.Engine.Content.ui.Private;
 namespace idLib.Engine.Public
 {
     //
-    // idUserInterfaceContentReader
-    //
-    public class idUserInterfaceContentReader : ContentTypeReader<idUserInterface>
-    {
-        //
-        // Read
-        //
-        protected override idUserInterface Read(ContentReader input, idUserInterface existingInstance)
-        {
-            idUserInterfaceCachedAssets assets = new idUserInterfaceCachedAssets();
-            
-
-            BinaryReader reader = (BinaryReader)input;
-            assets.ReadBinaryFile(ref reader);
-
-            int numguis = reader.ReadInt32();
-            for (int i = 0; i < numguis; i++)
-            {
-                idUserInterfaceMenuDef menu = new idUserInterfaceMenuDef();
-                menu.ReadBinaryFile(ref reader);
-                Engine.ui.LoadUIFromMemory(assets, menu);
-            }
-
-            return null;
-        }
-    }
-
-    //
     // idUserInterface
     //
     public abstract class idUserInterface

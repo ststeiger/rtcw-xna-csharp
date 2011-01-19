@@ -185,6 +185,14 @@ namespace rtcw.Framework.Files
         }
 
         //
+        // ReadBoolean
+        //
+        public override bool ReadBoolean()
+        {
+            return reader.ReadBoolean();
+        }
+
+        //
         // Length
         //
         public override int Length()

@@ -87,6 +87,7 @@ namespace idLib.Engine.Public
         public abstract string      ReadString();
         public abstract string      ReadString(int len);
         public abstract char[]      ReadChars(int len);
+        public abstract bool        ReadBoolean();
         public abstract void        ReadVector2(ref idVector2 v);
         public abstract void        ReadVector3(ref idVector3 v);
 

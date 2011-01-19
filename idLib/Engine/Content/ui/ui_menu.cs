@@ -37,6 +37,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 using System;
 using System.IO;
 using idLib.Math;
+using idLib.Engine.Public;
 using idLib.Engine.Content.ui.Private;
 
 namespace idLib.Engine.Content.ui
@@ -49,7 +50,7 @@ namespace idLib.Engine.Content.ui
          //
          // ReadBinaryFile
          //
-         public override void ReadBinaryFile(ref BinaryReader reader)
+         public override void ReadBinaryFile(ref idFile reader)
          {
              if (reader.ReadString() != ui_globals.MENU_BINARY_HEADER)
              {
@@ -57,12 +58,12 @@ namespace idLib.Engine.Content.ui
              }
              window.ReadBinaryFile(ref reader);
              fullScreen = reader.ReadBoolean();
-             itemCount = reader.ReadInt32();
-             fontIndex = reader.ReadInt32();
-             cursorItem = reader.ReadInt32();
-             fadeCycle = reader.ReadInt32();
-             fadeClamp = reader.ReadInt32();
-             fadeAmount = reader.ReadInt32();
+             itemCount = reader.ReadInt();
+             fontIndex = reader.ReadInt();
+             cursorItem = reader.ReadInt();
+             fadeCycle = reader.ReadInt();
+             fadeClamp = reader.ReadInt();
+             fadeAmount = reader.ReadInt();
              onOpen = reader.ReadString();
              onClose = reader.ReadString();
              onESC = reader.ReadString();
@@ -84,11 +85,11 @@ namespace idLib.Engine.Content.ui
 
              for (int i = 0; i < 4; i++)
              {
-                 focusColor[i] = reader.ReadSingle();
+                 focusColor[i] = reader.ReadFloat();
              }
              for (int i = 0; i < 4; i++)
              {
-                 disableColor[i] = reader.ReadSingle();
+                 disableColor[i] = reader.ReadFloat();
              }
 
              for (int i = 0; i < itemCount; i++)

@@ -52,7 +52,7 @@ namespace idLib.Engine.Content.ui.Private
             cinematic = -1;
         }
 
-        public void ReadBinaryFile(ref System.IO.BinaryReader reader)
+        public void ReadBinaryFile(ref idFile reader)
         {
             rect.ReadBinaryFile(ref reader);
             rectClient.ReadBinaryFile(ref reader);
@@ -60,36 +60,36 @@ namespace idLib.Engine.Content.ui.Private
             model = reader.ReadString();
             group = reader.ReadString();
             cinematicName = reader.ReadString();
-            cinematic = reader.ReadInt32();
-            style = reader.ReadInt32();
-            border = reader.ReadInt32();
-            ownerDraw = reader.ReadInt32();
-            ownerDrawFlags = reader.ReadInt32();
-            borderSize = reader.ReadSingle();
-            flags = reader.ReadInt32();
-            offsetTime = reader.ReadInt32();
-            nextTime = reader.ReadInt32();
+            cinematic = reader.ReadInt();
+            style = reader.ReadInt();
+            border = reader.ReadInt();
+            ownerDraw = reader.ReadInt();
+            ownerDrawFlags = reader.ReadInt();
+            borderSize = reader.ReadFloat();
+            flags = reader.ReadInt();
+            offsetTime = reader.ReadInt();
+            nextTime = reader.ReadInt();
             //rectEffects.WriteBinaryFile(ref writer);
             // rectEffects2.WriteBinaryFile(ref writer);
 
             for (int i = 0; i < 4; i++)
             {
-                foreColor[i] = reader.ReadSingle();
+                foreColor[i] = reader.ReadFloat();
             }
 
             for (int i = 0; i < 4; i++)
             {
-                backColor[i] = reader.ReadSingle();
+                backColor[i] = reader.ReadFloat();
             }
 
             for (int i = 0; i < 4; i++)
             {
-                borderColor[i] = reader.ReadSingle();
+                borderColor[i] = reader.ReadFloat();
             }
 
             for (int i = 0; i < 4; i++)
             {
-                outlineColor[i] = reader.ReadSingle();
+                outlineColor[i] = reader.ReadFloat();
             }
 
             background = reader.ReadString();

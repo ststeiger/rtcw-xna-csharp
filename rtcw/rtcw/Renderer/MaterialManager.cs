@@ -47,32 +47,6 @@ using rtcw.Renderer.Backend.Iterators;
 namespace rtcw.Renderer
 {
     //
-    // idMaterialTableReader
-    //
-    class idMaterialTableReader : ContentTypeReader<idMaterialLookupTable>
-    {
-        //
-        // jvFileList
-        //
-        protected override idMaterialLookupTable Read(ContentReader input, idMaterialLookupTable existingInstance)
-        {
-            idMaterialLookupTable list = new idMaterialLookupTable();
-
-            int numMaterials = input.ReadInt32();
-
-            for (int i = 0; i < numMaterials; i++)
-            {
-                idMaterialCached mtrCached = new idMaterialCached();
-                mtrCached.hashValue = input.ReadInt32();
-                mtrCached.buffer = input.ReadString();
-                list.AddMaterialToCache(mtrCached);
-            }
-
-            return list;
-        }
-    }
-
-    //
     // idMaterialLocal
     //
     class idMaterialLocal : idMaterial
@@ -2111,6 +2085,29 @@ namespace rtcw.Renderer
         List<idMaterial> mtrpool = new List<idMaterial>();
 
         //
+        // LoadLookupTable
+        //
+        private idMaterialLookupTable LoadLookupTable(string mtrpath)
+        {
+            idMaterialLookupTable list = new idMaterialLookupTable();
+            idFile input = Engine.fileSystem.OpenFileRead(mtrpath + ".xnb", true);
+
+            int numMaterials = input.ReadInt();
+
+            for (int i = 0; i < numMaterials; i++)
+            {
+                idMaterialCached mtrCached = new idMaterialCached();
+                mtrCached.hashValue = input.ReadInt();
+                mtrCached.buffer = input.ReadString();
+                list.AddMaterialToCache(mtrCached);
+            }
+
+            Engine.fileSystem.CloseFile(ref input);
+
+            return list;
+        }
+
+        //
         // Init
         //
         public override void Init()
@@ -2121,7 +2118,7 @@ namespace rtcw.Renderer
             for (int i = 0; i < mtrList.Count; i++)
             {
                 Engine.common.Printf("...%s\n", mtrList[i]);
-                idMaterialLookupTable shader = Engine.fileSystem.ReadContent<idMaterialLookupTable>("scripts/" + mtrList[i]);
+                idMaterialLookupTable shader = LoadLookupTable("scripts/" + mtrList[i]);
                 mtrLookupTable.CombineTable(ref shader);
             }
 

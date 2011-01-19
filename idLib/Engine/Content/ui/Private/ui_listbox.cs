@@ -34,6 +34,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
+using idLib.Engine.Public;
 
 namespace idLib.Engine.Content.ui.Private
 {
@@ -54,16 +55,16 @@ namespace idLib.Engine.Content.ui.Private
 	    public string doubleClick = "";
 	    public bool notselectable = false;
 
-        public override void ReadBinaryFile(ref System.IO.BinaryReader reader)
+        public override void ReadBinaryFile(ref idFile reader)
         {
-            startPos = reader.ReadInt32();
-            endPos = reader.ReadInt32();
-            drawPadding = reader.ReadInt32();
-            cursorPos = reader.ReadInt32();
-            elementWidth = reader.ReadSingle();
-            elementHeight = reader.ReadSingle();
-            elementStyle = reader.ReadInt32();
-            numColumns = reader.ReadInt32();
+            startPos = reader.ReadInt();
+            endPos = reader.ReadInt();
+            drawPadding = reader.ReadInt();
+            cursorPos = reader.ReadInt();
+            elementWidth = reader.ReadFloat();
+            elementHeight = reader.ReadFloat();
+            elementStyle = reader.ReadInt();
+            numColumns = reader.ReadInt();
             for (int i = 0; i < numColumns; i++)
             {
                 columnInfo[i] = new idUserInterfaceColumnInfo();

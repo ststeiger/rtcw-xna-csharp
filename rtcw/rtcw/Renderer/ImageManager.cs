@@ -154,22 +154,8 @@ namespace rtcw.Renderer
         //
         public override idImage FindImageFile(string qpath, bool mipmap, bool picmap, SamplerState wrapClampMode)
         {
+            idFile imagefile;
             bool isUniqueImage = false;
-
-            // .NET throws a exception if the directory isn't present, so we have to catch it.
-            try
-            {
-                if (Engine.fileSystem.FileExists(Engine.fileSystem.RemoveExtensionFromPath(qpath) + ".xnb") == false)
-                {
-                    Engine.common.Warning("R_FindImageFile: Failed to find image %s \n", qpath);
-                    return FindImage("*white");
-                }
-            }
-            catch (Exception e)
-            {
-                Engine.common.Warning("R_FindImageFile: Failed to find image %s \n", qpath);
-                return FindImage("*white");
-            }
 
             idImageLocal image = AllocImage(qpath, ref isUniqueImage);
             if (isUniqueImage == false)
@@ -177,8 +163,17 @@ namespace rtcw.Renderer
                 return image;
             }
 
-            image.Init(qpath);
+            imagefile = Engine.fileSystem.OpenFileRead(Engine.fileSystem.RemoveExtensionFromPath(qpath) + ".xnb", true);
+            if (imagefile == null)
+            {
+                Engine.common.Warning("R_FindImageFile: Failed to find image %s \n", qpath);
+                return FindImage("*white");
+            }
+
+            image.Init(qpath, ref imagefile);
             image.SetWrapState(wrapClampMode);
+
+            Engine.fileSystem.CloseFile(ref imagefile);
 
             return image;
         }

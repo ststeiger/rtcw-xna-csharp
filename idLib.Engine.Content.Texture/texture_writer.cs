@@ -4,12 +4,16 @@ using System.Reflection;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 
-using idLib.Engine.Content;
-
-namespace idLib.Engine.Content.FileList
+namespace idLib.Engine.Content.Texture
 {
+    /// <summary>
+    /// This class will be instantiated by the XNA Framework Content Pipeline
+    /// to write the specified data type into binary .xnb format.
+    ///
+    /// This should be part of a Content Pipeline Extension Library project.
+    /// </summary>
     [ContentTypeWriter]
-    public class jvDirectoryListWriter : ContentTypeWriter<idFileList>
+    public class idTextureWriter : ContentTypeWriter<idTexture2DContent>
     {
         //
         // WriteAsset
@@ -18,8 +22,9 @@ namespace idLib.Engine.Content.FileList
         // when I write our asset data use the finalOuput stream, than when we are done set binarywriter stream to the content stream,
         // and set finalOutput stream to the content stream.
         //
-        private void WriteAsset(ContentWriter output, idFileList value)
+        private void WriteAsset(ContentWriter output, idTexture2DContent image)
         {
+            byte[] buffer;
             Type contentWriterType = output.GetType();
             FieldInfo finalOutputStreamInfo = contentWriterType.GetField("finalOutput", BindingFlags.Instance | BindingFlags.NonPublic);
             FieldInfo baseOutputStream = contentWriterType.GetField("OutStream", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -34,11 +39,11 @@ namespace idLib.Engine.Content.FileList
             // Set the current stream to the real handle to write the file out.
             baseOutputStream.SetValue(output, finalOutputStream);
 
-            output.Write(value.Count);
-            for (int i = 0; i < value.Count; i++)
-            {
-                output.Write((string)value[i]);
-            }
+            buffer = image.texture.Faces[0][0].GetPixelData();
+
+            output.Write((short)image.texture.Faces[0][0].Width);
+            output.Write((short)image.texture.Faces[0][0].Height);
+            output.Write(buffer);
 
             // Dispose of the file handle.
             finalOutputStream.Flush();
@@ -54,16 +59,13 @@ namespace idLib.Engine.Content.FileList
             return false;
         }
 
-        protected override void Write(ContentWriter output, idFileList value)
+        protected override void Write(ContentWriter output, idTexture2DContent value)
         {
             WriteAsset(output, value);
         }
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
-            // TODO: change this to the name of your ContentTypeReader
-            // class which will be used to load this data.
-            //return "rtcw.Framework.idFileListReader, rtcw";
             return "notused";
         }
     }

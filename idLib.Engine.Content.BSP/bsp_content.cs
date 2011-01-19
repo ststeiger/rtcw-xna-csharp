@@ -232,7 +232,7 @@ namespace idLib.Engine.Content.BSP
                 bitmapContent.SetPixelData(lightmaps[i].image);
 
                 lightmaps[i].tex2D.Mipmaps.Add(bitmapContent);
-                lightmaps[i].tex2D.ConvertBitmapType(typeof(Dxt3BitmapContent));
+                lightmaps[i].tex2D.ConvertBitmapType(typeof(Dxt5BitmapContent));
 
                 lightmaps[i].dxtimage = lightmaps[i].tex2D.Faces[0][0].GetPixelData();
                 if (lightmaps[i].dxtimage == null)

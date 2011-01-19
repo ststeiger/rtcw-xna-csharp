@@ -32,6 +32,27 @@ namespace ui
         }
 
         //
+        // LoadMenusFromUI
+        //
+        private void LoadMenusFromUI(string uipath)
+        {
+            idUserInterfaceCachedAssets assets = new idUserInterfaceCachedAssets();
+            idFile file = Engine.fileSystem.OpenFileRead(uipath + ".xnb", true);
+
+            assets.ReadBinaryFile(ref file);
+
+            int numguis = file.ReadInt();
+            for (int i = 0; i < numguis; i++)
+            {
+                idUserInterfaceMenuDef menu = new idUserInterfaceMenuDef();
+                menu.ReadBinaryFile(ref file);
+                Engine.ui.LoadUIFromMemory(assets, menu);
+            }
+
+            Engine.fileSystem.CloseFile(ref file);
+        }
+
+        //
         // Init
         //
         public override void Init()
@@ -47,7 +68,7 @@ namespace ui
                 if (fileList[i].Contains("menudef") == false)
                 {
                     Engine.common.Printf("...ui/" + fileList[i] + "\n");
-                    Engine.fileSystem.ReadContent<idUserInterfaceLocal>("ui/" + fileList[i]);
+                    LoadMenusFromUI("ui/" + fileList[i]);
                 }
             }
 

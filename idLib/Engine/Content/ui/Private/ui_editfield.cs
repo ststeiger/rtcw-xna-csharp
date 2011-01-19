@@ -35,6 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
+using idLib.Engine.Public;
 
 namespace idLib.Engine.Content.ui.Private
 {
@@ -62,15 +63,15 @@ namespace idLib.Engine.Content.ui.Private
             writer.Write(paintOffset);
         }
 
-        public override void ReadBinaryFile(ref System.IO.BinaryReader reader)
+        public override void ReadBinaryFile(ref idFile reader)
         {
-            minVal = reader.ReadSingle();
-            maxVal = reader.ReadSingle();
-            defVal = reader.ReadSingle();
-            range = reader.ReadSingle();
-            maxChars = reader.ReadInt32();
-            maxPaintChars = reader.ReadInt32();
-            paintOffset = reader.ReadInt32();
+            minVal = reader.ReadFloat();
+            maxVal = reader.ReadFloat();
+            defVal = reader.ReadFloat();
+            range = reader.ReadFloat();
+            maxChars = reader.ReadInt();
+            maxPaintChars = reader.ReadInt();
+            paintOffset = reader.ReadInt();
         }
     }
 }

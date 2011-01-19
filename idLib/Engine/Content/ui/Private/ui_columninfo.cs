@@ -35,6 +35,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 //
 
 using System;
+using idLib.Engine.Public;
 
 namespace idLib.Engine.Content.ui.Private
 {
@@ -54,11 +55,11 @@ namespace idLib.Engine.Content.ui.Private
             writer.Write(maxChars);
         }
 
-        public void ReadBinary(ref System.IO.BinaryReader reader)
+        public void ReadBinary(ref idFile reader)
         {
-            pos = reader.ReadInt32();
-            width = reader.ReadInt32();
-            maxChars = reader.ReadInt32();
+            pos = reader.ReadInt();
+            width = reader.ReadInt();
+            maxChars = reader.ReadInt();
         }
     }
 }

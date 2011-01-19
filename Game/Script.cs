@@ -54,7 +54,18 @@ namespace Game
         //
         public idScript(string scriptpath)
         {
-            script = Engine.fileSystem.ReadContent<idBinaryScript>(scriptpath);
+            idFile input;
+            
+            input = Engine.fileSystem.OpenFileRead(scriptpath + ".xnb", true);
+            if (input == null)
+            {
+                Engine.common.ErrorFatal("Failed to open level script.\n");
+            }
+
+            script = new idBinaryScript(input);
+
+            Engine.fileSystem.CloseFile(ref input);
+            
         }
 
         private static idScriptFunctionDesc[] scriptFuncTable = new idScriptFunctionDesc[]

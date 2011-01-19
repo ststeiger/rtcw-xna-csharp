@@ -12,31 +12,15 @@ using idLib.Engine.Public;
 namespace idLib.Game
 {
     //
-    // idScriptReader
-    //
-    public class idScriptReader : ContentTypeReader<idBinaryScript>
-    {
-        //
-        // idScriptReader
-        //
-        protected override idBinaryScript Read(ContentReader input, idBinaryScript existingInstance)
-        {
-            idBinaryScript newScript = new idBinaryScript(input);
-
-            return newScript;
-        }
-    }
-
-    //
     // idBinaryScript
     //
     public class idBinaryScript
     {
         public idScriptEvent[] events;
 
-        public idBinaryScript(ContentReader input)
+        public idBinaryScript(idFile input)
         {
-            int numEvents = input.ReadInt16();
+            int numEvents = input.ReadShort();
 
             events = new idScriptEvent[numEvents];
 
@@ -60,10 +44,10 @@ namespace idLib.Game
         //
         // ReadFromFile
         //
-        public void ReadFromFile(ref ContentReader file)
+        public void ReadFromFile(ref idFile file)
         {
             name = file.ReadString();
-            actionsraw = new idScriptAction[file.ReadInt16()];
+            actionsraw = new idScriptAction[file.ReadShort()];
 
             for (int i = 0; i < actionsraw.Length; i++)
             {
@@ -137,16 +121,16 @@ namespace idLib.Game
         //
         // ReadFromFile
         //
-        public void ReadFromFile(ref ContentReader file)
+        public void ReadFromFile(ref idFile file)
         {
             int numAttributes = 0;
 
             type = file.ReadString();
             name = file.ReadString();
-            
-            funcsraw = new idScriptFuncBinary[file.ReadInt16()];
 
-            numAttributes = file.ReadInt16();
+            funcsraw = new idScriptFuncBinary[file.ReadShort()];
+
+            numAttributes = file.ReadShort();
             for (int i = 0; i < numAttributes; i++)
             {
                 string key = file.ReadString();
@@ -339,9 +323,9 @@ namespace idLib.Game
             }
         }
 
-        public void ReadFromFile(ref ContentReader file)
+        public void ReadFromFile(ref idFile file)
         {
-            opCode = file.ReadInt16();
+            opCode = file.ReadShort();
             numparams = file.ReadByte();
 
             parms = new string[numparams];

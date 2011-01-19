@@ -36,6 +36,7 @@ id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 US
 
 using System;
 using idLib.Math;
+using idLib.Engine.Public;
 
 namespace idLib.Engine.Content.ui.Private
 {
@@ -82,25 +83,25 @@ namespace idLib.Engine.Content.ui.Private
             writer.Write(frameTime);
         }
 
-        public override void ReadBinaryFile(ref System.IO.BinaryReader reader)
+        public override void ReadBinaryFile(ref idFile reader)
         {
-            angle = reader.ReadInt32();
+            angle = reader.ReadInt();
             for (int i = 0; i < 3; i++)
             {
-                origin[i] = reader.ReadSingle();
+                origin[i] = reader.ReadFloat();
             }
-            fov_x = reader.ReadSingle();
-            fov_y = reader.ReadSingle();
-            rotationSpeed = reader.ReadInt32();
-            animated = reader.ReadInt32();
-            startframe = reader.ReadInt32();
-            numframes = reader.ReadInt32();
-            loopframes = reader.ReadInt32();
-            fps = reader.ReadInt32();
-            frame = reader.ReadInt32();
-            oldframe = reader.ReadInt32();
-            backlerp = reader.ReadInt32();
-            frameTime = reader.ReadInt32();
+            fov_x = reader.ReadFloat();
+            fov_y = reader.ReadFloat();
+            rotationSpeed = reader.ReadInt();
+            animated = reader.ReadInt();
+            startframe = reader.ReadInt();
+            numframes = reader.ReadInt();
+            loopframes = reader.ReadInt();
+            fps = reader.ReadInt();
+            frame = reader.ReadInt();
+            oldframe = reader.ReadInt();
+            backlerp = reader.ReadInt();
+            frameTime = reader.ReadInt();
         }
     }
 }

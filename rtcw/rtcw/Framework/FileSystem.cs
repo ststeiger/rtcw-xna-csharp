@@ -47,29 +47,6 @@ using idLib.Engine.Public;
 namespace rtcw.Framework
 {
     //
-    // idFileListReader
-    //
-    class idFileListReader : ContentTypeReader<idFileList>
-    {
-        //
-        // jvFileList
-        //
-        protected override idFileList Read(ContentReader input, idFileList existingInstance)
-        {
-            idFileList list = new idFileList();
-
-            int numFiles = input.ReadInt32();
-
-            for (int i = 0; i < numFiles; i++)
-            {
-                list.AddFileToList(input.ReadString());
-            }
-
-            return list;
-        }
-    }
-
-    //
     // idFileSystemLocal
     //
     public class idFileSystemLocal : idFileSystem
@@ -105,11 +82,20 @@ namespace rtcw.Framework
         //
         public override idFileList ListFiles(string directory, string extension)
         {
-            idFileList list = ReadContent<idFileList>(directory + "/" + "filelist");
+            idFileList list = new idFileList();
+            idFile input = OpenFileRead(directory + "/" + "filelist.xnb", true);
+            //idFileList list = ReadContent<idFileList>(directory + "/" + "filelist");
 
-            if (list == null)
+            if (input == null)
             {
                 return null;
+            }
+
+            int numFiles = input.ReadInt();
+
+            for (int i = 0; i < numFiles; i++)
+            {
+                list.AddFileToList(input.ReadString());
             }
 
             return list;

@@ -114,7 +114,7 @@ namespace idLib.Engine.Content.ui.Private
 	    public float shadowFadeClamp = 0;
 	    public bool fontRegistered = false;
 
-        public void ReadBinaryFile(ref System.IO.BinaryReader reader)
+        public void ReadBinaryFile(ref idFile reader)
         {
             if( reader.ReadString() != ui_globals.ASSET_BINARY_HEADER)
             {
@@ -125,13 +125,13 @@ namespace idLib.Engine.Content.ui.Private
             cursorStr = reader.ReadString();
             gradientStr = reader.ReadString();
             textFont = reader.ReadString();
-            textFontSize = reader.ReadInt32();
+            textFontSize = reader.ReadInt();
             smallFont = reader.ReadString();
-            smallFontSize = reader.ReadInt32();
+            smallFontSize = reader.ReadInt();
             bigFont = reader.ReadString();
-            bigFontSize = reader.ReadInt32();
+            bigFontSize = reader.ReadInt();
             handwritingFont = reader.ReadString();
-            handwritingFontSize = reader.ReadInt32();
+            handwritingFontSize = reader.ReadInt();
             cursor = reader.ReadString();
             gradientBar = reader.ReadString();
             scrollBarArrowUp = reader.ReadString();
@@ -149,17 +149,17 @@ namespace idLib.Engine.Content.ui.Private
             menuExitSound = reader.ReadString();
             menuBuzzSound = reader.ReadString();
             itemFocusSound = reader.ReadString();
-            fadeClamp = reader.ReadSingle();
-            fadeCycle = reader.ReadInt32();
-            fadeAmount = reader.ReadSingle();
-            shadowX = reader.ReadInt32();
-            shadowY = reader.ReadInt32();
+            fadeClamp = reader.ReadFloat();
+            fadeCycle = reader.ReadInt();
+            fadeAmount = reader.ReadFloat();
+            shadowX = reader.ReadInt();
+            shadowY = reader.ReadInt();
 
             for (int i = 0; i < 4; i++)
             {
-                shadowColor[i] = reader.ReadSingle();
+                shadowColor[i] = reader.ReadFloat();
             }
-            shadowFadeClamp = reader.ReadSingle();
+            shadowFadeClamp = reader.ReadFloat();
             fontRegistered = reader.ReadBoolean();
         }
 
