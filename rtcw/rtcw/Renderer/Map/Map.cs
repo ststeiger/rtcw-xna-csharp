@@ -1328,7 +1328,7 @@ namespace rtcw.Renderer.Map
             while (MapLoadIsActive())
             {
                 Globals.UpdateLoadingScreen();
-                System.Threading.Thread.Sleep(1);
+                System.Threading.Thread.Sleep(60);
             }
             loadScreenThreadActive = false;
         }

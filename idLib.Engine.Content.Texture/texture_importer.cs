@@ -99,11 +99,24 @@ namespace idLib.Engine.Content.Texture
 
             // If we are building a windows phone build, scale the images by half there size.
             // This is a hack I know this should probably be in the content processor but its faster just to put it here.
-            if (context.OutputDirectory.Contains("Windows Phone"))
+            if (context.OutputDirectory.Contains("Windows Phone") && filename.Contains("ui") == false)
             {
+                int scale = 0;
+                int phoneTextureSize = 128;
                 // Half the texture size for the phone.
-                scaled_width = scaled_width / 2;
-                scaled_height = scaled_height / 2;
+                //scaled_width = scaled_width / 2;
+                //scaled_height = scaled_height / 2;
+
+                for (scale = 1; scale < phoneTextureSize; scale <<= 1)
+                {
+                    ;
+                }
+
+                while (scaled_width > scale || scaled_height > scale)
+                {
+                    scaled_width >>= 1;
+                    scaled_height >>= 1;
+                }
             }
 
             img = image.GetThumbnailImage(scaled_width, scaled_height, new System.Drawing.Image.GetThumbnailImageAbort(ThumbnailCallback), IntPtr.Zero);

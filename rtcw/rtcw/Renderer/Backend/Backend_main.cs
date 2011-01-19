@@ -522,6 +522,7 @@ namespace rtcw.Renderer.Backend
 
                 if (SmpThreadHasWork(smpFrame) || smpIsActive == false)
                 {
+                    backEndData[smpFrame].executingFrameBuffer = true;
                     for (int i = 0; i < GetNumOfSmpCommands( smpFrame ); i++)
                     {
 
@@ -576,8 +577,8 @@ namespace rtcw.Renderer.Backend
                 smpWaitThread = state.smpFrame ^ 1;
             }
 
-            if (Globals.r_smp.GetValueInteger() == 0)
-                return true;
+         //   if (Globals.r_smp.GetValueInteger() == 0)
+         //       return true;
 
             // Wait for the other smp thread to finish.
             while (backEndData[smpWaitThread].SmpRunning)
