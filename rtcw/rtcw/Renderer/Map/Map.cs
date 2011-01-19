@@ -1414,17 +1414,14 @@ namespace rtcw.Renderer.Map
 
             baseName = "maps/" + mappath;
             name = baseName + ".xnb";
-            
-            bspFile = Engine.fileSystem.OpenFileRead(name, true);
+
+            bspFile = Engine.fileSystem.OpenEncryptedFileRead(name, true);
 
             // This should have been caught long before this.
             if (bspFile == null)
             {
                 Engine.common.ErrorFatal("R_LoadMap: Failed to open map %s \n", mappath);
             }
-
-            // Decompress the map.
-            bspFile.DecompressCompiledFile();
 
             // Load in the header and ensure the iden and version's are valid.
             header.InitFromFile(ref bspFile);

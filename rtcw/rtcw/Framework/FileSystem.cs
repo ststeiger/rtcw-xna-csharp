@@ -267,6 +267,22 @@ namespace rtcw.Framework
         //
         public override idFile OpenFileRead(string qpath, bool uniqueFILE)
         {
+            return OpenFileReadEx(qpath, uniqueFILE, false);
+        }
+
+        //
+        // OpenFileRead
+        //
+        public override idFile OpenEncryptedFileRead(string qpath, bool uniqueFILE)
+        {
+            return OpenFileReadEx(qpath, uniqueFILE, true);
+        }
+
+        //
+        // OpenFileRead
+        //
+        public idFile OpenFileReadEx(string qpath, bool uniqueFILE, bool isEncrypted)
+        {
             Stream _fileStream;
             int fileHandle;
 
@@ -309,7 +325,18 @@ namespace rtcw.Framework
                 }
             }
 
-            filepool[fileHandle] = new idFile_Memory(qpath.Replace('\\', '/'), _fileStream);
+            idFile_Memory _file = new idFile_Memory(qpath.Replace('\\', '/'), _fileStream);
+            if (isEncrypted)
+            {
+                _file.DecompressCompiledFile();
+            }
+            else
+            {
+                _file.InitStream();
+            }
+
+            filepool[fileHandle] = _file;
+
             fs_loadStack += filepool[fileHandle].Length();
 
             return filepool[fileHandle];

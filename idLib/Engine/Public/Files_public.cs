@@ -73,9 +73,6 @@ namespace idLib.Engine.Public
         // returns the full filename and path without the file extension.
         public abstract string GetFileNameAndPathWithoutExtension();
 
-        // Decompresses a compiled file and sets the new file buffer without the XNB header.
-        public abstract void DecompressCompiledFile();
-
         // Little edian supported read/write functions.
         public abstract int         ReadInt();
         public abstract uint        ReadUInt();
@@ -141,6 +138,7 @@ namespace idLib.Engine.Public
         public abstract idFile  OpenFileWrite( string qpath );
         // will properly create any needed paths and deal with seperater character issues
 
+        public abstract idFile OpenEncryptedFileRead(string qpath, bool uniqueFILE);
         public abstract idFile OpenFileRead( string qpath, bool uniqueFILE );
         // if uniqueFILE is true, then a new FILE will be fopened even if the file
         // is found in an already open pak file.  If uniqueFILE is false, you must call

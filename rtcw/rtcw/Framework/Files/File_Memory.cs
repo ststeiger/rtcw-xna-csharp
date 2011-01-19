@@ -49,6 +49,7 @@ namespace rtcw.Framework.Files
         private BinaryReader reader;
         private BinaryWriter writer;
         private string _filename;
+        private byte[] buffer;
 
         //
         // idFile_Memory - read constructor.
@@ -61,11 +62,10 @@ namespace rtcw.Framework.Files
             }
             else
             {
-                byte[] buffer = new byte[fstream.Length];
+                buffer = new byte[fstream.Length];
 
                 // Read the entire buffer into memory.
-                fstream.Read(buffer, 0, (int)fstream.Length);
-                reader = new BinaryReader(new MemoryStream( buffer ));                
+                fstream.Read(buffer, 0, (int)fstream.Length);           
                 fstream.Dispose();
             }
             _filename = filename;
@@ -78,10 +78,25 @@ namespace rtcw.Framework.Files
         }
 
         //
+        // InitStream
+        //
+        public void InitStream()
+        {
+            if (reader != null)
+            {
+                return;
+            }
+
+            reader = new BinaryReader(new MemoryStream(buffer));
+            buffer = null;
+        }
+
+        //
         // DecompressFile
         //
-        public override void DecompressCompiledFile()
+        public void DecompressCompiledFile()
         {
+#if false
             // Skip the XNB header.
             Seek(idFileSeekOrigin.FS_SEEK_SET, 25);
 
@@ -91,6 +106,10 @@ namespace rtcw.Framework.Files
 
             reader = new BinaryReader(new MemoryStream(SevenZip.Compression.LZMA.SevenZipHelper.Decompress(buffer)));
             reader.BaseStream.Position = 0;
+#else
+            reader = new BinaryReader(new MemoryStream(SevenZip.Compression.LZMA.SevenZipHelper.Decompress(buffer)));
+            buffer = null;
+#endif
         }
 
         //

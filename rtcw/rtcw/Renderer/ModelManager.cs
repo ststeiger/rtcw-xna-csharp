@@ -110,7 +110,7 @@ namespace rtcw.Renderer
             if (qpath.Contains(".mds"))
             {
                 // Try to open the model file.
-                _file = Engine.fileSystem.OpenFileRead(Engine.fileSystem.RemoveExtensionFromPath(qpath) + ".xnb", true);
+                _file = Engine.fileSystem.OpenEncryptedFileRead(Engine.fileSystem.RemoveExtensionFromPath(qpath) + ".xnb", true);
 
                 if (_file == null)
                 {
@@ -123,10 +123,6 @@ namespace rtcw.Renderer
                         Engine.common.Warning("R_LoadModel: Failed to open model " + qpath + " defaulting...\n");
                         return null;
                     }
-                }
-                else
-                {
-                    _file.DecompressCompiledFile();
                 }
             }
             else
