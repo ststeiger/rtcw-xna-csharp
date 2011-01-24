@@ -1,0 +1,15 @@
+{
+"brush_primit" "0"
+"bsp_Extra " "!wolfbsp $ && !wolfbsp -vis $ && !wolfbsp -light -extra $"
+"bsp_FullVis " "!wolfbsp $ && !wolfbsp -vis $ && !wolfbsp -light $"
+"bsp_FastVis " "!wolfbsp $ && !wolfbsp -vis -fast $ && !wolfbsp -light $"
+"bsp_NoLight " "!wolfbsp $ && !wolfbsp -vis $"
+"bsp_Entities" "!wolfbsp -onlyents $"
+"bsp_Relight" "!wolfbsp $"
+"autosave" "..\..\saves\autosave.map"
+"texturepath" "..\..\rtcw\work\textures"
+"entitypath" "wolf.def"
+"mapspath" "..\..\rtcw\work\maps"
+"remotebasepath" "..\..\rtcw\work"
+"basepath" "..\..\rtcw\work"
+}
